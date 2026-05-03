@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pritam Ghoshal – Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #f7f4ef;
+      --bg-alt:    #edeae3;
+      --bg-card:   #ffffff;
+      --border:    #dedad3;
+      --text:      #1c1a17;
+      --text-muted:#6b6560;
+      --text-sub:  #9a9590;
+      --accent:    #1e6b5e;
+      --accent-lt: rgba(30,107,94,0.09);
+      --accent-hv: #155048;
+      --gold:      #b5831f;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.07),0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.07),0 2px 4px rgba(0,0,0,0.04);
+      --shadow-lg: 0 8px 32px rgba(0,0,0,0.09),0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    .page { min-height: 100vh; }
+    .max-width { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Attractor canvas */
+    #attractor-canvas {
+      position: fixed; inset: 0;
+      width: 100vw; height: 100vh;
+      z-index: 0; pointer-events: none;
+      opacity: 0.55;
+      mix-blend-mode: multiply;
+    }
+    header.nav, main, footer { position: relative; z-index: 1; }
+    @media (prefers-reduced-motion: reduce) {
+      #attractor-canvas { display: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ===== Nav ===== */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(20px);
+      background: rgba(247,244,239,0.92);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center;
+      justify-content: space-between; height: 58px;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 600;
+      letter-spacing: 0.06em; color: var(--text);
+    }
+    .nav-links {
+      display: flex; flex-wrap: wrap; gap: 1.25rem; font-size: 0.875rem;
+    }
+    .nav-links a {
+      color: var(--text-muted); padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ===== Sections ===== */
+    .section { padding: 5rem 0 4rem; }
+    .section-header { margin-bottom: 2rem; }
+    .eyebrow {
+      text-transform: uppercase; letter-spacing: 0.18em;
+      font-size: 0.7rem; color: var(--gold);
+      font-weight: 600; margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      line-height: 1.1; font-weight: 500;
+      margin-bottom: 0.75rem; color: var(--text);
+    }
+    .section-subtitle {
+      color: var(--text-muted); max-width: 580px; font-size: 0.95rem;
+    }
+
+    /* ===== Hero ===== */
+    .hero {
+      padding-top: 5rem; padding-bottom: 5.5rem;
+      background:
+        radial-gradient(ellipse at 10% 0%, rgba(30,107,94,0.12), transparent 55%),
+        radial-gradient(ellipse at 90% 100%, rgba(181,131,31,0.1), transparent 55%),
+        var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-grid { display: grid; gap: 2.5rem; }
+    @media (min-width: 768px) {
+      .hero-grid { grid-template-columns: minmax(0,1.35fr) minmax(0,1fr); align-items: center; }
+    }
+    .hero-tag {
+      text-transform: uppercase; letter-spacing: 0.18em;
+      font-size: 0.7rem; color: var(--gold); font-weight: 600;
+      margin-bottom: 0.9rem;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5.5vw, 4.2rem);
+      line-height: 1.02; font-weight: 500;
+      margin-bottom: 0.6rem; color: var(--text);
+    }
+    .hero-highlight { font-size: 1.05rem; color: var(--text); margin-bottom: 1rem; font-weight: 500; }
+    .hero-copy {
+      color: var(--text-muted); font-size: 0.96rem;
+      max-width: 34rem; margin-bottom: 2rem; line-height: 1.75;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2.25rem; }
+
+    .btn-primary, .btn-ghost {
+      border-radius: 999px; padding: 0.65rem 1.4rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.875rem; border: 1px solid transparent;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      cursor: pointer; transition: all 0.2s ease;
+    }
+    .btn-primary {
+      background: var(--accent); color: #fff; font-weight: 500;
+    }
+    .btn-primary:hover { background: var(--accent-hv); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-ghost {
+      border-color: var(--border-strong, #c5c0b8); color: var(--text);
+      background: var(--bg-card);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+    .hero-meta {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1.25rem; font-size: 0.82rem;
+    }
+    .hero-meta-label {
+      color: var(--text-sub); margin-bottom: 0.2rem;
+      text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.68rem;
+    }
+    .hero-meta-value { color: var(--text); font-weight: 500; }
+
+    .hero-right {
+      border-radius: 1.4rem; border: 1px solid var(--border);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(30,107,94,0.1), transparent 60%),
+        var(--bg-card);
+      padding: 1.75rem; box-shadow: var(--shadow-md);
+    }
+    .hero-right-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text); }
+    .hero-right-copy { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .hero-list { list-style: none; display: grid; gap: 0.8rem; font-size: 0.85rem; color: var(--text-muted); }
+    .hero-list li { padding-left: 1rem; position: relative; line-height: 1.5; }
+    .hero-list li::before { content: "→"; color: var(--accent); position: absolute; left: 0; font-size: 0.75rem; top: 0.1rem; }
+
+    /* ===== Highlights ===== */
+    .highlights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 1.5rem; }
+    .highlight-card {
+      border-radius: 1.2rem; border: 1px solid var(--border);
+      background: var(--bg-card); padding: 1.6rem 1.4rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .highlight-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .highlight-label {
+      font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.16em;
+      color: var(--gold); font-weight: 600; margin-bottom: 0.4rem;
+    }
+    .highlight-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .highlight-copy { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0.75rem; line-height: 1.65; }
+    .highlight-meta { font-size: 0.78rem; color: var(--text-sub); }
+
+    /* ===== Projects ===== */
+    .projects-stack { display: grid; gap: 2.5rem; }
+    .project {
+      border-radius: 1.5rem; border: 1px solid var(--border);
+      background: var(--bg-card);
+      padding: 2rem 1.75rem 2.25rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.25s;
+    }
+    .project:hover { box-shadow: var(--shadow-lg); }
+    @media (min-width: 860px) {
+      .project { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(0,1fr); gap: 2.25rem; align-items: center; }
+    }
+    .project-tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--gold); font-weight: 600; margin-bottom: 0.6rem; }
+    .project-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem; font-weight: 500; margin-bottom: 0.4rem; line-height: 1.2;
+    }
+    .project-subtitle { font-size: 0.94rem; color: var(--text); margin-bottom: 0.9rem; font-weight: 500; }
+    .project-copy { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.7; }
+    .project-meta { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem; }
+    .project-links { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.5rem; }
+    .pill-link {
+      border-radius: 999px; border: 1px solid var(--border);
+      padding: 0.38rem 0.9rem; font-size: 0.8rem;
+      background: var(--bg); color: var(--text);
+      transition: all 0.2s;
+    }
+    .pill-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-lt); }
+
+    .project-media {
+      margin-top: 1.75rem; border-radius: 1.1rem;
+      border: 1px solid var(--border); background: var(--bg-alt);
+      min-height: 180px; display: flex; align-items: center;
+      justify-content: center; font-size: 0.8rem;
+      color: var(--text-sub); text-align: center; padding: 1.5rem;
+      overflow: hidden;
+    }
+    @media (min-width: 860px) { .project-media { margin-top: 0; min-height: 230px; } }
+    .project-media img, .project-media video { max-width: 100%; border-radius: 0.8rem; display: block; }
+    .projects-footer { margin-top: 1.5rem; text-align: center; }
+
+    /* ===== Cards / Skills ===== */
+    .two-column { display: grid; gap: 2rem; }
+    @media (min-width: 768px) { .two-column { grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); } }
+    .card {
+      border-radius: 1.3rem; border: 1px solid var(--border);
+      background: var(--bg-card); padding: 1.75rem 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .card-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .card-copy { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0.75rem; line-height: 1.7; }
+
+    .skills-list {
+      list-style: none;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+      gap: 0.5rem 1rem; font-size: 0.84rem; color: var(--text-muted);
+    }
+    .skills-list li { padding-left: 1rem; position: relative; }
+    .skills-list li::before { content: "•"; color: var(--accent); position: absolute; left: 0; }
+
+    /* ===== Panel slider ===== */
+    .panel-slider { position: relative; margin-top: 2.5rem; }
+    .panel-window { overflow: hidden; width: 100%; }
+    .panel-track { display: flex; gap: 1.5rem; transition: transform 0.35s ease; will-change: transform; }
+    .panel { flex: 0 0 100%; max-width: 100%; }
+    @media (min-width: 768px) { .panel { flex: 0 0 50%; max-width: 50%; } }
+    @media (min-width: 1024px) { .panel { flex: 0 0 32%; max-width: 32%; } }
+
+    .panel-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 36px; height: 36px; border-radius: 999px;
+      border: 1px solid var(--border); background: var(--bg-card);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1.1rem; color: var(--text);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s; z-index: 10;
+    }
+    .panel-arrow:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); transform: translateY(-50%) scale(1.05); }
+    .panel-arrow:disabled { opacity: 0.3; cursor: default; transform: translateY(-50%); }
+    .panel-arrow--left { left: -0.25rem; }
+    .panel-arrow--right { right: -0.25rem; }
+    @media (min-width: 1024px) { .panel-arrow--left { left: -2rem; } .panel-arrow--right { right: -2rem; } }
+
+    /* ===== Contact ===== */
+    .contact-body { font-size: 0.95rem; color: var(--text-muted); max-width: 480px; margin-bottom: 1.5rem; line-height: 1.75; }
+    .contact-links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .contact-pill {
+      border-radius: 999px; border: 1px solid var(--border);
+      padding: 0.55rem 1.1rem; font-size: 0.875rem;
+      background: var(--bg-card); box-shadow: var(--shadow-sm);
+      transition: all 0.2s;
+    }
+    .contact-pill:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+    /* ===== Footer ===== */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.75rem 1.5rem 2.5rem;
+      font-size: 0.8rem; color: var(--text-sub);
+      background: var(--bg-alt);
+    }
+    footer .max-width {
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between; gap: 0.75rem; align-items: center;
+    }
+
+    /* ===== Scroll reveal ===== */
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; will-change: opacity,transform; }
+    .reveal--visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== Section divider ===== */
+    .section--alt { background: var(--bg-alt); }
+  </style>
+</head>
+<body class="page">
+  <canvas id="attractor-canvas" aria-hidden="true"></canvas>
+
+  <header class="nav">
+    <div class="max-width nav-inner">
+      <div class="nav-logo">Pritam Ghoshal</div>
+      <nav class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#highlights">Highlights</a>
+        <a href="#projects">Selected work</a>
+        <a href="#about">Background</a>
+        <a href="#leadership">Leadership</a>
+        <a href="#teaching">Teaching</a>
+        <a href="blog.html">Blog</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section id="overview" class="hero">
+      <div class="max-width hero-grid">
+        <div>
+          <div class="hero-tag">Research portfolio</div>
+          <h1 class="hero-title">Pritam Ghoshal</h1>
+          <p class="hero-highlight">PhD Candidate in Mechanical Engineering.</p>
+          <p class="hero-copy">
+            I work at the intersection of machine learning and nonlinear dynamics and vibration. I
+            design low cost, low power systems capable of performing intelligent functions by leveraging
+            principles from mechanics, physics, and data science. My interest lies in developing simple
+            and tractable analytical models that can capture complex nonlinear phenomena observed in the real world.
+          </p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn-primary">View selected work ↗</a>
+            <a href="#contact" class="btn-ghost">Get in touch</a>
+          </div>
+          <div class="hero-meta">
+            <div>
+              <div class="hero-meta-label">Field</div>
+              <div class="hero-meta-value">Mechanical Engineering</div>
+            </div>
+            <div>
+              <div class="hero-meta-label">Focus areas</div>
+              <div class="hero-meta-value">Modeling · Simulation · Experiments</div>
+            </div>
+            <div>
+              <div class="hero-meta-label">Open to</div>
+              <div class="hero-meta-value">Research · Collaboration · Industry or Academic roles</div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-right reveal">
+          <div class="hero-right-title">Currently working on</div>
+          <p class="hero-right-copy">Bridging nonlinear dynamics with machine learning to create low power, low cost intelligent systems.</p>
+          <ul class="hero-list">
+            <li>Developing a reservoir computing algorithm based on nonlinear Duffing oscillators for logic operations and image classification.</li>
+            <li>Developing a mechanism to tune viscoelastic properties of a system using pneumatic actuation.</li>
+            <li>Devising a reservoir computing-based control algorithm to suppress squawk during stick-slip oscillations in automotive clutch systems.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Highlights -->
+    <section id="highlights" class="section reveal">
+      <div class="max-width">
+        <div class="section-header">
+          <div class="eyebrow">Highlights</div>
+          <h2 class="section-title">How I approach engineering problems.</h2>
+          <p class="section-subtitle">A blend of analytical modeling, numerical simulation, and hands-on experimentation, supported by clear communication of results.</p>
+        </div>
+        <div class="highlights-grid">
+          <article class="highlight-card reveal">
+            <div class="highlight-label">Strength</div>
+            <h3 class="highlight-title">Modeling & simulation</h3>
+            <p class="highlight-copy">Comfortable moving from governing equations to implementable numerical models, using tools like finite element analysis and computational fluid dynamics to explore system behavior.</p>
+            <div class="highlight-meta">Solid mechanics · FEA · CFD</div>
+          </article>
+          <article class="highlight-card reveal">
+            <div class="highlight-label">Strength</div>
+            <h3 class="highlight-title">Experimental methods</h3>
+            <p class="highlight-copy">Experienced in designing test rigs, collecting high-quality data, and comparing measurements with predictions to refine models and improve designs.</p>
+            <div class="highlight-meta">Instrumentation · Data acquisition</div>
+          </article>
+          <article class="highlight-card reveal">
+            <div class="highlight-label">Strength</div>
+            <h3 class="highlight-title">Data & communication</h3>
+            <p class="highlight-copy">Used to working with noisy real-world data, performing analysis in Python/MATLAB, and communicating results clearly to both technical and non-technical audiences.</p>
+            <div class="highlight-meta">Python · MATLAB · Technical writing</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="section section--alt reveal">
+      <div class="max-width">
+        <div class="section-header">
+          <div class="eyebrow">Selected work</div>
+          <h2 class="section-title">Representative projects.</h2>
+          <p class="section-subtitle">A sample of projects illustrating my approach to modeling, simulation, and experiments in mechanical engineering. More detailed project summaries are available on a separate page.</p>
+        </div>
+
+        <div class="projects-stack">
+          <article class="project reveal">
+            <div>
+              <div class="project-tag">Numerical and Experimental modeling</div>
+              <h3 class="project-title">Exploiting Bistability and Viscoelasticity in Reservoir Computing</h3>
+              <p class="project-subtitle">Investigating how viscoelasticity can introduce short-term memory to address the critical memory–nonlinearity trade-off that governs performance.</p>
+              <p class="project-copy">This study combines numerics and experiment, devising a reservoir computer composed of bistable oscillators coupled to viscoelastic standard linear solid elements. Bistability introduces nonlinearity while viscoelasticity introduces short-term memory. We demonstrate that by tuning these parameters, the performance of the reservoir computer can be optimized.</p>
+              <div class="project-meta"><strong>Role:</strong> Lead researcher</div>
+              <div class="project-meta"><strong>Methods:</strong> Analytical modeling, time-integration, parameter studies</div>
+              <div class="project-meta"><strong>Tools:</strong> MATLAB, electronics</div>
+              <div class="project-links">
+                <a class="pill-link" href="#">More Details →</a>
+              </div>
+            </div>
+            <div class="project-media">
+              <img src="Images/23.png" alt="Simulation results of a bistable viscoelastic reservoir computing system" />
+            </div>
+          </article>
+
+          <article class="project reveal">
+            <div>
+              <div class="project-tag">Numerical and Experimental Modeling</div>
+              <h3 class="project-title">The Tymbal of a Cicada: Nature's Sound Generating Metastructure</h3>
+              <p class="project-subtitle">Devising a novel metamaterial-inspired mechanical model that can mimic sound generation across different species of cicadas.</p>
+              <p class="project-copy">Set up coupled numerical and experimental studies to understand how tymbal buckling and abdominal resonance interact to produce loud, tonal acoustic output. Used the model to explore how geometry, material properties, and coupling affect sound generation and efficiency.</p>
+              <div class="project-meta"><strong>Role:</strong> Lead researcher</div>
+              <div class="project-meta"><strong>Methods:</strong> Nonlinear dynamics, experimental validation, reduced-order modeling</div>
+              <div class="project-meta"><strong>Tools:</strong> MATLAB, high-speed imaging, laser vibrometry, audio analysis</div>
+              <div class="project-links">
+                <a class="pill-link" href="#">More Details →</a>
+              </div>
+            </div>
+            <div class="project-media">
+              <video autoplay loop muted playsinline>
+                <source src="Images/Video1.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </article>
+        </div>
+
+        <div class="projects-footer reveal">
+          <a href="projects.html" class="btn-ghost">View detailed list of projects</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Background -->
+    <section id="about" class="section reveal">
+      <div class="max-width">
+        <div class="section-header">
+          <div class="eyebrow">Background</div>
+          <h2 class="section-title">Skills & academic profile.</h2>
+        </div>
+        <div class="two-column">
+          <article class="card reveal">
+            <h3 class="card-title">Technical skills</h3>
+            <p class="card-copy">A snapshot of the core skills I apply in my research and engineering work. These span fundamentals, numerical methods, and tools.</p>
+            <ul class="skills-list">
+              <li>Solid & structural mechanics</li>
+              <li>Fluid mechanics & heat transfer</li>
+              <li>Dynamics, vibration & control</li>
+              <li>Finite element analysis (FEA)</li>
+              <li>Computational fluid dynamics (CFD)</li>
+              <li>MATLAB for numerical modeling</li>
+              <li>Python for data analysis & scripting</li>
+              <li>Optimization & parameter studies</li>
+              <li>Experimental design & instrumentation</li>
+              <li>Data acquisition & signal processing</li>
+              <li>CAD (SolidWorks / similar)</li>
+              <li>Technical writing & presentation</li>
+            </ul>
+          </article>
+          <article class="card reveal">
+            <h3 class="card-title">About Pritam</h3>
+            <p class="card-copy">I am a PhD candidate in Mechanical Engineering, with a focus on understanding and improving the behavior of complex mechanical systems. My work typically combines analytical modeling, numerical simulation, and carefully designed experiments.</p>
+            <p class="card-copy">Before starting my PhD, I built a foundation in core mechanical engineering topics such as solid mechanics, fluid mechanics, thermodynamics, and control. Over time, I've gravitated toward problems where high-fidelity models and real-world data need to work together—whether that means validating simulations in the lab or using experiments to refine assumptions.</p>
+            <p class="card-copy">Looking ahead, I'm interested in roles where I can continue to apply rigorous engineering thinking to practical problems, collaborate with multidisciplinary teams, and communicate complex results in a way that informs design and decision-making.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Leadership -->
+    <section id="leadership" class="section section--alt reveal">
+      <div class="max-width">
+        <div class="section-header">
+          <div class="eyebrow">Leadership</div>
+          <h2 class="section-title">Leadership & extracurricular activities.</h2>
+          <p class="section-subtitle">Outside of research, I like to take on roles that support peers, organize teams, and connect engineering work to the broader community.</p>
+        </div>
+        <div class="panel-slider reveal">
+          <button class="panel-arrow panel-arrow--left" aria-label="Previous">‹</button>
+          <div class="panel-window">
+            <div class="panel-track">
+              <article class="card panel">
+                <h3 class="card-title">Student & departmental leadership</h3>
+                <p class="card-copy">I've been actively involved in shaping the graduate student experience, from helping organize internal seminars and reading groups to supporting new students as they join the department.</p>
+                <p class="card-copy">In these settings, I tend to focus on creating structure—clear agendas, follow-up notes, and action items—so that meetings lead to concrete next steps rather than just discussion.</p>
+              </article>
+              <article class="card panel">
+                <h3 class="card-title">Professional & community activities</h3>
+                <p class="card-copy">Beyond the department, I've participated in professional society events and outreach activities aimed at introducing younger students to engineering, including volunteering at open days and panel discussions.</p>
+                <p class="card-copy">I'm particularly interested in environments where technical work, communication, and organization all intersect.</p>
+              </article>
+              <article class="card panel">
+                <h3 class="card-title">Cross-lab collaboration</h3>
+                <p class="card-copy">I've helped coordinate collaborations between labs working on related mechanical systems, aligning timelines, sharing experimental setups, and making sure results are comparable.</p>
+                <p class="card-copy">This has strengthened my ability to manage expectations across groups and keep projects moving even when priorities differ.</p>
+              </article>
+              <article class="card panel">
+                <h3 class="card-title">Conference & event organization</h3>
+                <p class="card-copy">I've contributed to organizing research workshops and conference sessions, helping with abstract review, scheduling, and day-of logistics.</p>
+                <p class="card-copy">I like designing events so that there is space for both formal presentations and informal conversations, where students and faculty can connect and explore new ideas.</p>
+              </article>
+            </div>
+          </div>
+          <button class="panel-arrow panel-arrow--right" aria-label="Next">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Teaching -->
+    <section id="teaching" class="section reveal">
+      <div class="max-width">
+        <div class="section-header">
+          <div class="eyebrow">Teaching & mentoring</div>
+          <h2 class="section-title">Mentoring and teaching profile.</h2>
+          <p class="section-subtitle">I enjoy helping students connect the equations on the page to the behavior of real mechanical systems, and I try to make space for questions and exploration.</p>
+        </div>
+        <div class="panel-slider reveal">
+          <button class="panel-arrow panel-arrow--left" aria-label="Previous">‹</button>
+          <div class="panel-window">
+            <div class="panel-track">
+              <article class="card panel">
+                <h3 class="card-title">Teaching experience</h3>
+                <p class="card-copy">As a teaching assistant, I've supported core mechanical engineering courses such as dynamics, mechanics, and related subjects. My responsibilities have included leading discussion sessions, holding office hours, and providing feedback on assignments.</p>
+                <p class="card-copy">When I teach, I focus on breaking complex problems into smaller steps, building intuition before moving to formal derivations.</p>
+              </article>
+              <article class="card panel">
+                <h3 class="card-title">Mentoring & supervision</h3>
+                <p class="card-copy">I've mentored junior students on research tasks such as setting up experiments, learning analysis tools, and navigating the early stages of a project.</p>
+                <p class="card-copy">In practice, that means agreeing on clear goals, checking in regularly, and using short written summaries to keep everyone aligned.</p>
+              </article>
+              <article class="card panel">
+                <h3 class="card-title">Curriculum & content development</h3>
+                <p class="card-copy">I've contributed to refining problem sets and example-driven modules that tie theory to real mechanical systems, especially in dynamics and vibration.</p>
+                <p class="card-copy">I enjoy finding ways to turn abstract equations into concrete scenarios that students can visualize and experiment with.</p>
+              </article>
+              <article class="card panel">
+                <h3 class="card-title">Teaching innovation & outreach</h3>
+                <p class="card-copy">I'm interested in teaching approaches that combine hands-on experiments with simple analytical models, so that students can see where equations come from and how they connect to real systems.</p>
+                <p class="card-copy">I also enjoy outreach activities that introduce younger students to mechanics and vibrations through demonstrations and low-cost experiments.</p>
+              </article>
+            </div>
+          </div>
+          <button class="panel-arrow panel-arrow--right" aria-label="Next">›</button>
+        </div>
+        <div class="projects-footer reveal" style="margin-top: 2.5rem;">
+          <a href="teaching.html" class="btn-ghost">View teaching & mentoring details</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section section--alt reveal">
+      <div class="max-width">
+        <div class="section-header">
+          <div class="eyebrow">Contact</div>
+          <h2 class="section-title">Let's connect.</h2>
+        </div>
+        <p class="contact-body">If you'd like to discuss research, potential collaborations, or opportunities in academia or industry, feel free to reach out. I'm always happy to talk about mechanical engineering problems and new ideas.</p>
+        <div class="contact-links">
+          <a class="contact-pill" href="mailto:pghoshal@purdue.edu">✉ pghoshal@purdue.edu</a>
+          <a class="contact-pill" href="https://www.linkedin.com/in/pritam-ghoshal/" target="_blank">LinkedIn ↗</a>
+          <a class="contact-pill" href="https://github.com" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="max-width">
+      <div>© <span id="year"></span> Pritam Ghoshal</div>
+      <div>Built with HTML, CSS & JavaScript.</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) e.target.classList.add("reveal--visible");
+        else e.target.classList.remove("reveal--visible");
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+    // Panel sliders
+    document.querySelectorAll(".panel-slider").forEach((slider) => {
+      const track = slider.querySelector(".panel-track");
+      const panels = track ? track.querySelectorAll(".panel") : [];
+      const prevBtn = slider.querySelector(".panel-arrow--left");
+      const nextBtn = slider.querySelector(".panel-arrow--right");
+      if (!track || !panels.length) return;
+      function getVisibleCount() { return window.innerWidth<768?1:window.innerWidth<1024?2:3; }
+      let visibleCount = getVisibleCount(), index = visibleCount===3&&panels.length===4?1:0;
+      function isSpecialMode() { return visibleCount===3&&panels.length===4; }
+      function update() {
+        const pw = panels[0].offsetWidth||0;
+        const gap = parseFloat(getComputedStyle(track).columnGap||getComputedStyle(track).gap||"0")||0;
+        const step = pw + gap;
+        let offset = 0;
+        if (isSpecialMode()) {
+          index = Math.max(0,Math.min(2,index));
+          offset = [0,0.5,1][index]*step;
+          if(prevBtn) prevBtn.disabled=index===0;
+          if(nextBtn) nextBtn.disabled=index===2;
+        } else {
+          const max = Math.max(panels.length-visibleCount,0);
+          index = Math.max(0,Math.min(max,index));
+          offset = index*step;
+          if(prevBtn) prevBtn.disabled=index===0;
+          if(nextBtn) nextBtn.disabled=index===max;
+        }
+        track.style.transform=`translateX(${-offset}px)`;
+      }
+      if(prevBtn) prevBtn.addEventListener("click",()=>{index-=1;update();});
+      if(nextBtn) nextBtn.addEventListener("click",()=>{index+=1;update();});
+      window.addEventListener("resize",()=>{
+        const ov=isSpecialMode(); visibleCount=getVisibleCount();
+        const nv=isSpecialMode();
+        if(nv&&!ov)index=1; else if(!nv&&ov)index=0;
+        update();
+      });
+      update();
+    });
+
+    // Attractor background — Aizawa attractor, adapted for light theme
+    (function attractorBackground() {
+      const pref = window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+      if(pref) return;
+      const canvas = document.getElementById("attractor-canvas");
+      if(!canvas) return;
+      const ctx = canvas.getContext("2d",{alpha:true,desynchronized:true});
+      if(!ctx) return;
+      const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+      const lerp=(a,b,t)=>a+(b-a)*t;
+      function lerpAngle(a,b,t){const T=Math.PI*2;let d=(b-a)%T;if(d>Math.PI)d-=T;if(d<-Math.PI)d+=T;return a+d*t;}
+      let W=0,H=0,dpr=1;
+      function resize(){dpr=Math.min(window.devicePixelRatio||1,2);W=window.innerWidth;H=window.innerHeight;canvas.width=Math.floor(W*dpr);canvas.height=Math.floor(H*dpr);canvas.style.width=W+"px";canvas.style.height=H+"px";ctx.setTransform(1,0,0,1,0,0);ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,H);}
+      resize(); window.addEventListener("resize",resize,{passive:true});
+      const isSmall=()=>W<700||H<520;
+      let N=isSmall()?800:1600, lastSmall=isSmall();
+      let x=new Float32Array(N),y=new Float32Array(N),z=new Float32Array(N);
+      let rx=new Float32Array(N),ry=new Float32Array(N),rz=new Float32Array(N);
+      let sx=new Float32Array(N),sy=new Float32Array(N);
+      function randn(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+      function seedParticle(i){x[i]=0.10+0.06*randn();y[i]=0.06*randn();z[i]=0.06*randn();}
+      function initParticles(){for(let i=0;i<N;i++)seedParticle(i);rx=new Float32Array(N);ry=new Float32Array(N);rz=new Float32Array(N);sx=new Float32Array(N);sy=new Float32Array(N);}
+      initParticles();
+      function maybeRebuild(){const s=isSmall();if(s!==lastSmall){lastSmall=s;N=s?800:1600;x=new Float32Array(N);y=new Float32Array(N);z=new Float32Array(N);initParticles();ctx.clearRect(0,0,W,H);}}
+      let cam={yaw:0.6,pitch:0.85,roll:0.1,zoom:1.05};
+      let camTarget={...cam};
+      let P={a:0.95,b:0.70,c:0.60,d:3.50,e:0.25,f:0.10};
+      let Ptarget={...P};
+      function computeScrollNorm(){const doc=document.documentElement;const max=Math.max(1,doc.scrollHeight-window.innerHeight);return clamp((window.scrollY||0)/max,0,1);}
+      function updateFromScroll(){const s=computeScrollNorm();camTarget.yaw=0.35+s*Math.PI*2.35;camTarget.pitch=0.55+0.55*Math.sin(s*Math.PI);camTarget.roll=0.09*Math.sin(s*Math.PI*2);camTarget.zoom=lerp(1.12,0.90,s);Ptarget.a=lerp(0.86,1.08,s);Ptarget.d=lerp(3.00,4.35,s);Ptarget.f=lerp(0.03,0.17,s);Ptarget.c=lerp(0.58,0.70,s);}
+      updateFromScroll(); window.addEventListener("scroll",updateFromScroll,{passive:true});
+      function rotate(px,py,pz,pitch,yaw,roll){const cx=Math.cos(pitch),sx=Math.sin(pitch);let y1=py*cx-pz*sx,z1=py*sx+pz*cx,x1=px;const cy=Math.cos(yaw),sy=Math.sin(yaw);let x2=x1*cy+z1*sy,z2=-x1*sy+z1*cy,y2=y1;const cz=Math.cos(roll),sz=Math.sin(roll);return{x:x2*cz-y2*sz,y:x2*sz+y2*cz,z:z2};}
+      function stepAizawa(dt){const a=P.a,b=P.b,c=P.c,d=P.d,e=P.e,f=P.f;for(let i=0;i<N;i++){const xi=x[i],yi=y[i],zi=z[i];const dx1=(zi-b)*xi-d*yi,dy1=d*xi+(zi-b)*yi,r2=xi*xi+yi*yi,dz1=c+a*zi-(zi*zi*zi)/3-r2*(1+e*zi)+f*zi*xi*xi*xi;const xm=xi+.5*dt*dx1,ym=yi+.5*dt*dy1,zm=zi+.5*dt*dz1;const dx2=(zm-b)*xm-d*ym,dy2=d*xm+(zm-b)*ym,r2m=xm*xm+ym*ym,dz2=c+a*zm-(zm*zm*zm)/3-r2m*(1+e*zm)+f*zm*xm*xm*xm;const xn=xi+dt*dx2,yn=yi+dt*dy2,zn=zi+dt*dz2;if(!Number.isFinite(xn)||!Number.isFinite(yn)||!Number.isFinite(zn)||Math.abs(xn)>1e5){seedParticle(i);continue;}x[i]=xn;y[i]=yn;z[i]=zn;}}
+      // Deep teal dots for light background
+      const DOT_RGB="22,101,88";
+      let running=true;
+      document.addEventListener("visibilitychange",()=>{running=!document.hidden;if(running)requestAnimationFrame(tick);});
+      let t0=performance.now();
+      function tick(now){
+        if(!running)return;
+        maybeRebuild();
+        const chase=0.04;
+        cam.yaw=lerpAngle(cam.yaw,camTarget.yaw,chase);cam.pitch=lerpAngle(cam.pitch,camTarget.pitch,chase);cam.roll=lerpAngle(cam.roll,camTarget.roll,chase);cam.zoom=lerp(cam.zoom,camTarget.zoom,chase);
+        const pc=0.03;P.a=lerp(P.a,Ptarget.a,pc);P.b=lerp(P.b,Ptarget.b,pc);P.c=lerp(P.c,Ptarget.c,pc);P.d=lerp(P.d,Ptarget.d,pc);P.e=lerp(P.e,Ptarget.e,pc);P.f=lerp(P.f,Ptarget.f,pc);
+        const elapsed=(now-t0)*0.001;
+        const drift=0.03*Math.sin(elapsed*0.33);
+        const yawLive=cam.yaw+drift*0.35,rollLive=cam.roll+drift*0.10;
+        // Trail fade — use destination-out (reduces alpha of existing content)
+        ctx.save();ctx.globalCompositeOperation="destination-out";ctx.fillStyle="rgba(0,0,0,0.09)";ctx.fillRect(0,0,W,H);ctx.restore();
+        const steps=isSmall()?2:3,dt=0.009;
+        for(let s=0;s<steps;s++)stepAizawa(dt);
+        const cx=W*0.5,cy=H*0.5,zShift=0.25;
+        let maxXY=1e-6;
+        for(let i=0;i<N;i++){const r=rotate(x[i],y[i],z[i]-zShift,cam.pitch,yawLive,rollLive);rx[i]=r.x;ry[i]=r.y;rz[i]=r.z;const m=Math.hypot(r.x,r.y);if(m>maxXY)maxXY=m;}
+        const fit=0.42*Math.min(W,H),baseScale=(fit/maxXY)*cam.zoom,fov=360;
+        for(let i=0;i<N;i++){const p=fov/(fov+rz[i]*0.9),sc=baseScale*p;sx[i]=cx+rx[i]*sc;sy[i]=cy+ry[i]*sc;}
+        ctx.save();
+        ctx.globalCompositeOperation="source-over";
+        // halo
+        ctx.fillStyle=`rgba(${DOT_RGB},0.06)`;
+        for(let i=0;i<N;i++){const px=sx[i],py=sy[i];if(px<-10||px>W+10||py<-10||py>H+10)continue;ctx.fillRect(px-0.5,py-0.5,2,2);}
+        // core
+        ctx.fillStyle=`rgba(${DOT_RGB},0.18)`;
+        for(let i=0;i<N;i++){const px=sx[i],py=sy[i];if(px<-10||px>W+10||py<-10||py>H+10)continue;ctx.fillRect(px,py,1,1);}
+        ctx.restore();
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    })();
+  </script>
+</body>
+</html>

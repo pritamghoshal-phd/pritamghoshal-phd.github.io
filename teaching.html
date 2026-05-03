@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Teaching & Mentoring – Pritam Ghoshal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#f7f4ef; --bg-alt:#edeae3; --bg-card:#ffffff;
+      --border:#dedad3; --text:#1c1a17; --text-muted:#6b6560; --text-sub:#9a9590;
+      --accent:#1e6b5e; --accent-lt:rgba(30,107,94,0.09); --accent-hv:#155048;
+      --gold:#b5831f;
+      --shadow-sm:0 1px 3px rgba(0,0,0,0.07),0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md:0 4px 16px rgba(0,0,0,0.07),0 2px 4px rgba(0,0,0,0.04);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Outfit',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+    a{color:inherit;text-decoration:none;}
+    .page{min-height:100vh;}
+    .max-width{max-width:900px;margin:0 auto;padding:0 1.5rem;}
+
+    .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(20px);background:rgba(247,244,239,0.92);border-bottom:1px solid var(--border);}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:58px;}
+    .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--text);}
+    .nav-links{display:flex;gap:1rem;font-size:0.875rem;}
+    .nav-links a{color:var(--text-muted);padding-bottom:2px;border-bottom:1px solid transparent;transition:color .2s,border-color .2s;}
+    .nav-links a:hover{color:var(--accent);border-color:var(--accent);}
+
+    .section{padding:4rem 0 3rem;}
+    .section-header{margin-bottom:1.75rem;}
+    .eyebrow{text-transform:uppercase;letter-spacing:0.18em;font-size:0.7rem;color:var(--gold);font-weight:600;margin-bottom:0.6rem;}
+    .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.4vw,2.6rem);line-height:1.1;font-weight:500;margin-bottom:0.75rem;}
+    .section-subtitle{color:var(--text-muted);max-width:640px;font-size:0.95rem;}
+
+    .body-text{font-size:0.93rem;line-height:1.8;color:var(--text-muted);max-width:720px;}
+    .body-text p+p{margin-top:0.85rem;}
+
+    .card{border-radius:1.3rem;border:1px solid var(--border);background:var(--bg-card);padding:1.75rem 1.5rem;margin-top:1.25rem;box-shadow:var(--shadow-sm);}
+    .card-title{font-size:1.05rem;font-weight:600;margin-bottom:0.75rem;}
+
+    .body-text--clamp{max-height:8rem;overflow:hidden;position:relative;}
+    .body-text--clamp::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2.5rem;background:linear-gradient(to bottom,rgba(255,255,255,0),var(--bg-card));pointer-events:none;}
+    .body-text--expanded{max-height:none;overflow:visible;}
+    .body-text--expanded::after{display:none;}
+
+    .toggle-btn{margin-top:1rem;border-radius:999px;border:1px solid var(--border);background:var(--bg);color:var(--text);padding:0.4rem 1rem;font-size:0.82rem;font-family:'Outfit',sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:0.25rem;transition:all .2s;}
+    .toggle-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+    footer{border-top:1px solid var(--border);padding:1.75rem 1.5rem 2.5rem;font-size:0.8rem;color:var(--text-sub);background:var(--bg-alt);margin-top:2rem;}
+    footer .max-width{display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.75rem;align-items:center;}
+
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease-out,transform .7s ease-out;}
+    .reveal--visible{opacity:1;transform:translateY(0);}
+  </style>
+</head>
+<body class="page">
+  <header class="nav">
+    <div class="max-width nav-inner">
+      <div class="nav-logo">Pritam Ghoshal</div>
+      <nav class="nav-links">
+        <a href="index.html">← Back to portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section reveal">
+      <div class="max-width">
+        <div class="section-header">
+          <div class="eyebrow">Teaching & mentoring</div>
+          <h1 class="section-title">Teaching & mentoring philosophy.</h1>
+          <p class="section-subtitle">A concise statement of how I approach the classroom and one-on-one mentoring relationships.</p>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">My philosophy</h2>
+          <div class="body-text body-text--clamp" id="philosophy-text">
+            <p>I started mentoring because someone once created space for me to try, stumble, and try again, without ever treating those mistakes like verdicts. That generosity shaped how I work and how I show up for others. My motto is simple: help my mentees become confident and independent. I am a "learn by doing" person. When something fails, I prefer to treat it as data rather than failure. I believe a lot in taking insights from failures and that it helps build objectivity and critical thinking.</p>
+            <p>I believe that curiosity fuels everything. I love sending a short paper, a quirky dataset, or a tool I just found and asking my mentees what they think about it. These quick exchanges help sharpen their judgment. Over time, mentees find themselves explaining tough ideas simply and clearly and even enjoying the process. I don't believe anyone is a blank slate; mentees arrive with strengths, history, and instincts worth respecting. I begin by asking what they already know and I scaffold the next phase of the work, so it is challenging enough to grow but at the same time, not so overwhelming for the mentees.</p>
+            <p>I care about both the work and the person doing the work. Professionally, I help my mentees identify the core skills to succeed in their career path and devise a definite roadmap to learn lab-based skills like laser vibrometry and silicone molding. Personally, I help my mentees build sustainable routines and grow confidence through small, visible wins. I also practice enabling my mentees to collaborate with others, encourage them to attend and participate actively in group meetings, give them specific feedback, and share credit where it's due.</p>
+            <p>I believe that a successful mentoring relationship relies heavily on active feedback, and this runs in both ways. My feedback is timely, specific, and grounded in examples. I highlight what's working, point out what's unclear, and suggest concrete next steps. I ask for the same from my mentees. I am a big advocate of inclusivity and fairness. I take every measure to ensure my mentees feel respected and not intimidated to ask "basic" questions or share half-formed ideas. Success to me is more than finished projects—it's leaving our time together with the ability to frame meaningful questions, design and run sound experiments, communicate results with clarity, and choose the next step with intention.</p>
+          </div>
+          <button class="toggle-btn" id="philosophy-toggle" type="button" aria-expanded="false" aria-controls="philosophy-text">Read more</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="max-width">
+        <div class="section-header">
+          <div class="eyebrow">Lecture notes</div>
+          <h2 class="section-title">Lecture notes & teaching materials.</h2>
+          <p class="section-subtitle">A place to share sample materials from courses and workshops I support.</p>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">Materials</h2>
+          <p class="body-text">Details coming soon. I am currently organizing selected lecture notes, example problem sets, and supplemental handouts from courses in dynamics, mechanics, and vibration. These materials will highlight how I connect analytical derivations to practical engineering scenarios and will be made available here once they are ready to share.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="max-width">
+      <div>© <span id="year"></span> Pritam Ghoshal</div>
+      <div>Teaching & mentoring details.</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("reveal--visible"); else e.target.classList.remove("reveal--visible"); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+
+    const philosophyText = document.getElementById("philosophy-text");
+    const philosophyToggle = document.getElementById("philosophy-toggle");
+    if (philosophyText && philosophyToggle) {
+      let expanded = false;
+      philosophyToggle.addEventListener("click", () => {
+        expanded = !expanded;
+        if (expanded) { philosophyText.classList.remove("body-text--clamp"); philosophyText.classList.add("body-text--expanded"); philosophyToggle.textContent = "Read less"; philosophyToggle.setAttribute("aria-expanded","true"); }
+        else { philosophyText.classList.remove("body-text--expanded"); philosophyText.classList.add("body-text--clamp"); philosophyToggle.textContent = "Read more"; philosophyToggle.setAttribute("aria-expanded","false"); }
+      });
+    }
+  </script>
+</body>
+</html>

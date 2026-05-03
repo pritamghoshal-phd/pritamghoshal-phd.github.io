@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Experimental characterization of vibration behavior – Pritam Ghoshal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root{--bg:#f7f4ef;--bg-alt:#edeae3;--bg-card:#ffffff;--border:#dedad3;--text:#1c1a17;--text-muted:#6b6560;--text-sub:#9a9590;--accent:#1e6b5e;--accent-lt:rgba(30,107,94,0.09);--gold:#b5831f;--shadow-sm:0 1px 3px rgba(0,0,0,0.07),0 1px 2px rgba(0,0,0,0.04);--shadow-md:0 4px 16px rgba(0,0,0,0.07);}
+    *{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+    body{font-family:'Outfit',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+    a{color:inherit;text-decoration:none;}
+    .max-width{max-width:1120px;margin:0 auto;padding:0 1.5rem;}
+    .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(20px);background:rgba(247,244,239,0.92);border-bottom:1px solid var(--border);}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:58px;}
+    .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--text);}
+    .nav-links{display:flex;gap:1.25rem;font-size:0.875rem;}
+    .nav-links a{color:var(--text-muted);padding-bottom:2px;border-bottom:1px solid transparent;transition:color .2s,border-color .2s;}
+    .nav-links a:hover{color:var(--accent);border-color:var(--accent);}
+    .hero{padding:4.5rem 0 3rem;background:radial-gradient(ellipse at 10% 0%,rgba(30,107,94,0.12),transparent 55%),radial-gradient(ellipse at 90% 100%,rgba(181,131,31,0.08),transparent 55%),var(--bg);border-bottom:1px solid var(--border);}
+    .hero-inner{max-width:800px;}
+    .eyebrow{text-transform:uppercase;letter-spacing:0.18em;font-size:0.7rem;color:var(--gold);font-weight:600;margin-bottom:0.6rem;}
+    .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);line-height:1.1;font-weight:500;margin-bottom:0.5rem;}
+    .hero-sub{color:var(--text-muted);font-size:0.95rem;margin-bottom:0.75rem;line-height:1.7;}
+    .hero-meta{font-size:0.83rem;color:var(--text-muted);margin-bottom:1.25rem;}
+    .pill-row{display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:1rem;}
+    .pill{border-radius:999px;border:1px solid var(--border);padding:0.35rem 0.85rem;font-size:0.78rem;background:var(--bg-card);}
+    .btn-ghost{border-radius:999px;border:1px solid var(--border);padding:0.5rem 1.1rem;font-size:0.85rem;display:inline-flex;align-items:center;gap:0.4rem;background:var(--bg-card);cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;}
+    .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+    .section{padding:2.75rem 0;}
+    .section-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:500;margin-bottom:0.75rem;}
+    .section-body{font-size:0.9rem;color:var(--text-muted);max-width:800px;line-height:1.8;}
+    .section-body p+p{margin-top:0.85rem;}
+    .two-column{display:grid;gap:2rem;max-width:900px;}
+    @media(min-width:768px){.two-column{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);}}
+    .card{border-radius:1.2rem;border:1px solid var(--border);background:var(--bg-card);padding:1.5rem 1.4rem;font-size:0.875rem;color:var(--text-muted);box-shadow:var(--shadow-sm);}
+    .card h3{font-size:1rem;font-weight:600;margin-bottom:0.65rem;color:var(--text);}
+    .card p+p{margin-top:0.65rem;}
+    .card ul{margin-top:0.6rem;padding-left:1.1rem;}
+    .card li{margin-bottom:0.3rem;}
+    footer{border-top:1px solid var(--border);padding:1.75rem 1.5rem 2.5rem;font-size:0.8rem;color:var(--text-sub);background:var(--bg-alt);margin-top:2rem;}
+    footer .max-width{display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.75rem;align-items:center;}
+    .reveal{opacity:0;transform:translateY(36px);transition:opacity .8s ease-out,transform .8s ease-out;}
+    .reveal--visible{opacity:1;transform:translateY(0);}
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="max-width nav-inner">
+      <div class="nav-logo">Pritam Ghoshal</div>
+      <nav class="nav-links">
+        <a href="index.html#overview">Overview</a>
+        <a href="projects.html">All projects</a>
+        <a href="index.html#about">Background</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <section class="hero">
+    <div class="max-width hero-inner reveal">
+      <div class="eyebrow">Project</div>
+      <h1 class="hero-title">Experimental characterization of vibration behavior</h1>
+      <p class="hero-sub">Designing and analyzing vibration experiments to quantify dynamic behavior and identify model parameters.</p>
+      <div class="hero-meta"><strong>Role:</strong> Test design & analysis · <strong>Context:</strong> Structural dynamics and validation</div>
+      <div class="pill-row">
+        <span class="pill">Vibration testing</span>
+        <span class="pill">System identification</span>
+        <span class="pill">DAQ</span>
+        <span class="pill">MATLAB / Python</span>
+      </div>
+      <a href="projects.html" class="btn-ghost">← Back to project list</a>
+    </div>
+  </section>
+  <section class="section">
+    <div class="max-width section-body reveal">
+      <h2 class="section-title">Overview</h2>
+      <p>The goal of this project was to experimentally characterize the vibration response of a mechanical assembly and use the data to inform and validate models. This required designing a test setup that could produce controlled excitation, while capturing clean measurements of the system's response.</p>
+      <p>I worked through the full workflow: from fixture design and sensor placement, to data acquisition, signal processing, and comparison with theoretical predictions.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="max-width two-column">
+      <div class="card reveal">
+        <h3>Experimental setup</h3>
+        <p>I contributed to the design of the test configuration, including:</p>
+        <ul>
+          <li>Selecting excitation type (swept-sine, random, or impact)</li>
+          <li>Choosing sensor locations and mounting strategies</li>
+          <li>Configuring the data acquisition system and sampling parameters</li>
+        </ul>
+        <p>Careful attention was paid to avoiding unwanted boundary effects and ensuring that the measured response reflected the behavior of interest.</p>
+      </div>
+      <div class="card reveal">
+        <h3>Analysis & identification</h3>
+        <p>After collecting data, I performed time- and frequency-domain analysis to extract key features such as natural frequencies, damping ratios, and mode shapes.</p>
+        <p>System identification techniques were used to fit simplified models to the data, which were then compared with analytical and numerical predictions. This comparison helped determine where models needed refinement.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="max-width section-body reveal">
+      <h2 class="section-title">Results & impact</h2>
+      <p>The experiments provided a concrete picture of the system's dynamic behavior and highlighted which modes were most relevant in the operating range. The identified parameters improved the accuracy of subsequent simulations and increased confidence in model-based design changes.</p>
+      <p>The measurement and analysis workflow can be reused for similar assemblies, making it easier to integrate experimental feedback into future projects.</p>
+    </div>
+  </section>
+  <footer>
+    <div class="max-width">
+      <div>© <span id="year"></span> Pritam Ghoshal</div>
+      <div>Mechanical Engineering · PhD candidate</div>
+    </div>
+  </footer>
+  <script>
+    document.getElementById("year").textContent=new Date().getFullYear();
+    const obs=new IntersectionObserver((e,o)=>{e.forEach(e=>{if(e.isIntersecting){e.target.classList.add("reveal--visible");o.unobserve(e.target);}});},{threshold:0.15});
+    document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>

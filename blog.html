@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blog – Pritam Ghoshal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root{--bg:#f7f4ef;--bg-alt:#edeae3;--bg-card:#ffffff;--border:#dedad3;--text:#1c1a17;--text-muted:#6b6560;--text-sub:#9a9590;--accent:#1e6b5e;--accent-lt:rgba(30,107,94,0.09);--gold:#b5831f;--shadow-sm:0 1px 3px rgba(0,0,0,0.07),0 1px 2px rgba(0,0,0,0.04);--shadow-md:0 4px 16px rgba(0,0,0,0.07),0 2px 4px rgba(0,0,0,0.04);}
+    *{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+    body{font-family:'Outfit',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+    a{color:inherit;text-decoration:none;}
+    .page{min-height:100vh;}
+    .max-width{max-width:900px;margin:0 auto;padding:0 1.5rem;}
+
+    .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(20px);background:rgba(247,244,239,0.92);border-bottom:1px solid var(--border);}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:58px;}
+    .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--text);}
+    .nav-links{display:flex;gap:1rem;font-size:0.875rem;}
+    .nav-links a{color:var(--text-muted);padding-bottom:2px;border-bottom:1px solid transparent;transition:color .2s,border-color .2s;}
+    .nav-links a:hover{color:var(--accent);border-color:var(--accent);}
+
+    .section{padding:4rem 0 3.5rem;}
+    .section-header{margin-bottom:2rem;}
+    .eyebrow{text-transform:uppercase;letter-spacing:0.18em;font-size:0.7rem;color:var(--gold);font-weight:600;margin-bottom:0.6rem;}
+    .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.6vw,2.8rem);line-height:1.1;font-weight:500;margin-bottom:0.75rem;}
+    .section-subtitle{color:var(--text-muted);max-width:640px;font-size:0.95rem;}
+
+    .blog-list{display:grid;gap:2rem;margin-top:1.5rem;}
+
+    .post-card{border-radius:1.4rem;border:1px solid var(--border);background:var(--bg-card);padding:2rem 1.75rem;box-shadow:var(--shadow-sm);transition:box-shadow .25s;}
+    .post-card:hover{box-shadow:var(--shadow-md);}
+
+    .post-meta-row{display:flex;flex-wrap:wrap;gap:0.6rem;align-items:center;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-sub);margin-bottom:0.4rem;}
+    .post-tag{padding:0.1rem 0.6rem;border-radius:999px;border:1px solid var(--border);font-size:0.68rem;letter-spacing:0.12em;background:var(--bg);}
+    .post-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:500;margin-bottom:0.4rem;line-height:1.2;}
+    .post-lede{font-size:0.93rem;color:var(--text-muted);margin-bottom:0.85rem;line-height:1.7;font-style:italic;}
+
+    .post-content{font-size:0.93rem;line-height:1.85;color:var(--text-muted);overflow:hidden;transition:max-height 0.35s ease;position:relative;}
+    .post-content--clamp{max-height:260px;}
+    .post-content--clamp::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3rem;background:linear-gradient(to bottom,rgba(255,255,255,0),var(--bg-card));pointer-events:none;}
+    .post-content p+p{margin-top:1rem;}
+    .post-content h2{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;margin-top:2rem;margin-bottom:0.5rem;color:var(--text);}
+
+    .image-gallery{position:relative;margin:2rem 0;padding:0 2.5rem;}
+    .gallery-images{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;align-items:stretch;}
+    .post-figure{margin:0;text-align:center;}
+    .post-figure img{width:100%;border-radius:0.75rem;display:block;border:1px solid var(--border);}
+    .post-figure figcaption{margin-top:0.6rem;font-size:0.78rem;color:var(--text-sub);line-height:1.4;}
+
+    .gallery-nav{position:absolute;top:50%;transform:translateY(-50%);width:2rem;height:2rem;border-radius:999px;border:1px solid var(--border);background:var(--bg-card);color:var(--text);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;padding:0;box-shadow:var(--shadow-sm);transition:all .18s;}
+    .gallery-nav--left{left:0;}
+    .gallery-nav--right{right:0;}
+    .gallery-nav:hover:not(:disabled){border-color:var(--accent);color:var(--accent);transform:translateY(-50%) translateY(-1px);}
+    .gallery-nav:disabled{opacity:0.35;cursor:default;}
+
+    .post-footer{display:flex;justify-content:space-between;align-items:center;gap:0.75rem;font-size:0.78rem;color:var(--text-sub);margin-top:1rem;flex-wrap:wrap;}
+    .read-toggle{font-size:0.84rem;display:inline-flex;align-items:center;gap:0.25rem;border-radius:999px;border:1px solid var(--border);padding:0.4rem 0.9rem;background:var(--bg);color:var(--text);cursor:pointer;font-family:'Outfit',sans-serif;transition:all .18s;}
+    .read-toggle:hover{border-color:var(--accent);color:var(--accent);}
+    .read-toggle--floating{position:fixed;bottom:1.5rem;right:1.5rem;z-index:60;box-shadow:var(--shadow-md);background:var(--bg-card);}
+
+    footer{border-top:1px solid var(--border);padding:1.75rem 1.5rem 2.5rem;font-size:0.8rem;color:var(--text-sub);background:var(--bg-alt);margin-top:2.5rem;}
+    footer .max-width{display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.75rem;align-items:center;}
+  </style>
+</head>
+<body class="page">
+  <header class="nav">
+    <div class="max-width nav-inner">
+      <div class="nav-logo">Pritam Ghoshal</div>
+      <nav class="nav-links">
+        <a href="index.html">← Back to portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="max-width">
+        <div class="section-header">
+          <div class="eyebrow">Personal blog</div>
+          <h1 class="section-title">My Personal Blog</h1>
+          <p class="section-subtitle">Long-form posts that sit somewhere between lab notebook, travel diaries and my mind.</p>
+        </div>
+
+        <div class="blog-list">
+          <!-- POST 1: ROME TRIP -->
+          <article class="post-card">
+            <div class="post-meta-row">
+              <span>2025 · Travel</span>
+              <span class="post-tag">Italy</span>
+            </div>
+            <h2 class="post-title">Exploring the Eternal City: A Journey Through the Timeless Charms of Rome</h2>
+            <p class="post-lede">In the heart of Italy, where ancient history and contemporary culture overlap on the same cobblestone streets, I spent nearly two weeks chasing ruins, conferences, gelato, and sunrise boat rides.</p>
+
+            <div class="post-content post-content--clamp" id="post-1-content">
+              <p>In the heart of Italy, where there is a perfect balance between ancient history and contemporary culture, lies the city of Rome. My recent trip to this city was nothing less than a captivating voyage through time. From the grandeur of architectural masterpieces to the charm of taking early morning walks on wet cobblestone streets munching on a croissant, Rome was a fascinating blend of the ancient and the modern.</p>
+
+              <h2>Chapter 1: Arrival Amid Roman Chaos</h2>
+              <p>My journey started when I landed in Rome, a city rich in historical significance. The 14-hour flight from Chicago to Rome had taken a toll on me. Nevertheless, it marked the beginning of what was going to be a trip worth remembering. As I exited Roma Termini, I was hit by the lively atmosphere showcasing Rome's vibrant energy. What struck me as peculiar was the parking habits here, with cars lined straight on the sidewalks, which painted a scene of organized chaos.</p>
+              <p>My budget-friendly hotel, a 30-minute walk from the station, offered a unique contrast of modern accommodations against the backdrop of Roman architecture. Check-in wasn't until 2pm, so I took some time to wander about the serene Piazza Vittorio Emanuele, a peaceful break from the hustle and bustle of the city.</p>
+              <p>As the day transitioned to evening, my food cravings spurred a culinary adventure. Navigating a menu entirely in Italian with no English translations, I ordered something that vaguely "resembled" a pepperoni pizza. The mystery of what I actually ate still remains unsolved.</p>
+
+              <div class="image-gallery" data-per-view="2">
+                <div class="gallery-images">
+                  <figure class="post-figure"><img src="Images/1.png" alt="Palm trees in Piazza Vittorio Emanuele" /><figcaption>A family of palm trees having a casual conversation in Piazza Vittorio Emanuele</figcaption></figure>
+                  <figure class="post-figure"><img src="Images/3.png" alt="Selfie in Rome" /><figcaption>Even ancient Romans would've approved of my eternal duck face</figcaption></figure>
+                  <figure class="post-figure"><img src="Images/4.png" alt="Spanish Steps in Rome" /><figcaption>The Spanish Steps: where climbing stairs is a cultural exercise</figcaption></figure>
+                  <figure class="post-figure"><img src="Images/8.png" alt="Gelato in Rome" /><figcaption>Treating myself to some gelato</figcaption></figure>
+                </div>
+                <button type="button" class="gallery-nav gallery-nav--left" aria-label="Previous photos">‹</button>
+                <button type="button" class="gallery-nav gallery-nav--right" aria-label="Next photos">›</button>
+              </div>
+
+              <h2>Day 2: A Day of Icons Under the Roman Sun</h2>
+              <p>On the second day, I allowed myself a bit of a sleep-in before taking a quick tour of Rome's most historic landmarks. The Trevi Fountain, a Baroque masterpiece, was a sight to behold. According to tradition, throwing a coin into the fountain guarantees a return to Rome, a ritual I "reluctantly" participated in, hoping to revisit this enchanting city.</p>
+              <p>The Pantheon, an ancient engineering marvel, demonstrated the lasting influence of Roman architectural excellence. The grandeur of the Spanish Steps, with its sweeping staircase, echoed the city's elegance.</p>
+
+              <h2>Day 3: Twilight in Vatican City – A Spiritual Pilgrimage</h2>
+              <p>The third day brought me to the spiritual heart of Rome—the Vatican City. The Vatican Museums led me through a visual feast of paintings, sculptures, and historical wonders. The crowning jewel was undoubtedly the awe-inspiring St. Peter's Basilica. I was taken aback by the sheer size of the dome and its intricate architectural details.</p>
+
+              <div class="image-gallery" data-per-view="2">
+                <div class="gallery-images">
+                  <figure class="post-figure"><img src="Images/5.png" alt="Breakfast in Rome" /><figcaption>Has breakfast ever been this beautiful?</figcaption></figure>
+                  <figure class="post-figure"><img src="Images/6.png" alt="St. Peter's Basilica in evening light" /><figcaption>Making the heavens jealous of a perfect lighting</figcaption></figure>
+                  <figure class="post-figure"><img src="Images/2.png" alt="Trevi Fountain in Rome" /><figcaption>Insufficient funds to make a wish at the Trevi Fountain</figcaption></figure>
+                  <figure class="post-figure"><img src="Images/7.png" alt="Lecture hall at the conference venue" /><figcaption>Guaranteed attendance if my classroom looks like this</figcaption></figure>
+                  <figure class="post-figure"><img src="Images/9.png" alt="Catacombs passageway" /><figcaption>Perfect place for Hide N Seek</figcaption></figure>
+                  <figure class="post-figure"><img src="Images/10.png" alt="Ancient ruins with uneven stone floor" /><figcaption>Floor is Lava</figcaption></figure>
+                </div>
+                <button type="button" class="gallery-nav gallery-nav--left" aria-label="Previous photos">‹</button>
+                <button type="button" class="gallery-nav gallery-nav--right" aria-label="Next photos">›</button>
+              </div>
+
+              <h2>Days 4–6: NODYCON Academic Revelations</h2>
+              <p>The fourth and fifth days were dedicated to the NODYCON conference—a melting pot of scholarly minds congregating to share knowledge in the field of Mechanical Engineering. The conference venue was a work of architectural beauty that perfectly reflected Rome's spirit by fusing the contemporary and the classic.</p>
+              <p>The conference's conclusion marked a visit to the Colosseum, an iconic symbol of ancient Rome. Walking through the arches, I couldn't help but imagine the roar of the crowds and the clash of swords echoing through its walls. Exploring the catacombs offered a glimpse into the mysterious underworld of early Rome.</p>
+
+              <h2>Day 7: Pompeii and Vesuvius – A Journey Through Time</h2>
+              <p>A day trip took me to the ancient city of Pompeii, a city frozen in time by the eruption of Mount Vesuvius in 79 AD. Walking through what remained of once a bustling city, I felt the pulse of a civilization abruptly halted by nature's fury. Climbing Mount Vesuvius provided a panoramic view of the Amalfi Bay. The ascent was challenging, but seeing a determined girl on crutches conquering the summit added an inspiring dimension to the experience.</p>
+
+              <div class="image-gallery" data-per-view="2">
+                <div class="gallery-images">
+                  <figure class="post-figure"><img src="Images/11.png" alt="Ancient statue at Pompeii" /><figcaption>He may have lost his mind</figcaption></figure>
+                  <figure class="post-figure"><img src="Images/18.png" alt="Person wearing mask in Venice" /><figcaption>Pandemic fashion</figcaption></figure>
+                  <figure class="post-figure"><img src="Images/13.png" alt="Pigeons in a Florentine square" /><figcaption>Florence, where even the pigeons strut like they're in a Renaissance fashion show</figcaption></figure>
+                  <figure class="post-figure"><img src="Images/15.png" alt="Visitor posing with the Leaning Tower of Pisa" /><figcaption>Trying to find the right balance</figcaption></figure>
+                  <figure class="post-figure"><img src="Images/16.png" alt="Pathway in Tuscan countryside" /><figcaption>Go for it buddy</figcaption></figure>
+                  <figure class="post-figure"><img src="Images/19.png" alt="Unexpected night-time companion in Venice" /><figcaption>Roommate for the night</figcaption></figure>
+                </div>
+                <button type="button" class="gallery-nav gallery-nav--left" aria-label="Previous photos">‹</button>
+                <button type="button" class="gallery-nav gallery-nav--right" aria-label="Next photos">›</button>
+              </div>
+
+              <h2>Day 8–10: Florence Beckons</h2>
+              <p>Leaving Rome behind, the journey to Florence brought with it unexpected train delays. Rather than a nuisance, the wait became a chance to see the ebb and flow of life in the city. A day trip to Tuscany took me to San Gimignano—a UNESCO World Heritage Site—and then to the famous Leaning Tower of Pisa. The surroundings echoed with the laughter of visitors posing in creative attempts to "hold up" the Leaning Tower.</p>
+              <p>On the tenth day, an unscanned bus ticket in Florence turned into a humorous adventure, culminating in a 40-euro fine. The ticket might have remained unscanned, but the camaraderie with strangers created a memorable snapshot of the day.</p>
+
+              <h2>Day 11–13: Venice's Enchanting Farewell</h2>
+              <p>Entering Venice, I was drawn in by this extraordinary city. I wandered through the winding streets, finding hidden treasures at every turn. Being solo among a sea of gondola-riding couples, I chose to explore the city's charm on foot, finding calm bridges and secluded nooks. A boat ride to Murano and Burano—known for glassblowing and colorful houses originally painted to guide fishermen through fog—offered a close-up look at centuries-old Venetian craftsmanship.</p>
+
+              <div class="image-gallery" data-per-view="2">
+                <div class="gallery-images">
+                  <figure class="post-figure"><img src="Images/12.png" alt="View from Mount Vesuvius" /><figcaption>The view is to "die for"</figcaption></figure>
+                  <figure class="post-figure"><img src="Images/17.png" alt="Two tourists taking pictures for each other" /><figcaption>You take mine, and I'll take yours</figcaption></figure>
+                  <figure class="post-figure"><img src="Images/14.png" alt="Tuscan countryside near San Gimignano" /><figcaption>Like strokes from an artist's brush</figcaption></figure>
+                  <figure class="post-figure"><img src="Images/20.png" alt="Colorful alleyway in Burano" /><figcaption>Getting lost is not a wrong turn</figcaption></figure>
+                  <figure class="post-figure"><img src="Images/21.png" alt="Boat delivering packages on a Venetian canal" /><figcaption>Your FedEx package is here</figcaption></figure>
+                  <figure class="post-figure"><img src="Images/22.png" alt="Vaporetto ride at sunrise in Venice" /><figcaption>Taking the last Vaporetto ride as the sun rises over Venice</figcaption></figure>
+                </div>
+                <button type="button" class="gallery-nav gallery-nav--left" aria-label="Previous photos">‹</button>
+                <button type="button" class="gallery-nav gallery-nav--right" aria-label="Next photos">›</button>
+              </div>
+
+              <p>My final day in Venice marked the bittersweet crescendo of an unforgettable journey. With its poetic decay and enduring charm, Venice had woven its magic into the fabric of my travel memories. As I boarded the water taxi to Marco Polo Airport, Venice receded into the horizon—a reminder of the ephemeral nature of travel, where farewells are as much a part of the journey as the discoveries themselves.</p>
+            </div>
+
+            <div class="post-footer">
+              <span>Long-form travel essay · ~10–15 min read</span>
+              <button type="button" class="read-toggle" data-target="post-1-content" aria-controls="post-1-content" aria-expanded="false">Read more ↕</button>
+            </div>
+          </article>
+
+          <!-- POST 2 -->
+          <article class="post-card">
+            <div class="post-meta-row">
+              <span>2025 · Note</span>
+              <span class="post-tag">Lab life</span>
+            </div>
+            <h2 class="post-title">Why I still write in a paper notebook</h2>
+            <p class="post-lede">Because crossing something out by hand feels like a tiny, satisfying experiment result.</p>
+            <div class="post-content post-content--clamp" id="post-2-content">
+              <p>Because crossing something out by hand feels like a tiny, satisfying experiment result.</p>
+            </div>
+            <div class="post-footer">
+              <span>One-line reflection</span>
+              <button type="button" class="read-toggle" data-target="post-2-content" aria-controls="post-2-content" aria-expanded="false">Read more ↕</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="max-width">
+      <div>© <span id="year"></span> Pritam Ghoshal</div>
+      <div>Personal blog.</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    document.querySelectorAll(".read-toggle").forEach((btn) => {
+      const targetId = btn.getAttribute("data-target");
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      btn.addEventListener("click", () => {
+        const isExpanded = btn.getAttribute("aria-expanded") === "true";
+        if (isExpanded) {
+          target.classList.add("post-content--clamp");
+          btn.setAttribute("aria-expanded", "false");
+          btn.textContent = "Read more ↕";
+          btn.classList.remove("read-toggle--floating");
+        } else {
+          target.classList.remove("post-content--clamp");
+          btn.setAttribute("aria-expanded", "true");
+          btn.textContent = "Read less ↕";
+          btn.classList.add("read-toggle--floating");
+        }
+      });
+    });
+
+    document.querySelectorAll(".image-gallery").forEach((gallery) => {
+      const perView = parseInt(gallery.getAttribute("data-per-view"), 10) || 2;
+      const items = gallery.querySelectorAll(".post-figure");
+      const prevBtn = gallery.querySelector(".gallery-nav--left");
+      const nextBtn = gallery.querySelector(".gallery-nav--right");
+      if (!items.length) return;
+      let current = 0;
+      function update() {
+        items.forEach((item, index) => { item.style.display = (index >= current && index < current + perView) ? "block" : "none"; });
+        if (prevBtn) prevBtn.disabled = current === 0;
+        if (nextBtn) nextBtn.disabled = current + perView >= items.length;
+      }
+      if (prevBtn) prevBtn.addEventListener("click", () => { if (current > 0) { current = Math.max(0, current - perView); update(); } });
+      if (nextBtn) nextBtn.addEventListener("click", () => { if (current + perView < items.length) { current = Math.min(items.length - perView, current + perView); update(); } });
+      if (items.length <= perView) { if (prevBtn) prevBtn.style.display = "none"; if (nextBtn) nextBtn.style.display = "none"; }
+      update();
+    });
+  </script>
+</body>
+</html>
