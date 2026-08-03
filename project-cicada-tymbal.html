@@ -57,6 +57,101 @@
       explained the diversity of calls across species.</strong> Every species has a differently ribbed
       tymbal, a differently sized cavity, and a distinct song. Existing models were tuned to one species
       at a time and did not generalise.</p>
+
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 1 — From anatomy to model</span></div>
+      <div class="fig__body">
+        <svg viewBox="0 0 800 350" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="Schematic mapping cicada anatomy onto a mechanical model: the ribbed tymbal becomes a chain of bistable oscillators and the abdominal air cavity becomes a chain of resonators.">
+          <!-- ---- anatomy ---- -->
+          <text class="s-txt" x="24" y="34">anatomy</text>
+          <g class="pop">
+            <!-- body -->
+            <path class="s-line" d="M40 150 C60 106 130 96 186 118 C238 138 254 190 226 224
+                                     C196 260 96 258 58 220 C36 198 32 172 40 150 Z"
+                  fill="var(--bg-alt)"/>
+            <!-- head -->
+            <circle class="s-line" cx="52" cy="146" r="17" fill="var(--bg-alt)"/>
+            <!-- wing -->
+            <path class="s-thin" d="M96 128 C150 106 214 122 236 150 C206 158 140 152 96 128 Z"
+                  fill="var(--bg)" opacity=".85"/>
+            <!-- tymbal location -->
+            <ellipse cx="150" cy="196" rx="34" ry="26" fill="none"
+                     stroke="var(--accent-2)" stroke-width="2.4"/>
+            <text class="s-mono2" x="120" y="248">tymbal</text>
+            <!-- air cavity -->
+            <ellipse cx="196" cy="200" rx="26" ry="30" fill="none"
+                     stroke="var(--accent-3)" stroke-width="2" stroke-dasharray="5 5"/>
+          </g>
+
+          <!-- zoom lines -->
+          <path class="s-dash" d="M184 176 L288 118"/>
+          <path class="s-dash" d="M184 216 L288 214"/>
+
+          <!-- ---- ribbed membrane ---- -->
+          <text class="s-txt" x="288" y="34">ribbed membrane</text>
+          <g class="pop pop--d1">
+            <rect class="s-card" x="288" y="112" width="180" height="104" rx="10"/>
+            <path class="s-accent2" d="M306 130 C318 150 318 178 306 198"/>
+            <path class="s-accent2" d="M336 126 C350 150 350 180 336 202"/>
+            <path class="s-accent2" d="M366 124 C381 150 381 180 366 204"/>
+            <path class="s-accent2" d="M396 126 C410 150 410 180 396 202"/>
+            <path class="s-accent2" d="M426 130 C438 150 438 178 426 198"/>
+            <text class="s-txt s-txt--sm" x="296" y="236">periodic ribs → metastructure</text>
+          </g>
+
+          <!-- arrow -->
+          <path class="s-accent flow" d="M478 164 L520 164"/>
+          <text class="s-mono" x="474" y="150">model</text>
+
+          <!-- ---- mechanical model ---- -->
+          <text class="s-txt" x="536" y="34">mechanical model</text>
+          <g class="pop pop--d3">
+            <!-- bistable chain -->
+            <text class="s-txt s-txt--sm" x="536" y="72">chain of bistable oscillators</text>
+            <g>
+              <path class="s-accent" d="M542 108 L562 88 L582 108"/>
+              <path class="s-accent" d="M594 108 L614 88 L634 108"/>
+              <path class="s-accent" d="M646 108 L666 88 L686 108"/>
+              <path class="s-accent" d="M698 108 L718 88 L738 108"/>
+              <circle class="s-fill2" cx="562" cy="88" r="7"/>
+              <circle class="s-fill2" cx="614" cy="88" r="7"/>
+              <circle class="s-fill2" cx="666" cy="88" r="7"/>
+              <circle class="s-fill2" cx="718" cy="88" r="7"/>
+              <line class="s-thin" x1="536" y1="108" x2="744" y2="108"/>
+            </g>
+            <!-- coupling springs -->
+            <g class="s-thin">
+              <path d="M562 116 L562 140"/><path d="M614 116 L614 140"/>
+              <path d="M666 116 L666 140"/><path d="M718 116 L718 140"/>
+            </g>
+            <!-- resonator chain -->
+            <text class="s-txt s-txt--sm" x="536" y="166">coupled to resonators (air cavity)</text>
+            <g>
+              <rect class="s-card" x="546" y="180" width="34" height="30" rx="6"/>
+              <rect class="s-card" x="598" y="180" width="34" height="30" rx="6"/>
+              <rect class="s-card" x="650" y="180" width="34" height="30" rx="6"/>
+              <rect class="s-card" x="702" y="180" width="34" height="30" rx="6"/>
+              <line class="s-accent3" x1="580" y1="195" x2="598" y2="195"/>
+              <line class="s-accent3" x1="632" y1="195" x2="650" y2="195"/>
+              <line class="s-accent3" x1="684" y1="195" x2="702" y2="195"/>
+            </g>
+            <!-- output -->
+            <path class="s-accent3 flow" d="M640 224 L640 258"/>
+            <text class="s-mono" x="596" y="284" fill="var(--accent-3)">filtered acoustic output</text>
+            <path class="s-accent3" d="M540 316 Q556 292 572 316 Q588 340 604 316 Q620 292 636 316
+                                        Q652 340 668 316 Q684 292 700 316 Q716 340 732 316"
+                  fill="none" stroke-width="2.4"/>
+          </g>
+        </svg>
+      </div>
+      <p class="fig__cap">
+        <b>Figure 1.</b> The mapping that made the model work. Each rib of the tymbal becomes a bistable
+        oscillator that snaps through; the abdominal air cavity becomes a chain of resonators that filters
+        the resulting broadband click train into a tonal call. Species differences enter as rib count,
+        rib spacing and cavity dimensions — nothing else needs to change.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -94,6 +189,36 @@
 
 <section class="sec">
   <div class="wrap body-copy reveal">
+
+    <div class="fig reveal">
+      <div class="fig__head">
+        <span class="fig__no">Figure 2 — Buckling to song, simulated</span>
+        <span class="fig__live">running</span>
+      </div>
+      <div class="fig__body">
+        <canvas id="cic-canvas" width="1520" height="760"></canvas>
+      </div>
+      <div class="fig__ctrls">
+        <div class="fig__ctrl">
+          <label>Ribs <b id="cv-n">5</b></label>
+          <input type="range" id="cr-n" min="3" max="9" step="1" value="5" />
+        </div>
+        <div class="fig__ctrl">
+          <label>Muscle rate <b id="cv-r">3.2</b> Hz</label>
+          <input type="range" id="cr-r" min="1.0" max="7.0" step="0.1" value="3.2" />
+        </div>
+        <div class="fig__ctrl">
+          <label>Cavity tuning <b id="cv-f">1.00</b></label>
+          <input type="range" id="cr-f" min="0.5" max="2.0" step="0.02" value="1.0" />
+        </div>
+      </div>
+      <p class="fig__cap">
+        <b>Figure 2.</b> Top: ribs buckle in sequence as the tymbal muscle contracts, each snap firing an
+        impulse. Middle: the raw click train — broadband and toneless on its own. Bottom: the same signal
+        after the resonator chain, now a decaying tonal burst. Changing rib count or cavity tuning changes
+        the song, which is precisely the mechanism that distinguishes one species from another.
+      </p>
+    </div>
     <h2 class="sec-title">Result</h2>
     <p>The model reproduces both the snap-through dynamics of the tymbals and the subsequent acoustic
       filtering, and — the part that mattered most — it is the <strong>first species-adaptable framework</strong>
@@ -123,6 +248,137 @@
 document.getElementById('year').textContent=new Date().getFullYear();
 const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-in');o.unobserve(e.target);}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+<script>
+/* ---- Figure 2: rib buckling -> click train -> filtered song ---- */
+(function(){
+  const cv=document.getElementById('cic-canvas'); if(!cv) return;
+  const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
+  const css=getComputedStyle(document.documentElement); const C=k=>css.getPropertyValue(k).trim();
+
+  const P={n:5, rate:3.2, tune:1.0};
+  let ribs=[];
+  function build(){ ribs=[]; for(let i=0;i<P.n;i++) ribs.push({buckled:false,flash:0,phase:i/P.n}); }
+  build();
+
+  // resonator bank (2nd-order sections) — the abdominal cavity
+  const modes=[{f:1.0,q:0.020,x:0,v:0,g:1.0},
+               {f:1.62,q:0.030,x:0,v:0,g:0.45},
+               {f:2.41,q:0.045,x:0,v:0,g:0.22}];
+
+  let t=0, cycle=0, idx=0, drive=0;
+  const clickH=[], songH=[]; const HIST=520;
+
+  function step(dt){
+    t+=dt;
+    const period=1/Math.max(0.2,P.rate);
+    cycle+=dt;
+    let impulse=0;
+    // sequential rib collapse across the first 60% of each cycle
+    const stagger=period*0.6/P.n;
+    if(cycle>=idx*stagger && idx<P.n){
+      ribs[idx].buckled=!ribs[idx].buckled; ribs[idx].flash=1;
+      impulse=1.0-idx*0.06;
+      idx++;
+    }
+    if(cycle>=period){ cycle=0; idx=0; }
+    ribs.forEach(r=>r.flash=Math.max(0,r.flash-dt*5));
+
+    drive=impulse;
+    // drive the resonator bank
+    let out=0;
+    const base=42*P.tune;
+    for(const m of modes){
+      const w=base*m.f;
+      m.v += (-2*m.q*w*m.v - w*w*m.x + impulse*w*w*3.2)*dt;
+      m.x += m.v*dt;
+      out += m.x*m.g;
+    }
+    return {impulse, out:Math.max(-1.6,Math.min(1.6,out))};
+  }
+
+  function drawRibs(x0,y0,w,hgt){
+    ctx.save();
+    const cyy=y0+hgt*0.56, pad=140, gap=(w-pad*2)/Math.max(1,P.n-1);
+    ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
+    ctx.fillText('tymbal ribs — sequential snap-through', x0+30, y0+44);
+    // membrane frame
+    ctx.strokeStyle=C('--border-2'); ctx.lineWidth=3;
+    ctx.strokeRect(x0+pad-60, cyy-120, w-pad*2+120, 240);
+    for(let i=0;i<P.n;i++){
+      const r=ribs[i], px=x0+pad+gap*i;
+      const bow=r.buckled?-52:52;
+      if(r.flash>0){
+        ctx.strokeStyle=`rgba(255,90,31,${r.flash*0.9})`; ctx.lineWidth=6;
+        ctx.beginPath();ctx.arc(px,cyy,54+40*(1-r.flash),0,7);ctx.stroke();
+      }
+      ctx.strokeStyle=r.buckled?C('--accent-2'):C('--accent');
+      ctx.lineWidth=7; ctx.lineCap='round';
+      ctx.beginPath();
+      ctx.moveTo(px,cyy-96);
+      ctx.quadraticCurveTo(px+bow,cyy,px,cyy+96);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawWave(x0,y0,w,hgt,arr,col,label,sy){
+    ctx.save();
+    const cyy=y0+hgt*0.55, span=w-110;
+    ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(x0+55,cyy);ctx.lineTo(x0+55+span,cyy);ctx.stroke();
+    ctx.strokeStyle=col; ctx.lineWidth=3; ctx.lineJoin='round';
+    ctx.beginPath();
+    for(let i=0;i<arr.length;i++){
+      const px=x0+55+(i/HIST)*span, py=cyy-arr[i]*sy;
+      i?ctx.lineTo(px,py):ctx.moveTo(px,py);
+    }
+    ctx.stroke();
+    ctx.fillStyle=col; ctx.font='500 25px Outfit, sans-serif';
+    ctx.fillText(label, x0+55, y0+34);
+    ctx.restore();
+  }
+
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    drawRibs(0,0,W,H*0.44);
+    drawWave(0,H*0.44,W,H*0.28,clickH,C('--accent-2'),'raw click train — broadband, toneless',H*0.11);
+    drawWave(0,H*0.72,W,H*0.28,songH,C('--accent-3'),'after the resonator chain — the song',H*0.075);
+  }
+
+  const bindN=document.getElementById('cr-n');
+  if(bindN) bindN.addEventListener('input',()=>{
+    P.n=parseInt(bindN.value,10);
+    document.getElementById('cv-n').textContent=P.n; build(); idx=0; cycle=0;});
+  const bindR=document.getElementById('cr-r');
+  if(bindR) bindR.addEventListener('input',()=>{
+    P.rate=parseFloat(bindR.value); document.getElementById('cv-r').textContent=P.rate.toFixed(1);});
+  const bindF=document.getElementById('cr-f');
+  if(bindF) bindF.addEventListener('input',()=>{
+    P.tune=parseFloat(bindF.value); document.getElementById('cv-f').textContent=P.tune.toFixed(2);});
+
+  let live=false;
+  new IntersectionObserver(e=>{live=e[0].isIntersecting;},{threshold:.05}).observe(cv);
+  let acc=0,last=performance.now();
+  (function loop(now){
+    requestAnimationFrame(loop);
+    const dtr=Math.min((now-last)/1000,.05); last=now;
+    if(!live) return;
+    acc+=dtr;
+    const dt=0.0009;
+    let g=0;
+    while(acc>=dt && g++<900){
+      const r=step(dt);
+      if(g%3===0){
+        clickH.push(r.impulse); songH.push(r.out);
+        if(clickH.length>HIST){clickH.shift();songH.shift();}
+      }
+      acc-=dt;
+    }
+    render();
+  })(performance.now());
+})();
 </script>
 </body>
 </html>
