@@ -157,14 +157,14 @@
     </article>
     <article class="proj-card reveal">
       <div class="proj-head">
-        <div class="proj-name">Analog hardware for nonlinear computing and structural health monitoring</div>
+        <div class="proj-name">A surrogate reservoir computer, built in silicon</div>
         <div class="proj-kind">Thread 05</div>
       </div>
-      <div class="proj-venue">FPAA and PCB systems · hardware machine learning</div>
-      <div class="proj-meta"><strong>Role:</strong> Circuit design, fabrication and testing</div>
-      <div class="proj-meta"><strong>Methods:</strong> Analog computing · physical reservoir computing · classification</div>
-      <div class="proj-meta"><strong>Tools:</strong> FPAA · KiCad · PCB fabrication</div>
-      <p class="proj-body">If a reservoir's value is that its own physics performs the nonlinear transformation for free, implementing it digitally gives away the entire advantage. These circuits obey the governing equation continuously rather than solving it in steps, giving microwatt-scale sensor nodes that classify structural condition in real time instead of streaming raw data for offline analysis.</p>
+      <div class="proj-venue">IDETC 2026, ASME · with experimental validation</div>
+      <div class="proj-meta"><strong>Role:</strong> Co-author</div>
+      <div class="proj-meta"><strong>Methods:</strong> Physical reservoir computing · surrogate modelling · ridge regression · analog circuit design</div>
+      <div class="proj-meta"><strong>Validated on:</strong> Chaotic prediction · closed-loop control · image classification · damage detection</div>
+      <p class="proj-body">Physical reservoir computing usually asks the system you care about to be the computer — which fails when its states are inaccessible or it lacks the nonlinearity and memory the task needs. This work uses a <i>surrogate</i> instead: one chain of bistable viscoelastic oscillators, re-parameterised rather than redesigned, covering four very different tasks. Digits classify at 91.65%, and damage in the chain is localised to the node — but only when viscoelasticity is present. The architecture was then converted to its electrical analog and built on a circuit board, three op-amps and two multipliers per oscillator.</p>
       <div class="proj-links">
         <a class="pill" href="project-analog-hardware.html">Project detail →</a>
         <a class="pill" href="project-nonlinear-dynamics.html">Related: reservoir computing →</a>
