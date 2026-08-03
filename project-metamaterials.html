@@ -404,7 +404,7 @@
     <div class="fig reveal">
       <div class="fig__head"><span class="fig__no">Figure 3 &mdash; From curve to pattern</span></div>
       <div class="fig__body">
-        <svg viewBox="0 0 1270 550" xmlns="http://www.w3.org/2000/svg" role="img"
+        <svg viewBox="0 0 1270 576" xmlns="http://www.w3.org/2000/svg" role="img"
              aria-label="Pipeline: force curve resampled to 105 points drives a fixed reservoir of 20 viscoelastic oscillators; reservoir and raw features feed a kernel ridge readout predicting three pattern statistics, which the island algorithm turns into an insert pattern.">
           <text x="24" y="58" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">the pipeline</text>
           <rect x="24" y="125.0" width="150" height="110" rx="14" fill="var(--bg-card)" stroke="var(--border-2)" stroke-width="2.4"/>
@@ -429,19 +429,19 @@
           <text x="1043.0" y="202" style="font-size:19px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--muted)">RBF, summed</text>
           <line x1="1142" y1="180" x2="1170.0" y2="180.0" stroke="var(--accent-2)" stroke-width="4" stroke-linecap="round" class="flow"/><path d="M1186 180 L1168.0 172.0 L1168.0 188.0 Z" fill="var(--accent-2)"/>
           <rect x="1190" y="125" width="66" height="110" rx="14" fill="var(--bg-card)" stroke="var(--accent-2)" stroke-width="2.4"/>
-          <text x="1223" y="168" style="font-size:20px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--accent-2)">n̂ κ̂</text>
+          <text x="1218" y="168" style="font-size:20px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--accent-2)">n̂ κ̂</text>
           <text x="1223" y="198" style="font-size:20px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--accent-2)">L̂</text>
           <line x1="1223" y1="238" x2="1223.0" y2="276.0" stroke="var(--accent-2)" stroke-width="4" stroke-linecap="round"/><path d="M1223 292 L1231.0 274.0 L1215.0 274.0 Z" fill="var(--accent-2)"/>
           <rect x="880" y="302" width="376" height="92" rx="14" fill="var(--bg-alt)" stroke="var(--accent-2)" stroke-width="2.4"/>
           <text x="1068" y="336" style="font-size:22px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600">island synthesis</text>
           <text x="1068" y="366" style="font-size:19px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--muted)">seed → grow → top up</text>
-          <rect x="24" y="330" width="820" height="196" rx="14" fill="var(--bg-alt)" stroke="var(--border)" stroke-width="1.6"/>
+          <rect x="24" y="330" width="820" height="222" rx="14" fill="var(--bg-alt)" stroke="var(--border)" stroke-width="1.6"/>
           <text x="48" y="364" style="font-size:22px;font-family:Outfit,sans-serif" font-weight="600">reservoir: a chain of 20 viscoelastic oscillators</text>
           <text x="48" y="400" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--ink)">q̇ᵢ = vᵢ</text>
           <text x="48" y="430" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--ink)">v̇ᵢ = De²( 3qᵢ² − qᵢ³ − 2qᵢ − λzᵢ − R·ℓᵢ + Y₀(1 + aᵢu)cos Ωt )</text>
           <text x="48" y="460" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--accent-3)">żᵢ = vᵢ/(1−β) + qᵢ − zᵢ</text>
           <text x="48" y="494" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">equilibria (z = q):  q = 0  and  q = 3/2 ± √(1−4λ)/2</text>
-          <text x="48" y="518" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">bistable only for λ < ¼ — at λ = 2.22 the units are driven, not latched</text>
+          <text x="48" y="522" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">bistable only for λ < ¼ · at λ = 2.22 driven, not latched</text>
         </svg>
       </div>
       <p class="fig__cap"><b>Figure 3.</b> The 105 resampled force values are presented one at a time, each
