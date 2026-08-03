@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Analog Hardware for Nonlinear Computing — Pritam Ghoshal</title>
+<title>A Surrogate Reservoir Computer — Pritam Ghoshal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="FPAA and PCB-based analog systems that emulate nonlinear dynamical systems, with hardware machine learning for structural health monitoring." />
+<meta name="description" content="A single chain of bistable viscoelastic oscillators used as a task-agnostic surrogate reservoir computer, validated across four tasks and built on a printed circuit board." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -27,152 +27,366 @@
 
 <section class="page-header">
   <div class="wrap hero-inner reveal">
-    <div class="eyebrow">Project &middot; Hardware</div>
-    <h1 class="page-title">Nonlinear dynamics <em>built in silicon</em>, not simulated</h1>
-    <p class="hero-sub">FPAA and PCB systems that physically obey the equations I study — and use that behaviour to classify structural damage in real time, without a processor in the loop.</p>
-    <div class="hero-meta"><strong>Role:</strong> Circuit design, fabrication and testing &middot; <strong>Application:</strong> Structural health monitoring</div>
-    <div class="pill-row"><span class="tag">FPAA</span>
-      <span class="tag">PCB design</span>
-      <span class="tag">KiCad</span>
-      <span class="tag">Analog computing</span>
-      <span class="tag">Structural health monitoring</span></div>
+    <div class="eyebrow">Project &middot; IDETC 2026, ASME</div>
+    <h1 class="page-title">Nonlinear dynamics built in <em>silicon</em>, not simulated</h1>
+    <p class="hero-sub">
+      One chain of bistable viscoelastic oscillators, used as a <b>surrogate</b> reservoir computer:
+      the same physical substrate performs chaotic prediction, closed-loop control, image classification
+      and damage detection &mdash; and it runs on a circuit board.
+    </p>
+    <div class="hero-meta">
+      <strong>Role:</strong> Co-author &middot;
+      <strong>Support:</strong> NSF CAREER Award CMMI-2145803
+    </div>
+    <div class="pill-row">
+      <span class="tag">Physical reservoir computing</span>
+      <span class="tag">Surrogate modelling</span>
+      <span class="tag">Analog hardware</span>
+      <span class="tag">Structural health monitoring</span>
+      <span class="tag">dSPACE</span>
+    </div>
     <a href="projects.html" class="btn">&larr; Back to projects</a>
   </div>
 </section>
 
 <section class="sec">
   <div class="wrap body-copy reveal">
-    <h2 class="sec-title">Why build the equation instead of solving it</h2>
-    <p>A numerical solver approximates a differential equation in discrete steps. An analog circuit built
-      from integrators, summers and nonlinear elements does something different: its voltages
-      <em>are</em> the state variables, and they evolve continuously because the physics of the components
-      leaves them no choice. The equation is not being solved — it is being obeyed.</p>
-    <p>That distinction matters for physical reservoir computing. If the value of a reservoir is that its
-      own dynamics perform the nonlinear transformation for free, then implementing that reservoir on a
-      digital processor gives away the entire advantage. Analog hardware keeps it: microwatts of power,
-      no clock, no sampling, and a response that arrives as fast as the circuit settles.</p>
-    <p>I used <strong>field-programmable analog arrays</strong> for rapid iteration — reconfigurable analog
-      blocks that let a topology be changed without re-spinning a board — and moved designs onto custom
-      PCBs once the architecture stabilised.</p>
+    <h2 class="sec-title">Why a surrogate</h2>
+    <p>Physical reservoir computing usually asks the system you care about to <em>be</em> the computer. That
+      often fails in practice for two reasons: not all of a real system&rsquo;s states are accessible, or they
+      cannot be sampled fast enough; and the system may simply lack the nonlinearity or the depth of memory
+      the task needs.</p>
+    <p>This work takes the other route. A <strong>secondary</strong> system &mdash; a surrogate &mdash; does
+      the computing, and it only ever needs to be characterised against its own inputs. That shifts the
+      engineering problem away from tailoring a bespoke reservoir for every application and toward choosing
+      the input encoding, the target formulation and the reservoir parameters. One architecture, many
+      tasks.</p>
+    <p>The substrate is a chain of <strong>bistable viscoelastic oscillators</strong> &mdash; the same von
+      Mises truss with a standard linear solid that runs through my
+      <a href="project-vonmises-truss.html" style="color:var(--accent);border-bottom:1px solid var(--accent)">truss work</a>
+      and my <a href="project-metamaterials.html" style="color:var(--accent);border-bottom:1px solid var(--accent)">metamaterial inverse design</a>.
+      Bistability supplies the nonlinearity, viscoelasticity supplies the memory, and the balance between
+      them is tuned by three numbers.</p>
   </div>
   <div class="wrap">
     <div class="fig reveal">
-      <div class="fig__head"><span class="fig__no">Figure 1 — An equation, built out of op-amps</span></div>
+      <div class="fig__head"><span class="fig__no">Figure 1 &mdash; The reservoir</span></div>
       <div class="fig__body">
-        <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" role="img"
-             aria-label="Block diagram of an analog computer: a summing junction feeding two integrators with cubic and linear feedback paths.">
-          <g class="pop">
-            <circle class="s-card" cx="96" cy="120" r="26"/>
-            <text class="s-txt" x="88" y="126">&#8721;</text>
-            <text class="s-mono" x="30" y="90">u(t)</text>
-            <path class="s-accent flow" d="M40 120 L68 120"/>
-          </g>
-          <path class="s-accent flow" d="M124 120 L166 120"/>
-          <text class="s-mono" x="126" y="108">&#7825;</text>
-          <g class="pop pop--d1">
-            <rect class="s-card" x="168" y="92" width="92" height="56" rx="8"/>
-            <text class="s-txt" x="196" y="126">&#8747;</text>
-          </g>
-          <path class="s-accent flow" d="M262 120 L306 120"/>
-          <text class="s-mono" x="266" y="108">&#7819;</text>
-          <g class="pop pop--d2">
-            <rect class="s-card" x="308" y="92" width="92" height="56" rx="8"/>
-            <text class="s-txt" x="336" y="126">&#8747;</text>
-          </g>
-          <path class="s-accent flow" d="M402 120 L470 120"/>
-          <text class="s-mono" x="440" y="108">x</text>
-          <g class="pop pop--d3">
-            <rect class="s-card" x="472" y="92" width="120" height="56" rx="8"/>
-            <text class="s-txt" x="492" y="126">readout</text>
-          </g>
-
-          <!-- cubic feedback -->
-          <g class="pop pop--d4">
-            <path class="s-accent2" d="M436 148 L436 208 L300 208"/>
-            <rect x="196" y="184" width="104" height="48" rx="8" fill="var(--bg-alt)" stroke="var(--accent-2)" stroke-width="2"/>
-            <text class="s-mono2" x="222" y="214">x &#8722; x&#179;</text>
-            <path class="s-accent2" d="M196 208 L96 208 L96 146"/>
-            <path class="s-fill2" d="M96 140 L90 154 L102 154 Z"/>
-          </g>
-          <!-- damping feedback -->
-          <g class="pop pop--d5">
-            <path class="s-accent3" d="M290 148 L290 262 L96 262 L96 152"/>
-            <rect x="330" y="240" width="96" height="44" rx="8" fill="var(--bg-alt)" stroke="var(--accent-3)" stroke-width="2"/>
-            <text class="s-mono" x="356" y="268" fill="var(--accent-3)">&#8722;&#948;&#7819;</text>
-            <path class="s-accent3" d="M330 262 L290 262"/>
-          </g>
-          <text class="s-txt s-txt--sm" x="596" y="126">&#8594; classifier</text>
-          <text class="s-mono" x="600" y="180">FPAA / PCB</text>
+        <svg viewBox="0 0 1270 616" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="A chain of bistable viscoelastic oscillators used as a reservoir computer: each unit cell is a mass on inclined springs with a grounded viscoelastic element, coupled to its neighbours; masked input signals drive every node and only the displacements are read out.">
+          <rect x="20" y="20" width="1230" height="410" rx="16" fill="rgba(255,90,31,.07)" stroke="var(--border)" stroke-width="1.6"/>
+          <text x="46" y="56" style="font-size:25px;font-family:Outfit,sans-serif" fill="var(--accent-2)" font-weight="600">Reservoir</text>
+          <line x1="60" y1="250" x2="1230" y2="250" stroke="var(--ink)" stroke-width="1.6"/>
+          <line x1="450" y1="140" x2="450" y2="360" stroke="var(--sub)" stroke-width="1" stroke-dasharray="4 5"/>
+          <path d="M330.0 250.0 L340.3 240.5 L340.3 240.5 L342.5 241.4 L344.7 242.2 L346.6 242.8 L348.4 243.2 L349.8 243.2 L350.9 242.9 L351.7 242.2 L352.1 241.1 L352.2 239.7 L352.0 237.9 L351.6 235.9 L350.9 233.7 L350.3 231.4 L349.6 229.1 L349.0 226.9 L348.5 224.9 L348.3 223.2 L348.4 221.7 L348.8 220.6 L349.6 219.9 L350.7 219.6 L352.1 219.7 L353.9 220.0 L355.8 220.6 L358.0 221.4 L360.2 222.3 L362.4 223.2 L364.5 224.0 L366.5 224.6 L368.3 225.0 L369.7 225.0 L370.8 224.7 L371.6 224.0 L372.0 222.9 L372.1 221.5 L371.9 219.7 L371.4 217.7 L370.8 215.5 L370.1 213.2 L369.4 210.9 L368.8 208.7 L368.4 206.7 L368.2 205.0 L368.3 203.5 L368.7 202.4 L369.4 201.7 L370.6 201.4 L372.0 201.5 L373.7 201.8 L375.7 202.4 L377.8 203.2 L380.1 204.1 L382.3 205.0 L384.4 205.8 L386.4 206.4 L388.1 206.8 L389.6 206.8 L390.7 206.5 L391.5 205.8 L391.9 204.7 L391.9 203.3 L391.7 201.5 L391.3 199.5 L390.7 197.3 L390.0 195.0 L389.3 192.7 L388.7 190.5 L388.3 188.5 L388.1 186.7 L388.1 185.3 L388.5 184.2 L389.3 183.5 L390.4 183.2 L391.9 183.2 L393.6 183.6 L395.6 184.2 L397.7 185.0 L399.9 185.9 L402.2 186.8 L404.3 187.6 L406.3 188.2 L408.0 188.5 L409.4 188.6 L410.6 188.3 L411.3 187.6 L411.7 186.5 L411.8 185.0 L411.6 183.3 L411.2 181.3 L410.6 179.1 L409.9 176.8 L409.2 174.5 L408.6 172.3 L408.1 170.3 L407.9 168.5 L408.0 167.1 L408.4 166.0 L409.2 165.3 L410.3 165.0 L411.7 165.0 L413.5 165.4 L415.5 166.0 L417.6 166.8 L419.8 167.7 L422.0 168.6 L424.2 169.4 L426.1 170.0 L427.9 170.3 L429.3 170.4 L430.4 170.1 L431.2 169.4 L431.6 168.3 L431.7 166.8 L431.5 165.1 L431.0 163.1 L430.4 160.9 L429.7 158.6 L429.1 156.3 L428.4 154.1 L428.0 152.1 L427.8 150.3 L427.9 148.9 L428.3 147.8 L429.1 147.1 L430.2 146.8 L431.6 146.8 L433.4 147.2 L435.3 147.8 L437.5 148.6 L439.7 149.5 L450.0 140.0" stroke="var(--ink)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M330.0 250.0 L340.3 259.5 L340.3 259.5 L339.6 261.7 L339.0 263.9 L338.6 266.0 L338.4 267.7 L338.5 269.2 L338.9 270.2 L339.6 271.0 L340.7 271.3 L342.2 271.2 L343.9 270.9 L345.9 270.3 L348.0 269.5 L350.3 268.6 L352.5 267.7 L354.6 266.9 L356.6 266.3 L358.3 265.9 L359.8 265.9 L360.9 266.2 L361.6 266.9 L362.1 268.0 L362.1 269.4 L361.9 271.2 L361.5 273.2 L360.9 275.4 L360.2 277.7 L359.5 280.0 L358.9 282.2 L358.5 284.2 L358.2 285.9 L358.3 287.4 L358.7 288.5 L359.5 289.2 L360.6 289.5 L362.1 289.4 L363.8 289.1 L365.8 288.5 L367.9 287.7 L370.1 286.8 L372.3 285.9 L374.5 285.1 L376.5 284.5 L378.2 284.1 L379.6 284.1 L380.8 284.4 L381.5 285.1 L381.9 286.2 L382.0 287.6 L381.8 289.4 L381.4 291.4 L380.8 293.6 L380.1 295.9 L379.4 298.2 L378.8 300.4 L378.3 302.4 L378.1 304.2 L378.2 305.6 L378.6 306.7 L379.4 307.4 L380.5 307.7 L381.9 307.7 L383.7 307.3 L385.6 306.7 L387.8 305.9 L390.0 305.0 L392.2 304.1 L394.4 303.3 L396.3 302.7 L398.1 302.3 L399.5 302.3 L400.6 302.6 L401.4 303.3 L401.8 304.4 L401.9 305.8 L401.7 307.6 L401.2 309.6 L400.6 311.8 L399.9 314.1 L399.2 316.4 L398.6 318.6 L398.2 320.6 L398.0 322.4 L398.1 323.8 L398.5 324.9 L399.2 325.6 L400.4 325.9 L401.8 325.9 L403.5 325.5 L405.5 324.9 L407.7 324.1 L409.9 323.2 L412.1 322.3 L414.2 321.5 L416.2 320.9 L417.9 320.6 L419.4 320.5 L420.5 320.8 L421.3 321.5 L421.7 322.6 L421.8 324.1 L421.5 325.8 L421.1 327.8 L420.5 330.0 L419.8 332.3 L419.1 334.6 L418.5 336.8 L418.1 338.8 L417.9 340.6 L417.9 342.0 L418.4 343.1 L419.1 343.8 L420.2 344.1 L421.7 344.1 L423.4 343.7 L425.4 343.1 L427.5 342.3 L429.7 341.4 L432.0 340.5 L434.1 339.7 L436.1 339.1 L437.8 338.8 L439.3 338.7 L440.4 339.0 L441.1 339.8 L441.5 340.8 L441.6 342.3 L441.4 344.0 L441.0 346.1 L440.4 348.3 L439.7 350.5 L450.0 360.0" stroke="var(--ink)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <g><line x1="462" y1="114" x2="462" y2="166" stroke="var(--ink)" stroke-width="2.6"/><g stroke="var(--sub)" stroke-width="1.3"><line x1="462" y1="116" x2="472" y2="108"/><line x1="462" y1="126" x2="472" y2="118"/><line x1="462" y1="136" x2="472" y2="128"/><line x1="462" y1="146" x2="472" y2="138"/><line x1="462" y1="156" x2="472" y2="148"/><line x1="462" y1="166" x2="472" y2="158"/></g><line x1="450" y1="140" x2="462" y2="140" stroke="var(--ink)" stroke-width="2.2"/><circle cx="450" cy="140" r="6" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="2"/></g>
+          <g><line x1="462" y1="334" x2="462" y2="386" stroke="var(--ink)" stroke-width="2.6"/><g stroke="var(--sub)" stroke-width="1.3"><line x1="462" y1="336" x2="472" y2="328"/><line x1="462" y1="346" x2="472" y2="338"/><line x1="462" y1="356" x2="472" y2="348"/><line x1="462" y1="366" x2="472" y2="358"/><line x1="462" y1="376" x2="472" y2="368"/><line x1="462" y1="386" x2="472" y2="378"/></g><line x1="450" y1="360" x2="462" y2="360" stroke="var(--ink)" stroke-width="2.2"/><circle cx="450" cy="360" r="6" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="2"/></g>
+          <g><line x1="160" y1="184" x2="160" y2="232" stroke="var(--ink)" stroke-width="3"/><g stroke="var(--sub)" stroke-width="1.5"><line x1="160" y1="184" x2="148" y2="175"/><line x1="160" y1="194" x2="148" y2="185"/><line x1="160" y1="204" x2="148" y2="195"/><line x1="160" y1="214" x2="148" y2="205"/><line x1="160" y1="224" x2="148" y2="215"/></g></g>
+          <g><line x1="160" y1="268" x2="160" y2="316" stroke="var(--ink)" stroke-width="3"/><g stroke="var(--sub)" stroke-width="1.5"><line x1="160" y1="268" x2="148" y2="259"/><line x1="160" y1="278" x2="148" y2="269"/><line x1="160" y1="288" x2="148" y2="279"/><line x1="160" y1="298" x2="148" y2="289"/><line x1="160" y1="308" x2="148" y2="299"/></g></g>
+          <path d="M160.0 208.0 L170.0 208.0 L170.0 208.0 L170.8 209.7 L171.5 211.3 L172.3 212.6 L173.0 213.8 L173.8 214.5 L174.5 214.9 L175.3 214.9 L176.0 214.5 L176.8 213.8 L177.5 212.6 L178.3 211.3 L179.0 209.7 L179.8 208.0 L180.6 206.3 L181.3 204.7 L182.1 203.4 L182.8 202.2 L183.6 201.5 L184.3 201.1 L185.1 201.1 L185.8 201.5 L186.6 202.2 L187.3 203.4 L188.1 204.7 L188.8 206.3 L189.6 208.0 L190.4 209.7 L191.1 211.3 L191.9 212.6 L192.6 213.8 L193.4 214.5 L194.1 214.9 L194.9 214.9 L195.6 214.5 L196.4 213.8 L197.1 212.6 L197.9 211.3 L198.6 209.7 L199.4 208.0 L200.2 206.3 L200.9 204.7 L201.7 203.4 L202.4 202.2 L203.2 201.5 L203.9 201.1 L204.7 201.1 L205.4 201.5 L206.2 202.2 L206.9 203.4 L207.7 204.7 L208.4 206.3 L209.2 208.0 L210.0 209.7 L210.7 211.3 L211.5 212.6 L212.2 213.8 L213.0 214.5 L213.7 214.9 L214.5 214.9 L215.2 214.5 L216.0 213.8 L216.7 212.6 L217.5 211.3 L218.2 209.7 L219.0 208.0 L219.8 206.3 L220.5 204.7 L221.3 203.4 L222.0 202.2 L222.8 201.5 L223.5 201.1 L224.3 201.1 L225.0 201.5 L225.8 202.2 L226.5 203.4 L227.3 204.7 L228.0 206.3 L228.8 208.0 L229.6 209.7 L230.3 211.3 L231.1 212.6 L231.8 213.8 L232.6 214.5 L233.3 214.9 L234.1 214.9 L234.8 214.5 L235.6 213.8 L236.3 212.6 L237.1 211.3 L237.8 209.7 L238.6 208.0 L239.4 206.3 L240.1 204.7 L240.9 203.4 L241.6 202.2 L242.4 201.5 L243.1 201.1 L243.9 201.1 L244.6 201.5 L245.4 202.2 L246.1 203.4 L246.9 204.7 L247.6 206.3 L248.4 208.0 L249.2 209.7 L249.9 211.3 L250.7 212.6 L251.4 213.8 L252.2 214.5 L252.9 214.9 L253.7 214.9 L254.4 214.5 L255.2 213.8 L255.9 212.6 L256.7 211.3 L257.4 209.7 L258.2 208.0 L259.0 206.3 L259.7 204.7 L260.5 203.4 L261.2 202.2 L262.0 201.5 L262.7 201.1 L263.5 201.1 L264.2 201.5 L265.0 202.2 L265.7 203.4 L266.5 204.7 L267.2 206.3 L268.0 208.0 L278.0 208.0" stroke="var(--ink)" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <g stroke="var(--ink)" stroke-width="2.2" fill="none" stroke-linecap="round"><line x1="160" y1="292" x2="182" y2="292"/><path d="M222 277 L182 277 L182 307 L222 307" fill="var(--bg-alt)"/><line x1="210" y1="281" x2="210" y2="303" stroke-width="2.8"/><line x1="210" y1="292" x2="278" y2="292"/></g>
+          <line x1="278" y1="208" x2="278" y2="292" stroke="var(--ink)" stroke-width="2.2"/>
+          <line x1="278" y1="250" x2="314" y2="250" stroke="var(--ink)" stroke-width="2.2"/>
+          <line x1="820" y1="140" x2="820" y2="360" stroke="var(--sub)" stroke-width="1" stroke-dasharray="4 5"/>
+          <path d="M700.0 250.0 L710.3 240.5 L710.3 240.5 L712.5 241.4 L714.7 242.2 L716.6 242.8 L718.4 243.2 L719.8 243.2 L720.9 242.9 L721.7 242.2 L722.1 241.1 L722.2 239.7 L722.0 237.9 L721.6 235.9 L720.9 233.7 L720.3 231.4 L719.6 229.1 L719.0 226.9 L718.5 224.9 L718.3 223.2 L718.4 221.7 L718.8 220.6 L719.6 219.9 L720.7 219.6 L722.1 219.7 L723.9 220.0 L725.8 220.6 L728.0 221.4 L730.2 222.3 L732.4 223.2 L734.5 224.0 L736.5 224.6 L738.3 225.0 L739.7 225.0 L740.8 224.7 L741.6 224.0 L742.0 222.9 L742.1 221.5 L741.9 219.7 L741.4 217.7 L740.8 215.5 L740.1 213.2 L739.4 210.9 L738.8 208.7 L738.4 206.7 L738.2 205.0 L738.3 203.5 L738.7 202.4 L739.4 201.7 L740.6 201.4 L742.0 201.5 L743.7 201.8 L745.7 202.4 L747.8 203.2 L750.1 204.1 L752.3 205.0 L754.4 205.8 L756.4 206.4 L758.1 206.8 L759.6 206.8 L760.7 206.5 L761.5 205.8 L761.9 204.7 L761.9 203.3 L761.7 201.5 L761.3 199.5 L760.7 197.3 L760.0 195.0 L759.3 192.7 L758.7 190.5 L758.3 188.5 L758.1 186.7 L758.1 185.3 L758.5 184.2 L759.3 183.5 L760.4 183.2 L761.9 183.2 L763.6 183.6 L765.6 184.2 L767.7 185.0 L769.9 185.9 L772.2 186.8 L774.3 187.6 L776.3 188.2 L778.0 188.5 L779.4 188.6 L780.6 188.3 L781.3 187.6 L781.7 186.5 L781.8 185.0 L781.6 183.3 L781.2 181.3 L780.6 179.1 L779.9 176.8 L779.2 174.5 L778.6 172.3 L778.1 170.3 L777.9 168.5 L778.0 167.1 L778.4 166.0 L779.2 165.3 L780.3 165.0 L781.7 165.0 L783.5 165.4 L785.5 166.0 L787.6 166.8 L789.8 167.7 L792.0 168.6 L794.2 169.4 L796.1 170.0 L797.9 170.3 L799.3 170.4 L800.4 170.1 L801.2 169.4 L801.6 168.3 L801.7 166.8 L801.5 165.1 L801.0 163.1 L800.4 160.9 L799.7 158.6 L799.1 156.3 L798.4 154.1 L798.0 152.1 L797.8 150.3 L797.9 148.9 L798.3 147.8 L799.1 147.1 L800.2 146.8 L801.6 146.8 L803.4 147.2 L805.3 147.8 L807.5 148.6 L809.7 149.5 L820.0 140.0" stroke="var(--ink)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M700.0 250.0 L710.3 259.5 L710.3 259.5 L709.6 261.7 L709.0 263.9 L708.6 266.0 L708.4 267.7 L708.5 269.2 L708.9 270.2 L709.6 271.0 L710.7 271.3 L712.2 271.2 L713.9 270.9 L715.9 270.3 L718.0 269.5 L720.3 268.6 L722.5 267.7 L724.6 266.9 L726.6 266.3 L728.3 265.9 L729.8 265.9 L730.9 266.2 L731.6 266.9 L732.1 268.0 L732.1 269.4 L731.9 271.2 L731.5 273.2 L730.9 275.4 L730.2 277.7 L729.5 280.0 L728.9 282.2 L728.5 284.2 L728.2 285.9 L728.3 287.4 L728.7 288.5 L729.5 289.2 L730.6 289.5 L732.1 289.4 L733.8 289.1 L735.8 288.5 L737.9 287.7 L740.1 286.8 L742.3 285.9 L744.5 285.1 L746.5 284.5 L748.2 284.1 L749.6 284.1 L750.8 284.4 L751.5 285.1 L751.9 286.2 L752.0 287.6 L751.8 289.4 L751.4 291.4 L750.8 293.6 L750.1 295.9 L749.4 298.2 L748.8 300.4 L748.3 302.4 L748.1 304.2 L748.2 305.6 L748.6 306.7 L749.4 307.4 L750.5 307.7 L751.9 307.7 L753.7 307.3 L755.6 306.7 L757.8 305.9 L760.0 305.0 L762.2 304.1 L764.4 303.3 L766.3 302.7 L768.1 302.3 L769.5 302.3 L770.6 302.6 L771.4 303.3 L771.8 304.4 L771.9 305.8 L771.7 307.6 L771.2 309.6 L770.6 311.8 L769.9 314.1 L769.2 316.4 L768.6 318.6 L768.2 320.6 L768.0 322.4 L768.1 323.8 L768.5 324.9 L769.2 325.6 L770.4 325.9 L771.8 325.9 L773.5 325.5 L775.5 324.9 L777.7 324.1 L779.9 323.2 L782.1 322.3 L784.2 321.5 L786.2 320.9 L787.9 320.6 L789.4 320.5 L790.5 320.8 L791.3 321.5 L791.7 322.6 L791.8 324.1 L791.5 325.8 L791.1 327.8 L790.5 330.0 L789.8 332.3 L789.1 334.6 L788.5 336.8 L788.1 338.8 L787.9 340.6 L787.9 342.0 L788.4 343.1 L789.1 343.8 L790.2 344.1 L791.7 344.1 L793.4 343.7 L795.4 343.1 L797.5 342.3 L799.7 341.4 L802.0 340.5 L804.1 339.7 L806.1 339.1 L807.8 338.8 L809.3 338.7 L810.4 339.0 L811.1 339.8 L811.5 340.8 L811.6 342.3 L811.4 344.0 L811.0 346.1 L810.4 348.3 L809.7 350.5 L820.0 360.0" stroke="var(--ink)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <g><line x1="832" y1="114" x2="832" y2="166" stroke="var(--ink)" stroke-width="2.6"/><g stroke="var(--sub)" stroke-width="1.3"><line x1="832" y1="116" x2="842" y2="108"/><line x1="832" y1="126" x2="842" y2="118"/><line x1="832" y1="136" x2="842" y2="128"/><line x1="832" y1="146" x2="842" y2="138"/><line x1="832" y1="156" x2="842" y2="148"/><line x1="832" y1="166" x2="842" y2="158"/></g><line x1="820" y1="140" x2="832" y2="140" stroke="var(--ink)" stroke-width="2.2"/><circle cx="820" cy="140" r="6" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="2"/></g>
+          <g><line x1="832" y1="334" x2="832" y2="386" stroke="var(--ink)" stroke-width="2.6"/><g stroke="var(--sub)" stroke-width="1.3"><line x1="832" y1="336" x2="842" y2="328"/><line x1="832" y1="346" x2="842" y2="338"/><line x1="832" y1="356" x2="842" y2="348"/><line x1="832" y1="366" x2="842" y2="358"/><line x1="832" y1="376" x2="842" y2="368"/><line x1="832" y1="386" x2="842" y2="378"/></g><line x1="820" y1="360" x2="832" y2="360" stroke="var(--ink)" stroke-width="2.2"/><circle cx="820" cy="360" r="6" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="2"/></g>
+          <g><line x1="530" y1="184" x2="530" y2="232" stroke="var(--ink)" stroke-width="3"/><g stroke="var(--sub)" stroke-width="1.5"><line x1="530" y1="184" x2="518" y2="175"/><line x1="530" y1="194" x2="518" y2="185"/><line x1="530" y1="204" x2="518" y2="195"/><line x1="530" y1="214" x2="518" y2="205"/><line x1="530" y1="224" x2="518" y2="215"/></g></g>
+          <g><line x1="530" y1="268" x2="530" y2="316" stroke="var(--ink)" stroke-width="3"/><g stroke="var(--sub)" stroke-width="1.5"><line x1="530" y1="268" x2="518" y2="259"/><line x1="530" y1="278" x2="518" y2="269"/><line x1="530" y1="288" x2="518" y2="279"/><line x1="530" y1="298" x2="518" y2="289"/><line x1="530" y1="308" x2="518" y2="299"/></g></g>
+          <path d="M530.0 208.0 L540.0 208.0 L540.0 208.0 L540.8 209.7 L541.5 211.3 L542.3 212.6 L543.0 213.8 L543.8 214.5 L544.5 214.9 L545.3 214.9 L546.0 214.5 L546.8 213.8 L547.5 212.6 L548.3 211.3 L549.0 209.7 L549.8 208.0 L550.6 206.3 L551.3 204.7 L552.1 203.4 L552.8 202.2 L553.6 201.5 L554.3 201.1 L555.1 201.1 L555.8 201.5 L556.6 202.2 L557.3 203.4 L558.1 204.7 L558.8 206.3 L559.6 208.0 L560.4 209.7 L561.1 211.3 L561.9 212.6 L562.6 213.8 L563.4 214.5 L564.1 214.9 L564.9 214.9 L565.6 214.5 L566.4 213.8 L567.1 212.6 L567.9 211.3 L568.6 209.7 L569.4 208.0 L570.2 206.3 L570.9 204.7 L571.7 203.4 L572.4 202.2 L573.2 201.5 L573.9 201.1 L574.7 201.1 L575.4 201.5 L576.2 202.2 L576.9 203.4 L577.7 204.7 L578.4 206.3 L579.2 208.0 L580.0 209.7 L580.7 211.3 L581.5 212.6 L582.2 213.8 L583.0 214.5 L583.7 214.9 L584.5 214.9 L585.2 214.5 L586.0 213.8 L586.7 212.6 L587.5 211.3 L588.2 209.7 L589.0 208.0 L589.8 206.3 L590.5 204.7 L591.3 203.4 L592.0 202.2 L592.8 201.5 L593.5 201.1 L594.3 201.1 L595.0 201.5 L595.8 202.2 L596.5 203.4 L597.3 204.7 L598.0 206.3 L598.8 208.0 L599.6 209.7 L600.3 211.3 L601.1 212.6 L601.8 213.8 L602.6 214.5 L603.3 214.9 L604.1 214.9 L604.8 214.5 L605.6 213.8 L606.3 212.6 L607.1 211.3 L607.8 209.7 L608.6 208.0 L609.4 206.3 L610.1 204.7 L610.9 203.4 L611.6 202.2 L612.4 201.5 L613.1 201.1 L613.9 201.1 L614.6 201.5 L615.4 202.2 L616.1 203.4 L616.9 204.7 L617.6 206.3 L618.4 208.0 L619.2 209.7 L619.9 211.3 L620.7 212.6 L621.4 213.8 L622.2 214.5 L622.9 214.9 L623.7 214.9 L624.4 214.5 L625.2 213.8 L625.9 212.6 L626.7 211.3 L627.4 209.7 L628.2 208.0 L629.0 206.3 L629.7 204.7 L630.5 203.4 L631.2 202.2 L632.0 201.5 L632.7 201.1 L633.5 201.1 L634.2 201.5 L635.0 202.2 L635.7 203.4 L636.5 204.7 L637.2 206.3 L638.0 208.0 L648.0 208.0" stroke="var(--ink)" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <g stroke="var(--ink)" stroke-width="2.2" fill="none" stroke-linecap="round"><line x1="530" y1="292" x2="552" y2="292"/><path d="M592 277 L552 277 L552 307 L592 307" fill="var(--bg-alt)"/><line x1="580" y1="281" x2="580" y2="303" stroke-width="2.8"/><line x1="580" y1="292" x2="648" y2="292"/></g>
+          <line x1="648" y1="208" x2="648" y2="292" stroke="var(--ink)" stroke-width="2.2"/>
+          <line x1="648" y1="250" x2="684" y2="250" stroke="var(--ink)" stroke-width="2.2"/>
+          <line x1="1190" y1="140" x2="1190" y2="360" stroke="var(--sub)" stroke-width="1" stroke-dasharray="4 5"/>
+          <path d="M1070.0 250.0 L1080.3 240.5 L1080.3 240.5 L1082.5 241.4 L1084.7 242.2 L1086.6 242.8 L1088.4 243.2 L1089.8 243.2 L1090.9 242.9 L1091.7 242.2 L1092.1 241.1 L1092.2 239.7 L1092.0 237.9 L1091.6 235.9 L1090.9 233.7 L1090.3 231.4 L1089.6 229.1 L1089.0 226.9 L1088.5 224.9 L1088.3 223.2 L1088.4 221.7 L1088.8 220.6 L1089.6 219.9 L1090.7 219.6 L1092.1 219.7 L1093.9 220.0 L1095.8 220.6 L1098.0 221.4 L1100.2 222.3 L1102.4 223.2 L1104.5 224.0 L1106.5 224.6 L1108.3 225.0 L1109.7 225.0 L1110.8 224.7 L1111.6 224.0 L1112.0 222.9 L1112.1 221.5 L1111.9 219.7 L1111.4 217.7 L1110.8 215.5 L1110.1 213.2 L1109.4 210.9 L1108.8 208.7 L1108.4 206.7 L1108.2 205.0 L1108.3 203.5 L1108.7 202.4 L1109.4 201.7 L1110.6 201.4 L1112.0 201.5 L1113.7 201.8 L1115.7 202.4 L1117.8 203.2 L1120.1 204.1 L1122.3 205.0 L1124.4 205.8 L1126.4 206.4 L1128.1 206.8 L1129.6 206.8 L1130.7 206.5 L1131.5 205.8 L1131.9 204.7 L1131.9 203.3 L1131.7 201.5 L1131.3 199.5 L1130.7 197.3 L1130.0 195.0 L1129.3 192.7 L1128.7 190.5 L1128.3 188.5 L1128.1 186.7 L1128.1 185.3 L1128.5 184.2 L1129.3 183.5 L1130.4 183.2 L1131.9 183.2 L1133.6 183.6 L1135.6 184.2 L1137.7 185.0 L1139.9 185.9 L1142.2 186.8 L1144.3 187.6 L1146.3 188.2 L1148.0 188.5 L1149.4 188.6 L1150.6 188.3 L1151.3 187.6 L1151.7 186.5 L1151.8 185.0 L1151.6 183.3 L1151.2 181.3 L1150.6 179.1 L1149.9 176.8 L1149.2 174.5 L1148.6 172.3 L1148.1 170.3 L1147.9 168.5 L1148.0 167.1 L1148.4 166.0 L1149.2 165.3 L1150.3 165.0 L1151.7 165.0 L1153.5 165.4 L1155.5 166.0 L1157.6 166.8 L1159.8 167.7 L1162.0 168.6 L1164.2 169.4 L1166.1 170.0 L1167.9 170.3 L1169.3 170.4 L1170.4 170.1 L1171.2 169.4 L1171.6 168.3 L1171.7 166.8 L1171.5 165.1 L1171.0 163.1 L1170.4 160.9 L1169.7 158.6 L1169.1 156.3 L1168.4 154.1 L1168.0 152.1 L1167.8 150.3 L1167.9 148.9 L1168.3 147.8 L1169.1 147.1 L1170.2 146.8 L1171.6 146.8 L1173.4 147.2 L1175.3 147.8 L1177.5 148.6 L1179.7 149.5 L1190.0 140.0" stroke="var(--ink)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M1070.0 250.0 L1080.3 259.5 L1080.3 259.5 L1079.6 261.7 L1079.0 263.9 L1078.6 266.0 L1078.4 267.7 L1078.5 269.2 L1078.9 270.2 L1079.6 271.0 L1080.7 271.3 L1082.2 271.2 L1083.9 270.9 L1085.9 270.3 L1088.0 269.5 L1090.3 268.6 L1092.5 267.7 L1094.6 266.9 L1096.6 266.3 L1098.3 265.9 L1099.8 265.9 L1100.9 266.2 L1101.6 266.9 L1102.1 268.0 L1102.1 269.4 L1101.9 271.2 L1101.5 273.2 L1100.9 275.4 L1100.2 277.7 L1099.5 280.0 L1098.9 282.2 L1098.5 284.2 L1098.2 285.9 L1098.3 287.4 L1098.7 288.5 L1099.5 289.2 L1100.6 289.5 L1102.1 289.4 L1103.8 289.1 L1105.8 288.5 L1107.9 287.7 L1110.1 286.8 L1112.3 285.9 L1114.5 285.1 L1116.5 284.5 L1118.2 284.1 L1119.6 284.1 L1120.8 284.4 L1121.5 285.1 L1121.9 286.2 L1122.0 287.6 L1121.8 289.4 L1121.4 291.4 L1120.8 293.6 L1120.1 295.9 L1119.4 298.2 L1118.8 300.4 L1118.3 302.4 L1118.1 304.2 L1118.2 305.6 L1118.6 306.7 L1119.4 307.4 L1120.5 307.7 L1121.9 307.7 L1123.7 307.3 L1125.6 306.7 L1127.8 305.9 L1130.0 305.0 L1132.2 304.1 L1134.4 303.3 L1136.3 302.7 L1138.1 302.3 L1139.5 302.3 L1140.6 302.6 L1141.4 303.3 L1141.8 304.4 L1141.9 305.8 L1141.7 307.6 L1141.2 309.6 L1140.6 311.8 L1139.9 314.1 L1139.2 316.4 L1138.6 318.6 L1138.2 320.6 L1138.0 322.4 L1138.1 323.8 L1138.5 324.9 L1139.2 325.6 L1140.4 325.9 L1141.8 325.9 L1143.5 325.5 L1145.5 324.9 L1147.7 324.1 L1149.9 323.2 L1152.1 322.3 L1154.2 321.5 L1156.2 320.9 L1157.9 320.6 L1159.4 320.5 L1160.5 320.8 L1161.3 321.5 L1161.7 322.6 L1161.8 324.1 L1161.5 325.8 L1161.1 327.8 L1160.5 330.0 L1159.8 332.3 L1159.1 334.6 L1158.5 336.8 L1158.1 338.8 L1157.9 340.6 L1157.9 342.0 L1158.4 343.1 L1159.1 343.8 L1160.2 344.1 L1161.7 344.1 L1163.4 343.7 L1165.4 343.1 L1167.5 342.3 L1169.7 341.4 L1172.0 340.5 L1174.1 339.7 L1176.1 339.1 L1177.8 338.8 L1179.3 338.7 L1180.4 339.0 L1181.1 339.8 L1181.5 340.8 L1181.6 342.3 L1181.4 344.0 L1181.0 346.1 L1180.4 348.3 L1179.7 350.5 L1190.0 360.0" stroke="var(--ink)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <g><line x1="1202" y1="114" x2="1202" y2="166" stroke="var(--ink)" stroke-width="2.6"/><g stroke="var(--sub)" stroke-width="1.3"><line x1="1202" y1="116" x2="1212" y2="108"/><line x1="1202" y1="126" x2="1212" y2="118"/><line x1="1202" y1="136" x2="1212" y2="128"/><line x1="1202" y1="146" x2="1212" y2="138"/><line x1="1202" y1="156" x2="1212" y2="148"/><line x1="1202" y1="166" x2="1212" y2="158"/></g><line x1="1190" y1="140" x2="1202" y2="140" stroke="var(--ink)" stroke-width="2.2"/><circle cx="1190" cy="140" r="6" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="2"/></g>
+          <g><line x1="1202" y1="334" x2="1202" y2="386" stroke="var(--ink)" stroke-width="2.6"/><g stroke="var(--sub)" stroke-width="1.3"><line x1="1202" y1="336" x2="1212" y2="328"/><line x1="1202" y1="346" x2="1212" y2="338"/><line x1="1202" y1="356" x2="1212" y2="348"/><line x1="1202" y1="366" x2="1212" y2="358"/><line x1="1202" y1="376" x2="1212" y2="368"/><line x1="1202" y1="386" x2="1212" y2="378"/></g><line x1="1190" y1="360" x2="1202" y2="360" stroke="var(--ink)" stroke-width="2.2"/><circle cx="1190" cy="360" r="6" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="2"/></g>
+          <g><line x1="900" y1="184" x2="900" y2="232" stroke="var(--ink)" stroke-width="3"/><g stroke="var(--sub)" stroke-width="1.5"><line x1="900" y1="184" x2="888" y2="175"/><line x1="900" y1="194" x2="888" y2="185"/><line x1="900" y1="204" x2="888" y2="195"/><line x1="900" y1="214" x2="888" y2="205"/><line x1="900" y1="224" x2="888" y2="215"/></g></g>
+          <g><line x1="900" y1="268" x2="900" y2="316" stroke="var(--ink)" stroke-width="3"/><g stroke="var(--sub)" stroke-width="1.5"><line x1="900" y1="268" x2="888" y2="259"/><line x1="900" y1="278" x2="888" y2="269"/><line x1="900" y1="288" x2="888" y2="279"/><line x1="900" y1="298" x2="888" y2="289"/><line x1="900" y1="308" x2="888" y2="299"/></g></g>
+          <path d="M900.0 208.0 L910.0 208.0 L910.0 208.0 L910.8 209.7 L911.5 211.3 L912.3 212.6 L913.0 213.8 L913.8 214.5 L914.5 214.9 L915.3 214.9 L916.0 214.5 L916.8 213.8 L917.5 212.6 L918.3 211.3 L919.0 209.7 L919.8 208.0 L920.6 206.3 L921.3 204.7 L922.1 203.4 L922.8 202.2 L923.6 201.5 L924.3 201.1 L925.1 201.1 L925.8 201.5 L926.6 202.2 L927.3 203.4 L928.1 204.7 L928.8 206.3 L929.6 208.0 L930.4 209.7 L931.1 211.3 L931.9 212.6 L932.6 213.8 L933.4 214.5 L934.1 214.9 L934.9 214.9 L935.6 214.5 L936.4 213.8 L937.1 212.6 L937.9 211.3 L938.6 209.7 L939.4 208.0 L940.2 206.3 L940.9 204.7 L941.7 203.4 L942.4 202.2 L943.2 201.5 L943.9 201.1 L944.7 201.1 L945.4 201.5 L946.2 202.2 L946.9 203.4 L947.7 204.7 L948.4 206.3 L949.2 208.0 L950.0 209.7 L950.7 211.3 L951.5 212.6 L952.2 213.8 L953.0 214.5 L953.7 214.9 L954.5 214.9 L955.2 214.5 L956.0 213.8 L956.7 212.6 L957.5 211.3 L958.2 209.7 L959.0 208.0 L959.8 206.3 L960.5 204.7 L961.3 203.4 L962.0 202.2 L962.8 201.5 L963.5 201.1 L964.3 201.1 L965.0 201.5 L965.8 202.2 L966.5 203.4 L967.3 204.7 L968.0 206.3 L968.8 208.0 L969.6 209.7 L970.3 211.3 L971.1 212.6 L971.8 213.8 L972.6 214.5 L973.3 214.9 L974.1 214.9 L974.8 214.5 L975.6 213.8 L976.3 212.6 L977.1 211.3 L977.8 209.7 L978.6 208.0 L979.4 206.3 L980.1 204.7 L980.9 203.4 L981.6 202.2 L982.4 201.5 L983.1 201.1 L983.9 201.1 L984.6 201.5 L985.4 202.2 L986.1 203.4 L986.9 204.7 L987.6 206.3 L988.4 208.0 L989.2 209.7 L989.9 211.3 L990.7 212.6 L991.4 213.8 L992.2 214.5 L992.9 214.9 L993.7 214.9 L994.4 214.5 L995.2 213.8 L995.9 212.6 L996.7 211.3 L997.4 209.7 L998.2 208.0 L999.0 206.3 L999.7 204.7 L1000.5 203.4 L1001.2 202.2 L1002.0 201.5 L1002.7 201.1 L1003.5 201.1 L1004.2 201.5 L1005.0 202.2 L1005.7 203.4 L1006.5 204.7 L1007.2 206.3 L1008.0 208.0 L1018.0 208.0" stroke="var(--ink)" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <g stroke="var(--ink)" stroke-width="2.2" fill="none" stroke-linecap="round"><line x1="900" y1="292" x2="922" y2="292"/><path d="M962 277 L922 277 L922 307 L962 307" fill="var(--bg-alt)"/><line x1="950" y1="281" x2="950" y2="303" stroke-width="2.8"/><line x1="950" y1="292" x2="1018" y2="292"/></g>
+          <line x1="1018" y1="208" x2="1018" y2="292" stroke="var(--ink)" stroke-width="2.2"/>
+          <line x1="1018" y1="250" x2="1054" y2="250" stroke="var(--ink)" stroke-width="2.2"/>
+          <path d="M346.0 250.0 L358.0 250.0 L358.0 250.0 L359.1 252.2 L360.2 254.2 L361.3 256.0 L362.4 257.4 L363.5 258.4 L364.6 258.9 L365.8 258.9 L366.9 258.4 L368.0 257.4 L369.1 256.0 L370.2 254.2 L371.3 252.2 L372.4 250.0 L373.5 247.8 L374.6 245.8 L375.7 244.0 L376.8 242.6 L377.9 241.6 L379.0 241.1 L380.2 241.1 L381.3 241.6 L382.4 242.6 L383.5 244.0 L384.6 245.8 L385.7 247.8 L386.8 250.0 L387.9 252.2 L389.0 254.2 L390.1 256.0 L391.2 257.4 L392.3 258.4 L393.4 258.9 L394.6 258.9 L395.7 258.4 L396.8 257.4 L397.9 256.0 L399.0 254.2 L400.1 252.2 L401.2 250.0 L402.3 247.8 L403.4 245.8 L404.5 244.0 L405.6 242.6 L406.7 241.6 L407.8 241.1 L409.0 241.1 L410.1 241.6 L411.2 242.6 L412.3 244.0 L413.4 245.8 L414.5 247.8 L415.6 250.0 L416.7 252.2 L417.8 254.2 L418.9 256.0 L420.0 257.4 L421.1 258.4 L422.2 258.9 L423.4 258.9 L424.5 258.4 L425.6 257.4 L426.7 256.0 L427.8 254.2 L428.9 252.2 L430.0 250.0 L431.1 247.8 L432.2 245.8 L433.3 244.0 L434.4 242.6 L435.5 241.6 L436.6 241.1 L437.8 241.1 L438.9 241.6 L440.0 242.6 L441.1 244.0 L442.2 245.8 L443.3 247.8 L444.4 250.0 L445.5 252.2 L446.6 254.2 L447.7 256.0 L448.8 257.4 L449.9 258.4 L451.0 258.9 L452.2 258.9 L453.3 258.4 L454.4 257.4 L455.5 256.0 L456.6 254.2 L457.7 252.2 L458.8 250.0 L459.9 247.8 L461.0 245.8 L462.1 244.0 L463.2 242.6 L464.3 241.6 L465.4 241.1 L466.6 241.1 L467.7 241.6 L468.8 242.6 L469.9 244.0 L471.0 245.8 L472.1 247.8 L473.2 250.0 L474.3 252.2 L475.4 254.2 L476.5 256.0 L477.6 257.4 L478.7 258.4 L479.8 258.9 L481.0 258.9 L482.1 258.4 L483.2 257.4 L484.3 256.0 L485.4 254.2 L486.5 252.2 L487.6 250.0 L488.7 247.8 L489.8 245.8 L490.9 244.0 L492.0 242.6 L493.1 241.6 L494.2 241.1 L495.4 241.1 L496.5 241.6 L497.6 242.6 L498.7 244.0 L499.8 245.8 L500.9 247.8 L502.0 250.0 L514.0 250.0" stroke="var(--ink)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M716.0 250.0 L728.0 250.0 L728.0 250.0 L729.1 252.2 L730.2 254.2 L731.3 256.0 L732.4 257.4 L733.5 258.4 L734.6 258.9 L735.8 258.9 L736.9 258.4 L738.0 257.4 L739.1 256.0 L740.2 254.2 L741.3 252.2 L742.4 250.0 L743.5 247.8 L744.6 245.8 L745.7 244.0 L746.8 242.6 L747.9 241.6 L749.0 241.1 L750.2 241.1 L751.3 241.6 L752.4 242.6 L753.5 244.0 L754.6 245.8 L755.7 247.8 L756.8 250.0 L757.9 252.2 L759.0 254.2 L760.1 256.0 L761.2 257.4 L762.3 258.4 L763.4 258.9 L764.6 258.9 L765.7 258.4 L766.8 257.4 L767.9 256.0 L769.0 254.2 L770.1 252.2 L771.2 250.0 L772.3 247.8 L773.4 245.8 L774.5 244.0 L775.6 242.6 L776.7 241.6 L777.8 241.1 L779.0 241.1 L780.1 241.6 L781.2 242.6 L782.3 244.0 L783.4 245.8 L784.5 247.8 L785.6 250.0 L786.7 252.2 L787.8 254.2 L788.9 256.0 L790.0 257.4 L791.1 258.4 L792.2 258.9 L793.4 258.9 L794.5 258.4 L795.6 257.4 L796.7 256.0 L797.8 254.2 L798.9 252.2 L800.0 250.0 L801.1 247.8 L802.2 245.8 L803.3 244.0 L804.4 242.6 L805.5 241.6 L806.6 241.1 L807.8 241.1 L808.9 241.6 L810.0 242.6 L811.1 244.0 L812.2 245.8 L813.3 247.8 L814.4 250.0 L815.5 252.2 L816.6 254.2 L817.7 256.0 L818.8 257.4 L819.9 258.4 L821.0 258.9 L822.2 258.9 L823.3 258.4 L824.4 257.4 L825.5 256.0 L826.6 254.2 L827.7 252.2 L828.8 250.0 L829.9 247.8 L831.0 245.8 L832.1 244.0 L833.2 242.6 L834.3 241.6 L835.4 241.1 L836.6 241.1 L837.7 241.6 L838.8 242.6 L839.9 244.0 L841.0 245.8 L842.1 247.8 L843.2 250.0 L844.3 252.2 L845.4 254.2 L846.5 256.0 L847.6 257.4 L848.7 258.4 L849.8 258.9 L851.0 258.9 L852.1 258.4 L853.2 257.4 L854.3 256.0 L855.4 254.2 L856.5 252.2 L857.6 250.0 L858.7 247.8 L859.8 245.8 L860.9 244.0 L862.0 242.6 L863.1 241.6 L864.2 241.1 L865.4 241.1 L866.5 241.6 L867.6 242.6 L868.7 244.0 L869.8 245.8 L870.9 247.8 L872.0 250.0 L884.0 250.0" stroke="var(--ink)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M80.0 250.0 L90.0 250.0 L90.0 250.0 L90.6 252.2 L91.1 254.2 L91.7 256.0 L92.3 257.4 L92.8 258.4 L93.4 258.9 L93.9 258.9 L94.5 258.4 L95.1 257.4 L95.6 256.0 L96.2 254.2 L96.8 252.2 L97.3 250.0 L97.9 247.8 L98.5 245.8 L99.0 244.0 L99.6 242.6 L100.2 241.6 L100.7 241.1 L101.3 241.1 L101.8 241.6 L102.4 242.6 L103.0 244.0 L103.5 245.8 L104.1 247.8 L104.7 250.0 L105.2 252.2 L105.8 254.2 L106.4 256.0 L106.9 257.4 L107.5 258.4 L108.1 258.9 L108.6 258.9 L109.2 258.4 L109.7 257.4 L110.3 256.0 L110.9 254.2 L111.4 252.2 L112.0 250.0 L112.6 247.8 L113.1 245.8 L113.7 244.0 L114.3 242.6 L114.8 241.6 L115.4 241.1 L115.9 241.1 L116.5 241.6 L117.1 242.6 L117.6 244.0 L118.2 245.8 L118.8 247.8 L119.3 250.0 L119.9 252.2 L120.5 254.2 L121.0 256.0 L121.6 257.4 L122.2 258.4 L122.7 258.9 L123.3 258.9 L123.8 258.4 L124.4 257.4 L125.0 256.0 L125.5 254.2 L126.1 252.2 L126.7 250.0 L127.2 247.8 L127.8 245.8 L128.4 244.0 L128.9 242.6 L129.5 241.6 L130.1 241.1 L130.6 241.1 L131.2 241.6 L131.7 242.6 L132.3 244.0 L132.9 245.8 L133.4 247.8 L134.0 250.0 L144.0 250.0" stroke="var(--ink)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M1086.0 250.0 L1096.0 250.0 L1096.0 250.0 L1097.2 252.2 L1098.4 254.2 L1099.6 256.0 L1100.8 257.4 L1102.0 258.4 L1103.2 258.9 L1104.4 258.9 L1105.6 258.4 L1106.8 257.4 L1108.1 256.0 L1109.3 254.2 L1110.5 252.2 L1111.7 250.0 L1112.9 247.8 L1114.1 245.8 L1115.3 244.0 L1116.5 242.6 L1117.7 241.6 L1118.9 241.1 L1120.1 241.1 L1121.3 241.6 L1122.5 242.6 L1123.7 244.0 L1124.9 245.8 L1126.1 247.8 L1127.3 250.0 L1128.5 252.2 L1129.7 254.2 L1130.9 256.0 L1132.2 257.4 L1133.4 258.4 L1134.6 258.9 L1135.8 258.9 L1137.0 258.4 L1138.2 257.4 L1139.4 256.0 L1140.6 254.2 L1141.8 252.2 L1143.0 250.0 L1144.2 247.8 L1145.4 245.8 L1146.6 244.0 L1147.8 242.6 L1149.0 241.6 L1150.2 241.1 L1151.4 241.1 L1152.6 241.6 L1153.8 242.6 L1155.1 244.0 L1156.3 245.8 L1157.5 247.8 L1158.7 250.0 L1159.9 252.2 L1161.1 254.2 L1162.3 256.0 L1163.5 257.4 L1164.7 258.4 L1165.9 258.9 L1167.1 258.9 L1168.3 258.4 L1169.5 257.4 L1170.7 256.0 L1171.9 254.2 L1173.1 252.2 L1174.3 250.0 L1175.5 247.8 L1176.7 245.8 L1177.9 244.0 L1179.2 242.6 L1180.4 241.6 L1181.6 241.1 L1182.8 241.1 L1184.0 241.6 L1185.2 242.6 L1186.4 244.0 L1187.6 245.8 L1188.8 247.8 L1190.0 250.0 L1200.0 250.0" stroke="var(--ink)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="330" cy="250" r="16" fill="var(--border-2)" stroke="var(--ink)" stroke-width="2"/>
+          <circle cx="700" cy="250" r="16" fill="var(--border-2)" stroke="var(--ink)" stroke-width="2"/>
+          <circle cx="1070" cy="250" r="16" fill="var(--border-2)" stroke="var(--ink)" stroke-width="2"/>
+          <line x1="330" y1="46" x2="330" y2="224" stroke="var(--accent)" stroke-width="2.4" stroke-dasharray="8 6"/>
+          <path d="M330 234 L323 218 L337 218 Z" fill="var(--accent)"/>
+          <line x1="700" y1="46" x2="700" y2="224" stroke="var(--accent)" stroke-width="2.4" stroke-dasharray="8 6"/>
+          <path d="M700 234 L693 218 L707 218 Z" fill="var(--accent)"/>
+          <line x1="1070" y1="46" x2="1070" y2="224" stroke="var(--accent)" stroke-width="2.4" stroke-dasharray="8 6"/>
+          <path d="M1070 234 L1063 218 L1077 218 Z" fill="var(--accent)"/>
+          <text x="820" y="40" style="font-size:22px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">input signals  ũ(T)</text>
+          <rect x="500" y="70" width="330" height="330" rx="8" fill="none" stroke="#e11d48" stroke-width="2.2" stroke-dasharray="9 7"/>
+          <text x="600" y="62" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="#e11d48">Unit Cell</text>
+          <text x="560" y="190" style="font-size:23px;font-family:Outfit,sans-serif" font-weight="600" font-style="italic">k<tspan style="font-size:17px" dy="6">1</tspan></text>
+          <text x="550" y="332" style="font-size:23px;font-family:Outfit,sans-serif" font-weight="600" font-style="italic">k<tspan style="font-size:17px" dy="6">2</tspan></text>
+          <text x="616" y="332" style="font-size:23px;font-family:Outfit,sans-serif" font-weight="600" font-style="italic">c</text>
+          <text x="740" y="148" style="font-size:23px;font-family:Outfit,sans-serif" font-weight="600" font-style="italic">k</text>
+          <text x="740" y="356" style="font-size:23px;font-family:Outfit,sans-serif" font-weight="600" font-style="italic">k</text>
+          <text x="652" y="312" style="font-size:23px;font-family:Outfit,sans-serif" font-weight="600" font-style="italic">m</text>
+          <text x="864" y="212" style="font-size:23px;font-family:Outfit,sans-serif" font-weight="600" font-style="italic">r<tspan style="font-size:17px" dy="6">1</tspan></text>
+          <text x="848" y="118" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">α₀</text>
+          <text x="300" y="214" style="font-size:21px;font-family:'JetBrains Mono',monospace" fill="var(--ink)">X<tspan style="font-size:17px" dy="6">j</tspan></text>
+          <g stroke="var(--ink)" stroke-width="2" fill="var(--ink)"><line x1="1226" y1="140" x2="1226" y2="360"/><path d="M1226 134 L1221 148 L1231 148 Z"/><path d="M1226 366 L1221 352 L1231 352 Z"/></g>
+          <text x="1172" y="98" style="font-size:22px;font-family:Outfit,sans-serif" font-weight="600" font-style="italic">2w<tspan style="font-size:17px" dy="6">0</tspan></text>
+          <rect x="20" y="448" width="1230" height="150" rx="16" fill="rgba(255,90,31,.11)" stroke="var(--border)" stroke-width="1.6"/>
+          <text x="46" y="486" style="font-size:25px;font-family:Outfit,sans-serif" fill="var(--accent-2)" font-weight="600">Output</text>
+          <rect x="300" y="466" width="620" height="60" rx="10" fill="var(--bg-card)" stroke="var(--accent-2)" stroke-width="2.4"/>
+          <text x="610" y="504" style="font-size:23px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600">readout — displacements only</text>
+          <line x1="330" y1="268" x2="330" y2="462" stroke="var(--accent-2)" stroke-width="2.2" stroke-dasharray="8 6"/>
+          <path d="M330 466 L323 452 L337 452 Z" fill="var(--accent-2)"/>
+          <line x1="700" y1="268" x2="700" y2="462" stroke="var(--accent-2)" stroke-width="2.2" stroke-dasharray="8 6"/>
+          <path d="M700 466 L693 452 L707 452 Z" fill="var(--accent-2)"/>
+          <line x1="1070" y1="268" x2="1070" y2="462" stroke="var(--accent-2)" stroke-width="2.2" stroke-dasharray="8 6"/>
+          <path d="M1070 466 L1063 452 L1077 452 Z" fill="var(--accent-2)"/>
+          <rect x="430" y="540" width="360" height="46" rx="10" fill="var(--bg-alt)" stroke="var(--accent-2)" stroke-width="2"/>
+          <text x="610" y="570" style="font-size:21px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--accent-2)">X_w(T) = Σ wᵢ Xᵢ(T)</text>
         </svg>
       </div>
-      <p class="fig__cap"><b>Figure 1.</b> A nonlinear oscillator realised directly in analog hardware. Two cascaded integrators produce velocity and displacement from acceleration; a cubic block supplies the nonlinear restoring term, and summing everything back to the input closes the loop. The circuit does not <i>compute</i> the equation step by step — it <i>obeys</i> it, continuously and at the speed of the electronics.</p>
+      <div class="eqn-block">
+        <div class="eqn">
+          D<sub>e</sub><sup>&minus;2</sup> d&sup2;X<sub>j</sub>/dT&sup2; = &minus;X<sub>j</sub>&sup3;
+          + 3X<sub>j</sub>&sup2; &minus; 2X<sub>j</sub> &minus; &lambda;&Sigma;<sub>j</sub>
+          + R<sub>1</sub>(X<sub>j&minus;1</sub> &minus; 2X<sub>j</sub> + X<sub>j+1</sub>)
+          + F<sub>0</sub>cos&Omega;T(1 + a<sub>j</sub>ũ(T))
+        </div>
+        <div class="eqn">
+          (1/(1&minus;&beta;)) dX<sub>j</sub>/dT + X<sub>j</sub> = d&Sigma;<sub>j</sub>/dT + &Sigma;<sub>j</sub>
+        </div>
+        <div class="eqn-note">
+          three tunable knobs: Deborah number D<sub>e</sub> &middot; relative stiffness &lambda; &middot;
+          viscoelastic parameter &beta;
+        </div>
+      </div>
+      <p class="fig__cap"><b>Figure 1.</b> Each unit cell is a mass <i>m</i> on inclined springs <i>k</i> set
+        at angle <i>&alpha;<sub>0</sub></i> and separated by <i>2w<sub>0</sub></i>, carrying a grounded
+        viscoelastic element &mdash; spring <i>k</i><sub>1</sub> in parallel with a Maxwell arm
+        (<i>k</i><sub>2</sub>, <i>c</i>) &mdash; and coupled to its neighbours by <i>r</i><sub>1</sub>. The
+        input ũ(T) reaches every node through a <b>binary mask</b>, riding on a sinusoidal carrier. Only the
+        <b>displacements</b> are read out, and the weights come from ridge regression, so training touches
+        nothing but a linear layer. The second equation is the standard-linear-solid constitutive law:
+        &Sigma; relaxes to X, so it contributes memory during transients without moving the equilibria.</p>
+    </div>
+
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 2 &mdash; The reservoir, running</span><span class="fig__live">running</span></div>
+      <div class="fig__body">
+        <canvas id="ah-res" width="1520" height="620"></canvas>
+      </div>
+      <div class="fig__ctrls">
+        <div class="fig__ctrl">
+          <label>&beta; &mdash; viscoelastic <b id="ahv-b">0.50</b></label>
+          <input type="range" id="ah-b" min="0.00" max="0.92" step="0.01" value="0.50" />
+        </div>
+        <div class="fig__ctrl">
+          <label>&lambda; &mdash; relative stiffness <b id="ahv-l">0.20</b></label>
+          <input type="range" id="ah-l" min="0.02" max="0.60" step="0.01" value="0.20" />
+        </div>
+        <div class="fig__ctrl">
+          <label>R<sub>1</sub> &mdash; coupling <b id="ahv-r">2.00</b></label>
+          <input type="range" id="ah-r" min="0.20" max="4.00" step="0.05" value="2.00" />
+        </div>
+      </div>
+      <p class="fig__cap"><b>Figure 2.</b> Equations (1)&ndash;(2) integrated live on a 24-node chain with
+        &Omega;&nbsp;=&nbsp;2.5 and F<sub>0</sub>&nbsp;=&nbsp;0.1. Amber nodes are the ones the binary mask
+        connects to the input; the rest see only the carrier. Below, the node displacements &mdash; the
+        only quantity the readout ever sees. Push &beta; up and the chain retains more of its history;
+        push R<sub>1</sub> up and the nodes lock together and the usable state rank collapses.</p>
     </div>
   </div>
 </section>
 
 <section class="sec sec--alt">
-  <div class="wrap two-col">
-    <div class="card reveal">
-      <h3>The circuits</h3>
-      <p>The core building block is a chain of integrators with nonlinear feedback, which realises a Duffing-type oscillator directly in hardware.</p>
-      <p>The practical difficulty is that analog components are imperfect in ways the mathematics is not: offsets drift, gains vary between nominally identical parts, and a nonlinearity intended as cubic is only approximately so. Some of that had to be trimmed out — and some of it, usefully, adds the cell-to-cell variation a reservoir actually benefits from.</p>
-      <ul>
-        <li>FPAA prototyping for fast topology changes</li>
-        <li>Custom PCB layout in KiCad</li>
-        <li>Integrator-and-nonlinearity architecture</li>
-        <li>Characterisation against numerical reference solutions</li>
-      </ul>
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">Four tasks, one substrate</h2>
+    <p>Each task is posed as a time-series input&ndash;output mapping, which is what lets a single
+      architecture cover all of them. Chaotic prediction reproduces the Lorenz attractor. Closed-loop
+      control settles onto a reference trajectory. Digit images are resized to 10&times;10, flattened into
+      a sequence and classified at <strong>91.65%</strong> on unseen data. And damage is detected by
+      subdividing the chain into overlapping segments, each acting as its own small reservoir, then
+      comparing prediction error between the healthy and damaged system across the chain.</p>
+    <p>The costs are competitive rather than revolutionary, and the paper says so. Against an MLP on
+      time-series prediction the reservoir trains in 6.5&nbsp;s versus 28.1&nbsp;s and uses half the memory;
+      against a CNN on images it is slightly slower. The argument is not that it wins on benchmarks &mdash;
+      it is that <em>one</em> substrate covers all four.</p>
+  </div>
+  <div class="wrap">
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 3 &mdash; Tasks, parameters and cost</span></div>
+      <div class="fig__body">
+        <svg viewBox="0 0 1270 620" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="The same reservoir architecture applied to four tasks with different parameter choices, its training time and memory against MLP and CNN baselines, and the headline results.">
+          <rect x="20" y="20" width="1230" height="252" rx="16" fill="var(--bg-alt)" stroke="var(--border)" stroke-width="1.6"/>
+          <text x="46" y="58" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">one substrate, four tasks</text>
+          <rect x="46" y="88" width="272" height="150" rx="12" fill="var(--bg-card)" stroke="var(--accent)" stroke-width="2.2"/>
+          <text x="64" y="126" style="font-size:22px;font-family:Outfit,sans-serif" fill="var(--accent)" font-weight="600">chaotic time-series</text>
+          <text x="64" y="158" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">Lorenz attractor</text>
+          <text x="64" y="196" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">N=5, β=0.5, λ=0.2, R₁=2</text>
+          <text x="64" y="224" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">Ω = 2.5,  F₀ = 0.1</text>
+          <rect x="346" y="88" width="272" height="150" rx="12" fill="var(--bg-card)" stroke="var(--accent)" stroke-width="2.2"/>
+          <text x="364" y="126" style="font-size:22px;font-family:Outfit,sans-serif" fill="var(--accent)" font-weight="600">trajectory control</text>
+          <text x="364" y="158" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">closed loop</text>
+          <text x="364" y="196" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">N=100, β=0.9, λ=0.2, R₁=2</text>
+          <text x="364" y="224" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">Ω = 2.5,  F₀ = 0.1</text>
+          <rect x="646" y="88" width="272" height="150" rx="12" fill="var(--bg-card)" stroke="var(--accent-3)" stroke-width="2.2"/>
+          <text x="664" y="126" style="font-size:22px;font-family:Outfit,sans-serif" fill="var(--accent-3)" font-weight="600">image classification</text>
+          <text x="664" y="158" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">handwritten digits</text>
+          <text x="664" y="196" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">N=10, β=0.5, λ=0.1, R₁=0.5</text>
+          <text x="664" y="224" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">Ω = 2.5,  F₀ = 0.1</text>
+          <rect x="946" y="88" width="272" height="150" rx="12" fill="var(--bg-card)" stroke="var(--accent-2)" stroke-width="2.2"/>
+          <text x="964" y="126" style="font-size:22px;font-family:Outfit,sans-serif" fill="var(--accent-2)" font-weight="600">damage detection</text>
+          <text x="964" y="158" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">400-node chain</text>
+          <text x="964" y="196" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">N=400, β=0.9, λ=0.1</text>
+          <text x="964" y="224" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">Ω = 2.5,  F₀ = 0.1</text>
+          <rect x="20" y="292" width="700" height="300" rx="16" fill="var(--bg-alt)" stroke="var(--border)" stroke-width="1.6"/>
+          <text x="46" y="330" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">training cost against conventional models</text>
+          <text x="60" y="372" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">model</text>
+          <text x="228" y="372" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">time-series</text>
+          <text x="396" y="372" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">control</text>
+          <text x="564" y="372" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">images</text>
+          <text x="60" y="410" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">RC  time (s)</text>
+          <text x="228" y="410" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">6.48</text>
+          <text x="396" y="410" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">58.28</text>
+          <text x="564" y="410" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">27.55</text>
+          <text x="60" y="440" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">MLP time (s)</text>
+          <text x="228" y="440" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">28.09</text>
+          <text x="396" y="440" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">26.33</text>
+          <text x="564" y="440" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">—</text>
+          <text x="60" y="470" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">CNN time (s)</text>
+          <text x="228" y="470" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">—</text>
+          <text x="396" y="470" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">—</text>
+          <text x="564" y="470" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">21.75</text>
+          <text x="60" y="500" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">RC  RAM (Mb)</text>
+          <text x="228" y="500" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">96.6</text>
+          <text x="396" y="500" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">41.7</text>
+          <text x="564" y="500" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">1198</text>
+          <text x="60" y="530" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">MLP RAM (Mb)</text>
+          <text x="228" y="530" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">198.9</text>
+          <text x="396" y="530" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">36.6</text>
+          <text x="564" y="530" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">—</text>
+          <text x="60" y="560" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">CNN RAM (Mb)</text>
+          <text x="228" y="560" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">—</text>
+          <text x="396" y="560" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">—</text>
+          <text x="564" y="560" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">936.9</text>
+          <rect x="750" y="292" width="500" height="300" rx="16" fill="var(--bg-alt)" stroke="var(--border)" stroke-width="1.6"/>
+          <text x="778" y="330" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">headline results</text>
+          <text x="778" y="380" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">digit classification</text>
+          <text x="778" y="406" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--accent-3)">91.65 % on unseen data</text>
+          <text x="778" y="436" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">Lorenz prediction</text>
+          <text x="778" y="462" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">attractor reproduced</text>
+          <text x="778" y="492" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">damage localisation</text>
+          <text x="778" y="518" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">peak at the damaged node</text>
+          <text x="778" y="548" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">hardware</text>
+          <text x="778" y="574" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--ink)">5-oscillator PCB, dSPACE</text>
+        </svg>
+      </div>
+      <p class="fig__cap"><b>Figure 3.</b> The same chain, re-parameterised per task. Note that the carrier
+        frequency &Omega;&nbsp;=&nbsp;2.5 and forcing F<sub>0</sub>&nbsp;=&nbsp;0.1 are held fixed
+        throughout &mdash; what changes is the chain length, the memory (&beta;), the stiffness ratio
+        (&lambda;) and the coupling. Spectrogram analysis during training shows why no single parameter set
+        is optimal: performance degrades whenever a broad band of frequencies is excited, and improves when
+        the response concentrates near the fundamental, a sub-harmonic or a super-harmonic. Prediction wants
+        fundamental content; control wants fundamental plus harmonics; classification and damage detection
+        want near-fundamental. The bistable nonlinearity, the viscoelastic memory and the coupling together
+        decide how input energy is redistributed &mdash; and the right redistribution is task-specific.</p>
     </div>
-    <div class="card reveal">
-      <h3>Hardware machine learning</h3>
-      <p>With the reservoir in analog, only the readout needs training — and a linear readout is cheap enough to run on a microcontroller, or to implement in analog as well.</p>
-      <p>For structural health monitoring this yields a sensor node that classifies rather than merely records: instead of streaming raw vibration data for offline analysis, the node reports condition directly.</p>
-      <ul>
-        <li>Vibration signal drives the analog reservoir</li>
-        <li>Circuit state provides high-dimensional features</li>
-        <li>Linear readout trained for classification</li>
-        <li>Real-time operation at very low power</li>
-      </ul>
+
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 4 &mdash; Finding the damage</span><span class="fig__live">running</span></div>
+      <div class="fig__body">
+        <canvas id="ah-shm" width="1520" height="560"></canvas>
+      </div>
+      <div class="fig__ctrls">
+        <div class="fig__ctrl">
+          <label>damage location <b id="ahv-d">60</b></label>
+          <input type="range" id="ah-d" min="15" max="105" step="1" value="60" />
+        </div>
+        <div class="fig__ctrl">
+          <label>&beta; &mdash; 0 is purely elastic <b id="ahv-vb">0.90</b></label>
+          <input type="range" id="ah-vb" min="0.00" max="0.92" step="0.02" value="0.90" />
+        </div>
+        <div class="fig__ctrl">
+          <label>severity &Delta; <b id="ahv-dl">0.50</b></label>
+          <input type="range" id="ah-dl" min="0.10" max="0.95" step="0.05" value="0.50" />
+        </div>
+      </div>
+      <p class="fig__cap"><b>Figure 4.</b> Damage is introduced by weakening one coupling spring,
+        R<sub>1</sub>&nbsp;&rarr;&nbsp;&Delta;R<sub>1</sub>. Healthy and damaged chains are driven with the
+        same input and the per-node response mismatch is accumulated &mdash; a live stand-in for the
+        paper&rsquo;s segmented-reservoir error difference, which needs a trained readout per segment. The
+        result is the same and it is the interesting one: with <b>&beta; = 0.9</b> the signature is sharply
+        localised on the damaged node, but drag &beta; to <b>0</b> and the purely elastic chain smears it
+        across the whole index range. Memory is what makes the damage findable, not just detectable.</p>
     </div>
   </div>
 </section>
 
 <section class="sec">
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">It exists as hardware</h2>
+    <p>The governing mechanical equations were converted to their electrical analog and etched onto a
+      printed circuit board. Each oscillator is <strong>three op-amps and two multipliers</strong>; the
+      binary mask is a physical switch that either connects a node to the input or does not. A sinusoidal
+      carrier and Lorenz-derived inputs were supplied, and outputs recorded, through a dSPACE 1104
+      controller, then split 80:20 for training and testing.</p>
+    <p>A five-oscillator chain reproduced the overall trend of the Lorenz trajectory, with visible
+      deviation. Two honest reasons: the board was repurposed from an earlier study so its resistor values
+      do not correspond to the simulated parameters, and noise accumulates along the chain. Scaling to many
+      oscillators is the open hardware problem &mdash; the routes suggested are pairing a small analog
+      chain with next-generation reservoir computing, or miniaturising into MEMS.</p>
+  </div>
   <div class="wrap">
     <div class="fig reveal">
-      <div class="fig__head"><span class="fig__no">Figure 2 — Damage detection on an analog reservoir</span><span class="fig__live">running</span></div>
+      <div class="fig__head"><span class="fig__no">Figure 5 &mdash; The board</span></div>
       <div class="fig__body">
-        <canvas id="hw-canvas" width="1520" height="660"></canvas>
+        <svg viewBox="0 0 1270 420" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="The electrical analog: a sinusoidal carrier and masked input feed a chain of five oscillators, each built from three operational amplifiers and two multipliers, read and written through a dSPACE controller.">
+          <rect x="20" y="20" width="1230" height="380" rx="16" fill="rgba(0,166,166,.06)" stroke="var(--border)" stroke-width="1.6"/>
+          <text x="46" y="58" style="font-size:25px;font-family:Outfit,sans-serif" fill="var(--accent-3)" font-weight="600">the electrical analog</text>
+          <rect x="60" y="140" width="190" height="110" rx="12" fill="var(--bg-card)" stroke="var(--border-2)" stroke-width="2.2"/>
+          <text x="155.0" y="191.0" style="font-size:21px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600">carrier</text>
+          <text x="155.0" y="219.0" style="font-size:18px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--muted)">F₀ cos ΩT</text>
+          <line x1="254" y1="195" x2="284.0" y2="195.0" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" class="flow"/><path d="M300 195 L282.0 187.0 L282.0 203.0 Z" fill="var(--accent)"/>
+          <rect x="304" y="140" width="180" height="110" rx="12" fill="var(--bg-card)" stroke="var(--accent)" stroke-width="2.2"/>
+          <text x="394.0" y="191.0" style="font-size:21px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600">mask switch</text>
+          <text x="394.0" y="219.0" style="font-size:18px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--muted)">binary aⱼ</text>
+          <line x1="488" y1="195" x2="518.0" y2="195.0" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" class="flow"/><path d="M534 195 L516.0 187.0 L516.0 203.0 Z" fill="var(--accent)"/>
+          <rect x="538" y="120" width="300" height="150" rx="12" fill="var(--bg-card)" stroke="var(--accent-3)" stroke-width="2.2"/>
+          <text x="688.0" y="191.0" style="font-size:21px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600">oscillator</text>
+          <text x="688.0" y="219.0" style="font-size:18px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--muted)">3 op-amps + 2 multipliers</text>
+          <text x="688" y="300" style="font-size:19px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--accent-3)">× 5 in series</text>
+          <line x1="842" y1="195" x2="872.0" y2="195.0" stroke="var(--accent-3)" stroke-width="4" stroke-linecap="round" class="flow"/><path d="M888 195 L870.0 187.0 L870.0 203.0 Z" fill="var(--accent-3)"/>
+          <rect x="892" y="140" width="180" height="110" rx="12" fill="var(--bg-card)" stroke="var(--accent-2)" stroke-width="2.2"/>
+          <text x="982.0" y="191.0" style="font-size:21px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600">dSPACE 1104</text>
+          <text x="982.0" y="219.0" style="font-size:18px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--muted)">read / write</text>
+          <line x1="1076" y1="195" x2="1106.0" y2="195.0" stroke="var(--accent-2)" stroke-width="4" stroke-linecap="round" class="flow"/><path d="M1122 195 L1104.0 187.0 L1104.0 203.0 Z" fill="var(--accent-2)"/>
+          <rect x="1126" y="140" width="110" height="110" rx="12" fill="var(--bg-card)" stroke="var(--accent-2)" stroke-width="2.2"/>
+          <text x="1181.0" y="191.0" style="font-size:21px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600">ridge</text>
+          <text x="1181.0" y="219.0" style="font-size:18px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--muted)">readout</text>
+          <text x="60" y="330" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">the mechanical equations are converted to their electrical analog and etched onto a board</text>
+          <text x="60" y="362" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">validated on chaotic time-series prediction; scaling further needs NGRC or MEMS</text>
+        </svg>
       </div>
-      <div class="fig__ctrls">
-        <div class="fig__ctrl">
-          <label>Structural damage <b id="hwv-d">0.00</b></label>
-          <input type="range" id="hw-d" min="0.00" max="1.00" step="0.01" value="0.00" />
-        </div>
-        <div class="fig__ctrl">
-          <label>Sensor noise <b id="hwv-n">0.06</b></label>
-          <input type="range" id="hw-n" min="0.00" max="0.40" step="0.01" value="0.06" />
-        </div>
-      </div>
-      <p class="fig__cap"><b>Figure 2.</b> Vibration from a structure drives the analog nonlinear circuit. Because the circuit is sensitive to the character of its input, a healthy structure and a damaged one drive it onto visibly different attractors — left, the circuit state; right, the separation between the two classes. Introduce damage and watch the attractor deform and the classifier margin open up. No digital signal processing happens anywhere in this loop.</p>
+      <p class="fig__cap"><b>Figure 5.</b> The signal path on hardware. The mask is a switch, not a
+        multiplication in software; the nonlinearity is a multiplier, not a call to <code>pow</code>. That
+        is the whole point &mdash; the dynamics happen in the circuit, and the computer only fits the linear
+        readout afterwards.</p>
     </div>
   </div>
   <div class="wrap body-copy reveal">
-    <h2 class="sec-title">What it demonstrates</h2>
-    <p>Damage changes a structure's dynamics — stiffness drops, damping shifts, new harmonics appear.
-      Those changes are often subtle in a raw spectrum but pronounced once passed through a sensitive
-      nonlinear system, because the reservoir amplifies differences between inputs that a linear filter
-      would treat as nearly identical.</p>
-    <p>That is the same property that makes a nonlinear system good for classification and bad for
-      long-range prediction, and it is why the <a href="project-nonlinear-dynamics.html">reservoir
-      computing work</a> spends so much effort locating the boundary. Here the goal is not to predict a
-      signal but to separate two classes, so the useful operating point sits closer to the chaotic edge
-      than it would for a forecasting task.</p>
-    <p>The wider ambition is monitoring hardware that can be left on a structure indefinitely: no
-      processor, negligible power, and an output that says <em>healthy</em> or <em>not</em> rather than
-      producing data somebody has to analyse later.</p>
-    <div class="proj-links" style="margin-top:1.6rem"><a class="btn" href="project-nonlinear-dynamics.html">Related: reservoir computing &rarr;</a>
-      <a class="btn" href="projects.html">All projects &rarr;</a></div>
+    <div class="proj-links" style="margin-top:1.2rem">
+      <a class="btn" href="project-nonlinear-dynamics.html">Related: reservoir computing &rarr;</a>
+      <a class="btn" href="project-metamaterials.html">Related: metamaterial inverse design &rarr;</a>
+      <a class="btn" href="projects.html">All projects &rarr;</a>
+    </div>
   </div>
 </section>
 
@@ -182,101 +396,185 @@
     <div>Mechanical Engineering &middot; Purdue University</div>
   </div>
 </footer>
+<style>
+  .eqn-block{padding:.2rem 1.3rem 1rem}
+  .eqn{font-family:'JetBrains Mono',monospace;font-size:.78rem;line-height:1.9;color:var(--ink);
+    background:var(--bg-alt);border:1px solid var(--border);border-left:3px solid var(--accent);
+    border-radius:.5rem;padding:.7rem .9rem;margin-bottom:.5rem;overflow-x:auto}
+  .eqn-note{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--sub);letter-spacing:.04em}
+</style>
 <script>
 document.getElementById('year').textContent=new Date().getFullYear();
 const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-in');o.unobserve(e.target);}}),{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
-
 <script>
+/* ---- Figure 4: the reservoir chain, Eqs (1)-(2) ---- */
 (function(){
-  const cv=document.getElementById('hw-canvas'); if(!cv) return;
+  const cv=document.getElementById('ah-res'); if(!cv) return;
   const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
   const css=getComputedStyle(document.documentElement); const C=k=>css.getPropertyValue(k).trim();
-  const P={dmg:0.0, noise:0.06};
-  let x=0.4,v=0,t=0;
-  const trail=[]; const TR=900;
-  const cloudH=[], cloudD=[];
-
+  const N=24;
+  const P={De:1.0, lam:0.2, beta:0.5, R1:2.0, Om:2.5, F0:0.1};
+  const mask=[]; for(let i=0;i<N;i++) mask.push(Math.random()<0.5?1:0);
+  let X=new Float64Array(N), V=new Float64Array(N), S=new Float64Array(N), t=0;
+  const tr=[[],[],[]], HIST=440;
   function step(dt){
+    const u=Math.sin(0.37*t)+0.6*Math.sin(0.91*t+1.1);
+    for(let j=0;j<N;j++){
+      const l=j>0?X[j-1]:X[j], r=j<N-1?X[j+1]:X[j];
+      const f=-X[j]*X[j]*X[j]+3*X[j]*X[j]-2*X[j]-P.lam*S[j]
+              +P.R1*(l-2*X[j]+r)+P.F0*Math.cos(P.Om*t)*(1+mask[j]*u);
+      V[j]+=P.De*P.De*f*dt;
+    }
+    for(let j=0;j<N;j++){
+      X[j]+=V[j]*dt;
+      S[j]+=(V[j]/(1-P.beta)+X[j]-S[j])*dt;
+      if(!isFinite(X[j])||Math.abs(X[j])>50){X[j]=0;V[j]=0;S[j]=0;}
+    }
     t+=dt;
-    // structure: damage lowers stiffness and adds a second harmonic
-    const wn=1.0-0.42*P.dmg;
-    const exc=0.9*Math.sin(wn*3.0*t)+0.45*P.dmg*Math.sin(wn*6.0*t+0.6)
-              +(Math.random()*2-1)*P.noise;
-    const a=-0.14*v + (x - x*x*x) + 0.62*exc;
-    v+=a*dt; x+=v*dt;
-    if(!isFinite(x)||Math.abs(x)>6){x=0.4;v=0;}
   }
-
-  function feature(){
-    // two cheap features a linear readout could use
-    return {a: x*x + v*v*0.6, b: Math.abs(v)};
-  }
-
   function render(){
     ctx.clearRect(0,0,W,H);
-    const wL=W*0.56;
-    // ---- attractor ----
-    ctx.save();
-    const cx=wL*0.5, cy=H*0.5, s=118;
-    ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
-    ctx.beginPath();ctx.moveTo(60,cy);ctx.lineTo(wL-40,cy);
-    ctx.moveTo(cx,50);ctx.lineTo(cx,H-50);ctx.stroke();
-    ctx.lineWidth=2;
-    for(let i=1;i<trail.length;i++){
-      const p0=trail[i-1],p1=trail[i], al=(i/trail.length)*0.55;
-      ctx.strokeStyle = P.dmg>0.35 ? `rgba(255,90,31,${al})` : `rgba(22,82,240,${al})`;
-      ctx.beginPath();
-      ctx.moveTo(cx+p0.x*s, cy-p0.v*s);
-      ctx.lineTo(cx+p1.x*s, cy-p1.v*s);
-      ctx.stroke();
+    const pad=100, gap=(W-pad*2)/(N-1), cy=H*0.30;
+    ctx.fillStyle=C('--muted'); ctx.font='500 25px Outfit, sans-serif';
+    ctx.fillText('reservoir chain — masked input to every node', 34, 40);
+    ctx.strokeStyle=C('--border-2'); ctx.lineWidth=3;
+    ctx.beginPath();ctx.moveTo(pad,cy);ctx.lineTo(pad+gap*(N-1),cy);ctx.stroke();
+    for(let j=0;j<N;j++){
+      const x=pad+gap*j, y=cy-Math.max(-2.2,Math.min(2.6,X[j]))*42;
+      ctx.strokeStyle=C('--border-2'); ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(x,cy);ctx.lineTo(x,y);ctx.stroke();
+      ctx.fillStyle = mask[j] ? C('--accent-2') : C('--accent');
+      ctx.beginPath();ctx.arc(x,y,11,0,7);ctx.fill();
+      ctx.strokeStyle=C('--ink'); ctx.lineWidth=1.4; ctx.stroke();
     }
-    ctx.fillStyle=C('--accent-2');
-    ctx.beginPath();ctx.arc(cx+x*s,cy-v*s,10,0,7);ctx.fill();
-    ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
-    ctx.fillText('analog circuit state  (x, ẋ)', 40, 46);
-    ctx.restore();
-
-    // ---- feature space ----
-    ctx.save();
-    const x0=wL, w2=W-wL;
+    ctx.fillStyle=C('--accent-2'); ctx.font='500 20px Outfit, sans-serif';
+    ctx.fillText('amber = node the binary mask connects', 34, cy+96);
+    const ty=H*0.60, th=H*0.36, span=W-170;
     ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
-    ctx.strokeRect(x0+70,70,w2-150,H-170);
-    const px=(f)=>x0+70+Math.min(1,f.a/4.2)*(w2-150);
-    const py=(f)=>H-100-Math.min(1,f.b/2.6)*(H-170);
-    ctx.fillStyle='rgba(22,82,240,0.5)';
-    cloudH.forEach(f=>{ctx.beginPath();ctx.arc(px(f),py(f),5,0,7);ctx.fill();});
-    ctx.fillStyle='rgba(255,90,31,0.5)';
-    cloudD.forEach(f=>{ctx.beginPath();ctx.arc(px(f),py(f),5,0,7);ctx.fill();});
-    ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
-    ctx.fillText('readout feature space', x0+70, 46);
-    ctx.font='500 21px Outfit, sans-serif';
-    ctx.fillStyle=C('--accent'); ctx.fillText('healthy baseline', x0+70, H-46);
-    ctx.fillStyle=C('--accent-2'); ctx.fillText('current state', x0+300, H-46);
-    ctx.restore();
+    ctx.beginPath();ctx.moveTo(90,ty+th*0.5);ctx.lineTo(90+span,ty+th*0.5);ctx.stroke();
+    const cols=[C('--accent'),C('--accent-3'),C('--accent-2')];
+    tr.forEach((arr,i)=>{
+      ctx.strokeStyle=cols[i]; ctx.lineWidth=2.6; ctx.beginPath();
+      for(let k=0;k<arr.length;k++){
+        const px=90+(k/HIST)*span, py=ty+th*0.5-arr[k]*th*0.17;
+        k?ctx.lineTo(px,py):ctx.moveTo(px,py);
+      } ctx.stroke();
+    });
+    ctx.fillStyle=C('--muted'); ctx.font='500 22px Outfit, sans-serif';
+    ctx.fillText('node displacements — the only thing read out', 90, ty-8);
   }
-
-  const b=(r,vv,key,dp)=>{const R=document.getElementById(r),V=document.getElementById(vv);
-    if(!R)return;R.addEventListener('input',()=>{P[key]=parseFloat(R.value);V.textContent=P[key].toFixed(dp);
-      cloudD.length=0; trail.length=0;});};
-  b('hw-d','hwv-d','dmg',2); b('hw-n','hwv-n','noise',2);
-
-  let live=false, fr=0;
+  [['ah-b','ahv-b','beta',2],['ah-l','ahv-l','lam',2],['ah-r','ahv-r','R1',2]].forEach(a=>{
+    const R=document.getElementById(a[0]), Vl=document.getElementById(a[1]);
+    if(!R) return;
+    R.addEventListener('input',()=>{P[a[2]]=parseFloat(R.value);Vl.textContent=P[a[2]].toFixed(a[3]);});
+  });
+  let live=false;
   new IntersectionObserver(e=>{live=e[0].isIntersecting;},{threshold:.05}).observe(cv);
-  let acc=0,last=performance.now();
+  let acc=0,last=performance.now(),fr=0;
   (function loop(now){
     requestAnimationFrame(loop);
     const dtr=Math.min((now-last)/1000,.05); last=now;
     if(!live) return;
     acc+=dtr; let g=0;
-    while(acc>=0.003&&g++<350){ step(0.010); acc-=0.003; }
-    trail.push({x,v}); if(trail.length>TR) trail.shift();
-    if(fr++%9===0){
-      const f=feature();
-      if(P.dmg<0.02){ if(cloudH.length<220) cloudH.push(f); }
-      else { cloudD.push(f); if(cloudD.length>220) cloudD.shift(); }
+    while(acc>=0.004&&g++<400){ step(0.006); acc-=0.004; }
+    if(fr++%2===0){ for(let i=0;i<3;i++){ tr[i].push(X[i*9]); if(tr[i].length>HIST) tr[i].shift(); } }
+    render();
+  })(performance.now());
+})();
+
+/* ---- Figure 5: damage localisation, elastic vs viscoelastic ---- */
+(function(){
+  const cv=document.getElementById('ah-shm'); if(!cv) return;
+  const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
+  const css=getComputedStyle(document.documentElement); const C=k=>css.getPropertyValue(k).trim();
+  const N=120;
+  const P={beta:0.9, dmg:60, delta:0.5};
+  const lam=0.1, R1=0.5, Om=2.5, F0=0.1, De=1.0;
+  let mask=[]; for(let i=0;i<N;i++) mask.push(Math.random()<0.5?1:0);
+  let Xh,Vh,Sh,Xd,Vd,Sd,acc,t,n,profile;
+  function reset(){
+    Xh=new Float64Array(N);Vh=new Float64Array(N);Sh=new Float64Array(N);
+    Xd=new Float64Array(N);Vd=new Float64Array(N);Sd=new Float64Array(N);
+    acc=new Float64Array(N); t=0; n=0; profile=new Float64Array(N);
+  }
+  reset();
+  function advance(X,V,S,Rloc,dt,u){
+    for(let j=0;j<N;j++){
+      const l=j>0?X[j-1]:X[j], r=j<N-1?X[j+1]:X[j];
+      const f=-X[j]*X[j]*X[j]+3*X[j]*X[j]-2*X[j]-lam*S[j]
+              +Rloc[j]*(l-2*X[j]+r)+F0*Math.cos(Om*t)*(1+mask[j]*u);
+      V[j]+=De*De*f*dt;
     }
+    for(let j=0;j<N;j++){
+      X[j]+=V[j]*dt;
+      S[j]+=(V[j]/(1-P.beta)+X[j]-S[j])*dt;
+      if(!isFinite(X[j])||Math.abs(X[j])>1e3){X[j]=0;V[j]=0;S[j]=0;}
+    }
+  }
+  const Rh=new Float64Array(N).fill(R1);
+  let Rd=new Float64Array(N).fill(R1);
+  function setDamage(){ Rd=new Float64Array(N).fill(R1); Rd[P.dmg]=R1*P.delta; }
+  setDamage();
+  function step(dt){
+    const u=Math.sin(0.37*t)+0.6*Math.sin(0.91*t+1.1);
+    advance(Xh,Vh,Sh,Rh,dt,u);
+    advance(Xd,Vd,Sd,Rd,dt,u);
+    t+=dt;
+    if(t>18){ n++; for(let j=0;j<N;j++) acc[j]+=Math.abs(Xh[j]-Xd[j]); }
+  }
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    const x0=70, x1=W-70, y0=90, y1=H-110;
+    ctx.fillStyle=C('--muted'); ctx.font='500 25px Outfit, sans-serif';
+    ctx.fillText('damage localisation — healthy vs damaged response', 34, 40);
+    let mx=1e-9; for(let j=0;j<N;j++){ profile[j]=acc[j]/Math.max(n,1); if(profile[j]>mx) mx=profile[j]; }
+    // localisation score
+    let near=0, tot=0;
+    for(let j=0;j<N;j++){ const v=profile[j]/mx; tot+=v; if(Math.abs(j-P.dmg)<=15) near+=v; }
+    const loc=tot>0?near/tot:0;
+    ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(x0,y1);ctx.lineTo(x1,y1);ctx.stroke();
+    // damage marker
+    const dx=x0+(P.dmg/(N-1))*(x1-x0);
+    ctx.fillStyle='rgba(255,90,31,.14)';
+    ctx.fillRect(x0+((P.dmg-15)/(N-1))*(x1-x0),y0,(30/(N-1))*(x1-x0),y1-y0);
+    ctx.strokeStyle='#e11d48'; ctx.lineWidth=2.4; ctx.setLineDash([9,7]);
+    ctx.beginPath();ctx.moveTo(dx,y0);ctx.lineTo(dx,y1);ctx.stroke();ctx.setLineDash([]);
+    // bars
+    const bw=(x1-x0)/N;
+    for(let j=0;j<N;j++){
+      const h=(profile[j]/mx)*(y1-y0);
+      ctx.fillStyle = Math.abs(j-P.dmg)<=15 ? C('--accent-2') : C('--accent');
+      ctx.fillRect(x0+j*bw+1,y1-h,bw-2,h);
+    }
+    ctx.fillStyle='#e11d48'; ctx.font='500 20px "JetBrains Mono", monospace';
+    ctx.fillText('damage at node '+P.dmg, dx+12, y0+24);
+    ctx.fillStyle=C('--muted'); ctx.font='500 21px Outfit, sans-serif';
+    ctx.fillText('reservoir node index', x1-220, y1+40);
+    ctx.fillStyle = loc>0.8 ? C('--accent-3') : C('--accent-2');
+    ctx.font='500 23px Outfit, sans-serif';
+    ctx.fillText((P.beta<0.05?'elastic':'viscoelastic')+'  —  '+(loc*100).toFixed(0)
+                 +'% of the signature within ±15 nodes', 34, H-34);
+  }
+  [['ah-d','ahv-d','dmg',0],['ah-vb','ahv-vb','beta',2],['ah-dl','ahv-dl','delta',2]].forEach(a=>{
+    const R=document.getElementById(a[0]), Vl=document.getElementById(a[1]);
+    if(!R) return;
+    R.addEventListener('input',()=>{
+      P[a[2]]=parseFloat(R.value); Vl.textContent=P[a[2]].toFixed(a[3]);
+      setDamage(); reset();
+    });
+  });
+  let live=false;
+  new IntersectionObserver(e=>{live=e[0].isIntersecting;},{threshold:.05}).observe(cv);
+  let a2=0,last=performance.now();
+  (function loop(now){
+    requestAnimationFrame(loop);
+    const dtr=Math.min((now-last)/1000,.05); last=now;
+    if(!live) return;
+    a2+=dtr; let g=0;
+    while(a2>=0.002&&g++<900){ step(0.004); a2-=0.002; }
     render();
   })(performance.now());
 })();
