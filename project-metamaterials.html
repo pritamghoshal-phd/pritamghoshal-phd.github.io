@@ -30,8 +30,8 @@
     <div class="eyebrow">Project &middot; Doctoral research</div>
     <h1 class="page-title">Programmable mechanical metamaterials for <em>vibration and shock absorption</em></h1>
     <p class="hero-sub">
-      A bistable cellular panel whose response is set by which cells buckle. The inverse problem &mdash;
-      reading a target force response and returning a buckling pattern that produces it &mdash; is solved
+      A bistable cellular panel whose response is set by where the inserts go. The inverse problem &mdash;
+      reading a target force response and returning an insert pattern that produces it &mdash; is solved
       with a physical reservoir computer.
     </p>
     <div class="hero-meta">
@@ -52,270 +52,269 @@
 <section class="sec">
   <div class="wrap body-copy reveal">
     <h2 class="sec-title">Programming a panel by choosing where it buckles</h2>
-    <p>The metamaterial is a planar cellular panel arranged on a <strong>staggered lattice</strong>. Every
-      cell is a bistable element that sits either unbuckled or buckled, so the state of the panel is a
-      binary pattern. Under compression it snaps through a sequence of local buckling events, and the
+    <p>The metamaterial is a planar cellular panel arranged on a <strong>staggered lattice</strong>. Every site is either left empty (0) or filled with an insert (1), so the state of the panel is a binary filling pattern. Under compression it snaps through a sequence of local buckling events, and the
       pattern it ends up in determines how much energy the panel absorbs and how it responds to vibration
       and shock. That is what makes it <em>programmable</em>: the same physical panel has many mechanical
-      responses available to it, selected by which cells have snapped.</p>
+      responses available to it, selected by where the inserts are placed.</p>
     <p>The forward direction is easy enough &mdash; pick a pattern, simulate, get a force&ndash;displacement
-      curve. The useful direction is the inverse: given a target response, <strong>which pattern produces
-      it?</strong> That is the problem this project attacks, and the answer turns out to depend on
+      curve. The useful direction is the inverse: given a target response, <strong>which filling pattern produces it?</strong> That is the problem this project attacks, and the answer turns out to depend on
       something the data itself tells you about what a force curve can and cannot reveal.</p>
   </div>
   <div class="wrap">
     <div class="fig reveal">
       <div class="fig__head"><span class="fig__no">Figure 1 &mdash; The staggered lattice</span></div>
       <div class="fig__body">
-        <svg viewBox="0 0 1270 734" xmlns="http://www.w3.org/2000/svg" role="img"
-             aria-label="A 19 by 11 grid in which cells with r plus c even are addressable, forming a staggered quincunx sublattice of 105 bistable cells; one cell is highlighted with its eight neighbours.">
-          <rect x="20" y="14" width="600" height="694" rx="16" fill="rgba(22,82,240,.05)" stroke="var(--border)" stroke-width="1.6"/>
-          <text x="48" y="56" style="font-size:25px;font-family:Outfit,sans-serif" fill="var(--accent)" font-weight="600">the staggered lattice</text>
-          <circle cx="114" cy="104" r="2.6" fill="var(--border-2)"/>
-          <circle cx="202" cy="104" r="2.6" fill="var(--border-2)"/>
-          <circle cx="290" cy="104" r="2.6" fill="var(--border-2)"/>
-          <circle cx="378" cy="104" r="2.6" fill="var(--border-2)"/>
-          <circle cx="466" cy="104" r="2.6" fill="var(--border-2)"/>
-          <circle cx="70" cy="133" r="2.6" fill="var(--border-2)"/>
-          <circle cx="158" cy="133" r="2.6" fill="var(--border-2)"/>
-          <circle cx="246" cy="133" r="2.6" fill="var(--border-2)"/>
-          <circle cx="334" cy="133" r="2.6" fill="var(--border-2)"/>
-          <circle cx="422" cy="133" r="2.6" fill="var(--border-2)"/>
-          <circle cx="510" cy="133" r="2.6" fill="var(--border-2)"/>
-          <circle cx="114" cy="162" r="2.6" fill="var(--border-2)"/>
-          <circle cx="202" cy="162" r="2.6" fill="var(--border-2)"/>
-          <circle cx="290" cy="162" r="2.6" fill="var(--border-2)"/>
-          <circle cx="378" cy="162" r="2.6" fill="var(--border-2)"/>
-          <circle cx="466" cy="162" r="2.6" fill="var(--border-2)"/>
-          <circle cx="70" cy="191" r="2.6" fill="var(--border-2)"/>
-          <circle cx="158" cy="191" r="2.6" fill="var(--border-2)"/>
-          <circle cx="246" cy="191" r="2.6" fill="var(--border-2)"/>
-          <circle cx="334" cy="191" r="2.6" fill="var(--border-2)"/>
-          <circle cx="422" cy="191" r="2.6" fill="var(--border-2)"/>
-          <circle cx="510" cy="191" r="2.6" fill="var(--border-2)"/>
-          <circle cx="114" cy="220" r="2.6" fill="var(--border-2)"/>
-          <circle cx="202" cy="220" r="2.6" fill="var(--border-2)"/>
-          <circle cx="290" cy="220" r="2.6" fill="var(--border-2)"/>
-          <circle cx="378" cy="220" r="2.6" fill="var(--border-2)"/>
-          <circle cx="466" cy="220" r="2.6" fill="var(--border-2)"/>
-          <circle cx="70" cy="249" r="2.6" fill="var(--border-2)"/>
-          <circle cx="158" cy="249" r="2.6" fill="var(--border-2)"/>
-          <circle cx="246" cy="249" r="2.6" fill="var(--border-2)"/>
-          <circle cx="334" cy="249" r="2.6" fill="var(--border-2)"/>
-          <circle cx="422" cy="249" r="2.6" fill="var(--border-2)"/>
-          <circle cx="510" cy="249" r="2.6" fill="var(--border-2)"/>
-          <circle cx="114" cy="278" r="2.6" fill="var(--border-2)"/>
-          <circle cx="202" cy="278" r="2.6" fill="var(--border-2)"/>
-          <circle cx="290" cy="278" r="2.6" fill="var(--border-2)"/>
-          <circle cx="378" cy="278" r="2.6" fill="var(--border-2)"/>
-          <circle cx="466" cy="278" r="2.6" fill="var(--border-2)"/>
-          <circle cx="70" cy="307" r="2.6" fill="var(--border-2)"/>
-          <circle cx="158" cy="307" r="2.6" fill="var(--border-2)"/>
-          <circle cx="246" cy="307" r="2.6" fill="var(--border-2)"/>
-          <circle cx="334" cy="307" r="2.6" fill="var(--border-2)"/>
-          <circle cx="422" cy="307" r="2.6" fill="var(--border-2)"/>
-          <circle cx="510" cy="307" r="2.6" fill="var(--border-2)"/>
-          <circle cx="114" cy="336" r="2.6" fill="var(--border-2)"/>
-          <circle cx="202" cy="336" r="2.6" fill="var(--border-2)"/>
-          <circle cx="290" cy="336" r="2.6" fill="var(--border-2)"/>
-          <circle cx="378" cy="336" r="2.6" fill="var(--border-2)"/>
-          <circle cx="466" cy="336" r="2.6" fill="var(--border-2)"/>
-          <circle cx="70" cy="365" r="2.6" fill="var(--border-2)"/>
-          <circle cx="158" cy="365" r="2.6" fill="var(--border-2)"/>
-          <circle cx="246" cy="365" r="2.6" fill="var(--border-2)"/>
-          <circle cx="334" cy="365" r="2.6" fill="var(--border-2)"/>
-          <circle cx="422" cy="365" r="2.6" fill="var(--border-2)"/>
-          <circle cx="510" cy="365" r="2.6" fill="var(--border-2)"/>
-          <circle cx="114" cy="394" r="2.6" fill="var(--border-2)"/>
-          <circle cx="202" cy="394" r="2.6" fill="var(--border-2)"/>
-          <circle cx="290" cy="394" r="2.6" fill="var(--border-2)"/>
-          <circle cx="378" cy="394" r="2.6" fill="var(--border-2)"/>
-          <circle cx="466" cy="394" r="2.6" fill="var(--border-2)"/>
-          <circle cx="70" cy="423" r="2.6" fill="var(--border-2)"/>
-          <circle cx="158" cy="423" r="2.6" fill="var(--border-2)"/>
-          <circle cx="246" cy="423" r="2.6" fill="var(--border-2)"/>
-          <circle cx="334" cy="423" r="2.6" fill="var(--border-2)"/>
-          <circle cx="422" cy="423" r="2.6" fill="var(--border-2)"/>
-          <circle cx="510" cy="423" r="2.6" fill="var(--border-2)"/>
-          <circle cx="114" cy="452" r="2.6" fill="var(--border-2)"/>
-          <circle cx="202" cy="452" r="2.6" fill="var(--border-2)"/>
-          <circle cx="290" cy="452" r="2.6" fill="var(--border-2)"/>
-          <circle cx="378" cy="452" r="2.6" fill="var(--border-2)"/>
-          <circle cx="466" cy="452" r="2.6" fill="var(--border-2)"/>
-          <circle cx="70" cy="481" r="2.6" fill="var(--border-2)"/>
-          <circle cx="158" cy="481" r="2.6" fill="var(--border-2)"/>
-          <circle cx="246" cy="481" r="2.6" fill="var(--border-2)"/>
-          <circle cx="334" cy="481" r="2.6" fill="var(--border-2)"/>
-          <circle cx="422" cy="481" r="2.6" fill="var(--border-2)"/>
-          <circle cx="510" cy="481" r="2.6" fill="var(--border-2)"/>
-          <circle cx="114" cy="510" r="2.6" fill="var(--border-2)"/>
-          <circle cx="202" cy="510" r="2.6" fill="var(--border-2)"/>
-          <circle cx="290" cy="510" r="2.6" fill="var(--border-2)"/>
-          <circle cx="378" cy="510" r="2.6" fill="var(--border-2)"/>
-          <circle cx="466" cy="510" r="2.6" fill="var(--border-2)"/>
-          <circle cx="70" cy="539" r="2.6" fill="var(--border-2)"/>
-          <circle cx="158" cy="539" r="2.6" fill="var(--border-2)"/>
-          <circle cx="246" cy="539" r="2.6" fill="var(--border-2)"/>
-          <circle cx="334" cy="539" r="2.6" fill="var(--border-2)"/>
-          <circle cx="422" cy="539" r="2.6" fill="var(--border-2)"/>
-          <circle cx="510" cy="539" r="2.6" fill="var(--border-2)"/>
-          <circle cx="114" cy="568" r="2.6" fill="var(--border-2)"/>
-          <circle cx="202" cy="568" r="2.6" fill="var(--border-2)"/>
-          <circle cx="290" cy="568" r="2.6" fill="var(--border-2)"/>
-          <circle cx="378" cy="568" r="2.6" fill="var(--border-2)"/>
-          <circle cx="466" cy="568" r="2.6" fill="var(--border-2)"/>
-          <circle cx="70" cy="597" r="2.6" fill="var(--border-2)"/>
-          <circle cx="158" cy="597" r="2.6" fill="var(--border-2)"/>
-          <circle cx="246" cy="597" r="2.6" fill="var(--border-2)"/>
-          <circle cx="334" cy="597" r="2.6" fill="var(--border-2)"/>
-          <circle cx="422" cy="597" r="2.6" fill="var(--border-2)"/>
-          <circle cx="510" cy="597" r="2.6" fill="var(--border-2)"/>
-          <circle cx="114" cy="626" r="2.6" fill="var(--border-2)"/>
-          <circle cx="202" cy="626" r="2.6" fill="var(--border-2)"/>
-          <circle cx="290" cy="626" r="2.6" fill="var(--border-2)"/>
-          <circle cx="378" cy="626" r="2.6" fill="var(--border-2)"/>
-          <circle cx="466" cy="626" r="2.6" fill="var(--border-2)"/>
-          <path d="M70 86 L88 104 L70 122 L52 104 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M158 86 L176 104 L158 122 L140 104 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M246 86 L264 104 L246 122 L228 104 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M334 86 L352 104 L334 122 L316 104 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M422 86 L440 104 L422 122 L404 104 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M510 86 L528 104 L510 122 L492 104 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M114 115 L132 133 L114 151 L96 133 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M202 115 L220 133 L202 151 L184 133 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M290 115 L308 133 L290 151 L272 133 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M378 115 L396 133 L378 151 L360 133 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M466 115 L484 133 L466 151 L448 133 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M70 144 L88 162 L70 180 L52 162 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M158 144 L176 162 L158 180 L140 162 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M246 144 L264 162 L246 180 L228 162 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M334 144 L352 162 L334 180 L316 162 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M422 144 L440 162 L422 180 L404 162 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M510 144 L528 162 L510 180 L492 162 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M114 173 L132 191 L114 209 L96 191 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M202 173 L220 191 L202 209 L184 191 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M290 173 L308 191 L290 209 L272 191 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M378 173 L396 191 L378 209 L360 191 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M466 173 L484 191 L466 209 L448 191 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M70 202 L88 220 L70 238 L52 220 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M158 202 L176 220 L158 238 L140 220 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M246 202 L264 220 L246 238 L228 220 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M334 202 L352 220 L334 238 L316 220 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M422 202 L440 220 L422 238 L404 220 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M510 202 L528 220 L510 238 L492 220 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M114 231 L132 249 L114 267 L96 249 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M202 231 L220 249 L202 267 L184 249 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M290 231 L308 249 L290 267 L272 249 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M378 231 L396 249 L378 267 L360 249 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M466 231 L484 249 L466 267 L448 249 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M70 260 L88 278 L70 296 L52 278 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M158 260 L176 278 L158 296 L140 278 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M246 260 L264 278 L246 296 L228 278 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M334 260 L352 278 L334 296 L316 278 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M422 260 L440 278 L422 296 L404 278 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M510 260 L528 278 L510 296 L492 278 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M114 289 L132 307 L114 325 L96 307 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M202 289 L220 307 L202 325 L184 307 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M290 289 L308 307 L290 325 L272 307 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M378 289 L396 307 L378 325 L360 307 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M466 289 L484 307 L466 325 L448 307 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M70 318 L88 336 L70 354 L52 336 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M158 318 L176 336 L158 354 L140 336 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M246 318 L264 336 L246 354 L228 336 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M334 318 L352 336 L334 354 L316 336 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M422 318 L440 336 L422 354 L404 336 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M510 318 L528 336 L510 354 L492 336 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M114 347 L132 365 L114 383 L96 365 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M202 347 L220 365 L202 383 L184 365 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M290 347 L308 365 L290 383 L272 365 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M378 347 L396 365 L378 383 L360 365 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M466 347 L484 365 L466 383 L448 365 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M70 376 L88 394 L70 412 L52 394 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M158 376 L176 394 L158 412 L140 394 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M246 376 L264 394 L246 412 L228 394 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M334 376 L352 394 L334 412 L316 394 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M422 376 L440 394 L422 412 L404 394 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M510 376 L528 394 L510 412 L492 394 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M114 405 L132 423 L114 441 L96 423 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M202 405 L220 423 L202 441 L184 423 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M290 405 L308 423 L290 441 L272 423 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M378 405 L396 423 L378 441 L360 423 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M466 405 L484 423 L466 441 L448 423 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M70 434 L88 452 L70 470 L52 452 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M158 434 L176 452 L158 470 L140 452 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M246 434 L264 452 L246 470 L228 452 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M334 434 L352 452 L334 470 L316 452 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M422 434 L440 452 L422 470 L404 452 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M510 434 L528 452 L510 470 L492 452 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M114 463 L132 481 L114 499 L96 481 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M202 463 L220 481 L202 499 L184 481 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M290 463 L308 481 L290 499 L272 481 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M378 463 L396 481 L378 499 L360 481 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M466 463 L484 481 L466 499 L448 481 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M70 492 L88 510 L70 528 L52 510 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M158 492 L176 510 L158 528 L140 510 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M246 492 L264 510 L246 528 L228 510 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M334 492 L352 510 L334 528 L316 510 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M422 492 L440 510 L422 528 L404 510 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M510 492 L528 510 L510 528 L492 510 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M114 521 L132 539 L114 557 L96 539 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M202 521 L220 539 L202 557 L184 539 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M290 521 L308 539 L290 557 L272 539 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M378 521 L396 539 L378 557 L360 539 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M466 521 L484 539 L466 557 L448 539 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M70 550 L88 568 L70 586 L52 568 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M158 550 L176 568 L158 586 L140 568 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M246 550 L264 568 L246 586 L228 568 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M334 550 L352 568 L334 586 L316 568 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M422 550 L440 568 L422 586 L404 568 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M510 550 L528 568 L510 586 L492 568 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M114 579 L132 597 L114 615 L96 597 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M202 579 L220 597 L202 615 L184 597 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M290 579 L308 597 L290 615 L272 597 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M378 579 L396 597 L378 615 L360 597 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M466 579 L484 597 L466 615 L448 597 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M70 608 L88 626 L70 644 L52 626 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M158 608 L176 626 L158 644 L140 626 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M246 608 L264 626 L246 644 L228 626 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M334 608 L352 626 L334 644 L316 626 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M422 608 L440 626 L422 644 L404 626 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <path d="M510 608 L528 626 L510 644 L492 626 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <line x1="246" y1="336" x2="202" y2="307" stroke="var(--accent)" stroke-width="2.6"/>
-          <line x1="246" y1="336" x2="290" y2="307" stroke="var(--accent)" stroke-width="2.6"/>
-          <line x1="246" y1="336" x2="202" y2="365" stroke="var(--accent)" stroke-width="2.6"/>
-          <line x1="246" y1="336" x2="290" y2="365" stroke="var(--accent)" stroke-width="2.6"/>
-          <line x1="246" y1="336" x2="158" y2="336" stroke="var(--accent)" stroke-width="2.6"/>
-          <line x1="246" y1="336" x2="334" y2="336" stroke="var(--accent)" stroke-width="2.6"/>
-          <line x1="246" y1="336" x2="246" y2="278" stroke="var(--accent)" stroke-width="2.6"/>
-          <line x1="246" y1="336" x2="246" y2="394" stroke="var(--accent)" stroke-width="2.6"/>
-          <path d="M202 289 L220 307 L202 325 L184 307 Z" fill="none" stroke="var(--accent)" stroke-width="3"/>
-          <path d="M290 289 L308 307 L290 325 L272 307 Z" fill="none" stroke="var(--accent)" stroke-width="3"/>
-          <path d="M202 347 L220 365 L202 383 L184 365 Z" fill="none" stroke="var(--accent)" stroke-width="3"/>
-          <path d="M290 347 L308 365 L290 383 L272 365 Z" fill="none" stroke="var(--accent)" stroke-width="3"/>
-          <path d="M158 318 L176 336 L158 354 L140 336 Z" fill="none" stroke="var(--accent)" stroke-width="3"/>
-          <path d="M334 318 L352 336 L334 354 L316 336 Z" fill="none" stroke="var(--accent)" stroke-width="3"/>
-          <path d="M246 260 L264 278 L246 296 L228 278 Z" fill="none" stroke="var(--accent)" stroke-width="3"/>
-          <path d="M246 376 L264 394 L246 412 L228 394 Z" fill="none" stroke="var(--accent)" stroke-width="3"/>
-          <path d="M246 318 L264 336 L246 354 L228 336 Z" fill="var(--accent)" stroke="var(--ink)" stroke-width="2.4"/>
-          <line x1="650" y1="60" x2="650" y2="686" stroke="var(--border-2)" stroke-width="1.6"/>
-          <text x="686" y="66" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">19 × 11 grid, quincunx sublattice</text>
-          <text x="686" y="106" style="font-size:21px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">valid cell  ⇔  (r + c) even</text>
-          <text x="686" y="140" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">105 addressable cells · 104 structural voids</text>
-          <text x="686" y="168" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">even rows carry 6, odd rows carry 5</text>
-          <path d="M700 240 L718 258 L700 276 L682 258 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
-          <text x="732" y="231" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">unbuckled  (0)</text>
-          <path d="M700 288 L718 306 L700 324 L682 306 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
-          <text x="732" y="279" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">buckled  (1)</text>
-          <circle cx="700" cy="350" r="2.6" fill="var(--border-2)"/>
-          <text x="732" y="322" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">structural void</text>
-          <text x="686" y="378" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">adjacency</text>
-          <text x="686" y="416" style="font-size:21px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">offsets  { ±1, ±5, ±6, ±11 }</text>
-          <text x="686" y="450" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">two cells across, four diagonals, two rows away</text>
-          <text x="686" y="478" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">degree 3 (corner) to 8 (interior), mean 6.86</text>
-          <text x="686" y="506" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">this defines what a connected cluster is</text>
-          <text x="686" y="562" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">a pattern is described by</text>
-          <text x="686" y="600" style="font-size:21px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">n  cells   ·   κ  clusters   ·   L  largest</text>
-          <text x="686" y="632" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">mean n = 58.7,  mean κ = 9.13,  density 0.559</text>
+        <svg viewBox="0 0 1270 774" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="A 19 by 11 lattice, taller than it is wide, in which sites with r plus c even are addressable; each site is either empty or filled with an insert.">
+          <rect x="20" y="26" width="480" height="756" rx="16" fill="rgba(22,82,240,.05)" stroke="var(--border)" stroke-width="1.6"/>
+          <text x="48" y="62" style="font-size:25px;font-family:Outfit,sans-serif" fill="var(--accent)" font-weight="600">the staggered lattice</text>
+          <circle cx="144" cy="92" r="2.4" fill="var(--border-2)"/>
+          <circle cx="212" cy="92" r="2.4" fill="var(--border-2)"/>
+          <circle cx="280" cy="92" r="2.4" fill="var(--border-2)"/>
+          <circle cx="348" cy="92" r="2.4" fill="var(--border-2)"/>
+          <circle cx="416" cy="92" r="2.4" fill="var(--border-2)"/>
+          <circle cx="110" cy="125" r="2.4" fill="var(--border-2)"/>
+          <circle cx="178" cy="125" r="2.4" fill="var(--border-2)"/>
+          <circle cx="246" cy="125" r="2.4" fill="var(--border-2)"/>
+          <circle cx="314" cy="125" r="2.4" fill="var(--border-2)"/>
+          <circle cx="382" cy="125" r="2.4" fill="var(--border-2)"/>
+          <circle cx="450" cy="125" r="2.4" fill="var(--border-2)"/>
+          <circle cx="144" cy="158" r="2.4" fill="var(--border-2)"/>
+          <circle cx="212" cy="158" r="2.4" fill="var(--border-2)"/>
+          <circle cx="280" cy="158" r="2.4" fill="var(--border-2)"/>
+          <circle cx="348" cy="158" r="2.4" fill="var(--border-2)"/>
+          <circle cx="416" cy="158" r="2.4" fill="var(--border-2)"/>
+          <circle cx="110" cy="191" r="2.4" fill="var(--border-2)"/>
+          <circle cx="178" cy="191" r="2.4" fill="var(--border-2)"/>
+          <circle cx="246" cy="191" r="2.4" fill="var(--border-2)"/>
+          <circle cx="314" cy="191" r="2.4" fill="var(--border-2)"/>
+          <circle cx="382" cy="191" r="2.4" fill="var(--border-2)"/>
+          <circle cx="450" cy="191" r="2.4" fill="var(--border-2)"/>
+          <circle cx="144" cy="224" r="2.4" fill="var(--border-2)"/>
+          <circle cx="212" cy="224" r="2.4" fill="var(--border-2)"/>
+          <circle cx="280" cy="224" r="2.4" fill="var(--border-2)"/>
+          <circle cx="348" cy="224" r="2.4" fill="var(--border-2)"/>
+          <circle cx="416" cy="224" r="2.4" fill="var(--border-2)"/>
+          <circle cx="110" cy="257" r="2.4" fill="var(--border-2)"/>
+          <circle cx="178" cy="257" r="2.4" fill="var(--border-2)"/>
+          <circle cx="246" cy="257" r="2.4" fill="var(--border-2)"/>
+          <circle cx="314" cy="257" r="2.4" fill="var(--border-2)"/>
+          <circle cx="382" cy="257" r="2.4" fill="var(--border-2)"/>
+          <circle cx="450" cy="257" r="2.4" fill="var(--border-2)"/>
+          <circle cx="144" cy="290" r="2.4" fill="var(--border-2)"/>
+          <circle cx="212" cy="290" r="2.4" fill="var(--border-2)"/>
+          <circle cx="280" cy="290" r="2.4" fill="var(--border-2)"/>
+          <circle cx="348" cy="290" r="2.4" fill="var(--border-2)"/>
+          <circle cx="416" cy="290" r="2.4" fill="var(--border-2)"/>
+          <circle cx="110" cy="323" r="2.4" fill="var(--border-2)"/>
+          <circle cx="178" cy="323" r="2.4" fill="var(--border-2)"/>
+          <circle cx="246" cy="323" r="2.4" fill="var(--border-2)"/>
+          <circle cx="314" cy="323" r="2.4" fill="var(--border-2)"/>
+          <circle cx="382" cy="323" r="2.4" fill="var(--border-2)"/>
+          <circle cx="450" cy="323" r="2.4" fill="var(--border-2)"/>
+          <circle cx="144" cy="356" r="2.4" fill="var(--border-2)"/>
+          <circle cx="212" cy="356" r="2.4" fill="var(--border-2)"/>
+          <circle cx="280" cy="356" r="2.4" fill="var(--border-2)"/>
+          <circle cx="348" cy="356" r="2.4" fill="var(--border-2)"/>
+          <circle cx="416" cy="356" r="2.4" fill="var(--border-2)"/>
+          <circle cx="110" cy="389" r="2.4" fill="var(--border-2)"/>
+          <circle cx="178" cy="389" r="2.4" fill="var(--border-2)"/>
+          <circle cx="246" cy="389" r="2.4" fill="var(--border-2)"/>
+          <circle cx="314" cy="389" r="2.4" fill="var(--border-2)"/>
+          <circle cx="382" cy="389" r="2.4" fill="var(--border-2)"/>
+          <circle cx="450" cy="389" r="2.4" fill="var(--border-2)"/>
+          <circle cx="144" cy="422" r="2.4" fill="var(--border-2)"/>
+          <circle cx="212" cy="422" r="2.4" fill="var(--border-2)"/>
+          <circle cx="280" cy="422" r="2.4" fill="var(--border-2)"/>
+          <circle cx="348" cy="422" r="2.4" fill="var(--border-2)"/>
+          <circle cx="416" cy="422" r="2.4" fill="var(--border-2)"/>
+          <circle cx="110" cy="455" r="2.4" fill="var(--border-2)"/>
+          <circle cx="178" cy="455" r="2.4" fill="var(--border-2)"/>
+          <circle cx="246" cy="455" r="2.4" fill="var(--border-2)"/>
+          <circle cx="314" cy="455" r="2.4" fill="var(--border-2)"/>
+          <circle cx="382" cy="455" r="2.4" fill="var(--border-2)"/>
+          <circle cx="450" cy="455" r="2.4" fill="var(--border-2)"/>
+          <circle cx="144" cy="488" r="2.4" fill="var(--border-2)"/>
+          <circle cx="212" cy="488" r="2.4" fill="var(--border-2)"/>
+          <circle cx="280" cy="488" r="2.4" fill="var(--border-2)"/>
+          <circle cx="348" cy="488" r="2.4" fill="var(--border-2)"/>
+          <circle cx="416" cy="488" r="2.4" fill="var(--border-2)"/>
+          <circle cx="110" cy="521" r="2.4" fill="var(--border-2)"/>
+          <circle cx="178" cy="521" r="2.4" fill="var(--border-2)"/>
+          <circle cx="246" cy="521" r="2.4" fill="var(--border-2)"/>
+          <circle cx="314" cy="521" r="2.4" fill="var(--border-2)"/>
+          <circle cx="382" cy="521" r="2.4" fill="var(--border-2)"/>
+          <circle cx="450" cy="521" r="2.4" fill="var(--border-2)"/>
+          <circle cx="144" cy="554" r="2.4" fill="var(--border-2)"/>
+          <circle cx="212" cy="554" r="2.4" fill="var(--border-2)"/>
+          <circle cx="280" cy="554" r="2.4" fill="var(--border-2)"/>
+          <circle cx="348" cy="554" r="2.4" fill="var(--border-2)"/>
+          <circle cx="416" cy="554" r="2.4" fill="var(--border-2)"/>
+          <circle cx="110" cy="587" r="2.4" fill="var(--border-2)"/>
+          <circle cx="178" cy="587" r="2.4" fill="var(--border-2)"/>
+          <circle cx="246" cy="587" r="2.4" fill="var(--border-2)"/>
+          <circle cx="314" cy="587" r="2.4" fill="var(--border-2)"/>
+          <circle cx="382" cy="587" r="2.4" fill="var(--border-2)"/>
+          <circle cx="450" cy="587" r="2.4" fill="var(--border-2)"/>
+          <circle cx="144" cy="620" r="2.4" fill="var(--border-2)"/>
+          <circle cx="212" cy="620" r="2.4" fill="var(--border-2)"/>
+          <circle cx="280" cy="620" r="2.4" fill="var(--border-2)"/>
+          <circle cx="348" cy="620" r="2.4" fill="var(--border-2)"/>
+          <circle cx="416" cy="620" r="2.4" fill="var(--border-2)"/>
+          <circle cx="110" cy="653" r="2.4" fill="var(--border-2)"/>
+          <circle cx="178" cy="653" r="2.4" fill="var(--border-2)"/>
+          <circle cx="246" cy="653" r="2.4" fill="var(--border-2)"/>
+          <circle cx="314" cy="653" r="2.4" fill="var(--border-2)"/>
+          <circle cx="382" cy="653" r="2.4" fill="var(--border-2)"/>
+          <circle cx="450" cy="653" r="2.4" fill="var(--border-2)"/>
+          <circle cx="144" cy="686" r="2.4" fill="var(--border-2)"/>
+          <circle cx="212" cy="686" r="2.4" fill="var(--border-2)"/>
+          <circle cx="280" cy="686" r="2.4" fill="var(--border-2)"/>
+          <circle cx="348" cy="686" r="2.4" fill="var(--border-2)"/>
+          <circle cx="416" cy="686" r="2.4" fill="var(--border-2)"/>
+          <path d="M110 77 L125 92 L110 107 L95 92 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M178 77 L193 92 L178 107 L163 92 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M246 77 L261 92 L246 107 L231 92 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M314 77 L329 92 L314 107 L299 92 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M382 77 L397 92 L382 107 L367 92 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M450 77 L465 92 L450 107 L435 92 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M144 110 L159 125 L144 140 L129 125 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M212 110 L227 125 L212 140 L197 125 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M280 110 L295 125 L280 140 L265 125 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M348 110 L363 125 L348 140 L333 125 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M416 110 L431 125 L416 140 L401 125 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M110 143 L125 158 L110 173 L95 158 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M178 143 L193 158 L178 173 L163 158 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M246 143 L261 158 L246 173 L231 158 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M314 143 L329 158 L314 173 L299 158 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M382 143 L397 158 L382 173 L367 158 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M450 143 L465 158 L450 173 L435 158 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M144 176 L159 191 L144 206 L129 191 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M212 176 L227 191 L212 206 L197 191 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M280 176 L295 191 L280 206 L265 191 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M348 176 L363 191 L348 206 L333 191 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M416 176 L431 191 L416 206 L401 191 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M110 209 L125 224 L110 239 L95 224 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M178 209 L193 224 L178 239 L163 224 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M246 209 L261 224 L246 239 L231 224 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M314 209 L329 224 L314 239 L299 224 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M382 209 L397 224 L382 239 L367 224 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M450 209 L465 224 L450 239 L435 224 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M144 242 L159 257 L144 272 L129 257 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M212 242 L227 257 L212 272 L197 257 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M280 242 L295 257 L280 272 L265 257 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M348 242 L363 257 L348 272 L333 257 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M416 242 L431 257 L416 272 L401 257 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M110 275 L125 290 L110 305 L95 290 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M178 275 L193 290 L178 305 L163 290 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M246 275 L261 290 L246 305 L231 290 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M314 275 L329 290 L314 305 L299 290 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M382 275 L397 290 L382 305 L367 290 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M450 275 L465 290 L450 305 L435 290 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M144 308 L159 323 L144 338 L129 323 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M212 308 L227 323 L212 338 L197 323 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M280 308 L295 323 L280 338 L265 323 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M348 308 L363 323 L348 338 L333 323 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M416 308 L431 323 L416 338 L401 323 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M110 341 L125 356 L110 371 L95 356 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M178 341 L193 356 L178 371 L163 356 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M246 341 L261 356 L246 371 L231 356 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M314 341 L329 356 L314 371 L299 356 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M382 341 L397 356 L382 371 L367 356 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M450 341 L465 356 L450 371 L435 356 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M144 374 L159 389 L144 404 L129 389 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M212 374 L227 389 L212 404 L197 389 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M280 374 L295 389 L280 404 L265 389 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M348 374 L363 389 L348 404 L333 389 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M416 374 L431 389 L416 404 L401 389 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M110 407 L125 422 L110 437 L95 422 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M178 407 L193 422 L178 437 L163 422 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M246 407 L261 422 L246 437 L231 422 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M314 407 L329 422 L314 437 L299 422 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M382 407 L397 422 L382 437 L367 422 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M450 407 L465 422 L450 437 L435 422 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M144 440 L159 455 L144 470 L129 455 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M212 440 L227 455 L212 470 L197 455 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M280 440 L295 455 L280 470 L265 455 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M348 440 L363 455 L348 470 L333 455 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M416 440 L431 455 L416 470 L401 455 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M110 473 L125 488 L110 503 L95 488 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M178 473 L193 488 L178 503 L163 488 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M246 473 L261 488 L246 503 L231 488 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M314 473 L329 488 L314 503 L299 488 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M382 473 L397 488 L382 503 L367 488 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M450 473 L465 488 L450 503 L435 488 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M144 506 L159 521 L144 536 L129 521 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M212 506 L227 521 L212 536 L197 521 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M280 506 L295 521 L280 536 L265 521 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M348 506 L363 521 L348 536 L333 521 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M416 506 L431 521 L416 536 L401 521 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M110 539 L125 554 L110 569 L95 554 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M178 539 L193 554 L178 569 L163 554 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M246 539 L261 554 L246 569 L231 554 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M314 539 L329 554 L314 569 L299 554 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M382 539 L397 554 L382 569 L367 554 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M450 539 L465 554 L450 569 L435 554 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M144 572 L159 587 L144 602 L129 587 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M212 572 L227 587 L212 602 L197 587 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M280 572 L295 587 L280 602 L265 587 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M348 572 L363 587 L348 602 L333 587 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M416 572 L431 587 L416 602 L401 587 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M110 605 L125 620 L110 635 L95 620 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M178 605 L193 620 L178 635 L163 620 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M246 605 L261 620 L246 635 L231 620 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M314 605 L329 620 L314 635 L299 620 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M382 605 L397 620 L382 635 L367 620 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M450 605 L465 620 L450 635 L435 620 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M144 638 L159 653 L144 668 L129 653 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M212 638 L227 653 L212 668 L197 653 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M280 638 L295 653 L280 668 L265 653 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M348 638 L363 653 L348 668 L333 653 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M416 638 L431 653 L416 668 L401 653 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M110 671 L125 686 L110 701 L95 686 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M178 671 L193 686 L178 701 L163 686 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M246 671 L261 686 L246 701 L231 686 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M314 671 L329 686 L314 701 L299 686 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M382 671 L397 686 L382 701 L367 686 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <path d="M450 671 L465 686 L450 701 L435 686 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <line x1="246" y1="356" x2="212" y2="323" stroke="var(--accent)" stroke-width="2.4"/>
+          <line x1="246" y1="356" x2="280" y2="323" stroke="var(--accent)" stroke-width="2.4"/>
+          <line x1="246" y1="356" x2="212" y2="389" stroke="var(--accent)" stroke-width="2.4"/>
+          <line x1="246" y1="356" x2="280" y2="389" stroke="var(--accent)" stroke-width="2.4"/>
+          <line x1="246" y1="356" x2="178" y2="356" stroke="var(--accent)" stroke-width="2.4"/>
+          <line x1="246" y1="356" x2="314" y2="356" stroke="var(--accent)" stroke-width="2.4"/>
+          <line x1="246" y1="356" x2="246" y2="290" stroke="var(--accent)" stroke-width="2.4"/>
+          <line x1="246" y1="356" x2="246" y2="422" stroke="var(--accent)" stroke-width="2.4"/>
+          <path d="M212 308 L227 323 L212 338 L197 323 Z" fill="none" stroke="var(--accent)" stroke-width="2.8"/>
+          <path d="M280 308 L295 323 L280 338 L265 323 Z" fill="none" stroke="var(--accent)" stroke-width="2.8"/>
+          <path d="M212 374 L227 389 L212 404 L197 389 Z" fill="none" stroke="var(--accent)" stroke-width="2.8"/>
+          <path d="M280 374 L295 389 L280 404 L265 389 Z" fill="none" stroke="var(--accent)" stroke-width="2.8"/>
+          <path d="M178 341 L193 356 L178 371 L163 356 Z" fill="none" stroke="var(--accent)" stroke-width="2.8"/>
+          <path d="M314 341 L329 356 L314 371 L299 356 Z" fill="none" stroke="var(--accent)" stroke-width="2.8"/>
+          <path d="M246 275 L261 290 L246 305 L231 290 Z" fill="none" stroke="var(--accent)" stroke-width="2.8"/>
+          <path d="M246 407 L261 422 L246 437 L231 422 Z" fill="none" stroke="var(--accent)" stroke-width="2.8"/>
+          <path d="M246 341 L261 356 L246 371 L231 356 Z" fill="var(--accent)" stroke="var(--ink)" stroke-width="2.2"/>
+          <text x="280.0" y="742" style="font-size:20px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--sub)">340  wide</text>
+          <text x="48" y="766" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">19 rows × 11 columns</text>
+          <line x1="520" y1="60" x2="520" y2="744" stroke="var(--border-2)" stroke-width="1.6"/>
+          <text x="540" y="66" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">19 × 11 grid, quincunx sublattice</text>
+          <text x="540" y="104" style="font-size:21px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">valid site  ⇔  (r + c) even</text>
+          <text x="540" y="138" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">105 addressable sites · 104 structural voids</text>
+          <text x="540" y="166" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">even rows carry 6, odd rows carry 5</text>
+          <text x="540" y="220" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">the design variable is where inserts go</text>
+          <path d="M554 250 L572 268 L554 286 L536 268 Z" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.5"/>
+          <text x="588" y="275" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">0  —  site left empty</text>
+          <path d="M554 300 L572 318 L554 336 L536 318 Z" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="1.5"/>
+          <text x="588" y="325" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">1  —  site filled with an insert</text>
+          <circle cx="554" cy="362" r="2.4" fill="var(--border-2)"/>
+          <text x="588" y="368" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">structural void — never addressable</text>
+          <text x="540" y="424" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">adjacency</text>
+          <text x="540" y="462" style="font-size:21px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">offsets  { ±1, ±5, ±6, ±11 }</text>
+          <text x="540" y="496" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">two sites across, four diagonals, two rows away</text>
+          <text x="540" y="524" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">degree 3 (corner) to 8 (interior), mean 6.86</text>
+          <text x="540" y="578" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">a filling pattern is described by</text>
+          <text x="540" y="616" style="font-size:21px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">n  inserts   ·   κ  clusters   ·   L  largest</text>
+          <text x="540" y="650" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">mean n = 58.7,  mean κ = 9.13,  fill fraction 0.559</text>
         </svg>
       </div>
       <p class="fig__cap"><b>Figure 1.</b> The panel is a 19&times;11 grid in which a position is an
@@ -325,7 +324,7 @@
         <b>{&plusmn;1, &plusmn;5, &plusmn;6, &plusmn;11}</b> on the linear index: two cells across, the four
         diagonals, and two rows away. Node degree runs from 3 at a corner to 8 in the interior, mean 6.86.
         One cell is highlighted with its neighbours. This adjacency is what defines a connected cluster of
-        buckled cells, and it is used both to label the data and to grow synthetic patterns.</p>
+        filled sites, and it is used both to label the data and to grow synthetic patterns.</p>
     </div>
   </div>
 </section>
@@ -335,14 +334,13 @@
     <h2 class="sec-title">What a force curve can actually tell you</h2>
     <p>The dataset is a set of simulated compression runs &mdash; 23,915 raw, reduced to
       <strong>20,787 unique</strong> after removing 3,128 exact repeats, so that identical runs cannot
-      appear in both training and test sets. Each run gives a pattern, a 200-point force curve normalised
-      per run, and a peak force between 5.7 and 50.4.</p>
+      appear in both training and test sets. Each run gives a filling pattern, a 200-point force curve, and the peak force. Generation is capped at <b>20&nbsp;N</b>.</p>
     <p>Before anything else, the physical curve has to be put back together. The supplied curves are
       normalised, which throws away amplitude &mdash; and amplitude is exactly what carries the strongest
-      signal in the data: the correlation between peak force and number of buckled cells is
+      signal in the data: the correlation between peak force and number of inserts is
       <strong>&minus;0.884</strong>. Rescaling by the peak recovers it to a median relative error of 0.4%.</p>
     <p>The decisive measurement came next. The curve reports how <em>many</em> cells buckled and how
-      <em>fragmented</em> the buckled region is &mdash; but not <em>where</em> on the panel it sits.
+      <em>fragmented</em> the filled region is &mdash; but not <em>where</em> on the panel it sits.
       Centroid coordinates are recovered at R&sup2;&nbsp;&le;&nbsp;0.06, and the row and column occupancy
       profiles are predicted no better than by knowing the cell count alone. So predicting 105 bits
       directly collapses onto the prior. The statistics, by contrast, are genuinely recoverable. That
@@ -353,39 +351,39 @@
       <div class="fig__head"><span class="fig__no">Figure 2 &mdash; The signal</span></div>
       <div class="fig__body">
         <svg viewBox="0 0 1270 530" xmlns="http://www.w3.org/2000/svg" role="img"
-             aria-label="A force-displacement curve with loading ramp, buckling plateau and second loading ramp, alongside what the curve does and does not encode about the buckling pattern.">
+             aria-label="A force-displacement curve rising from zero through two smooth buckling regions to a 20 newton cap, alongside what the curve does and does not encode about the insert pattern.">
           <rect x="20" y="26" width="700" height="472" rx="16" fill="rgba(255,90,31,.06)" stroke="var(--border)" stroke-width="1.6"/>
           <text x="48" y="62" style="font-size:25px;font-family:Outfit,sans-serif" fill="var(--accent-2)" font-weight="600">force–displacement response</text>
-          <rect x="319" y="90" width="214" height="300" fill="rgba(255,90,31,.13)"/>
-          <line x1="90" y1="390" x2="690" y2="390" stroke="var(--border-2)" stroke-width="1.8"/>
-          <line x1="90" y1="90" x2="90" y2="390" stroke="var(--border-2)" stroke-width="1.8"/>
-          <path d="M90.0 356.9 L93.0 354.6 L96.0 352.3 L99.0 350.0 L102.1 347.7 L105.1 345.5 L108.1 343.2 L111.1 340.9 L114.1 338.6 L117.1 336.3 L120.2 334.0 L123.2 331.7 L126.2 329.5 L129.2 327.2 L132.2 324.9 L135.2 322.6 L138.2 320.3 L141.3 318.0 L144.3 315.7 L147.3 313.4 L150.3 311.2 L153.3 308.9 L156.3 306.6 L159.3 304.3 L162.4 302.0 L165.4 299.7 L168.4 297.4 L171.4 295.2 L174.4 292.9 L177.4 290.6 L180.5 288.3 L183.5 286.0 L186.5 283.7 L189.5 281.4 L192.5 279.1 L195.5 276.9 L198.5 274.6 L201.6 272.3 L204.6 270.0 L207.6 267.7 L210.6 265.4 L213.6 263.1 L216.6 260.9 L219.6 258.6 L222.7 256.3 L225.7 254.0 L228.7 251.7 L231.7 249.4 L234.7 247.1 L237.7 244.8 L240.8 242.6 L243.8 240.3 L246.8 238.0 L249.8 235.7 L252.8 233.4 L255.8 231.1 L258.8 228.8 L261.9 226.6 L264.9 224.3 L267.9 222.0 L270.9 219.7 L273.9 217.4 L276.9 215.1 L279.9 212.8 L283.0 210.5 L286.0 208.3 L289.0 206.0 L292.0 203.7 L295.0 201.4 L298.0 199.1 L301.1 196.8 L304.1 194.5 L307.1 192.3 L310.1 190.0 L313.1 187.7 L316.1 185.4 L319.1 187.9 L322.2 182.6 L325.2 178.4 L328.2 179.1 L331.2 184.8 L334.2 191.8 L337.2 195.6 L340.3 193.9 L343.3 188.6 L346.3 184.5 L349.3 185.3 L352.3 191.0 L355.3 198.0 L358.3 201.7 L361.4 199.9 L364.4 194.6 L367.4 190.6 L370.4 191.4 L373.4 197.2 L376.4 204.2 L379.4 207.8 L382.5 205.9 L385.5 200.6 L388.5 196.6 L391.5 197.6 L394.5 203.5 L397.5 210.5 L400.6 213.9 L403.6 212.0 L406.6 206.6 L409.6 202.7 L412.6 203.8 L415.6 209.7 L418.6 216.7 L421.7 220.1 L424.7 218.0 L427.7 212.7 L430.7 208.8 L433.7 210.0 L436.7 216.0 L439.7 222.9 L442.8 226.2 L445.8 224.0 L448.8 218.7 L451.8 214.9 L454.8 216.1 L457.8 222.2 L460.9 229.1 L463.9 232.3 L466.9 230.0 L469.9 224.7 L472.9 220.9 L475.9 222.3 L478.9 228.4 L482.0 235.3 L485.0 238.4 L488.0 236.0 L491.0 230.7 L494.0 227.0 L497.0 228.5 L500.1 234.7 L503.1 241.5 L506.1 244.5 L509.1 242.0 L512.1 236.7 L515.1 233.1 L518.1 234.7 L521.2 240.9 L524.2 247.7 L527.2 250.6 L530.2 248.1 L533.2 245.2 L536.2 242.7 L539.2 240.2 L542.3 237.8 L545.3 235.3 L548.3 232.8 L551.3 230.4 L554.3 227.9 L557.3 225.4 L560.4 223.0 L563.4 220.5 L566.4 218.0 L569.4 215.6 L572.4 213.1 L575.4 210.6 L578.4 208.2 L581.5 205.7 L584.5 203.2 L587.5 200.8 L590.5 198.3 L593.5 195.8 L596.5 193.4 L599.5 190.9 L602.6 188.4 L605.6 186.0 L608.6 183.5 L611.6 181.0 L614.6 178.6 L617.6 176.1 L620.7 173.6 L623.7 171.2 L626.7 168.7 L629.7 166.2 L632.7 163.8 L635.7 161.3 L638.7 158.8 L641.8 156.4 L644.8 153.9 L647.8 151.4 L650.8 149.0 L653.8 146.5 L656.8 144.0 L659.8 141.6 L662.9 139.1 L665.9 136.6 L668.9 134.2 L671.9 131.7 L674.9 129.2 L677.9 126.8 L681.0 124.3 L684.0 121.8 L687.0 119.4 L690.0 116.9" fill="none" stroke="var(--accent-2)" stroke-width="3.4"/>
-          <text x="204.57286432160805" y="424" style="font-size:20px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--muted)">loading</text>
-          <text x="424.67336683417085" y="424" style="font-size:20px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--accent-2)">buckling plateau</text>
-          <text x="614.6231155778895" y="424" style="font-size:20px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--muted)">second loading</text>
-          <text x="424.67336683417085" y="112" style="font-size:19px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--accent-2)">samples 76–147</text>
-          <text x="48" y="452" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">F(t) = ½(f(t)+1)·F_max     recovers the peak to 0.4%</text>
-          <text x="48" y="480" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">200 samples, resampled to 105 — one per cell</text>
+          <rect x="273" y="110" width="70" height="282" fill="rgba(255,90,31,.14)"/>
+          <rect x="448" y="110" width="76" height="282" fill="rgba(255,90,31,.14)"/>
+          <line x1="110" y1="392" x2="690" y2="392" stroke="var(--border-2)" stroke-width="1.8"/>
+          <line x1="110" y1="110" x2="110" y2="392" stroke="var(--border-2)" stroke-width="1.8"/>
+          <line x1="110" y1="147" x2="690" y2="147" stroke="var(--accent)" stroke-width="2.2" stroke-dasharray="9 7"/>
+          <text x="686" y="134.7826086956522" style="font-size:20px;font-family:'JetBrains Mono',monospace" text-anchor="end" fill="var(--accent)">20 N cap</text>
+          <path d="M110.0 392.0 L112.9 391.9 L115.8 391.4 L118.7 390.7 L121.7 389.7 L124.6 388.5 L127.5 387.1 L130.4 385.4 L133.3 383.4 L136.2 381.3 L139.1 379.0 L142.1 376.4 L145.0 373.7 L147.9 370.9 L150.8 367.8 L153.7 364.7 L156.6 361.3 L159.5 357.9 L162.5 354.4 L165.4 350.7 L168.3 346.9 L171.2 343.1 L174.1 339.2 L177.0 335.2 L179.9 331.2 L182.9 327.1 L185.8 323.0 L188.7 318.9 L191.6 314.8 L194.5 310.7 L197.4 306.6 L200.4 302.5 L203.3 298.4 L206.2 294.4 L209.1 290.4 L212.0 286.6 L214.9 282.7 L217.8 279.0 L220.8 275.4 L223.7 271.9 L226.6 268.5 L229.5 265.2 L232.4 262.0 L235.3 259.1 L238.2 256.2 L241.2 253.6 L244.1 251.1 L247.0 248.8 L249.9 246.7 L252.8 244.9 L255.7 243.3 L258.6 241.9 L261.6 240.7 L264.5 239.8 L267.4 239.2 L270.3 238.8 L273.2 238.8 L276.1 239.0 L279.0 239.6 L282.0 240.4 L284.9 241.4 L287.8 242.7 L290.7 244.2 L293.6 245.8 L296.5 247.6 L299.4 249.4 L302.4 251.4 L305.3 253.4 L308.2 255.4 L311.1 257.4 L314.0 259.3 L316.9 261.2 L319.8 263.0 L322.8 264.7 L325.7 266.2 L328.6 267.5 L331.5 268.7 L334.4 269.6 L337.3 270.2 L340.3 270.6 L343.2 270.6 L346.1 270.3 L349.0 269.6 L351.9 268.6 L354.8 267.3 L357.7 265.7 L360.7 263.8 L363.6 261.7 L366.5 259.4 L369.4 256.8 L372.3 254.1 L375.2 251.2 L378.1 248.2 L381.1 245.1 L384.0 241.9 L386.9 238.6 L389.8 235.3 L392.7 231.9 L395.6 228.5 L398.5 225.1 L401.5 221.8 L404.4 218.5 L407.3 215.3 L410.2 212.1 L413.1 209.1 L416.0 206.3 L418.9 203.5 L421.9 201.0 L424.8 198.7 L427.7 196.6 L430.6 194.7 L433.5 193.1 L436.4 191.8 L439.3 190.8 L442.3 190.1 L445.2 189.7 L448.1 189.8 L451.0 190.1 L453.9 190.7 L456.8 191.6 L459.7 192.7 L462.7 194.1 L465.6 195.6 L468.5 197.3 L471.4 199.1 L474.3 201.1 L477.2 203.1 L480.2 205.2 L483.1 207.3 L486.0 209.5 L488.9 211.6 L491.8 213.6 L494.7 215.7 L497.6 217.6 L500.6 219.4 L503.5 221.0 L506.4 222.5 L509.3 223.8 L512.2 224.8 L515.1 225.7 L518.0 226.2 L521.0 226.5 L523.9 226.4 L526.8 226.2 L529.7 225.9 L532.6 225.4 L535.5 224.8 L538.4 224.0 L541.4 223.1 L544.3 222.1 L547.2 220.9 L550.1 219.6 L553.0 218.3 L555.9 216.8 L558.8 215.2 L561.8 213.5 L564.7 211.8 L567.6 210.0 L570.5 208.1 L573.4 206.1 L576.3 204.1 L579.2 202.0 L582.2 199.8 L585.1 197.6 L588.0 195.4 L590.9 193.1 L593.8 190.8 L596.7 188.5 L599.6 186.2 L602.6 183.8 L605.5 181.5 L608.4 179.1 L611.3 176.7 L614.2 174.4 L617.1 172.1 L620.1 169.8 L623.0 167.5 L625.9 165.3 L628.8 163.0 L631.7 160.9 L634.6 158.8 L637.5 156.7 L640.5 154.7 L643.4 152.8 L646.3 151.0 L649.2 149.2 L652.1 147.5 L655.0 146.8 L657.9 146.8 L660.9 146.8 L663.8 146.8 L666.7 146.8 L669.6 146.8 L672.5 146.8 L675.4 146.8 L678.3 146.8 L681.3 146.8 L684.2 146.8 L687.1 146.8 L690.0 146.8" fill="none" stroke="var(--accent-2)" stroke-width="3.4"/>
+          <circle cx="110" cy="392" r="6" fill="var(--accent-2)"/>
+          <text x="308.1909547738693" y="426" style="font-size:19px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--accent-2)">buckling 1</text>
+          <text x="485.97989949748745" y="426" style="font-size:19px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--accent-2)">buckling 2</text>
+          <text x="191.60804020100502" y="426" style="font-size:19px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--muted)">loading</text>
+          <text x="620.0502512562814" y="426" style="font-size:19px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--muted)">re-stiffening</text>
+          <text x="48" y="452" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">force rises from zero; generation stops at the 20 N cap</text>
+          <text x="48" y="480" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">200 samples, resampled to 105 — one per lattice site</text>
           <rect x="750" y="26" width="500" height="472" rx="16" fill="var(--bg-alt)" stroke="var(--border)" stroke-width="1.6"/>
           <text x="778" y="62" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">what the curve encodes</text>
-          <text x="778" y="118" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--muted)">peak force  ↔  cell count n</text>
-          <text x="778" y="148" style="font-size:22px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">corr = −0.884</text>
-          <text x="778" y="216" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--muted)">curve shape  ↔  cluster count κ</text>
-          <text x="778" y="246" style="font-size:22px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">R² = 0.759</text>
-          <text x="778" y="314" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--muted)">curve  ↔  where on the panel</text>
-          <text x="778" y="344" style="font-size:22px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">R² ≤ 0.06</text>
-          <text x="778" y="412" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">extent and fragmentation are recoverable.</text>
-          <text x="778" y="440" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--accent-2)">location is not — so predict statistics,</text>
-          <text x="778" y="462" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--accent-2)">then synthesise a matching pattern.</text>
+          <text x="778" y="124" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--muted)">peak force  ↔  insert count n</text>
+          <text x="778" y="156" style="font-size:22px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">corr = −0.884</text>
+          <text x="778" y="228" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--muted)">curve shape  ↔  cluster count κ</text>
+          <text x="778" y="260" style="font-size:22px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">R² = 0.759</text>
+          <text x="778" y="332" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--muted)">curve  ↔  where on the panel</text>
+          <text x="778" y="364" style="font-size:22px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">R² ≤ 0.06</text>
+          <text x="778" y="428" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">extent and fragmentation are recoverable.</text>
+          <text x="778" y="456" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--accent-2)">location is not — so predict statistics,</text>
+          <text x="778" y="484" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--accent-2)">then synthesise a matching pattern.</text>
         </svg>
       </div>
-      <p class="fig__cap"><b>Figure 2.</b> Every run has three phases: a loading ramp, a buckling plateau
-        where the slope collapses as cells snap through, and a second loading ramp. The plateau sits near
-        samples 76&ndash;147 on average, drifting run to run (onset correlates &minus;0.56 with peak force).
-        The curve is resampled to 105 points &mdash; one per cell &mdash; before being fed to the reservoir.
-        Right: what the signal carries. Extent and fragmentation are recoverable; location is not. Hence
-        the design decision to predict pattern <i>statistics</i> and synthesise a matching pattern, rather
-        than predict the pattern cell by cell.</p>
+      <p class="fig__cap"><b>Figure 2.</b> The response rises from <b>zero</b> and passes through <b>two smooth buckling regions</b> where the slope collapses, separated and followed by re-stiffening. Dataset generation is capped at <b>20&nbsp;N</b>, shown dashed. Buckling onset drifts run to run and correlates &minus;0.56 with peak force.
+        The curve is resampled to 105 points &mdash; one per lattice site &mdash; before being fed to the reservoir.
+        Right: what the signal carries. Extent and fragmentation are recoverable; location is not. Hence the design decision to predict pattern <i>statistics</i> and synthesise a matching pattern, rather than predict the filling site by site.</p>
     </div>
   </div>
 </section>
@@ -393,7 +391,7 @@
 <section class="sec">
   <div class="wrap body-copy reveal">
     <h2 class="sec-title">The pipeline</h2>
-    <p>Rather than predict the pattern, the model predicts three descriptors: the <b>cell count n</b>, the
+    <p>Rather than predict the pattern, the model predicts three descriptors: the <b>insert count n</b>, the
       <b>cluster count &kappa;</b> under the lattice adjacency, and the <b>largest cluster L</b>. Each is a
       separate regression, and a pattern matching them is synthesised afterwards.</p>
     <p>The reservoir is a chain of 20 bistable viscoelastic oscillators &mdash; the same class of element as
@@ -406,8 +404,9 @@
     <div class="fig reveal">
       <div class="fig__head"><span class="fig__no">Figure 3 &mdash; From curve to pattern</span></div>
       <div class="fig__body">
-        <svg viewBox="0 0 1270 530" xmlns="http://www.w3.org/2000/svg" role="img"
-             aria-label="Pipeline: force curve resampled to 105 points drives a fixed reservoir of 20 bistable viscoelastic oscillators; reservoir and raw features feed a kernel ridge readout predicting three pattern statistics, which the island algorithm turns into a pattern.">
+        <svg viewBox="0 0 1270 550" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="Pipeline: force curve resampled to 105 points drives a fixed reservoir of 20 viscoelastic oscillators; reservoir and raw features feed a kernel ridge readout predicting three pattern statistics, which the island algorithm turns into an insert pattern.">
+          <text x="24" y="58" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">the pipeline</text>
           <rect x="24" y="125.0" width="150" height="110" rx="14" fill="var(--bg-card)" stroke="var(--border-2)" stroke-width="2.4"/>
           <text x="99.0" y="172" style="font-size:22px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600">force curve</text>
           <text x="99.0" y="202" style="font-size:19px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--muted)">200 pts</text>
@@ -419,7 +418,7 @@
           <rect x="428" y="105.0" width="236" height="150" rx="14" fill="var(--bg-card)" stroke="var(--accent)" stroke-width="2.4"/>
           <text x="546.0" y="172" style="font-size:22px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600">fixed reservoir</text>
           <text x="546.0" y="202" style="font-size:19px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--muted)">20 oscillators</text>
-          <text x="546" y="232" style="font-size:18px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--accent)">never trained</text>
+          <text x="546" y="234" style="font-size:18px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--accent)">never trained</text>
           <line x1="668" y1="180" x2="696.0" y2="180.0" stroke="var(--accent-3)" stroke-width="4" stroke-linecap="round" class="flow"/><path d="M712 180 L694.0 172.0 L694.0 188.0 Z" fill="var(--accent-3)"/>
           <rect x="716" y="125.0" width="180" height="110" rx="14" fill="var(--bg-card)" stroke="var(--accent-3)" stroke-width="2.4"/>
           <text x="806.0" y="172" style="font-size:22px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600">features</text>
@@ -429,20 +428,20 @@
           <text x="1043.0" y="172" style="font-size:22px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600">kernel ridge</text>
           <text x="1043.0" y="202" style="font-size:19px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--muted)">RBF, summed</text>
           <line x1="1142" y1="180" x2="1170.0" y2="180.0" stroke="var(--accent-2)" stroke-width="4" stroke-linecap="round" class="flow"/><path d="M1186 180 L1168.0 172.0 L1168.0 188.0 Z" fill="var(--accent-2)"/>
-          <rect x="1190" y="125.0" width="56" height="110" rx="14" fill="var(--bg-card)" stroke="var(--accent-2)" stroke-width="2.4"/>
-          <text x="1218" y="186" style="font-size:22px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--accent-2)">n̂</text>
-          <text x="24" y="60" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">the pipeline</text>
-          <text x="1120" y="84" style="font-size:21px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--accent-2)">n̂, κ̂, L̂</text>
-          <line x1="1218" y1="238" x2="1218.0" y2="272.0" stroke="var(--accent-2)" stroke-width="4" stroke-linecap="round"/><path d="M1218 288 L1226.0 270.0 L1210.0 270.0 Z" fill="var(--accent-2)"/>
-          <rect x="880" y="298" width="370" height="96" rx="14" fill="var(--bg-alt)" stroke="var(--accent-2)" stroke-width="2.4"/>
-          <text x="1065" y="332" style="font-size:22px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600">island synthesis</text>
-          <text x="1065" y="362" style="font-size:19px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--muted)">seed → grow → top up</text>
-          <rect x="24" y="330" width="820" height="176" rx="14" fill="var(--bg-alt)" stroke="var(--border)" stroke-width="1.6"/>
-          <text x="48" y="364" style="font-size:22px;font-family:Outfit,sans-serif" font-weight="600">reservoir: a chain of 20 bistable viscoelastic oscillators</text>
+          <rect x="1190" y="125" width="66" height="110" rx="14" fill="var(--bg-card)" stroke="var(--accent-2)" stroke-width="2.4"/>
+          <text x="1223" y="168" style="font-size:20px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--accent-2)">n̂ κ̂</text>
+          <text x="1223" y="198" style="font-size:20px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--accent-2)">L̂</text>
+          <line x1="1223" y1="238" x2="1223.0" y2="276.0" stroke="var(--accent-2)" stroke-width="4" stroke-linecap="round"/><path d="M1223 292 L1231.0 274.0 L1215.0 274.0 Z" fill="var(--accent-2)"/>
+          <rect x="880" y="302" width="376" height="92" rx="14" fill="var(--bg-alt)" stroke="var(--accent-2)" stroke-width="2.4"/>
+          <text x="1068" y="336" style="font-size:22px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600">island synthesis</text>
+          <text x="1068" y="366" style="font-size:19px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--muted)">seed → grow → top up</text>
+          <rect x="24" y="330" width="820" height="196" rx="14" fill="var(--bg-alt)" stroke="var(--border)" stroke-width="1.6"/>
+          <text x="48" y="364" style="font-size:22px;font-family:Outfit,sans-serif" font-weight="600">reservoir: a chain of 20 viscoelastic oscillators</text>
           <text x="48" y="400" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--ink)">q̇ᵢ = vᵢ</text>
           <text x="48" y="430" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--ink)">v̇ᵢ = De²( 3qᵢ² − qᵢ³ − 2qᵢ − λzᵢ − R·ℓᵢ + Y₀(1 + aᵢu)cos Ωt )</text>
           <text x="48" y="460" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--accent-3)">żᵢ = vᵢ/(1−β) + qᵢ − zᵢ</text>
-          <text x="48" y="492" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">3q²−q³−2q = −q(q−1)(q−2)  →  stable at 0 and 2, unstable at 1</text>
+          <text x="48" y="494" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">equilibria (z = q):  q = 0  and  q = 3/2 ± √(1−4λ)/2</text>
+          <text x="48" y="518" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">bistable only for λ < ¼ — at λ = 2.22 the units are driven, not latched</text>
         </svg>
       </div>
       <p class="fig__cap"><b>Figure 3.</b> The 105 resampled force values are presented one at a time, each
@@ -464,7 +463,10 @@
         sample. Each oscillator obeys q&#775; = v, v&#775; = De&sup2;(3q&sup2; &minus; q&sup3; &minus; 2q
         &minus; &lambda;z &minus; R&#8467; + Y&#8320;(1 + a<sub>i</sub>u)cos&Omega;t), z&#775; =
         v/(1&minus;&beta;) + q &minus; z, with De = 1.0, &lambda; = 2.22, &beta; = 0.543, R = 2.97,
-        Y&#8320; = 1.07, &Omega; = 3.00. Amber nodes are the ones the random input mask actually drives; a
+        Y&#8320; = 1.07, &Omega; = 3.00. Taking the viscoelastic variable into account (at equilibrium
+        z = q) the fixed points are <b>q = 0 and q = 3/2 &plusmn; &radic;(1&minus;4&lambda;)/2</b>, so the
+        unit is bistable only for &lambda; &lt; &frac14; &mdash; at the listed &lambda; = 2.22 it is
+        monostable at rest and the rich dynamics come from the carrier drive. Amber nodes are the ones the random input mask actually drives; a
         homogeneous mask is forbidden because it makes the chain mirror-symmetric and halves the usable
         state rank. Below, the pulse-mean states that become the features.</p>
     </div>
@@ -475,8 +477,7 @@
   <div class="wrap body-copy reveal">
     <h2 class="sec-title">Synthesising a pattern</h2>
     <p>Because location is not recoverable, cell placement is governed by a prior rather than by the curve.
-      The <em>count-conditional occupancy prior</em> is the empirical frequency with which each cell is
-      buckled among training runs of similar cell count &mdash; the only spatial information the synthesiser
+      The <em>count-conditional occupancy prior</em> is the empirical frequency with which each site is filled among training runs of similar insert count &mdash; the only spatial information the synthesiser
       uses, and it comes from the training patterns, not from the force response.</p>
     <p>Two rules keep the cluster count intact while the pattern grows. Seeds exclude a <b>two-hop</b>
       neighbourhood, not one hop: two seeds sharing a common neighbour would merge on the first growth
@@ -489,7 +490,7 @@
     <div class="fig reveal">
       <div class="fig__head"><span class="fig__no">Figure 5 &mdash; The island algorithm, live</span><span class="fig__live">running</span></div>
       <div class="fig__body">
-        <canvas id="mm-lat" width="1520" height="620"></canvas>
+        <canvas id="mm-lat" width="1520" height="660"></canvas>
       </div>
       <div class="fig__ctrls">
         <div class="fig__ctrl">
@@ -508,12 +509,9 @@
       <div class="fig__ctrls" style="padding-top:0">
         <button class="btn btn--solid" id="mm-go" type="button">Re-synthesise</button>
       </div>
-      <p class="fig__cap"><b>Figure 5.</b> The real algorithm running on the real lattice. Watch it seed
-        &kappa; clusters with two-hop exclusion, grow each along its frontier, then top up to reach the cell
-        count. Colour is cluster identity; thick outlines mark seeds. The panel reports target against
+      <p class="fig__cap"><b>Figure 5.</b> The real algorithm running on the real lattice. Watch it seed &kappa; clusters with two-hop exclusion, grow each along its frontier, then top up to reach the insert count. Colour is cluster identity; thick outlines mark seeds. The panel reports target against
         realised. Set n&nbsp;=&nbsp;59, &kappa;&nbsp;=&nbsp;9 &mdash; the dataset mean &mdash; and it hits
-        both exactly. Push both to their extremes together and it falls short, because 96 cells in 17
-        separate clusters leaves too few free cells to keep them apart; the feasibility condition
+        both exactly. Push both to their extremes together and it falls short, because 96 inserts in 17 separate clusters leaves too few empty sites to keep them apart; the feasibility condition
         &lceil;n/&kappa;&rceil; &le; L &le; n &minus; (&kappa;&minus;1) is necessary but the packing is
         the real constraint.</p>
     </div>
@@ -528,10 +526,9 @@
       matched <em>nonlinear</em> readout an RBF kernel on the raw curve roughly matches it, which is worth
       stating plainly: the reservoir is one way to realise a useful nonlinearity, not the only one. But the
       <strong>combination</strong> of raw and reservoir kernels beats either alone, reaching
-      R&sup2;&nbsp;=&nbsp;0.759 on cluster count. Cell count is best predicted from the raw features, since
+      R&sup2;&nbsp;=&nbsp;0.759 on cluster count. Insert count is best predicted from the raw features, since
       the reservoir is amplitude-blind.</p>
-    <p>The synthesised patterns track the predicted statistics closely &mdash; correlations of about 0.96 on
-      cell count, 0.85 on cluster count and 0.81 on largest cluster. More importantly they have the right
+    <p>The synthesised patterns track the predicted statistics closely &mdash; correlations of about 0.96 on insert count, 0.85 on cluster count and 0.81 on largest cluster. More importantly they have the right
       <strong>topology</strong>: the realised cluster count spans the true range, whereas a direct per-cell
       regression always produced a single connected blob. The synthesis trades a fraction of a percent of
       per-cell bit accuracy for patterns that are physically plausible.</p>
@@ -734,9 +731,9 @@ const MM=(function(){
   }
   function render(){
     ctx.clearRect(0,0,W,H);
-    const S=15, DX=40, DY=26, X0=90, Y0=70;
+    const S=14, DX=32, DY=30, X0=110, Y0=64;
     ctx.fillStyle=C('--muted'); ctx.font='500 25px Outfit, sans-serif';
-    ctx.fillText('island synthesis on the 105-cell lattice', 34, 40);
+    ctx.fillText('island synthesis — placing inserts on the 105-site lattice', 34, 36);
     for(let r=0;r<R;r++) for(let c=0;c<COLS;c++) if((r+c)%2){
       ctx.fillStyle=C('--border-2');
       ctx.beginPath();ctx.arc(X0+c*DX,Y0+r*DY,2.2,0,7);ctx.fill();
@@ -755,12 +752,12 @@ const MM=(function(){
       }
     });
     const [tot,kk,big]=measure(); const [n,k,L]=feasible();
-    const px=X0+COLS*DX+60;
+    const px=X0+COLS*DX+90;
     ctx.fillStyle=C('--muted'); ctx.font='500 23px Outfit, sans-serif';
     ctx.fillText('phase: '+phase, px, 110);
     ctx.font='500 22px "JetBrains Mono", monospace';
     ctx.fillStyle=C('--sub'); ctx.fillText('target        realised', px, 168);
-    const rows=[['n  cells',n,tot],['κ  clusters',k,kk],['L  largest',L,big]];
+    const rows=[['n  inserts',n,tot],['κ  clusters',k,kk],['L  largest',L,big]];
     rows.forEach((rw,i)=>{
       const y=210+i*44;
       ctx.fillStyle=C('--muted'); ctx.fillText(String(rw[0]), px, y);
@@ -769,11 +766,11 @@ const MM=(function(){
       ctx.fillText(String(rw[2]), px+310, y);
     });
     ctx.fillStyle=C('--muted'); ctx.font='500 20px Outfit, sans-serif';
-    ctx.fillText('colour = cluster id', px, 380);
-    ctx.fillText('thick outline = seed', px, 412);
-    ctx.fillText('seeds keep a two-hop', px, 456);
-    ctx.fillText('exclusion; growth never', px, 484);
-    ctx.fillText('merges two clusters', px, 512);
+    ctx.fillText('colour = cluster id', px, 392);
+    ctx.fillText('thick outline = seed', px, 424);
+    ctx.fillText('seeds keep a two-hop', px, 470);
+    ctx.fillText('exclusion; growth never', px, 498);
+    ctx.fillText('merges two clusters', px, 526);
   }
   const bind=(r,v,key)=>{const Rn=document.getElementById(r),V=document.getElementById(v);
     if(!Rn)return; Rn.addEventListener('input',()=>{T[key]=parseInt(Rn.value,10);V.textContent=T[key];reset();});};
