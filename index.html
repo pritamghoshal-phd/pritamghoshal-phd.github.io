@@ -323,6 +323,52 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
   background:var(--bg);transition:all .22s}
 .pub__link:hover{border-color:var(--accent);color:var(--accent)}
 
+
+/* ===== experience timeline ===== */
+.tl{position:relative;padding-left:2rem}
+.tl::before{content:"";position:absolute;left:6px;top:.6rem;bottom:.6rem;width:2px;
+  background:linear-gradient(var(--accent),var(--accent-3),var(--accent-2));opacity:.35}
+.tl__item{position:relative;padding-bottom:2.2rem}
+.tl__item:last-child{padding-bottom:0}
+.tl__item::before{content:"";position:absolute;left:-2rem;top:.5rem;width:14px;height:14px;
+  border-radius:50%;background:var(--bg-card);border:2px solid var(--accent);
+  box-shadow:0 0 0 4px var(--bg)}
+.tl__item--now::before{background:var(--accent-2);border-color:var(--accent-2)}
+.tl__top{display:flex;flex-wrap:wrap;gap:.5rem .9rem;align-items:baseline;margin-bottom:.15rem}
+.tl__role{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;line-height:1.25}
+.tl__when{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--accent);
+  border:1px solid var(--border);background:var(--bg-card);padding:.2rem .6rem;border-radius:100px;white-space:nowrap}
+.tl__when--now{background:var(--accent-2);border-color:var(--accent-2);color:#fff}
+.tl__org{font-size:.85rem;color:var(--muted);margin-bottom:.6rem}
+.tl__org b{color:var(--ink);font-weight:500}
+.tl__list{list-style:none;display:grid;gap:.45rem}
+.tl__list li{position:relative;padding-left:1.05rem;font-size:.86rem;color:var(--muted);line-height:1.7}
+.tl__list li::before{content:"▸";position:absolute;left:0;color:var(--accent-3);font-size:.7rem;top:.28rem}
+
+/* ===== awards ===== */
+.awards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.1rem}
+.award{background:var(--bg-card);border:1px solid var(--border);border-radius:1.2rem;
+  padding:1.5rem 1.4rem;box-shadow:var(--sh-sm);position:relative;overflow:hidden;
+  transition:box-shadow .35s,transform .35s,border-color .35s}
+.award::after{content:"";position:absolute;right:-24px;top:-24px;width:80px;height:80px;
+  border-radius:50%;background:radial-gradient(circle,rgba(255,90,31,.12),transparent 70%)}
+.award:hover{box-shadow:var(--sh-md);transform:translateY(-3px);border-color:var(--border-2)}
+.award--major{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),var(--sh-sm)}
+.award__yr{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.14em;
+  color:var(--accent-2);font-weight:600;margin-bottom:.5rem}
+.award__t{font-family:'Cormorant Garamond',serif;font-size:1.16rem;font-weight:500;
+  line-height:1.3;margin-bottom:.4rem;position:relative;z-index:1}
+.award__d{font-size:.82rem;color:var(--muted);line-height:1.65;position:relative;z-index:1}
+
+/* ===== education ===== */
+.edu{display:grid;gap:.8rem;margin-top:.4rem}
+.edu__row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.4rem;
+  padding:.85rem 0;border-bottom:1px dashed var(--border)}
+.edu__row:last-child{border-bottom:0}
+.edu__deg{font-size:.88rem;font-weight:500;color:var(--ink)}
+.edu__where{font-size:.8rem;color:var(--muted)}
+.edu__when{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--sub);white-space:nowrap}
+
 @media (prefers-reduced-motion: reduce){
   .will-reveal{opacity:1 !important;transform:none !important}
   .concept{transform:none !important}
@@ -342,6 +388,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
       <a href="#research">Research</a>
       <a href="#publications">Publications</a>
       <a href="#work">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#awards">Awards</a>
       <a href="#chaos">Chaos</a>
       <a href="#lab">Lab</a>
       <a href="#teaching">Teaching</a>
@@ -376,7 +424,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
     <div class="hero__stats will-reveal" data-rev>
       <div><div class="stat__k">Lab</div><div class="stat__v">Advanced Dynamics &amp; Mechanics (ADAMS)</div></div>
       <div><div class="stat__k">Advisor</div><div class="stat__v">Prof. James M. Gibert</div></div>
-      <div><div class="stat__k">Open to</div><div class="stat__v">Research · Industry · Academia</div></div>
+      <div><div class="stat__k">Open to</div><div class="stat__v">Full-time roles from Summer 2027</div></div>
     </div>
   </div>
   <div class="scrollcue"><span>Scroll</span><span class="scrollcue__line"></span></div>
@@ -408,10 +456,17 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
           that the insect's sound organ behaves as a biological metastructure — a chain of bistable
           oscillators coupled to resonators — and built the first model that adapts across species. That
           work was published in <em>Nature Communications</em>.</p>
-        <p>Before the PhD I built a foundation in solid mechanics, fluid mechanics, thermodynamics and
-          control. I care a lot about models that stay honest: tractable enough to reason about, but
-          validated against hardware that will happily prove them wrong. Outside research I mentor
-          students, help run seminars, and write occasionally about travel.</p>
+        <p>That work has been recognised with the <strong>Ali H. Nayfeh Award</strong> for best paper in
+          nonlinear dynamics at NODYCON 2025, best-paper awards at MSNDC in 2024 and 2025, and the David
+          Tree Fellowship for work in vibration and acoustics. A control algorithm I developed for
+          suppressing clutch squawk is patent-pending.</p>
+        <p>I came to Purdue via IIT Kanpur and Jadavpur University, and I have spent time outside academia
+          too — designing production-line components at Jinko Solar, and building a geospatial
+          decision-support tool for hydrogen-corridor planning with GTI Energy. This autumn I am
+          Instructor of Record for ME 274: Dynamics, teaching 100 undergraduates.</p>
+        <p>I care a lot about models that stay honest: tractable enough to reason about, but validated
+          against hardware that will happily prove them wrong. I am seeking full-time roles beginning
+          Summer 2027.</p>
       </div>
 
       <aside class="facts will-reveal" data-rev>
@@ -434,6 +489,14 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
             <a href="https://orcid.org/0000-0002-1529-7973" target="_blank" rel="noopener">ORCID 0000-0002-1529-7973 ↗</a><br />
             <a href="https://www.linkedin.com/in/pritam-ghoshal/" target="_blank" rel="noopener">LinkedIn ↗</a>
           </div>
+        </div>
+        <div class="fact">
+          <div class="fact__k">Recent honours</div>
+          <div class="fact__v">Ali H. Nayfeh Award (NODYCON 2025) · Perry Graduate Teaching Fellowship (2026) · David Tree Fellowship (2025)</div>
+        </div>
+        <div class="fact">
+          <div class="fact__k">Teaching</div>
+          <div class="fact__v">Instructor of Record — ME 274: Basic Mechanics II (Dynamics), Fall 2026</div>
         </div>
         <div class="fact">
           <div class="fact__k">Contact</div>
@@ -498,8 +561,20 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 
       <article class="pub will-reveal" data-rev>
         <div class="pub__top">
+          <span class="pub__venue pub__venue--flag">Patent · pending</span>
+          <span class="pub__yr">U.S. App. No. 63/989902</span>
+        </div>
+        <h3 class="pub__t">Method for robust control of stick-slip instability in automotive clutches</h3>
+        <p class="pub__a"><b>P. Ghoshal</b> et al.</p>
+        <p class="pub__d">A control algorithm that suppresses clutch squawk — the audible noise produced
+          by stick-slip oscillations during engagement — by acting on the underlying friction-induced
+          instability rather than damping its symptoms.</p>
+      </article>
+
+      <article class="pub will-reveal" data-rev>
+        <div class="pub__top">
           <span class="pub__venue pub__venue--flag">Nature Communications</span>
-          <span class="pub__yr">2025 · vol. 16</span>
+          <span class="pub__yr">2025 · 16(1), 10270</span>
         </div>
         <h3 class="pub__t">The tymbal of a cicada: nature's sound-generating metastructure</h3>
         <p class="pub__a"><b>P. Ghoshal</b>, R. Singh, H. Tao, E. Ganju, N. Chawla, J. M. Gibert, A. K. Bajaj</p>
@@ -672,6 +747,150 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
   </div>
 </section>
 
+
+<!-- ================= 5. EXPERIENCE ================= -->
+<section class="sec" id="experience">
+  <div class="wrap">
+    <div class="sec__head">
+      <div class="eyebrow will-reveal" data-rev>05 — Experience</div>
+      <h2 class="sec__title will-reveal" data-rev>Where I've <em>worked</em>.</h2>
+      <p class="sec__sub will-reveal" data-rev>
+        Research, teaching, and industry — from a solar manufacturing floor in Florida to a
+        hydrogen-corridor planning tool, alongside the doctoral work.
+      </p>
+    </div>
+
+    <div class="tl">
+
+      <div class="tl__item tl__item--now will-reveal" data-rev>
+        <div class="tl__top">
+          <div class="tl__role">Instructor of Record — ME 274: Basic Mechanics II (Dynamics)</div>
+          <div class="tl__when tl__when--now">Fall 2026</div>
+        </div>
+        <div class="tl__org"><b>Purdue University</b> · West Lafayette, Indiana</div>
+        <ul class="tl__list">
+          <li>Instructor of Record for a core undergraduate course of 100 students, covering kinematics, kinetics, work–energy and impulse–momentum methods, and vibrations.</li>
+          <li>Designing all course content and assessments — lectures, homework, quizzes and exams — with MATLAB-based problem sets that connect theory to computational problem-solving.</li>
+          <li>Managing a team of three teaching assistants, aligning grading standards and student support across the cohort.</li>
+        </ul>
+      </div>
+
+      <div class="tl__item tl__item--now will-reveal" data-rev>
+        <div class="tl__top">
+          <div class="tl__role">Graduate Research Assistant</div>
+          <div class="tl__when tl__when--now">Aug 2022 – May 2027</div>
+        </div>
+        <div class="tl__org"><b>Purdue University</b> · Advanced Dynamics and Mechanics Lab, Ray W. Herrick Laboratories</div>
+        <ul class="tl__list">
+          <li>Developed a <b>patent-pending control algorithm</b> to reduce clutch squawk noise in automotive clutch systems.</li>
+          <li>Designed and optimised bio-inspired mechanical metamaterials for vibration attenuation and wave control, with material characterisation and experimental validation to improve energy-harvesting efficiency.</li>
+          <li>Designed, fabricated and tested FPAA and PCB-based systems that emulate nonlinear dynamical systems, integrating hardware-based machine learning for real-time signal processing in structural health monitoring.</li>
+          <li>Modelled and simulated vehicle–trailer dynamics in Abaqus and Simulink to analyse structural vibrations and energy transfer, supporting regenerative suspension development.</li>
+          <li>Prototyped and validated vibration-suppression systems using FEA and experimental testing across automotive, packaging and energy-efficient material applications.</li>
+        </ul>
+      </div>
+
+      <div class="tl__item will-reveal" data-rev>
+        <div class="tl__top">
+          <div class="tl__role">Graduate Data Science Researcher</div>
+          <div class="tl__when">Jan – May 2026</div>
+        </div>
+        <div class="tl__org"><b>The Data Mine, Purdue University</b> · project for GTI Energy</div>
+        <ul class="tl__list">
+          <li>Built an interactive data-visualisation tool supporting hydrogen-corridor planning, using Python and ArcGIS to turn analysis into a decision-support interface.</li>
+          <li>Performed network analysis and generated drive-time polygons to assess station accessibility and inform routing and siting decisions.</li>
+          <li>Processed large geospatial datasets to identify optimal routing and deployment strategies across hydrogen production, storage and transport.</li>
+          <li>Calculated and visualised KPIs quantifying cost, coverage and feasibility for multidisciplinary stakeholders.</li>
+        </ul>
+      </div>
+
+      <div class="tl__item will-reveal" data-rev>
+        <div class="tl__top">
+          <div class="tl__role">Engineering Intern</div>
+          <div class="tl__when">May – Aug 2025</div>
+        </div>
+        <div class="tl__org"><b>Jinko Solar (U.S.A.) Inc.</b> · Jacksonville, Florida</div>
+        <ul class="tl__list">
+          <li>Designed and modelled 50+ custom mechanical components in AutoCAD, applying GD&amp;T and DFM principles to improve solar-panel production-line efficiency for high-volume manufacturing.</li>
+          <li>Manufactured precision parts via SLA 3D printing and CNC machining, cutting custom-component lead time and accelerating iteration cycles.</li>
+          <li>Partnered with cross-functional teams to integrate and troubleshoot mechanical systems, using root-cause analysis to resolve failures and increase uptime across dual production lines.</li>
+          <li>Conducted time-and-motion studies of assembly stations to pinpoint inefficiencies and inform layout changes.</li>
+        </ul>
+      </div>
+
+      <div class="tl__item will-reveal" data-rev>
+        <div class="tl__top">
+          <div class="tl__role">Summer Research Intern</div>
+          <div class="tl__when">May – Jul 2019</div>
+        </div>
+        <div class="tl__org"><b>Reliance Industries Limited</b> · Gujarat, India</div>
+        <ul class="tl__list">
+          <li>Improved plant efficiency by optimising process operations and redesigning HVAC strategies, achieving 20% energy savings and a 40% increase in production throughput.</li>
+          <li>Developed and executed process simulations in Aspen HYSYS to evaluate performance across varied operating conditions.</li>
+          <li>Performed safety, risk and regulatory-compliance audits, contributing to a 30% reduction in operational risk incidents.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 6. AWARDS ================= -->
+<section class="sec sec--alt" id="awards">
+  <div class="wrap">
+    <div class="sec__head">
+      <div class="eyebrow will-reveal" data-rev>06 — Honours</div>
+      <h2 class="sec__title will-reveal" data-rev>Awards &amp; <em>fellowships</em>.</h2>
+      <p class="sec__sub will-reveal" data-rev>
+        Recognition for research in nonlinear dynamics and vibration, and for teaching.
+      </p>
+    </div>
+
+    <div class="awards">
+      <article class="award award--major will-reveal" data-rev>
+        <div class="award__yr">2025 · NODYCON</div>
+        <h3 class="award__t">Ali H. Nayfeh Award</h3>
+        <p class="award__d">Best paper on Nonlinear Dynamics at the International Nonlinear Dynamics
+          Conference — named for the founder of the modern field.</p>
+      </article>
+
+      <article class="award award--major will-reveal" data-rev>
+        <div class="award__yr">2026 · Purdue University</div>
+        <h3 class="award__t">William E. and Florence R. Perry Graduate Teaching Fellowship</h3>
+        <p class="award__d">Awarded for excellence in graduate teaching, supporting my appointment as
+          Instructor of Record for ME 274.</p>
+      </article>
+
+      <article class="award will-reveal" data-rev>
+        <div class="award__yr">2025 · Purdue University</div>
+        <h3 class="award__t">David Tree Graduate Fellowship</h3>
+        <p class="award__d">Awarded for exemplary work in vibration and acoustics.</p>
+      </article>
+
+      <article class="award will-reveal" data-rev>
+        <div class="award__yr">2024 &amp; 2025 · MSNDC</div>
+        <h3 class="award__t">Best Paper Award — twice</h3>
+        <p class="award__d">International Conference on Multibody Systems, Nonlinear Dynamics and
+          Control, in two consecutive years.</p>
+      </article>
+
+      <article class="award will-reveal" data-rev>
+        <div class="award__yr">IIT Kanpur</div>
+        <h3 class="award__t">Academic Excellence Award</h3>
+        <p class="award__d">For best academic and overall performance during the M.Tech programme,
+          completed with a 4.0/4.0 GPA.</p>
+      </article>
+
+      <article class="award will-reveal" data-rev>
+        <div class="award__yr">Leadership</div>
+        <h3 class="award__t">Treasurer, ASEE Purdue Chapter</h3>
+        <p class="award__d">Managed budgets and fundraising for the student chapter, reducing operating
+          costs by 25%.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- ================= 6. CHAOS SCROLLYTELLING ================= -->
 <section class="chaos" id="chaos">
   <div class="chaos__track" id="chaos-track">
@@ -731,7 +950,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 <section class="sec" id="lab">
   <div class="wrap">
     <div class="sec__head">
-      <div class="eyebrow will-reveal" data-rev>05 — Interactive</div>
+      <div class="eyebrow will-reveal" data-rev>07 — Interactive</div>
       <h2 class="sec__title will-reveal" data-rev>A double well you can <em>actually push</em>.</h2>
       <p class="sec__sub will-reveal" data-rev>
         This is the Duffing oscillator at the centre of my research, rendered as the energy landscape it
@@ -790,7 +1009,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 <section class="sec sec--alt" id="skills">
   <div class="wrap">
     <div class="sec__head">
-      <div class="eyebrow will-reveal" data-rev>06 — Capabilities</div>
+      <div class="eyebrow will-reveal" data-rev>08 — Capabilities</div>
       <h2 class="sec__title will-reveal" data-rev>What I bring to a <em>problem</em>.</h2>
     </div>
     <div class="two">
@@ -801,34 +1020,54 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
           <li>Nonlinear dynamics &amp; bifurcation theory</li>
           <li>Vibration &amp; structural dynamics</li>
           <li>Viscoelasticity &amp; material modeling</li>
-          <li>Perturbation &amp; harmonic balance methods</li>
+          <li>Harmonic balance &amp; perturbation methods</li>
           <li>Melnikov &amp; chaos analysis</li>
+          <li>Controls &amp; Simulink</li>
           <li>Physical reservoir computing</li>
-          <li>Machine learning for dynamical systems</li>
-          <li>Solid &amp; structural mechanics</li>
-          <li>Fluid mechanics &amp; heat transfer</li>
-          <li>Finite element analysis</li>
-          <li>MATLAB numerical modeling</li>
-          <li>Python data analysis</li>
-          <li>Laser vibrometry</li>
-          <li>High-speed imaging</li>
-          <li>Data acquisition &amp; signal processing</li>
-          <li>Silicone molding &amp; prototyping</li>
-          <li>CAD (SolidWorks)</li>
+          <li>Abaqus · ANSYS · COMSOL</li>
+          <li>SolidWorks · AutoCAD · KiCad</li>
+          <li>MATLAB · Python · Maple · Mathematica</li>
+          <li>Laser Doppler Vibrometry</li>
+          <li>Experimental modal analysis</li>
+          <li>Digital image correlation (DIC)</li>
+          <li>PCB design &amp; FPAA hardware</li>
+          <li>CNC machining · 3D printing</li>
+          <li>Silicone casting &amp; prototyping</li>
+          <li>ArcGIS &amp; geospatial analysis</li>
           <li>Technical writing &amp; peer review</li>
         </ul>
       </article>
       <article class="card will-reveal" data-rev>
-        <h3>How I work</h3>
-        <p><strong>Model first.</strong> I start from governing equations rather than a solver, because a
-          nondimensionalised model tells you which parameters actually matter before you spend a month
-          sweeping them.</p>
-        <p><strong>Simulate honestly.</strong> Convergence checks, parameter continuation, and a healthy
-          suspicion of any result that appears only at one step size.</p>
-        <p><strong>Then build it.</strong> Every project I've led ended with hardware — a breadboard
+        <h3>Education</h3>
+        <div class="edu">
+          <div class="edu__row">
+            <div>
+              <div class="edu__deg">PhD, Mechanical Engineering — GPA 3.91/4.0</div>
+              <div class="edu__where">Purdue University, West Lafayette, Indiana</div>
+            </div>
+            <div class="edu__when">2022 – 2027</div>
+          </div>
+          <div class="edu__row">
+            <div>
+              <div class="edu__deg">M.Tech, Mechanical Engineering — GPA 4.0/4.0</div>
+              <div class="edu__where">Indian Institute of Technology Kanpur</div>
+            </div>
+            <div class="edu__when">2020 – 2022</div>
+          </div>
+          <div class="edu__row">
+            <div>
+              <div class="edu__deg">B.E., Mechanical Engineering — GPA 3.62/4.0</div>
+              <div class="edu__where">Jadavpur University, Kolkata</div>
+            </div>
+            <div class="edu__when">2016 – 2020</div>
+          </div>
+        </div>
+        <h3 style="margin-top:1.6rem">How I work</h3>
+        <p><strong>Model first.</strong> I start from governing equations rather than a solver — a
+          nondimensionalised model tells you which parameters matter before you spend a month sweeping them.</p>
+        <p><strong>Then build it.</strong> Every project I have led ended in hardware: a breadboard
           reservoir, an instrumented truss, a dissected tymbal under a high-speed camera. The gap between
-          the model and the measurement is usually where the interesting physics was hiding.</p>
-        <p><strong>Write it down clearly.</strong> A result nobody can follow is a result nobody will use.</p>
+          model and measurement is usually where the physics was hiding.</p>
       </article>
     </div>
   </div>
@@ -838,11 +1077,13 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 <section class="sec" id="teaching">
   <div class="wrap">
     <div class="sec__head">
-      <div class="eyebrow will-reveal" data-rev>07 — Teaching &amp; leadership</div>
+      <div class="eyebrow will-reveal" data-rev>09 — Teaching &amp; leadership</div>
       <h2 class="sec__title will-reveal" data-rev>Helping equations become <em>intuition</em>.</h2>
       <p class="sec__sub will-reveal" data-rev>
-        I enjoy the moment a student stops manipulating symbols and starts predicting what the system will
-        do. Most of my mentoring is aimed at getting there faster.
+        This semester I am Instructor of Record for <strong>ME&nbsp;274: Basic Mechanics II
+        (Dynamics)</strong> — 100 students, three TAs, and a course I care a great deal about getting
+        right. I enjoy the moment a student stops manipulating symbols and starts predicting what the
+        system will do.
       </p>
     </div>
 
@@ -851,9 +1092,20 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
       <div class="slider__win">
         <div class="slider__track">
           <article class="card panel">
-            <h3>Teaching experience</h3>
-            <p>As a teaching assistant I've supported core courses in dynamics and mechanics — leading
-              problem sessions, holding office hours, and giving feedback on assignments and exams.</p>
+            <h3>ME 274 — Dynamics · Fall 2026</h3>
+            <p>Instructor of Record for a core undergraduate course of 100 students: kinematics, kinetics,
+              work–energy and impulse–momentum methods, and vibrations.</p>
+            <p>I design the lectures, homework, quizzes and exams, and build MATLAB problem sets so
+              students see the same system analytically and computationally. I also manage three TAs,
+              keeping grading standards and student support consistent across the cohort.</p>
+            <p>The appointment is supported by the Perry Graduate Teaching Fellowship.</p>
+          </article>
+
+          <article class="card panel">
+            <h3>Teaching assistantships</h3>
+            <p>Before taking the lectern I supported core mechanical engineering courses in dynamics and
+              mechanics — leading problem sessions, holding office hours, and giving feedback on
+              assignments and exams.</p>
             <p>I break complex problems into smaller steps and build intuition on simple examples before
               moving to the general derivation.</p>
           </article>
@@ -897,7 +1149,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 <!-- ================= 10. CONTACT ================= -->
 <section class="sec sec--alt" id="contact">
   <div class="narrow" style="text-align:center">
-    <div class="eyebrow will-reveal" data-rev style="margin-bottom:1.2rem">08 — Contact</div>
+    <div class="eyebrow will-reveal" data-rev style="margin-bottom:1.2rem">10 — Contact</div>
     <h2 class="sec__title will-reveal" data-rev style="margin:0 auto 1rem">Let's <em>connect</em>.</h2>
     <p class="sec__sub will-reveal" data-rev style="margin:0 auto">
       If you'd like to talk about nonlinear dynamics, physical computing, collaborations, or roles in
