@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Analog Hardware for Nonlinear Computing — Pritam Ghoshal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="FPAA and PCB-based analog systems that emulate nonlinear dynamical systems, with hardware machine learning for structural health monitoring." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site.css" />
+</head>
+<body>
+<header class="nav">
+  <div class="nav__in">
+    <a href="index.html" class="nav__logo">Pritam <span>Ghoshal</span></a>
+    <nav class="nav__links">
+      <a href="index.html#about">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-header">
+  <div class="wrap hero-inner reveal">
+    <div class="eyebrow">Project &middot; Hardware</div>
+    <h1 class="page-title">Nonlinear dynamics <em>built in silicon</em>, not simulated</h1>
+    <p class="hero-sub">FPAA and PCB systems that physically obey the equations I study — and use that behaviour to classify structural damage in real time, without a processor in the loop.</p>
+    <div class="hero-meta"><strong>Role:</strong> Circuit design, fabrication and testing &middot; <strong>Application:</strong> Structural health monitoring</div>
+    <div class="pill-row"><span class="tag">FPAA</span>
+      <span class="tag">PCB design</span>
+      <span class="tag">KiCad</span>
+      <span class="tag">Analog computing</span>
+      <span class="tag">Structural health monitoring</span></div>
+    <a href="projects.html" class="btn">&larr; Back to projects</a>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">Why build the equation instead of solving it</h2>
+    <p>A numerical solver approximates a differential equation in discrete steps. An analog circuit built
+      from integrators, summers and nonlinear elements does something different: its voltages
+      <em>are</em> the state variables, and they evolve continuously because the physics of the components
+      leaves them no choice. The equation is not being solved — it is being obeyed.</p>
+    <p>That distinction matters for physical reservoir computing. If the value of a reservoir is that its
+      own dynamics perform the nonlinear transformation for free, then implementing that reservoir on a
+      digital processor gives away the entire advantage. Analog hardware keeps it: microwatts of power,
+      no clock, no sampling, and a response that arrives as fast as the circuit settles.</p>
+    <p>I used <strong>field-programmable analog arrays</strong> for rapid iteration — reconfigurable analog
+      blocks that let a topology be changed without re-spinning a board — and moved designs onto custom
+      PCBs once the architecture stabilised.</p>
+  </div>
+  <div class="wrap">
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 1 — An equation, built out of op-amps</span></div>
+      <div class="fig__body">
+        <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="Block diagram of an analog computer: a summing junction feeding two integrators with cubic and linear feedback paths.">
+          <g class="pop">
+            <circle class="s-card" cx="96" cy="120" r="26"/>
+            <text class="s-txt" x="88" y="126">&#8721;</text>
+            <text class="s-mono" x="30" y="90">u(t)</text>
+            <path class="s-accent flow" d="M40 120 L68 120"/>
+          </g>
+          <path class="s-accent flow" d="M124 120 L166 120"/>
+          <text class="s-mono" x="126" y="108">&#7825;</text>
+          <g class="pop pop--d1">
+            <rect class="s-card" x="168" y="92" width="92" height="56" rx="8"/>
+            <text class="s-txt" x="196" y="126">&#8747;</text>
+          </g>
+          <path class="s-accent flow" d="M262 120 L306 120"/>
+          <text class="s-mono" x="266" y="108">&#7819;</text>
+          <g class="pop pop--d2">
+            <rect class="s-card" x="308" y="92" width="92" height="56" rx="8"/>
+            <text class="s-txt" x="336" y="126">&#8747;</text>
+          </g>
+          <path class="s-accent flow" d="M402 120 L470 120"/>
+          <text class="s-mono" x="440" y="108">x</text>
+          <g class="pop pop--d3">
+            <rect class="s-card" x="472" y="92" width="120" height="56" rx="8"/>
+            <text class="s-txt" x="492" y="126">readout</text>
+          </g>
+
+          <!-- cubic feedback -->
+          <g class="pop pop--d4">
+            <path class="s-accent2" d="M436 148 L436 208 L300 208"/>
+            <rect x="196" y="184" width="104" height="48" rx="8" fill="var(--bg-alt)" stroke="var(--accent-2)" stroke-width="2"/>
+            <text class="s-mono2" x="222" y="214">x &#8722; x&#179;</text>
+            <path class="s-accent2" d="M196 208 L96 208 L96 146"/>
+            <path class="s-fill2" d="M96 140 L90 154 L102 154 Z"/>
+          </g>
+          <!-- damping feedback -->
+          <g class="pop pop--d5">
+            <path class="s-accent3" d="M290 148 L290 262 L96 262 L96 152"/>
+            <rect x="330" y="240" width="96" height="44" rx="8" fill="var(--bg-alt)" stroke="var(--accent-3)" stroke-width="2"/>
+            <text class="s-mono" x="356" y="268" fill="var(--accent-3)">&#8722;&#948;&#7819;</text>
+            <path class="s-accent3" d="M330 262 L290 262"/>
+          </g>
+          <text class="s-txt s-txt--sm" x="596" y="126">&#8594; classifier</text>
+          <text class="s-mono" x="600" y="180">FPAA / PCB</text>
+        </svg>
+      </div>
+      <p class="fig__cap"><b>Figure 1.</b> A nonlinear oscillator realised directly in analog hardware. Two cascaded integrators produce velocity and displacement from acceleration; a cubic block supplies the nonlinear restoring term, and summing everything back to the input closes the loop. The circuit does not <i>compute</i> the equation step by step — it <i>obeys</i> it, continuously and at the speed of the electronics.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--alt">
+  <div class="wrap two-col">
+    <div class="card reveal">
+      <h3>The circuits</h3>
+      <p>The core building block is a chain of integrators with nonlinear feedback, which realises a Duffing-type oscillator directly in hardware.</p>
+      <p>The practical difficulty is that analog components are imperfect in ways the mathematics is not: offsets drift, gains vary between nominally identical parts, and a nonlinearity intended as cubic is only approximately so. Some of that had to be trimmed out — and some of it, usefully, adds the cell-to-cell variation a reservoir actually benefits from.</p>
+      <ul>
+        <li>FPAA prototyping for fast topology changes</li>
+        <li>Custom PCB layout in KiCad</li>
+        <li>Integrator-and-nonlinearity architecture</li>
+        <li>Characterisation against numerical reference solutions</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <h3>Hardware machine learning</h3>
+      <p>With the reservoir in analog, only the readout needs training — and a linear readout is cheap enough to run on a microcontroller, or to implement in analog as well.</p>
+      <p>For structural health monitoring this yields a sensor node that classifies rather than merely records: instead of streaming raw vibration data for offline analysis, the node reports condition directly.</p>
+      <ul>
+        <li>Vibration signal drives the analog reservoir</li>
+        <li>Circuit state provides high-dimensional features</li>
+        <li>Linear readout trained for classification</li>
+        <li>Real-time operation at very low power</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 2 — Damage detection on an analog reservoir</span><span class="fig__live">running</span></div>
+      <div class="fig__body">
+        <canvas id="hw-canvas" width="1520" height="660"></canvas>
+      </div>
+      <div class="fig__ctrls">
+        <div class="fig__ctrl">
+          <label>Structural damage <b id="hwv-d">0.00</b></label>
+          <input type="range" id="hw-d" min="0.00" max="1.00" step="0.01" value="0.00" />
+        </div>
+        <div class="fig__ctrl">
+          <label>Sensor noise <b id="hwv-n">0.06</b></label>
+          <input type="range" id="hw-n" min="0.00" max="0.40" step="0.01" value="0.06" />
+        </div>
+      </div>
+      <p class="fig__cap"><b>Figure 2.</b> Vibration from a structure drives the analog nonlinear circuit. Because the circuit is sensitive to the character of its input, a healthy structure and a damaged one drive it onto visibly different attractors — left, the circuit state; right, the separation between the two classes. Introduce damage and watch the attractor deform and the classifier margin open up. No digital signal processing happens anywhere in this loop.</p>
+    </div>
+  </div>
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">What it demonstrates</h2>
+    <p>Damage changes a structure's dynamics — stiffness drops, damping shifts, new harmonics appear.
+      Those changes are often subtle in a raw spectrum but pronounced once passed through a sensitive
+      nonlinear system, because the reservoir amplifies differences between inputs that a linear filter
+      would treat as nearly identical.</p>
+    <p>That is the same property that makes a nonlinear system good for classification and bad for
+      long-range prediction, and it is why the <a href="project-nonlinear-dynamics.html">reservoir
+      computing work</a> spends so much effort locating the boundary. Here the goal is not to predict a
+      signal but to separate two classes, so the useful operating point sits closer to the chaotic edge
+      than it would for a forecasting task.</p>
+    <p>The wider ambition is monitoring hardware that can be left on a structure indefinitely: no
+      processor, negligible power, and an output that says <em>healthy</em> or <em>not</em> rather than
+      producing data somebody has to analyse later.</p>
+    <div class="proj-links" style="margin-top:1.6rem"><a class="btn" href="project-nonlinear-dynamics.html">Related: reservoir computing &rarr;</a>
+      <a class="btn" href="projects.html">All projects &rarr;</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>&copy; <span id="year"></span> Pritam Ghoshal</div>
+    <div>Mechanical Engineering &middot; Purdue University</div>
+  </div>
+</footer>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-in');o.unobserve(e.target);}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+<script>
+(function(){
+  const cv=document.getElementById('hw-canvas'); if(!cv) return;
+  const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
+  const css=getComputedStyle(document.documentElement); const C=k=>css.getPropertyValue(k).trim();
+  const P={dmg:0.0, noise:0.06};
+  let x=0.4,v=0,t=0;
+  const trail=[]; const TR=900;
+  const cloudH=[], cloudD=[];
+
+  function step(dt){
+    t+=dt;
+    // structure: damage lowers stiffness and adds a second harmonic
+    const wn=1.0-0.42*P.dmg;
+    const exc=0.9*Math.sin(wn*3.0*t)+0.45*P.dmg*Math.sin(wn*6.0*t+0.6)
+              +(Math.random()*2-1)*P.noise;
+    const a=-0.14*v + (x - x*x*x) + 0.62*exc;
+    v+=a*dt; x+=v*dt;
+    if(!isFinite(x)||Math.abs(x)>6){x=0.4;v=0;}
+  }
+
+  function feature(){
+    // two cheap features a linear readout could use
+    return {a: x*x + v*v*0.6, b: Math.abs(v)};
+  }
+
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    const wL=W*0.56;
+    // ---- attractor ----
+    ctx.save();
+    const cx=wL*0.5, cy=H*0.5, s=118;
+    ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(60,cy);ctx.lineTo(wL-40,cy);
+    ctx.moveTo(cx,50);ctx.lineTo(cx,H-50);ctx.stroke();
+    ctx.lineWidth=2;
+    for(let i=1;i<trail.length;i++){
+      const p0=trail[i-1],p1=trail[i], al=(i/trail.length)*0.55;
+      ctx.strokeStyle = P.dmg>0.35 ? `rgba(255,90,31,${al})` : `rgba(22,82,240,${al})`;
+      ctx.beginPath();
+      ctx.moveTo(cx+p0.x*s, cy-p0.v*s);
+      ctx.lineTo(cx+p1.x*s, cy-p1.v*s);
+      ctx.stroke();
+    }
+    ctx.fillStyle=C('--accent-2');
+    ctx.beginPath();ctx.arc(cx+x*s,cy-v*s,10,0,7);ctx.fill();
+    ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
+    ctx.fillText('analog circuit state  (x, ẋ)', 40, 46);
+    ctx.restore();
+
+    // ---- feature space ----
+    ctx.save();
+    const x0=wL, w2=W-wL;
+    ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
+    ctx.strokeRect(x0+70,70,w2-150,H-170);
+    const px=(f)=>x0+70+Math.min(1,f.a/4.2)*(w2-150);
+    const py=(f)=>H-100-Math.min(1,f.b/2.6)*(H-170);
+    ctx.fillStyle='rgba(22,82,240,0.5)';
+    cloudH.forEach(f=>{ctx.beginPath();ctx.arc(px(f),py(f),5,0,7);ctx.fill();});
+    ctx.fillStyle='rgba(255,90,31,0.5)';
+    cloudD.forEach(f=>{ctx.beginPath();ctx.arc(px(f),py(f),5,0,7);ctx.fill();});
+    ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
+    ctx.fillText('readout feature space', x0+70, 46);
+    ctx.font='500 21px Outfit, sans-serif';
+    ctx.fillStyle=C('--accent'); ctx.fillText('healthy baseline', x0+70, H-46);
+    ctx.fillStyle=C('--accent-2'); ctx.fillText('current state', x0+300, H-46);
+    ctx.restore();
+  }
+
+  const b=(r,vv,key,dp)=>{const R=document.getElementById(r),V=document.getElementById(vv);
+    if(!R)return;R.addEventListener('input',()=>{P[key]=parseFloat(R.value);V.textContent=P[key].toFixed(dp);
+      cloudD.length=0; trail.length=0;});};
+  b('hw-d','hwv-d','dmg',2); b('hw-n','hwv-n','noise',2);
+
+  let live=false, fr=0;
+  new IntersectionObserver(e=>{live=e[0].isIntersecting;},{threshold:.05}).observe(cv);
+  let acc=0,last=performance.now();
+  (function loop(now){
+    requestAnimationFrame(loop);
+    const dtr=Math.min((now-last)/1000,.05); last=now;
+    if(!live) return;
+    acc+=dtr; let g=0;
+    while(acc>=0.003&&g++<350){ step(0.010); acc-=0.003; }
+    trail.push({x,v}); if(trail.length>TR) trail.shift();
+    if(fr++%9===0){
+      const f=feature();
+      if(P.dmg<0.02){ if(cloudH.length<220) cloudH.push(f); }
+      else { cloudD.push(f); if(cloudD.length>220) cloudD.shift(); }
+    }
+    render();
+  })(performance.now());
+})();
+</script>
+</body>
+</html>
