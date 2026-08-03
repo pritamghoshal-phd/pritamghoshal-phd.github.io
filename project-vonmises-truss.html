@@ -58,6 +58,134 @@
       first-order equation on a much slower timescale. Combined, they form a <strong>third-order jerk
       system</strong> — and the interaction between the fast elastic oscillations and the slow material
       relaxation produces behaviour neither equation shows alone.</p>
+
+    <div class="fig reveal">
+      <div class="fig__head">
+        <span class="fig__no">Figure 1 — System schematic</span>
+      </div>
+      <div class="fig__body">
+        <svg viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="Schematic of a viscoelastic von Mises truss showing two pinned bars meeting at an apex mass, with the standard linear solid material model shown as an inset.">
+          <!-- ground hatch -->
+          <g class="s-thin">
+            <line x1="80" y1="262" x2="200" y2="262"/>
+            <line x1="86" y1="262" x2="76" y2="274"/><line x1="98" y1="262" x2="88" y2="274"/>
+            <line x1="110" y1="262" x2="100" y2="274"/><line x1="122" y1="262" x2="112" y2="274"/>
+            <line x1="134" y1="262" x2="124" y2="274"/><line x1="146" y1="262" x2="136" y2="274"/>
+            <line x1="158" y1="262" x2="148" y2="274"/><line x1="170" y1="262" x2="160" y2="274"/>
+            <line x1="182" y1="262" x2="172" y2="274"/><line x1="194" y1="262" x2="184" y2="274"/>
+            <line x1="380" y1="262" x2="500" y2="262"/>
+            <line x1="386" y1="262" x2="376" y2="274"/><line x1="398" y1="262" x2="388" y2="274"/>
+            <line x1="410" y1="262" x2="400" y2="274"/><line x1="422" y1="262" x2="412" y2="274"/>
+            <line x1="434" y1="262" x2="424" y2="274"/><line x1="446" y1="262" x2="436" y2="274"/>
+            <line x1="458" y1="262" x2="448" y2="274"/><line x1="470" y1="262" x2="460" y2="274"/>
+            <line x1="482" y1="262" x2="472" y2="274"/><line x1="494" y1="262" x2="484" y2="274"/>
+          </g>
+
+          <!-- mirrored (snapped-through) state -->
+          <path class="s-dash" d="M140 262 L290 330 L440 262"/>
+          <circle cx="290" cy="330" r="9" fill="none" stroke="var(--sub)" stroke-width="1.4"/>
+          <text class="s-txt s-txt--sm" x="304" y="348">second stable state</text>
+
+          <!-- span + height guides -->
+          <line class="s-dash" x1="140" y1="262" x2="440" y2="262"/>
+          <line class="s-dash" x1="290" y1="196" x2="290" y2="262"/>
+          <text class="s-mono" x="298" y="234">h</text>
+          <text class="s-mono" x="212" y="256">a</text>
+          <text class="s-mono" x="358" y="256">a</text>
+
+          <!-- the two bars -->
+          <path class="s-accent draw" style="--len:340" d="M140 262 L290 196"/>
+          <path class="s-accent draw draw--d1" style="--len:340" d="M440 262 L290 196"/>
+
+          <!-- pins -->
+          <g class="pop">
+            <path class="s-line" d="M140 262 L128 280 L152 280 Z" fill="var(--bg-alt)"/>
+            <path class="s-line" d="M440 262 L428 280 L452 280 Z" fill="var(--bg-alt)"/>
+          </g>
+
+          <!-- apex mass -->
+          <circle class="s-fill2 pop pop--d2" cx="290" cy="196" r="13"/>
+          <text class="s-txt" x="308" y="192">m</text>
+
+          <!-- forcing arrow -->
+          <g class="pop pop--d3">
+            <line class="s-accent2" x1="290" y1="128" x2="290" y2="174"/>
+            <path class="s-fill2" d="M290 182 L284 168 L296 168 Z"/>
+            <text class="s-mono2" x="302" y="136">F(t) = γ cos(ωt)</text>
+          </g>
+
+          <!-- generalised coordinate -->
+          <text class="s-mono" x="196" y="180">q(t)</text>
+
+          <!-- inset: standard linear solid -->
+          <g class="pop pop--d4">
+            <rect class="s-card" x="520" y="96" width="216" height="196" rx="14"/>
+            <text class="s-txt" x="538" y="124">Bar material: SLS</text>
+
+            <!-- parallel spring E-infinity -->
+            <path class="s-line" d="M544 164 L558 164 L563 154 L573 174 L583 154 L593 174 L603 154 L608 164 L622 164"/>
+            <text class="s-mono" x="630" y="168">E∞</text>
+
+            <!-- Maxwell arm: spring + dashpot -->
+            <path class="s-line" d="M544 214 L554 214 L558 206 L566 222 L574 206 L582 222 L586 214 L596 214"/>
+            <g class="s-line">
+              <rect x="598" y="204" width="26" height="20" fill="var(--bg)"/>
+              <line x1="611" y1="214" x2="624" y2="214"/>
+              <line x1="611" y1="206" x2="611" y2="222"/>
+            </g>
+            <line class="s-line" x1="624" y1="214" x2="636" y2="214"/>
+            <text class="s-mono" x="596" y="248">E₁</text>
+            <text class="s-mono" x="626" y="248">η</text>
+
+            <!-- rails -->
+            <line class="s-line" x1="544" y1="164" x2="544" y2="214"/>
+            <line class="s-line" x1="636" y1="164" x2="636" y2="214"/>
+            <line class="s-line" x1="530" y1="189" x2="544" y2="189"/>
+            <line class="s-line" x1="636" y1="189" x2="650" y2="189"/>
+            <text class="s-txt s-txt--sm" x="530" y="278">relaxation time λ = η / E₁</text>
+          </g>
+        </svg>
+      </div>
+      <p class="fig__cap">
+        <b>Figure 1.</b> Two bars of undeformed length exceeding the half-span <i>a</i> meet at an apex mass,
+        giving two stable equilibria — apex up (solid) and apex snapped through (dashed). The bar material
+        follows a standard linear solid: an elastic branch <i>E∞</i> in parallel with a Maxwell arm
+        (<i>E₁</i>, <i>η</i>). The ratio λ = η/E₁ sets how long the structure remembers.
+      </p>
+    </div>
+
+    <div class="fig reveal" id="fig-snap">
+      <div class="fig__head">
+        <span class="fig__no">Figure 2 — Snap-through, simulated live</span>
+        <span class="fig__live">running</span>
+      </div>
+      <div class="fig__body">
+        <canvas id="snap-canvas" width="1520" height="860"></canvas>
+      </div>
+      <div class="fig__ctrls">
+        <div class="fig__ctrl">
+          <label>Forcing γ <b id="tv-g">0.09</b></label>
+          <input type="range" id="tr-g" min="0" max="0.30" step="0.005" value="0.09" />
+        </div>
+        <div class="fig__ctrl">
+          <label>Relaxation λ <b id="tv-l">1.20</b></label>
+          <input type="range" id="tr-l" min="0.05" max="4.0" step="0.05" value="1.20" />
+        </div>
+        <div class="fig__ctrl">
+          <label>Damping δ <b id="tv-d">0.10</b></label>
+          <input type="range" id="tr-d" min="0.01" max="0.40" step="0.01" value="0.10" />
+        </div>
+      </div>
+      <p class="fig__cap">
+        <b>Figure 2.</b> The truss integrated in real time. Left: the physical structure, drawn from the
+        actual apex coordinate <i>q</i>. Right: the trajectory in phase space, with the two equilibria
+        marked. Below: <i>q(t)</i> against the slowly evolving viscoelastic internal variable <i>z(t)</i>
+        in cyan — note how <i>z</i> lags, and how that lag is what makes the system third-order. Raise γ
+        past roughly 0.12 and the apex begins clearing the barrier; increase λ and the memory grows long
+        enough to change which well it settles into.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -129,6 +257,162 @@
 document.getElementById('year').textContent=new Date().getFullYear();
 const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-in');o.unobserve(e.target);}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+<script>
+/* ---- Figure 2: live von Mises truss with viscoelastic memory ---- */
+(function(){
+  const cv = document.getElementById('snap-canvas');
+  if(!cv) return;
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  const css = getComputedStyle(document.documentElement);
+  const C = k => css.getPropertyValue(k).trim();
+
+  // ---- truss geometry (nondimensional) ----
+  const A = 1.0;      // half span
+  const L0 = 1.18;    // undeformed bar length  -> bistable
+  const P = { gamma:0.09, lambda:1.20, delta:0.10, omega:0.85, beta:0.55 };
+
+  // elastic restoring force from actual truss geometry
+  function Fel(q){
+    const len = Math.hypot(A, q);
+    return -2 * (len - L0) * q / len;
+  }
+  const QE = Math.sqrt(Math.max(L0*L0 - A*A, 1e-6));   // equilibria at +-QE
+
+  let q = QE, v = 0, z = QE, t = 0;
+  const hist = [];
+  const HIST = 460;
+
+  function step(dt){
+    const a = -P.delta*v + Fel(q) - P.beta*(q - z) + P.gamma*Math.cos(P.omega*t);
+    v += a*dt; q += v*dt;
+    z += ((q - z)/P.lambda)*dt;
+    t += dt;
+    if(!isFinite(q)||Math.abs(q)>4){ q=QE; v=0; z=QE; }
+  }
+
+  // ---- drawing ----
+  function drawTruss(x0,y0,w,hgt){
+    const cx = x0 + w*0.5, cy = y0 + hgt*0.56;
+    const sx = w*0.30, sy = hgt*0.30;
+    ctx.save();
+    // ground line
+    ctx.strokeStyle=C('--border-2'); ctx.lineWidth=3;
+    ctx.beginPath(); ctx.moveTo(cx-sx*1.5,cy); ctx.lineTo(cx+sx*1.5,cy); ctx.stroke();
+    // hatching
+    ctx.strokeStyle=C('--sub'); ctx.lineWidth=2;
+    for(let i=-9;i<=9;i++){const px=cx+i*(sx*0.16);
+      ctx.beginPath();ctx.moveTo(px,cy);ctx.lineTo(px-12,cy+16);ctx.stroke();}
+    // ghost equilibria
+    ctx.strokeStyle=C('--border-2'); ctx.setLineDash([8,8]); ctx.lineWidth=2;
+    [QE,-QE].forEach(qq=>{const ay=cy-qq*sy;
+      ctx.beginPath();ctx.moveTo(cx-sx,cy);ctx.lineTo(cx,ay);ctx.lineTo(cx+sx,cy);ctx.stroke();});
+    ctx.setLineDash([]);
+    // live bars
+    const ay = cy - q*sy;
+    ctx.strokeStyle=C('--accent'); ctx.lineWidth=8; ctx.lineCap='round';
+    ctx.beginPath();ctx.moveTo(cx-sx,cy);ctx.lineTo(cx,ay);ctx.lineTo(cx+sx,cy);ctx.stroke();
+    // pins
+    ctx.fillStyle=C('--ink');
+    [[cx-sx,cy],[cx+sx,cy]].forEach(p=>{
+      ctx.beginPath();ctx.moveTo(p[0],p[1]);ctx.lineTo(p[0]-14,p[1]+22);ctx.lineTo(p[0]+14,p[1]+22);
+      ctx.closePath();ctx.fill();});
+    // apex mass
+    ctx.fillStyle=C('--accent-2');
+    ctx.beginPath();ctx.arc(cx,ay,17,0,7);ctx.fill();
+    // forcing arrow
+    const fmag = P.gamma*Math.cos(P.omega*t);
+    const alen = fmag*420;
+    ctx.strokeStyle=C('--accent-2'); ctx.lineWidth=4;
+    ctx.beginPath();ctx.moveTo(cx,ay-26);ctx.lineTo(cx,ay-26-alen);ctx.stroke();
+    ctx.fillStyle=C('--accent-2');
+    const tip=ay-26-alen, dir=alen>=0?1:-1;
+    ctx.beginPath();ctx.moveTo(cx,tip);ctx.lineTo(cx-8,tip+10*dir);ctx.lineTo(cx+8,tip+10*dir);
+    ctx.closePath();ctx.fill();
+    ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
+    ctx.fillText('structure', x0+18, y0+40);
+    ctx.restore();
+  }
+
+  function drawPhase(x0,y0,w,hgt){
+    const cx=x0+w*0.5, cy=y0+hgt*0.5, sx=w*0.30, sy=hgt*0.26;
+    ctx.save();
+    ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(x0+30,cy);ctx.lineTo(x0+w-30,cy);
+    ctx.moveTo(cx,y0+30);ctx.lineTo(cx,y0+hgt-30);ctx.stroke();
+    // equilibria
+    ctx.fillStyle=C('--border-2');
+    [QE,-QE].forEach(qq=>{ctx.beginPath();ctx.arc(cx+qq*sx,cy,9,0,7);ctx.fill();});
+    // trajectory
+    ctx.lineWidth=2.5; ctx.lineJoin='round';
+    for(let i=1;i<hist.length;i++){
+      const p0=hist[i-1], p1=hist[i];
+      ctx.strokeStyle=`rgba(22,82,240,${(i/hist.length)*0.75})`;
+      ctx.beginPath();
+      ctx.moveTo(cx+p0.q*sx, cy-p0.v*sy);
+      ctx.lineTo(cx+p1.q*sx, cy-p1.v*sy);
+      ctx.stroke();
+    }
+    ctx.fillStyle=C('--accent-2');
+    ctx.beginPath();ctx.arc(cx+q*sx,cy-v*sy,10,0,7);ctx.fill();
+    ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
+    ctx.fillText('phase space  (q, q̇)', x0+18, y0+40);
+    ctx.restore();
+  }
+
+  function drawTrace(x0,y0,w,hgt){
+    const cy=y0+hgt*0.55, sy=hgt*0.28;
+    ctx.save();
+    ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(x0+30,cy);ctx.lineTo(x0+w-30,cy);ctx.stroke();
+    const n=hist.length, span=w-70;
+    function line(key,color,width){
+      ctx.strokeStyle=color; ctx.lineWidth=width; ctx.beginPath();
+      for(let i=0;i<n;i++){
+        const px=x0+35+(i/HIST)*span, py=cy-hist[i][key]*sy;
+        i?ctx.lineTo(px,py):ctx.moveTo(px,py);
+      }
+      ctx.stroke();
+    }
+    line('z', C('--accent-3'), 3);
+    line('q', C('--accent'), 3.5);
+    ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
+    ctx.fillText('q(t)', x0+18, y0+40);
+    ctx.fillStyle=C('--accent-3'); ctx.fillText('z(t) — viscoelastic memory', x0+110, y0+40);
+    ctx.restore();
+  }
+
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    drawTruss(0,0,W*0.5,H*0.6);
+    drawPhase(W*0.5,0,W*0.5,H*0.6);
+    drawTrace(0,H*0.6,W,H*0.4);
+  }
+
+  // controls
+  const bind=(r,v,key,dp)=>{
+    const R=document.getElementById(r), V=document.getElementById(v);
+    if(!R) return;
+    R.addEventListener('input',()=>{P[key]=parseFloat(R.value);V.textContent=P[key].toFixed(dp);});
+  };
+  bind('tr-g','tv-g','gamma',3); bind('tr-l','tv-l','lambda',2); bind('tr-d','tv-d','delta',2);
+
+  let live=false;
+  new IntersectionObserver(e=>{live=e[0].isIntersecting;},{threshold:.05}).observe(cv);
+
+  let acc=0,last=performance.now(),frame=0;
+  (function loop(now){
+    requestAnimationFrame(loop);
+    const dtr=Math.min((now-last)/1000,.05); last=now;
+    if(!live) return;
+    acc+=dtr; let g=0;
+    while(acc>=0.004 && g++<300){ step(0.012); acc-=0.004; }
+    if(frame++%2===0){ hist.push({q,v,z}); if(hist.length>HIST) hist.shift(); }
+    render();
+  })(performance.now());
+})();
 </script>
 </body>
 </html>
