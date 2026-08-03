@@ -105,7 +105,7 @@
         </svg>
       </div>
       <p class="fig__cap">
-        <b>Figure 1.</b> A mass <i>m</i> at the apex of two inclined springs <i>k</i>, pinned at both ends and driven by an external force γcos(ωt). Because the bars are inclined, the apex can snap <i>through</i> the support line to the mirrored configuration shown in grey. The viscoelastic element is a standard linear solid: spring <i>k</i><sub>1</sub> in parallel with a Maxwell arm of spring <i>k</i><sub>2</sub> in series with dashpot <i>η</i>. There is <b>no separate viscous damper</b> — the dashpot in the Maxwell arm is the only dissipation in the model, and the same element also supplies the frequency-dependent stiffening. Its relaxation time is λ = η/k₂.</p>
+        <b>Figure 1.</b> A mass <i>m</i> at the apex of two inclined springs <i>k</i>, pinned at both ends and driven by an external force γcos(ωt). Because the bars are inclined, the apex can snap <i>through</i> the support line to the mirrored configuration shown in grey. The viscoelastic element is a standard linear solid: spring <i>k</i><sub>1</sub> in parallel with a Maxwell arm of spring <i>k</i><sub>2</sub> in series with dashpot <i>η</i>. There is <b>no separate viscous damper</b> — the dashpot in the Maxwell arm is the only dissipation in the model, and the same element also supplies the frequency-dependent stiffening. Its relaxation strength is β = k₂/(k₁+k₂), and the relaxation time η/k₂ is what sets the nondimensional timescale.</p>
     </div>
 
     <div class="fig reveal">
@@ -136,15 +136,15 @@
           <text x="836" y="96" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">equilibria</text>
           <text x="836" y="134" style="font-size:23px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">U = 0,  3/2 ± √(1−4λ)/2</text>
           <text x="836" y="168" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">bistable only for λ < ¼</text>
-          <text x="836" y="222" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">governing equations</text>
-          <text x="836" y="258" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">dimensional:</text>
-          <text x="836" y="290" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--ink)">m ü + F(u) + k₁u + Fᵥ = P cos(Ωt)</text>
-          <text x="836" y="320" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--accent-3)">(η/k₂) Ḟᵥ + Fᵥ = η u̇</text>
-          <text x="836" y="362" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">nondimensional:</text>
-          <text x="836" y="394" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--ink)">U″ + U³ − 3U² + (2+λ)U + F = γcos(ωT)</text>
-          <text x="836" y="424" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--accent-3)">Σ F′ + F = β U′</text>
-          <text x="836" y="466" style="font-size:19px;font-family:Outfit,sans-serif" fill="var(--muted)">no separate viscous term — the dashpot</text>
-          <text x="836" y="494" style="font-size:19px;font-family:Outfit,sans-serif" fill="var(--accent-2)">is the only source of dissipation</text>
+          <text x="836" y="220" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">governing equations</text>
+          <text x="836" y="254" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">mechanical:</text>
+          <text x="836" y="286" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--ink)">U″ + U³ − 3U² + 2U + λΣ = γcos(ωT)</text>
+          <text x="836" y="324" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">viscoelastic (SLS):</text>
+          <text x="836" y="356" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--accent-3)">(1/(1−β)) U′ + U = Σ′ + Σ</text>
+          <text x="836" y="400" style="font-size:19px;font-family:Outfit,sans-serif" fill="var(--muted)">β = k₂/(k₁+k₂)   relaxation strength</text>
+          <text x="836" y="428" style="font-size:19px;font-family:Outfit,sans-serif" fill="var(--muted)">Σ = viscoelastic stress (state variable)</text>
+          <text x="836" y="456" style="font-size:19px;font-family:Outfit,sans-serif" fill="var(--muted)">instantaneous/relaxed modulus = 1/(1−β)</text>
+          <text x="836" y="492" style="font-size:19px;font-family:Outfit,sans-serif" fill="var(--accent-2)">damping comes from the element — no ζ</text>
         </svg>
       </div>
       <p class="fig__cap"><b>Figure 2.</b> The quadratic nonlinearity of the truss contributes a &minus;<i>U</i>&sup3; term, so the potential &Pi;(<i>U</i>) = <i>U</i>&#8308;/4 &minus; <i>U</i>&sup3; + (&lambda;+2)<i>U</i>&sup2;/2 is <b>asymmetric</b>, with equilibria at <b>U = 0</b> and <b>3/2 &plusmn; &radic;(1&minus;4&lambda;)/2</b> &mdash; bistable only for &lambda; &lt; &frac14;. With &lambda; = 0.15 the barrier sits at 1.184 and the snapped state at 1.816, which lies &Delta;&Pi; = 0.275 <i>above</i> the natural state &mdash; which is why state B is metastable and the truss snaps back. Adding the viscoelastic force as a first-order equation turns the pair into a <b>third-order jerk system</b>: a fast mechanical mode coupled to a slow material one, and that timescale mismatch is what drives the system into chaos.</p>
@@ -160,27 +160,27 @@
       </div>
       <div class="fig__ctrls">
         <div class="fig__ctrl">
-          <label>Forcing γ <b id="tv-g">0.75</b></label>
-          <input type="range" id="tr-g" min="0.30" max="1.20" step="0.01" value="0.75" />
+          <label>Forcing γ <b id="tv-g">0.45</b></label>
+          <input type="range" id="tr-g" min="0.15" max="0.90" step="0.01" value="0.45" />
         </div>
         <div class="fig__ctrl">
-          <label>Drive frequency ω <b id="tv-w">0.70</b></label>
-          <input type="range" id="tr-w" min="0.40" max="1.40" step="0.01" value="0.70" />
+          <label>Drive frequency ω <b id="tv-w">0.80</b></label>
+          <input type="range" id="tr-w" min="0.40" max="1.40" step="0.01" value="0.80" />
         </div>
         <div class="fig__ctrl">
-          <label>β &mdash; Maxwell stiffness <b id="tv-b">0.20</b></label>
-          <input type="range" id="tr-b" min="0.05" max="0.60" step="0.01" value="0.20" />
+          <label>β &mdash; relaxation strength <b id="tv-b">0.30</b></label>
+          <input type="range" id="tr-b" min="0.05" max="0.85" step="0.01" value="0.30" />
         </div>
         <div class="fig__ctrl">
-          <label>Σ &mdash; relaxation time <b id="tv-s">1.20</b></label>
-          <input type="range" id="tr-s" min="0.20" max="3.00" step="0.05" value="1.20" />
+          <label>λ &mdash; element stiffness <b id="tv-l">0.15</b></label>
+          <input type="range" id="tr-l" min="0.02" max="0.24" step="0.01" value="0.15" />
         </div>
       </div>
       <div class="fig__ctrls" style="padding-top:0">
         <button class="btn btn--solid" id="tr-reset" type="button">Restart</button>
       </div>
       <p class="fig__cap">
-        <b>Figure 3.</b> The system integrated live under <b>force control</b> — γcos(ωT) is an external force applied to the mass, and U is never prescribed; it falls out of the equations. λ = 0.15 throughout. <b>Left:</b> the truss, with the apex crossing the dashed support line and turning amber past the barrier. <b>Right:</b> the phase portrait with the <b>Poincaré section</b> sampled once per forcing period in orange — the clearest test of regime. At γ = 0.75, ω = 0.70, β = 0.20, Σ = 1.20 the largest Lyapunov exponent is <b>+0.129</b> and the orange points fill a fractal cloud; raise β to 0.35 and lower Σ to 0.6 and it drops to −0.05, collapsing them onto a few dots. <b>Below:</b> U(T) against the viscoelastic force F(T), drawn ×3 for visibility. Note that F lags U and vanishes in steady state — which is exactly why the equilibria stay at U = 0 and 3/2 ± √(1−4λ)/2 no matter what β and Σ are set to.</p>
+        <b>Figure 3.</b> The system integrated live under <b>force control</b> — γcos(ωT) is an external force on the mass and U is never prescribed; it falls out of the equations. <b>Left:</b> the truss, apex crossing the dashed support line and turning amber past the barrier. <b>Right:</b> the phase portrait with the <b>Poincaré section</b> sampled once per forcing period in orange. At γ = 0.45, ω = 0.80, β = 0.30, λ = 0.15 the largest Lyapunov exponent is <b>+0.139</b> and the points fill a fractal cloud; raise β toward 0.7 and it falls to +0.06 and the attractor tightens. <b>Below:</b> U(T) against the viscoelastic stress Σ(T), with the barrier marked. Σ lags U and relaxes to Σ = U in steady state, which is why the equilibria stay pinned at U = 0 and 3/2 ± √(1−4λ)/2 whatever β is — the λ slider moves them, β does not.</p>
     </div>
   </div>
 </section>
@@ -262,25 +262,26 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
   const css=getComputedStyle(document.documentElement); const C=k=>css.getPropertyValue(k).trim();
 
-  const P={lam:0.15, be:0.20, Sg:1.20, g:0.75, om:0.70};
-  const K=()=>2+P.lam;   // static stiffness; the SLS adds no static term (F relaxes to 0)
+  const P={lam:0.15, be:0.30, g:0.45, om:0.80};
+  const K=()=>2+P.lam;   // static stiffness once Sigma relaxes to U
   const R2=()=>1.5+Math.sqrt(Math.max(0,1-4*P.lam))/2;
   const BAR=()=>1.5-Math.sqrt(Math.max(0,1-4*P.lam))/2;
 
-  let U=0.3, Ud=0, F=0, t=0;
+  let U=0.3, Ud=0, Sig=0.3, t=0;
   const hist=[], HIST=520;
   let poin=[], nextP=0;
   const traj=[]; const TRAJ=1600;
 
-  function reset(){ U=0.3; Ud=0; F=0; t=0; hist.length=0; poin=[]; traj.length=0; nextP=0; }
+  function reset(){ U=0.3; Ud=0; Sig=0.3; t=0; hist.length=0; poin=[]; traj.length=0; nextP=0; }
 
   function step(dt){
-    // FORCE control: gamma*cos(omega t) is an external force on the mass.
+    // FORCE control: gamma*cos(omega T) is an external force on the mass.
     // U is never prescribed -- it comes out of the equations.
-    //   U'' + U^3 - 3U^2 + (2+lam)U + F = gamma cos(omega T)
-    //   Sigma F' + F = beta U'          <- the only dissipation in the model
-    const a=-U*U*U+3*U*U-K()*U-F+P.g*Math.cos(P.om*t);
-    Ud+=a*dt; U+=Ud*dt; F+=((P.be*Ud-F)/P.Sg)*dt; t+=dt;
+    //   U'' + U^3 - 3U^2 + 2U + lambda*Sigma = gamma cos(omega T)
+    //   (1/(1-beta)) U' + U = Sigma' + Sigma        <- the SLS constitutive law
+    const a=-U*U*U+3*U*U-2*U-P.lam*Sig+P.g*Math.cos(P.om*t);
+    Ud+=a*dt; U+=Ud*dt;
+    Sig+=(-Sig+U+Ud/(1-P.be))*dt; t+=dt;
     if(!isFinite(U)||Math.abs(U)>60){ reset(); return; }
     const Tp=2*Math.PI/P.om;
     if(t>=nextP){ if(t>20) { poin.push({u:U,v:Ud}); if(poin.length>900) poin.shift(); } nextP+=Tp; }
@@ -368,13 +369,13 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     ctx.beginPath();ctx.moveTo(x0+60,cy-BAR()*sy);ctx.lineTo(x0+60+span,cy-BAR()*sy);ctx.stroke();
     ctx.setLineDash([]);
     const line=(key,col,lw)=>{ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.beginPath();
-      for(let i=0;i<hist.length;i++){const px=x0+60+(i/HIST)*span, py=cy-hist[i][key]*sy*(key==='f'?3:1);
+      for(let i=0;i<hist.length;i++){const px=x0+60+(i/HIST)*span, py=cy-hist[i][key]*sy*(key==='f'?0.8:1);
         i?ctx.lineTo(px,py):ctx.moveTo(px,py);} ctx.stroke();};
     line('f',C('--accent-3'),2.6);
     line('u',C('--accent'),3.2);
     ctx.fillStyle=C('--accent'); ctx.font='500 24px Outfit, sans-serif';
     ctx.fillText('U(t)', x0+60, y0+30);
-    ctx.fillStyle=C('--accent-3'); ctx.fillText('F(t) — viscoelastic force  (×3)', x0+180, y0+30);
+    ctx.fillStyle=C('--accent-3'); ctx.fillText('Σ(T) — viscoelastic stress', x0+180, y0+30);
     ctx.fillStyle='rgba(255,90,31,0.9)'; ctx.font='500 20px "JetBrains Mono", monospace';
     ctx.fillText('barrier '+BAR().toFixed(2), x0+60+span-190, cy-BAR()*sy-12);
     ctx.restore();
@@ -389,7 +390,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     ctx.beginPath();ctx.moveTo(W*0.42,30);ctx.lineTo(W*0.42,H*0.56-20);ctx.stroke();
   }
 
-  [['tr-g','tv-g','g',2],['tr-b','tv-b','be',2],['tr-s','tv-s','Sg',2],['tr-w','tv-w','om',2]]
+  [['tr-g','tv-g','g',2],['tr-b','tv-b','be',2],['tr-l','tv-l','lam',2],['tr-w','tv-w','om',2]]
   .forEach(a=>{
     const R=document.getElementById(a[0]), V=document.getElementById(a[1]);
     if(!R) return;
@@ -409,7 +410,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     acc+=dtr; let g=0;
     while(acc>=0.004&&g++<400){ step(0.009); acc-=0.004; }
     traj.push({u:U,v:Ud}); if(traj.length>TRAJ) traj.shift();
-    if(fr++%2===0){ hist.push({u:U,f:F}); if(hist.length>HIST) hist.shift(); }
+    if(fr++%2===0){ hist.push({u:U,f:Sig}); if(hist.length>HIST) hist.shift(); }
     render();
   })(performance.now());
 })();
