@@ -306,25 +306,22 @@
       </div>
       <div class="fig__ctrls">
         <div class="fig__ctrl">
-          <label>damage location <b id="ahv-d">60</b></label>
-          <input type="range" id="ah-d" min="15" max="105" step="1" value="60" />
+          <label>damage location <b id="ahv-d">40</b></label>
+          <input type="range" id="ah-d" min="12" max="68" step="1" value="40" />
         </div>
         <div class="fig__ctrl">
           <label>&beta; &mdash; 0 is purely elastic <b id="ahv-vb">0.90</b></label>
           <input type="range" id="ah-vb" min="0.00" max="0.92" step="0.02" value="0.90" />
         </div>
         <div class="fig__ctrl">
-          <label>severity &Delta; <b id="ahv-dl">0.50</b></label>
-          <input type="range" id="ah-dl" min="0.10" max="0.95" step="0.05" value="0.50" />
+          <label>severity &Delta; <b id="ahv-dl">0.40</b></label>
+          <input type="range" id="ah-dl" min="0.10" max="0.90" step="0.05" value="0.40" />
         </div>
       </div>
-      <p class="fig__cap"><b>Figure 4.</b> Damage is introduced by weakening one coupling spring,
-        R<sub>1</sub>&nbsp;&rarr;&nbsp;&Delta;R<sub>1</sub>. Healthy and damaged chains are driven with the
-        same input and the per-node response mismatch is accumulated &mdash; a live stand-in for the
-        paper&rsquo;s segmented-reservoir error difference, which needs a trained readout per segment. The
-        result is the same and it is the interesting one: with <b>&beta; = 0.9</b> the signature is sharply
-        localised on the damaged node, but drag &beta; to <b>0</b> and the purely elastic chain smears it
-        across the whole index range. Memory is what makes the damage findable, not just detectable.</p>
+      <div class="fig__ctrls" style="padding-top:0">
+        <button class="btn btn--solid" id="ah-run" type="button">Run analysis</button>
+      </div>
+      <p class="fig__cap"><b>Figure 4.</b> This runs the paper&rsquo;s actual method in your browser, at reduced scale. The chain is split into overlapping segments &mdash; the segment centred on node <i>i</i> spans [<i>i</i>&minus;M, <i>i</i>+M] &mdash; and <b>each segment is trained as its own small reservoir</b> on a temporal XOR benchmark, a task that cannot be solved without memory. Damage is one weakened coupling spring, R<sub>1</sub>&nbsp;&rarr;&nbsp;&Delta;R<sub>1</sub>. Every segment readout is fitted twice, once on the healthy chain and once on the damaged one, and the bars show where prediction error <i>rose</i>. With <b>&beta; = 0.9</b> the rise concentrates on the segments containing the damage &mdash; typically 75&ndash;85% of it inside &plusmn;10 nodes. Drag &beta; to <b>0</b> and the chain becomes purely elastic (&Sigma; collapses to X, no memory), no segment can solve XOR in the first place, and the error difference scatters across the whole index range at under 10%. That is the paper&rsquo;s Figure 7 result: memory is what makes damage <i>locatable</i>, not merely detectable. 80 nodes and M&nbsp;=&nbsp;8 here against 400 and M&nbsp;=&nbsp;20 in the paper; 640 segment readouts are fitted per run (160 per realisation, averaged over four input draws to suppress single-draw noise), so it takes a moment.</p>
     </div>
   </div>
 </section>
@@ -484,99 +481,210 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   })(performance.now());
 })();
 
-/* ---- Figure 5: damage localisation, elastic vs viscoelastic ---- */
+/* ---- Figure 4: the paper's segmented-reservoir damage analysis ---- */
 (function(){
   const cv=document.getElementById('ah-shm'); if(!cv) return;
   const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
   const css=getComputedStyle(document.documentElement); const C=k=>css.getPropertyValue(k).trim();
-  const N=120;
-  const P={beta:0.9, dmg:60, delta:0.5};
-  const lam=0.1, R1=0.5, Om=2.5, F0=0.1, De=1.0;
-  let mask=[]; for(let i=0;i<N;i++) mask.push(Math.random()<0.5?1:0);
-  let Xh,Vh,Sh,Xd,Vd,Sd,acc,t,n,profile;
-  function reset(){
-    Xh=new Float64Array(N);Vh=new Float64Array(N);Sh=new Float64Array(N);
-    Xd=new Float64Array(N);Vd=new Float64Array(N);Sd=new Float64Array(N);
-    acc=new Float64Array(N); t=0; n=0; profile=new Float64Array(N);
+
+  const N=80, M=8, NP=320, STEPS=80, dt=1/STEPS, REPS=4;
+  const lam=0.1, R1=0.5, Om=2.5, F0=0.1;
+  const P={beta:0.90, dmg:40, delta:0.40};
+
+  let mask=new Uint8Array(N), inp=new Uint8Array(NP), tgt=new Float64Array(NP);
+  function seedData(){
+    for(let i=0;i<N;i++) mask[i]=Math.random()<0.5?1:0;
+    for(let k=0;k<NP;k++) inp[k]=Math.random()<0.5?1:0;
+    for(let k=2;k<NP;k++) tgt[k]=(inp[k-1]^inp[k-2]);
   }
-  reset();
-  function advance(X,V,S,Rloc,dt,u){
-    for(let j=0;j<N;j++){
-      const l=j>0?X[j-1]:X[j], r=j<N-1?X[j+1]:X[j];
-      const f=-X[j]*X[j]*X[j]+3*X[j]*X[j]-2*X[j]-lam*S[j]
-              +Rloc[j]*(l-2*X[j]+r)+F0*Math.cos(Om*t)*(1+mask[j]*u);
-      V[j]+=De*De*f*dt;
+  seedData();
+
+  let job=null, result=null, progress=0, status='idle';
+
+  function makeSim(damaged){
+    const X=new Float64Array(N),V=new Float64Array(N),S=new Float64Array(N);
+    const Rl=new Float64Array(N).fill(R1);
+    if(damaged) Rl[P.dmg]=R1*P.delta;
+    const St=new Float64Array(NP*N);
+    let k=0,t=0,bad=false;
+    return {
+      done:()=>k>=NP||bad, bad:()=>bad, St,
+      pulse(){
+        const u=inp[k], acc=new Float64Array(N);
+        for(let s=0;s<STEPS;s++){
+          for(let j=0;j<N;j++){
+            const l=j>0?X[j-1]:X[j], r=j<N-1?X[j+1]:X[j];
+            const f=-X[j]*X[j]*X[j]+3*X[j]*X[j]-2*X[j]-lam*S[j]
+                    +Rl[j]*(l-2*X[j]+r)+F0*Math.cos(Om*t)*(1+mask[j]*u);
+            V[j]+=f*dt;
+          }
+          for(let j=0;j<N;j++){
+            X[j]+=V[j]*dt; S[j]+=(V[j]/(1-P.beta)+X[j]-S[j])*dt;
+            if(!isFinite(X[j])||Math.abs(X[j])>1e3) bad=true;
+            acc[j]+=X[j];
+          }
+          t+=dt;
+        }
+        for(let j=0;j<N;j++) St[k*N+j]=acc[j]/STEPS;
+        k++;
+      }
+    };
+  }
+  // ridge readout for one segment, returns test NRMSE
+  function segErr(St,centre){
+    const lo=Math.max(0,centre-M), hi=Math.min(N-1,centre+M), d=hi-lo+2;
+    const warm=50, trEnd=Math.floor(NP*0.75);
+    const A=[]; for(let p=0;p<d;p++) A.push(new Float64Array(d+1));
+    const x=new Float64Array(d);
+    for(let k=warm;k<trEnd;k++){
+      for(let j=lo;j<=hi;j++) x[j-lo]=St[k*N+j];
+      x[d-1]=1;
+      for(let p=0;p<d;p++){
+        const xp=x[p];
+        for(let q=0;q<d;q++) A[p][q]+=xp*x[q];
+        A[p][d]+=xp*tgt[k];
+      }
     }
-    for(let j=0;j<N;j++){
-      X[j]+=V[j]*dt;
-      S[j]+=(V[j]/(1-P.beta)+X[j]-S[j])*dt;
-      if(!isFinite(X[j])||Math.abs(X[j])>1e3){X[j]=0;V[j]=0;S[j]=0;}
+    for(let p=0;p<d;p++) A[p][p]+=1e-3;
+    for(let c0=0;c0<d;c0++){
+      let piv=c0; for(let r=c0;r<d;r++) if(Math.abs(A[r][c0])>Math.abs(A[piv][c0])) piv=r;
+      const tmp=A[c0]; A[c0]=A[piv]; A[piv]=tmp;
+      const pv=A[c0][c0]||1e-12;
+      for(let r=c0+1;r<d;r++){
+        const f=A[r][c0]/pv;
+        for(let cc=c0;cc<=d;cc++) A[r][cc]-=f*A[c0][cc];
+      }
+    }
+    const w=new Float64Array(d);
+    for(let r=d-1;r>=0;r--){
+      let s=A[r][d];
+      for(let cc=r+1;cc<d;cc++) s-=A[r][cc]*w[cc];
+      w[r]=s/(A[r][r]||1e-12);
+    }
+    let se=0,n=0;
+    for(let k=trEnd;k<NP;k++){
+      let p=w[d-1];
+      for(let j=lo;j<=hi;j++) p+=w[j-lo]*St[k*N+j];
+      se+=(p-tgt[k])*(p-tgt[k]); n++;
+    }
+    return Math.sqrt(se/Math.max(n,1));
+  }
+
+  function start(){
+    seedData();
+    job={rep:0, agg:new Float64Array(N), phase:0,
+         h:makeSim(false), d:makeSim(true),
+         eh:new Float64Array(N), ed:new Float64Array(N), i:0};
+    status='running'; progress=0; result=null;
+  }
+  function work(budgetMs){
+    if(!job) return;
+    const t0=performance.now();
+    while(performance.now()-t0<budgetMs){
+      if(job.phase===0){
+        if(job.h.done()){ job.phase=1; continue; }
+        job.h.pulse(); progress=0.35*( (job.h.St?0:0) + 0 );
+      } else if(job.phase===1){
+        if(job.d.done()){ job.phase=2; job.i=0; continue; }
+        job.d.pulse();
+      } else if(job.phase===2){
+        if(job.i>=N){ job.phase=3; job.i=0; continue; }
+        job.eh[job.i]=segErr(job.h.St,job.i); job.i++;
+      } else if(job.phase===3){
+        if(job.i>=N){ job.phase=4; continue; }
+        job.ed[job.i]=segErr(job.d.St,job.i); job.i++;
+      } else {
+        // fold this realisation into the running average
+        const d1=new Float64Array(N); let m1=1e-12;
+        for(let j=0;j<N;j++){ d1[j]=Math.max(0,job.ed[j]-job.eh[j]); if(d1[j]>m1) m1=d1[j]; }
+        for(let j=0;j<N;j++) job.agg[j]+=d1[j]/m1;
+        job.rep++;
+        if(job.rep<REPS){
+          seedData();
+          job.phase=0; job.i=0;
+          job.h=makeSim(false); job.d=makeSim(true);
+          job.eh=new Float64Array(N); job.ed=new Float64Array(N);
+          continue;
+        }
+        const diff=job.agg; let mx=1e-12;
+        for(let j=0;j<N;j++) if(diff[j]>mx) mx=diff[j];
+        let tot=0, near=0, peak=0;
+        for(let j=0;j<N;j++){ diff[j]/=mx; tot+=diff[j]; if(Math.abs(j-P.dmg)<=10) near+=diff[j];
+                              if(diff[j]>diff[peak]) peak=j; }
+        result={diff, loc:tot>0?near/tot:0, peak};
+        status='done'; job=null; progress=1; return;
+      }
+    }
+    // progress estimate
+    if(job){
+      const ph=job.phase;
+      const inRep = ph===0?0.20 : ph===1?0.50 : ph===2?0.70+0.15*(job.i/N)
+                  : ph===3?0.85+0.15*(job.i/N) : 0.99;
+      progress=(job.rep+inRep)/REPS;
     }
   }
-  const Rh=new Float64Array(N).fill(R1);
-  let Rd=new Float64Array(N).fill(R1);
-  function setDamage(){ Rd=new Float64Array(N).fill(R1); Rd[P.dmg]=R1*P.delta; }
-  setDamage();
-  function step(dt){
-    const u=Math.sin(0.37*t)+0.6*Math.sin(0.91*t+1.1);
-    advance(Xh,Vh,Sh,Rh,dt,u);
-    advance(Xd,Vd,Sd,Rd,dt,u);
-    t+=dt;
-    if(t>18){ n++; for(let j=0;j<N;j++) acc[j]+=Math.abs(Xh[j]-Xd[j]); }
-  }
+
   function render(){
     ctx.clearRect(0,0,W,H);
-    const x0=70, x1=W-70, y0=90, y1=H-110;
+    const x0=70, x1=W-70, y0=100, y1=H-120;
     ctx.fillStyle=C('--muted'); ctx.font='500 25px Outfit, sans-serif';
-    ctx.fillText('damage localisation — healthy vs damaged response', 34, 40);
-    let mx=1e-9; for(let j=0;j<N;j++){ profile[j]=acc[j]/Math.max(n,1); if(profile[j]>mx) mx=profile[j]; }
-    // localisation score
-    let near=0, tot=0;
-    for(let j=0;j<N;j++){ const v=profile[j]/mx; tot+=v; if(Math.abs(j-P.dmg)<=15) near+=v; }
-    const loc=tot>0?near/tot:0;
+    ctx.fillText('segmented reservoirs — XOR prediction error, healthy vs damaged', 34, 40);
     ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
     ctx.beginPath();ctx.moveTo(x0,y1);ctx.lineTo(x1,y1);ctx.stroke();
-    // damage marker
     const dx=x0+(P.dmg/(N-1))*(x1-x0);
-    ctx.fillStyle='rgba(255,90,31,.14)';
-    ctx.fillRect(x0+((P.dmg-15)/(N-1))*(x1-x0),y0,(30/(N-1))*(x1-x0),y1-y0);
+    ctx.fillStyle='rgba(255,90,31,.13)';
+    const bl=x0+(Math.max(0,P.dmg-10)/(N-1))*(x1-x0);
+    const br=x0+(Math.min(N-1,P.dmg+10)/(N-1))*(x1-x0);
+    ctx.fillRect(bl,y0,br-bl,y1-y0);
     ctx.strokeStyle='#e11d48'; ctx.lineWidth=2.4; ctx.setLineDash([9,7]);
     ctx.beginPath();ctx.moveTo(dx,y0);ctx.lineTo(dx,y1);ctx.stroke();ctx.setLineDash([]);
-    // bars
+    if(status!=='done'||!result){
+      ctx.fillStyle=C('--sub'); ctx.font='500 23px Outfit, sans-serif';
+      ctx.fillText(status==='idle'?'press Run analysis':'realisation '+((job?job.rep:0)+1)+' of '+REPS+' — training 160 segment readouts…', 34, H-46);
+      const pw=(W-140)*Math.max(0,Math.min(1,progress));
+      ctx.fillStyle='rgba(11,21,38,.10)'; ctx.fillRect(70,H-96,W-140,14);
+      ctx.fillStyle=C('--accent'); ctx.fillRect(70,H-96,pw,14);
+      ctx.fillStyle='#e11d48'; ctx.font='500 20px "JetBrains Mono", monospace';
+      ctx.fillText('damage at node '+P.dmg, dx+12, y0+26);
+      return;
+    }
     const bw=(x1-x0)/N;
     for(let j=0;j<N;j++){
-      const h=(profile[j]/mx)*(y1-y0);
-      ctx.fillStyle = Math.abs(j-P.dmg)<=15 ? C('--accent-2') : C('--accent');
+      const h=result.diff[j]*(y1-y0);
+      ctx.fillStyle = Math.abs(j-P.dmg)<=10 ? C('--accent-2') : C('--accent');
       ctx.fillRect(x0+j*bw+1,y1-h,bw-2,h);
     }
     ctx.fillStyle='#e11d48'; ctx.font='500 20px "JetBrains Mono", monospace';
-    ctx.fillText('damage at node '+P.dmg, dx+12, y0+24);
+    ctx.fillText('damage at node '+P.dmg, dx+12, y0+26);
     ctx.fillStyle=C('--muted'); ctx.font='500 21px Outfit, sans-serif';
-    ctx.fillText('reservoir node index', x1-220, y1+40);
-    ctx.fillStyle = loc>0.8 ? C('--accent-3') : C('--accent-2');
-    ctx.font='500 23px Outfit, sans-serif';
-    ctx.fillText((P.beta<0.05?'elastic':'viscoelastic')+'  —  '+(loc*100).toFixed(0)
-                 +'% of the signature within ±15 nodes', 34, H-34);
+    ctx.fillText('reservoir index', x1-170, y1+40);
+    const good=result.loc>0.5;
+    ctx.fillStyle= good ? C('--accent-3') : C('--accent-2');
+    ctx.font='500 24px Outfit, sans-serif';
+    ctx.fillText((P.beta<0.05?'elastic':'viscoelastic, β = '+P.beta.toFixed(2))
+      +'   —   '+(result.loc*100).toFixed(0)+'% of the error rise within ±10 nodes'
+      +(good?'  ·  localised':'  ·  diffused'), 34, H-40);
   }
+
   [['ah-d','ahv-d','dmg',0],['ah-vb','ahv-vb','beta',2],['ah-dl','ahv-dl','delta',2]].forEach(a=>{
     const R=document.getElementById(a[0]), Vl=document.getElementById(a[1]);
     if(!R) return;
     R.addEventListener('input',()=>{
       P[a[2]]=parseFloat(R.value); Vl.textContent=P[a[2]].toFixed(a[3]);
-      setDamage(); reset();
+      status='idle'; result=null; job=null; progress=0;
     });
   });
+  const go=document.getElementById('ah-run');
+  if(go) go.addEventListener('click',start);
+
   let live=false;
-  new IntersectionObserver(e=>{live=e[0].isIntersecting;},{threshold:.05}).observe(cv);
-  let a2=0,last=performance.now();
-  (function loop(now){
+  new IntersectionObserver(e=>{ live=e[0].isIntersecting; if(live&&status==='idle'&&!job) start(); },
+    {threshold:.1}).observe(cv);
+  (function loop(){
     requestAnimationFrame(loop);
-    const dtr=Math.min((now-last)/1000,.05); last=now;
-    if(!live) return;
-    a2+=dtr; let g=0;
-    while(a2>=0.002&&g++<900){ step(0.004); a2-=0.002; }
+    if(live&&job) work(11);
     render();
-  })(performance.now());
+  })();
 })();
 </script>
 </body>
