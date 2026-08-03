@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Autonomous Object-Targeting Robot — Pritam Ghoshal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="An autonomous robot that navigates a track while avoiding obstacles and launches projectiles at detected targets." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site.css" />
+</head>
+<body>
+<header class="nav">
+  <div class="nav__in">
+    <a href="index.html" class="nav__logo">Pritam <span>Ghoshal</span></a>
+    <nav class="nav__links">
+      <a href="index.html#about">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-header">
+  <div class="wrap hero-inner reveal">
+    <div class="eyebrow">Project &middot; Mechatronics Competition, Purdue</div>
+    <h1 class="page-title">Autonomous <em>object-targeting robot</em></h1>
+    <p class="hero-sub">Navigate a track, avoid whatever is in the way, find the target, hit it. Every part of that is easy in isolation and awkward once they have to run at the same time.</p>
+    <div class="hero-meta"><strong>Competition:</strong> Mechatronics Competition, Purdue University &middot; <strong>Scope:</strong> Mechanical design, electronics, control</div>
+    <div class="pill-row"><span class="tag">Arduino</span>
+      <span class="tag">Ultrasonic + IR sensing</span>
+      <span class="tag">Servo actuation</span>
+      <span class="tag">3D printing</span>
+      <span class="tag">Embedded control</span></div>
+    <a href="projects.html" class="btn">&larr; Back to projects</a>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">The build</h2>
+    <p>The robot had to traverse a track autonomously, detect and avoid obstacles in real time, identify
+      targets, and launch projectiles at them. No remote control and no map supplied in advance — every
+      decision had to come from what the sensors reported at that instant.</p>
+    <p>Sensing used ultrasonic and infrared together, because each fails differently. Ultrasonic gives
+      usable range but returns a wide cone, so it reports <em>something is roughly ahead</em> rather than
+      exactly where. Infrared is narrow and fast but strongly dependent on surface reflectivity — a dark
+      matte obstacle can read as much further away than it is. Combining them covered most of the cases
+      where either alone would have driven the robot into something.</p>
+    <p>The launcher was built from servo motors, custom mounts and 3D-printed components, which let the
+      geometry be revised between test runs in an afternoon rather than a week.</p>
+  </div>
+  <div class="wrap">
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 1 — Sense, decide, act</span></div>
+      <div class="fig__body">
+        <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="Block diagram of the robot control loop and a plan view of the chassis showing sensor placement.">
+          <text class="s-txt" x="24" y="28">control loop</text>
+          <g class="pop">
+            <rect class="s-card" x="24" y="60" width="120" height="56" rx="8"/>
+            <text class="s-txt s-txt--sm" x="40" y="94">ultrasonic</text>
+            <rect class="s-card" x="24" y="136" width="120" height="56" rx="8"/>
+            <text class="s-txt s-txt--sm" x="52" y="170">IR pair</text>
+          </g>
+          <path class="s-accent flow" d="M146 88 L206 88 L206 128"/>
+          <path class="s-accent flow" d="M146 164 L206 164 L206 140"/>
+          <g class="pop pop--d1">
+            <rect x="208" y="106" width="128" height="72" rx="10" fill="var(--bg-alt)" stroke="var(--accent)" stroke-width="2.4"/>
+            <text class="s-txt s-txt--sm" x="230" y="140">Arduino</text>
+            <text class="s-mono" x="222" y="162">navigate + aim</text>
+          </g>
+          <path class="s-accent2 flow" d="M338 128 L396 128"/>
+          <path class="s-accent2 flow" d="M338 156 L396 156"/>
+          <g class="pop pop--d2">
+            <rect class="s-card" x="398" y="102" width="118" height="50" rx="8"/>
+            <text class="s-txt s-txt--sm" x="416" y="132">drive motors</text>
+            <rect class="s-card" x="398" y="160" width="118" height="50" rx="8"/>
+            <text class="s-txt s-txt--sm" x="410" y="190">launcher servo</text>
+          </g>
+          <path class="s-dash" d="M457 214 L457 250 L206 250 L206 186"/>
+          <text class="s-txt s-txt--sm" x="278" y="272">motion changes what the sensors see</text>
+
+          <text class="s-txt" x="566" y="28">chassis</text>
+          <g class="pop pop--d4">
+            <rect class="s-card" x="580" y="86" width="160" height="132" rx="14"/>
+            <circle class="s-line" cx="572" cy="118" r="14" fill="var(--bg)"/>
+            <circle class="s-line" cx="572" cy="188" r="14" fill="var(--bg)"/>
+            <circle class="s-line" cx="748" cy="118" r="14" fill="var(--bg)"/>
+            <circle class="s-line" cx="748" cy="188" r="14" fill="var(--bg)"/>
+            <path class="s-accent2" d="M660 86 L660 56"/>
+            <circle class="s-fill2" cx="660" cy="52" r="9"/>
+            <text class="s-mono2" x="676" y="50">launcher</text>
+            <path class="s-accent3" d="M614 86 L586 40" stroke-dasharray="5 5"/>
+            <path class="s-accent3" d="M706 86 L734 40" stroke-dasharray="5 5"/>
+            <text class="s-mono" x="588" y="252" fill="var(--accent-3)">sensor cones</text>
+          </g>
+        </svg>
+      </div>
+      <p class="fig__cap"><b>Figure 1.</b> Ultrasonic and infrared sensors feed an Arduino running the navigation and targeting logic, which drives the wheel motors and the launcher servo. The two sensing modalities are deliberately complementary: ultrasonic gives usable range but a wide, imprecise cone, while infrared is narrow and fast but easily confused by surface reflectivity. Neither alone is dependable enough.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--alt">
+  <div class="wrap two-col">
+    <div class="card reveal">
+      <h3>Mechanical design</h3>
+      <p>The chassis had to carry the drive train, electronics and launcher while staying light enough to turn sharply and stable enough that firing did not disturb its heading.</p>
+      <p>Most components were 3D printed, which made iteration cheap. The launcher geometry in particular went through several revisions before projectile release became repeatable — early versions were accurate on the bench and erratic once the robot was moving.</p>
+      <ul>
+        <li>3D-printed chassis and custom mounts</li>
+        <li>Servo-driven launching mechanism</li>
+        <li>Sensor placement for complementary coverage</li>
+        <li>Mass distribution tuned for turning stability</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <h3>Control logic</h3>
+      <p>The Arduino ran a straightforward priority loop: avoid first, aim second, fire last. Obstacle avoidance always overrode targeting, because a collision ends the run while a missed shot does not.</p>
+      <p>The genuinely hard part was hysteresis. Naive threshold logic makes the robot oscillate at the edge of detection — steering away, losing the reading, steering back, re-detecting. Adding deadbands and committing to an avoidance manoeuvre once started fixed behaviour that no amount of threshold tuning could.</p>
+      <ul>
+        <li>Real-time obstacle detection and path correction</li>
+        <li>Priority arbitration between avoidance and targeting</li>
+        <li>Hysteresis and deadbands to prevent oscillation</li>
+        <li>Firing gated on aim tolerance and range</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 2 — Navigation and targeting, running</span><span class="fig__live">running</span></div>
+      <div class="fig__body">
+        <canvas id="rb-canvas" width="1520" height="700"></canvas>
+      </div>
+      <div class="fig__ctrls">
+        <div class="fig__ctrl">
+          <label>Obstacle density <b id="rbv-o">4</b></label>
+          <input type="range" id="rb-o" min="1" max="9" step="1" value="4" />
+        </div>
+        <div class="fig__ctrl">
+          <label>Drive speed <b id="rbv-s">1.0</b></label>
+          <input type="range" id="rb-s" min="0.4" max="2.0" step="0.05" value="1.0" />
+        </div>
+      </div>
+      <p class="fig__cap"><b>Figure 2.</b> A top-down simulation of the control logic. The robot follows the track, sweeps its sensor cone for obstacles, steers around them, and fires when a target falls inside its aiming tolerance. The cone turns amber when something is detected. Widen the obstacle field and the avoidance behaviour starts competing with progress along the track — which is exactly the trade-off the competition scoring rewarded getting right.</p>
+    </div>
+  </div>
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">What stuck with me</h2>
+    <p>This was a lesson in the distance between a control law that works in principle and one that
+      survives contact with real sensors. Everything behaved on paper. The failures were all in the
+      transitions — the moment an obstacle left the sensor cone, the instant firing recoil nudged the
+      heading, the case where two obstacles were detected as one gap that was not actually there.</p>
+    <p>It is the same discipline my research needs, just with faster feedback: build the model, then find
+      out where reality disagrees, then fix the model rather than the reality. A robot tells you within
+      seconds. A viscoelastic truss can take considerably longer.</p>
+    <div class="proj-links" style="margin-top:1.6rem"><a class="btn" href="projects.html">All projects &rarr;</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>&copy; <span id="year"></span> Pritam Ghoshal</div>
+    <div>Mechanical Engineering &middot; Purdue University</div>
+  </div>
+</footer>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-in');o.unobserve(e.target);}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+<script>
+(function(){
+  const cv=document.getElementById('rb-canvas'); if(!cv) return;
+  const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
+  const css=getComputedStyle(document.documentElement); const C=k=>css.getPropertyValue(k).trim();
+  const P={nObs:4, speed:1.0};
+  const bot={x:200,y:H*0.5,th:0,detect:false};
+  let obs=[], targets=[], shots=[], hits=0;
+
+  function seed(){
+    obs=[]; for(let i=0;i<P.nObs;i++)
+      obs.push({x:340+Math.random()*(W-600), y:120+Math.random()*(H-260), r:34+Math.random()*26});
+    targets=[]; for(let i=0;i<3;i++)
+      targets.push({x:W-260+Math.random()*160, y:120+Math.random()*(H-260), alive:true});
+  }
+  seed();
+
+  function step(dt){
+    // steer: seek nearest live target, avoid obstacles
+    let tg=targets.find(t=>t.alive);
+    if(!tg){ targets.forEach(t=>t.alive=true); tg=targets[0]; }
+    let desired=Math.atan2(tg.y-bot.y, tg.x-bot.x);
+    bot.detect=false;
+    obs.forEach(o=>{
+      const dx=o.x-bot.x, dy=o.y-bot.y, d=Math.hypot(dx,dy);
+      if(d<o.r+150){
+        bot.detect=true;
+        const away=Math.atan2(dy,dx)+Math.PI;
+        const wgt=Math.min(1,(o.r+150-d)/150);
+        desired=desired*(1-wgt)+away*wgt;
+      }
+    });
+    let err=((desired-bot.th+Math.PI*3)%(Math.PI*2))-Math.PI;
+    bot.th+=err*Math.min(1,dt*3.4);
+    const sp=110*P.speed*dt;
+    bot.x+=Math.cos(bot.th)*sp; bot.y+=Math.sin(bot.th)*sp;
+    if(bot.x<60||bot.x>W-60) bot.th=Math.PI-bot.th;
+    if(bot.y<70||bot.y>H-70) bot.th=-bot.th;
+    bot.x=Math.max(60,Math.min(W-60,bot.x)); bot.y=Math.max(70,Math.min(H-70,bot.y));
+
+    // fire when aimed and in range
+    const dxt=tg.x-bot.x, dyt=tg.y-bot.y, dt2=Math.hypot(dxt,dyt);
+    const aim=Math.abs(((Math.atan2(dyt,dxt)-bot.th+Math.PI*3)%(Math.PI*2))-Math.PI);
+    if(dt2<420 && aim<0.18 && Math.random()<0.05)
+      shots.push({x:bot.x,y:bot.y,vx:Math.cos(bot.th)*640,vy:Math.sin(bot.th)*640,life:1.4});
+
+    shots.forEach(s=>{s.x+=s.vx*dt;s.y+=s.vy*dt;s.life-=dt;
+      targets.forEach(t=>{if(t.alive&&Math.hypot(t.x-s.x,t.y-s.y)<26){t.alive=false;s.life=0;hits++;}});});
+    shots=shots.filter(s=>s.life>0);
+  }
+
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    // arena
+    ctx.strokeStyle=C('--border-2'); ctx.lineWidth=3;
+    ctx.strokeRect(50,60,W-100,H-120);
+    // obstacles
+    obs.forEach(o=>{
+      ctx.fillStyle=C('--bg-alt'); ctx.strokeStyle=C('--border-2'); ctx.lineWidth=2;
+      ctx.beginPath();ctx.arc(o.x,o.y,o.r,0,7);ctx.fill();ctx.stroke();
+    });
+    // targets
+    targets.forEach(t=>{
+      if(!t.alive) return;
+      ctx.strokeStyle=C('--accent-2'); ctx.lineWidth=4;
+      ctx.beginPath();ctx.arc(t.x,t.y,24,0,7);ctx.stroke();
+      ctx.beginPath();ctx.arc(t.x,t.y,10,0,7);ctx.stroke();
+    });
+    // sensor cone
+    ctx.fillStyle= bot.detect ? 'rgba(255,90,31,0.16)' : 'rgba(0,166,166,0.13)';
+    ctx.beginPath();ctx.moveTo(bot.x,bot.y);
+    ctx.arc(bot.x,bot.y,190,bot.th-0.44,bot.th+0.44);
+    ctx.closePath();ctx.fill();
+    // robot
+    ctx.save();
+    ctx.translate(bot.x,bot.y); ctx.rotate(bot.th);
+    ctx.fillStyle=C('--accent'); ctx.fillRect(-26,-20,52,40);
+    ctx.fillStyle=C('--ink'); ctx.fillRect(-20,-26,14,10); ctx.fillRect(6,-26,14,10);
+    ctx.fillRect(-20,16,14,10); ctx.fillRect(6,16,14,10);
+    ctx.fillStyle=C('--accent-2'); ctx.fillRect(24,-5,20,10);
+    ctx.restore();
+    // shots
+    ctx.fillStyle=C('--accent-2');
+    shots.forEach(s=>{ctx.beginPath();ctx.arc(s.x,s.y,7,0,7);ctx.fill();});
+    // hud
+    ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
+    ctx.fillText(bot.detect?'obstacle detected — steering around':'path clear — tracking target',70,42);
+    ctx.fillStyle=C('--accent-2'); ctx.fillText('hits: '+hits, W-190, 42);
+  }
+
+  const ro=document.getElementById('rb-o');
+  if(ro) ro.addEventListener('input',()=>{P.nObs=parseInt(ro.value,10);
+    document.getElementById('rbv-o').textContent=P.nObs; seed();});
+  const rs=document.getElementById('rb-s');
+  if(rs) rs.addEventListener('input',()=>{P.speed=parseFloat(rs.value);
+    document.getElementById('rbv-s').textContent=P.speed.toFixed(2);});
+
+  let live=false,last=performance.now();
+  new IntersectionObserver(e=>{live=e[0].isIntersecting;},{threshold:.05}).observe(cv);
+  (function loop(now){
+    requestAnimationFrame(loop);
+    const dt=Math.min((now-last)/1000,0.05); last=now;
+    if(!live) return;
+    step(dt); render();
+  })(performance.now());
+})();
+</script>
+</body>
+</html>
