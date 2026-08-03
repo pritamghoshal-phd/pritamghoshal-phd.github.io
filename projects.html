@@ -29,11 +29,13 @@
 <section class="page-header">
   <div class="wrap reveal">
     <div class="eyebrow">Research projects</div>
-    <h1 class="page-title">Three threads, one <em>question</em>.</h1>
+    <h1 class="page-title">Everything I have <em>worked on</em>.</h1>
     <p class="page-sub">
-      Everything below asks a version of the same thing: what happens when a structure that can snap
-      between two states also remembers its recent past? The answer turned out to be useful for
-      computation, for vibration control, and — unexpectedly — for explaining how a cicada sings.
+      Most of my doctoral work asks a version of the same question: what happens when a structure that can
+      snap between two states also remembers its recent past? The answer turned out to be useful for
+      computation, for vibration control, for suppressing noise in a driveline, and — unexpectedly — for
+      explaining how a cicada sings. Each project below has its own page with schematics and a live
+      simulation.
     </p>
     <div style="margin-top:1.6rem">
       <a href="index.html#publications" class="btn">← Back to publications</a>
@@ -124,6 +126,103 @@
       </div>
     </article>
 
+    <article class="proj-card reveal">
+      <div class="proj-head">
+        <div class="proj-name">Robust control of stick-slip instability in automotive clutches</div>
+        <div class="proj-kind">Patent pending</div>
+      </div>
+      <div class="proj-venue">U.S. Patent Application No. 63/989902</div>
+      <div class="proj-meta"><strong>Role:</strong> Lead inventor</div>
+      <div class="proj-meta"><strong>Methods:</strong> Friction-induced vibration analysis · stability analysis · robust control design</div>
+      <div class="proj-meta"><strong>Tools:</strong> MATLAB · Simulink</div>
+      <p class="proj-body">Clutch squawk is a self-excited vibration caused by a falling friction characteristic, which gives the steady-sliding equilibrium negative damping and drives it onto a stick-slip limit cycle. Rather than treating it with friction modifiers or broadband damping, I developed a control algorithm that injects damping into the unstable mode itself and holds up under substantial uncertainty in the friction law — which varies with temperature, wear and contamination.</p>
+      <div class="proj-links">
+        <a class="pill" href="project-clutch-control.html">Project detail →</a>
+      </div>
+    </article>
+    <article class="proj-card reveal">
+      <div class="proj-head">
+        <div class="proj-name">Bio-inspired mechanical metamaterials for vibration and wave control</div>
+        <div class="proj-kind">Thread 04</div>
+      </div>
+      <div class="proj-venue">Doctoral research · design, characterisation, validation</div>
+      <div class="proj-meta"><strong>Role:</strong> Design, fabrication and experimental validation</div>
+      <div class="proj-meta"><strong>Methods:</strong> Dispersion analysis · band-gap design · laser vibrometry · material characterisation</div>
+      <div class="proj-meta"><strong>Tools:</strong> FEA · silicone casting · 3D printing</div>
+      <p class="proj-body">Locally resonant lattices whose vibration behaviour comes from architecture rather than composition. Because the band gap is set by an internal resonance rather than the lattice spacing, attenuation is achievable at wavelengths far longer than the cell itself — the sub-wavelength behaviour that makes metamaterials practical at low frequency. The same physics read in reverse concentrates energy into instrumented cells for harvesting.</p>
+      <div class="proj-links">
+        <a class="pill" href="project-metamaterials.html">Project detail →</a>
+        <a class="pill" href="project-cicada-tymbal.html">Related: cicada →</a>
+      </div>
+    </article>
+    <article class="proj-card reveal">
+      <div class="proj-head">
+        <div class="proj-name">Analog hardware for nonlinear computing and structural health monitoring</div>
+        <div class="proj-kind">Thread 05</div>
+      </div>
+      <div class="proj-venue">FPAA and PCB systems · hardware machine learning</div>
+      <div class="proj-meta"><strong>Role:</strong> Circuit design, fabrication and testing</div>
+      <div class="proj-meta"><strong>Methods:</strong> Analog computing · physical reservoir computing · classification</div>
+      <div class="proj-meta"><strong>Tools:</strong> FPAA · KiCad · PCB fabrication</div>
+      <p class="proj-body">If a reservoir's value is that its own physics performs the nonlinear transformation for free, implementing it digitally gives away the entire advantage. These circuits obey the governing equation continuously rather than solving it in steps, giving microwatt-scale sensor nodes that classify structural condition in real time instead of streaming raw data for offline analysis.</p>
+      <div class="proj-links">
+        <a class="pill" href="project-analog-hardware.html">Project detail →</a>
+        <a class="pill" href="project-nonlinear-dynamics.html">Related: reservoir computing →</a>
+      </div>
+    </article>
+    <article class="proj-card reveal">
+      <div class="proj-head">
+        <div class="proj-name">Vehicle–trailer dynamics and regenerative suspension</div>
+        <div class="proj-kind">Thread 06</div>
+      </div>
+      <div class="proj-venue">Doctoral research · modeling and simulation</div>
+      <div class="proj-meta"><strong>Role:</strong> Modeling and simulation</div>
+      <div class="proj-meta"><strong>Methods:</strong> Multi-body dynamics · structural vibration · energy-transfer analysis</div>
+      <div class="proj-meta"><strong>Tools:</strong> Abaqus · Simulink · MATLAB</div>
+      <p class="proj-body">A hitch couples two sprung masses that would otherwise be analysed separately, creating modes belonging to neither vehicle alone and transferring energy in both directions. The work quantifies how much energy is genuinely recoverable at each axle over realistic road spectra, and how much damping can be diverted to harvesting before ride and stability degrade.</p>
+      <div class="proj-links">
+        <a class="pill" href="project-vehicle-trailer.html">Project detail →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="eyebrow reveal">Earlier work</div>
+    <h2 class="page-title reveal" style="font-size:clamp(1.8rem,3.4vw,2.4rem)">Before the <em>PhD</em>.</h2>
+    <p class="page-sub reveal" style="margin-bottom:.5rem">
+      Competition projects from my undergraduate and early graduate years — where I first learned that a
+      correct calculation and a working system are not the same thing.
+    </p>
+  </div>
+  <div class="wrap proj-list" style="padding-top:1.5rem">
+    <article class="proj-card reveal">
+      <div class="proj-head">
+        <div class="proj-name">HVAC system design for a three-screen multiplex</div>
+        <div class="proj-kind">Competition</div>
+      </div>
+      <div class="proj-venue">ISHRAE National Student Design Competition</div>
+      <div class="proj-meta"><strong>Scope:</strong> Load calculation, duct design, CFD verification</div>
+      <div class="proj-meta"><strong>Tools:</strong> SolidWorks · CFD</div>
+      <p class="proj-body">Cinemas are a deceptively hard load case: extremely dense but intermittent occupancy, tall raked volumes that encourage stratification, and concentrated projection heat. Loads were computed per auditorium, the duct network laid out and sized in SolidWorks, and CFD used to verify that air actually reached the seating rather than short-circuiting to the return.</p>
+      <div class="proj-links">
+        <a class="pill" href="project-hvac-multiplex.html">Project detail →</a>
+      </div>
+    </article>
+    <article class="proj-card reveal">
+      <div class="proj-head">
+        <div class="proj-name">Autonomous object-targeting robot</div>
+        <div class="proj-kind">Competition</div>
+      </div>
+      <div class="proj-venue">Mechatronics Competition, Purdue University</div>
+      <div class="proj-meta"><strong>Scope:</strong> Mechanical design, electronics, embedded control</div>
+      <div class="proj-meta"><strong>Tools:</strong> Arduino · ultrasonic and IR sensing · servos · 3D printing</div>
+      <p class="proj-body">A robot that navigates a track autonomously, avoids obstacles in real time using complementary ultrasonic and infrared sensing, and launches projectiles at detected targets via a servo-driven mechanism built from custom mounts and 3D-printed parts.</p>
+      <div class="proj-links">
+        <a class="pill" href="project-autonomous-robot.html">Project detail →</a>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -132,8 +231,8 @@
     <div class="eyebrow reveal">Publication record</div>
     <h2 class="page-title reveal" style="font-size:clamp(1.8rem,3.4vw,2.4rem)">Every paper, in <em>one place</em>.</h2>
     <p class="page-sub reveal" style="margin-bottom:1.8rem">
-      The three threads above draw on six peer-reviewed outputs. The full list with citation counts lives
-      on Google Scholar.
+      The research threads above draw on six peer-reviewed papers and one pending patent. The full list
+      with citation counts lives on Google Scholar.
     </p>
     <div class="proj-links reveal">
       <a class="btn btn--solid" href="index.html#publications">See the publication list →</a>
