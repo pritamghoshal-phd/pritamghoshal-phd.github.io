@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>HVAC Design for a Three-Screen Multiplex — Pritam Ghoshal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="HVAC system design for a three-screen multiplex: load calculations, duct layout in SolidWorks and CFD verification of air circulation and thermal comfort." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site.css" />
+</head>
+<body>
+<header class="nav">
+  <div class="nav__in">
+    <a href="index.html" class="nav__logo">Pritam <span>Ghoshal</span></a>
+    <nav class="nav__links">
+      <a href="index.html#about">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-header">
+  <div class="wrap hero-inner reveal">
+    <div class="eyebrow">Project &middot; ISHRAE National Student Design Competition</div>
+    <h1 class="page-title">HVAC design for a <em>three-screen multiplex</em></h1>
+    <p class="hero-sub">A cinema is a deceptively hard load case: dense but intermittent occupancy, tall volumes, concentrated equipment heat, and an audience that notices every draught.</p>
+    <div class="hero-meta"><strong>Competition:</strong> ISHRAE National Student Design Competition &middot; <strong>Scope:</strong> Load calculation, duct design, CFD verification</div>
+    <div class="pill-row"><span class="tag">HVAC load calculation</span>
+      <span class="tag">Duct design</span>
+      <span class="tag">SolidWorks</span>
+      <span class="tag">CFD</span>
+      <span class="tag">Thermal comfort</span></div>
+    <a href="projects.html" class="btn">&larr; Back to projects</a>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">The brief</h2>
+    <p>Design the heating, cooling and ventilation system for a three-screen multiplex: size the plant,
+      lay out the distribution, and demonstrate that the result actually delivers comfort rather than
+      merely meeting a load on paper.</p>
+    <p>Auditoria are an unusual space type. Occupant density is among the highest in any building, but it
+      swings from near-empty to full within minutes. Each person contributes both sensible and latent heat,
+      so a packed screening is a fundamentally different thermal problem from a sparse one. Ceilings are
+      tall, which encourages stratification. Projection equipment adds a concentrated load in one place.
+      And comfort expectations are strict — people sit still for two hours, so draughts and cold spots that
+      would pass unnoticed elsewhere generate complaints here.</p>
+  </div>
+  <div class="wrap">
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 1 — Plant and distribution layout</span></div>
+      <div class="fig__body">
+        <svg viewBox="0 0 800 340" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="Plan view of a three-screen multiplex with an air handling unit, trunk duct and branch ducts to each auditorium.">
+          <g class="pop">
+            <rect class="s-card" x="30" y="120" width="104" height="98" rx="10"/>
+            <text class="s-txt s-txt--sm" x="52" y="162">AHU</text>
+            <text class="s-txt s-txt--sm" x="40" y="184">chiller +</text>
+            <text class="s-txt s-txt--sm" x="46" y="202">blower</text>
+          </g>
+          <path class="s-accent flow" d="M134 168 L680 168" stroke-width="10"/>
+          <text class="s-mono" x="330" y="152">trunk duct</text>
+          <g class="pop pop--d1">
+            <path class="s-accent flow" d="M240 168 L240 74" stroke-width="6"/>
+            <path class="s-accent flow" d="M430 168 L430 74" stroke-width="6"/>
+            <path class="s-accent flow" d="M620 168 L620 74" stroke-width="6"/>
+            <rect class="s-card" x="176" y="14" width="128" height="60" rx="8"/>
+            <rect class="s-card" x="366" y="14" width="128" height="60" rx="8"/>
+            <rect class="s-card" x="556" y="14" width="128" height="60" rx="8"/>
+            <text class="s-txt s-txt--sm" x="212" y="50">Screen 1</text>
+            <text class="s-txt s-txt--sm" x="402" y="50">Screen 2</text>
+            <text class="s-txt s-txt--sm" x="592" y="50">Screen 3</text>
+          </g>
+          <g class="pop pop--d3">
+            <path class="s-accent3" d="M240 200 L240 268 L134 268 L134 218" stroke-dasharray="7 6"/>
+            <path class="s-accent3" d="M430 200 L430 268 L240 268" stroke-dasharray="7 6"/>
+            <path class="s-accent3" d="M620 200 L620 268 L430 268" stroke-dasharray="7 6"/>
+            <text class="s-mono" x="300" y="292" fill="var(--accent-3)">return air path</text>
+          </g>
+          <g class="pop pop--d4">
+            <text class="s-txt s-txt--sm" x="700" y="140">loads:</text>
+            <text class="s-txt s-txt--sm" x="700" y="164">occupants</text>
+            <text class="s-txt s-txt--sm" x="700" y="186">projector</text>
+            <text class="s-txt s-txt--sm" x="700" y="208">envelope</text>
+            <text class="s-txt s-txt--sm" x="700" y="230">lighting</text>
+            <text class="s-txt s-txt--sm" x="700" y="252">fresh air</text>
+          </g>
+        </svg>
+      </div>
+      <p class="fig__cap"><b>Figure 1.</b> Chilled air from the air handling unit is distributed along a trunk duct and branched to three auditoria, each sized independently. Cinema auditoria are an unusual load case: occupant density is very high but intermittent, ceilings are tall, and projection equipment adds concentrated heat, so the peak for each screen depends heavily on scheduling.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--alt">
+  <div class="wrap two-col">
+    <div class="card reveal">
+      <h3>Load calculation</h3>
+      <p>Heating, cooling and ventilation loads were computed for each auditorium separately rather than for the building as a whole, because the screens do not fill and empty together.</p>
+      <p>Fresh-air requirements scale with occupancy and, in a densely occupied space, ventilation becomes a large share of total cooling — conditioning outdoor air is often more demanding than offsetting the envelope gain.</p>
+      <ul>
+        <li>Sensible and latent gains from occupants</li>
+        <li>Envelope conduction and solar gain</li>
+        <li>Projection equipment and lighting</li>
+        <li>Fresh-air requirement by occupancy</li>
+        <li>Per-screen peaks and diversified building peak</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <h3>Distribution and verification</h3>
+      <p>The duct network was modelled in SolidWorks, sized for acceptable velocity and pressure drop, and arranged so that branches could be balanced.</p>
+      <p>CFD was the part that made the design credible. Meeting a calculated load says nothing about where the air actually goes; simulation exposes short-circuiting between supply and return, stagnant zones at the back rows, and stratification in a tall raked volume — all failures that satisfy the spreadsheet perfectly.</p>
+      <ul>
+        <li>Duct layout and sizing in SolidWorks</li>
+        <li>Velocity and pressure-drop checks per branch</li>
+        <li>CFD of air circulation within each auditorium</li>
+        <li>Verification of thermal comfort at seating level</li>
+        <li>Stratification and draught-risk assessment</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 2 — Load build-up and air distribution</span><span class="fig__live">running</span></div>
+      <div class="fig__body">
+        <canvas id="hv-canvas" width="1520" height="620"></canvas>
+      </div>
+      <div class="fig__ctrls">
+        <div class="fig__ctrl">
+          <label>Occupancy <b id="hvv-o">0.70</b></label>
+          <input type="range" id="hv-o" min="0.05" max="1.00" step="0.01" value="0.70" />
+        </div>
+        <div class="fig__ctrl">
+          <label>Outdoor temp offset <b id="hvv-t">1.00</b></label>
+          <input type="range" id="hv-t" min="0.20" max="1.60" step="0.02" value="1.00" />
+        </div>
+      </div>
+      <p class="fig__cap"><b>Figure 2.</b> Left: cooling load assembled contribution by contribution as occupancy rises — drag the occupancy slider and watch the sensible and latent components separate. Right: airflow through the trunk and branches, with particle density proportional to volumetric flow. Because occupants dominate the load, a nearly empty auditorium and a full one are effectively different buildings, which is the case for zoning each screen separately.</p>
+    </div>
+  </div>
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">What I took from it</h2>
+    <p>This was my first substantial exposure to the gap between a load calculation and a working system.
+      Sizing the plant is arithmetic; making a room comfortable is a flow problem, and the two are only
+      loosely connected. CFD was where that distinction became concrete for me.</p>
+    <p>It also made the case for zoning. Because occupants dominate the load, screens must be controlled
+      independently — a single system sized for simultaneous full occupancy is oversized nearly all of the
+      time, and oversized equipment cycles badly, dehumidifies poorly and wastes energy.</p>
+    <p>The habit of validating an analytical result against a simulation, and treating disagreement as
+      information rather than nuisance, is the same one I rely on in my doctoral work.</p>
+    <div class="proj-links" style="margin-top:1.6rem"><a class="btn" href="projects.html">All projects &rarr;</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>&copy; <span id="year"></span> Pritam Ghoshal</div>
+    <div>Mechanical Engineering &middot; Purdue University</div>
+  </div>
+</footer>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-in');o.unobserve(e.target);}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+<script>
+(function(){
+  const cv=document.getElementById('hv-canvas'); if(!cv) return;
+  const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
+  const css=getComputedStyle(document.documentElement); const C=k=>css.getPropertyValue(k).trim();
+  const P={occ:0.70, temp:1.00};
+  let t=0;
+  const parts=[]; for(let i=0;i<190;i++) parts.push({br:Math.floor(Math.random()*3), p:Math.random()});
+
+  function loads(){
+    const occSens=P.occ*38, occLat=P.occ*26;
+    const proj=9, light=7*(1-P.occ*0.25);
+    const env=22*P.temp, fresh=P.occ*17*P.temp;
+    return [
+      {k:'occupants (sensible)', v:occSens, c:'--accent'},
+      {k:'occupants (latent)',   v:occLat,  c:'--accent-3'},
+      {k:'fresh air',            v:fresh,   c:'--accent-2'},
+      {k:'envelope',             v:env,     c:'--accent'},
+      {k:'projection',           v:proj,    c:'--accent-3'},
+      {k:'lighting',             v:light,   c:'--accent-2'}
+    ];
+  }
+
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    const L=loads(); const total=L.reduce((a,b)=>a+b.v,0);
+    // ---- stacked bar ----
+    const x0=70, w1=W*0.42, barX=x0+130, barW=180;
+    const top=110, botY=H-90, hgt=botY-top;
+    ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
+    ctx.fillText('cooling load build-up', x0, 54);
+    let acc=0;
+    L.forEach((seg)=>{
+      const segH=(seg.v/Math.max(total,1))*hgt;
+      const y=botY-acc-segH;
+      ctx.fillStyle=C(seg.c);
+      ctx.globalAlpha=0.55+0.45*(seg.k.indexOf('occ')===0?1:0.5);
+      ctx.fillRect(barX,y,barW,segH-3);
+      ctx.globalAlpha=1;
+      if(segH>22){
+        ctx.fillStyle=C('--muted'); ctx.font='500 20px Outfit, sans-serif';
+        ctx.fillText(seg.k, barX+barW+18, y+segH/2+7);
+      }
+      acc+=segH;
+    });
+    ctx.strokeStyle=C('--border-2'); ctx.lineWidth=2; ctx.strokeRect(barX,top,barW,hgt);
+    ctx.fillStyle=C('--ink'); ctx.font='500 30px Outfit, sans-serif';
+    ctx.fillText(total.toFixed(0)+' units', barX, botY+46);
+
+    // ---- duct network ----
+    const dx=W*0.48, dw=W-dx-60;
+    ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
+    ctx.fillText('air distribution', dx, 54);
+    const trunkY=H*0.62;
+    ctx.strokeStyle=C('--border-2'); ctx.lineWidth=26;
+    ctx.beginPath();ctx.moveTo(dx+40,trunkY);ctx.lineTo(dx+dw,trunkY);ctx.stroke();
+    const brX=[dx+dw*0.30, dx+dw*0.56, dx+dw*0.82];
+    brX.forEach(bx=>{ctx.beginPath();ctx.moveTo(bx,trunkY);ctx.lineTo(bx,H*0.22);ctx.stroke();});
+    // AHU
+    ctx.fillStyle=C('--accent'); ctx.fillRect(dx-10,trunkY-46,58,92);
+    ctx.fillStyle='#fff'; ctx.font='500 18px Outfit, sans-serif'; ctx.fillText('AHU',dx+2,trunkY+6);
+    // auditoria
+    brX.forEach((bx,i)=>{
+      ctx.fillStyle=C('--bg-alt'); ctx.strokeStyle=C('--border-2'); ctx.lineWidth=2;
+      ctx.fillRect(bx-72,H*0.10,144,86); ctx.strokeRect(bx-72,H*0.10,144,86);
+      ctx.fillStyle=C('--muted'); ctx.font='500 21px Outfit, sans-serif';
+      ctx.fillText('Screen '+(i+1), bx-44, H*0.10+50);
+    });
+    // particles
+    const flow=0.25+P.occ*0.9;
+    parts.forEach(pt=>{
+      pt.p+=0.0055*flow; if(pt.p>1) pt.p-=1;
+      const bx=brX[pt.br];
+      const trunkLen=bx-(dx+40), branchLen=trunkY-H*0.22;
+      const totalLen=trunkLen+branchLen;
+      const d=pt.p*totalLen;
+      let px,py;
+      if(d<trunkLen){ px=dx+40+d; py=trunkY+(Math.random()-0.5)*14; }
+      else { px=bx+(Math.random()-0.5)*14; py=trunkY-(d-trunkLen); }
+      ctx.fillStyle=`rgba(0,166,166,${0.30+flow*0.45})`;
+      ctx.beginPath();ctx.arc(px,py,3.4,0,7);ctx.fill();
+    });
+  }
+
+  const b=(r,vv,key,dp)=>{const R=document.getElementById(r),V=document.getElementById(vv);
+    if(!R)return;R.addEventListener('input',()=>{P[key]=parseFloat(R.value);V.textContent=P[key].toFixed(dp);});};
+  b('hv-o','hvv-o','occ',2); b('hv-t','hvv-t','temp',2);
+
+  let live=false;
+  new IntersectionObserver(e=>{live=e[0].isIntersecting;},{threshold:.05}).observe(cv);
+  (function loop(){requestAnimationFrame(loop); if(live) render();})();
+})();
+</script>
+</body>
+</html>
