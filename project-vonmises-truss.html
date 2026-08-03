@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Viscoelastic Bistable von Mises Truss — Pritam Ghoshal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site.css" />
+</head>
+<body>
+<header class="nav">
+  <div class="nav__in">
+    <a href="index.html" class="nav__logo">Pritam <span>Ghoshal</span></a>
+    <nav class="nav__links">
+      <a href="index.html#about">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-header">
+  <div class="wrap hero-inner reveal">
+    <div class="eyebrow">Project · four papers, 2024–2025</div>
+    <h1 class="page-title">Dynamics of the viscoelastic <em>bistable von Mises truss</em></h1>
+    <p class="hero-sub">
+      What happens when a structure that can snap between two stable states is also made of a material
+      that remembers. The foundational thread of my doctoral work.
+    </p>
+    <div class="hero-meta">
+      <strong>Role:</strong> Lead author ·
+      <strong>Co-authors:</strong> J. M. Gibert, A. K. Bajaj, Q. Zhao
+    </div>
+    <div class="pill-row">
+      <span class="tag">Harmonic balance</span>
+      <span class="tag">Bifurcation analysis</span>
+      <span class="tag">Chaos</span>
+      <span class="tag">Viscoelasticity</span>
+      <span class="tag">MATLAB</span>
+    </div>
+    <a href="projects.html" class="btn">← Back to projects</a>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">Why this system</h2>
+    <p>The von Mises truss is about as simple as a bistable structure gets: two pinned bars meeting at an
+      apex that can snap from one side to the other. Despite that apparent simplicity it represents a broad
+      class of systems — shells, arches, buckling beams — and it permits lumped-parameter analysis where a
+      continuum model would be intractable.</p>
+    <p>Add viscoelasticity and it stops being simple. The mechanical motion is governed by a second-order
+      Duffing-type equation with quadratic nonlinearity, while the viscoelastic force evolves under a
+      first-order equation on a much slower timescale. Combined, they form a <strong>third-order jerk
+      system</strong> — and the interaction between the fast elastic oscillations and the slow material
+      relaxation produces behaviour neither equation shows alone.</p>
+  </div>
+</section>
+
+<section class="sec sec--alt">
+  <div class="wrap two-col">
+    <div class="card reveal">
+      <h3>Periodic response &amp; stability</h3>
+      <p><em>Int. J. Non-Linear Mechanics, 166:104858 (2024)</em></p>
+      <p>Using the harmonic balance method to capture the interplay between geometric and material
+        parameters under harmonic forcing. Principal findings:</p>
+      <ul>
+        <li>Viscoelasticity introduces additional timescales and degrees of freedom</li>
+        <li>The system supports multiple coexisting periodic solutions</li>
+        <li>An equivalent viscous damping approximation <strong>fails</strong> to reproduce the dynamics</li>
+        <li>An optimal configuration exists for maximum energy dissipation — directly useful for vibration suppression</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <h3>The presence of chaos</h3>
+      <p><em>J. Computational &amp; Nonlinear Dynamics, 19(7):071009 (2024)</em></p>
+      <p>Establishes that the harmonically forced viscoelastic truss is genuinely chaotic, not merely
+        complicated. The slow–fast structure of the jerk system is what creates the route in.</p>
+      <p>This result mattered beyond its own paper: it defined the boundary I later needed for reservoir
+        computing, where the goal is to operate near the edge of chaos without crossing it.</p>
+    </div>
+    <div class="card reveal">
+      <h3>High-frequency base excitation</h3>
+      <p><em>J. Computational &amp; Nonlinear Dynamics (2025)</em></p>
+      <p>High-frequency excitation is known to stiffen systems, bias them and smooth discontinuities. In a
+        multi-stable system those effects become far more consequential, because the bias toward one
+        equilibrium depends strongly on the combination of excitation and geometric parameters.</p>
+      <p>Practically: you can steer which well the structure prefers without changing the structure.</p>
+    </div>
+    <div class="card reveal">
+      <h3>Effect of boundary conditions</h3>
+      <p><em>ICNDA, Springer Proceedings · with Q. Zhao</em></p>
+      <p>The earliest piece of the thread. Examines how boundary conditions reshape the bistability and
+        stability landscape of the truss, establishing the modelling assumptions the later journal papers
+        depend on.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">Where it led</h2>
+    <p>Taken together these papers characterise a system that is nonlinear, multi-stable, chaotic under the
+      right forcing, and possessed of genuine short-term memory through its material. That combination is
+      unusual — and it is very close to the specification for a physical reservoir computer.</p>
+    <p>That realisation became the next thread of my research: if the viscoelastic bistable truss already
+      has nonlinearity and fading memory, can a chain of them be trained to compute? The answer, developed
+      in <a href="project-nonlinear-dynamics.html" style="color:var(--accent);border-bottom:1px solid var(--accent)">the reservoir computing work</a>,
+      is yes — within parameter windows this earlier analysis is what let us find.</p>
+    <div class="proj-links" style="margin-top:1.6rem">
+      <a class="btn" href="https://doi.org/10.1016/j.ijnonlinmec.2024.104858" target="_blank" rel="noopener">IJNLM 2024 ↗</a>
+      <a class="btn" href="https://doi.org/10.1115/1.4064554" target="_blank" rel="noopener">JCND 2024 ↗</a>
+      <a class="btn" href="https://scholar.google.com/citations?user=1Nab30AAAAAJ&amp;hl=en" target="_blank" rel="noopener">Scholar ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="year"></span> Pritam Ghoshal</div>
+    <div>Mechanical Engineering · Purdue University</div>
+  </div>
+</footer>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-in');o.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
