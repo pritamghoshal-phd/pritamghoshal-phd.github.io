@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Bio-Inspired Mechanical Metamaterials — Pritam Ghoshal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Bio-inspired mechanical metamaterials for vibration attenuation, wave control and improved energy-harvesting efficiency." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site.css" />
+</head>
+<body>
+<header class="nav">
+  <div class="nav__in">
+    <a href="index.html" class="nav__logo">Pritam <span>Ghoshal</span></a>
+    <nav class="nav__links">
+      <a href="index.html#about">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-header">
+  <div class="wrap hero-inner reveal">
+    <div class="eyebrow">Project &middot; Doctoral research</div>
+    <h1 class="page-title">Bio-inspired <em>mechanical metamaterials</em> for vibration and wave control</h1>
+    <p class="hero-sub">Structures whose vibration behaviour comes from how they are arranged rather than what they are made of — and biology has been arranging them well for a very long time.</p>
+    <div class="hero-meta"><strong>Role:</strong> Design, characterisation and experimental validation &middot; <strong>Lab:</strong> Advanced Dynamics and Mechanics Lab, Purdue</div>
+    <div class="pill-row"><span class="tag">Metamaterials</span>
+      <span class="tag">Band gaps</span>
+      <span class="tag">Vibration attenuation</span>
+      <span class="tag">Energy harvesting</span>
+      <span class="tag">Material characterisation</span></div>
+    <a href="projects.html" class="btn">&larr; Back to projects</a>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">The idea</h2>
+    <p>A mechanical metamaterial gets its properties from geometry and periodicity rather than from bulk
+      material composition. Arrange identical unit cells in a repeating pattern and the assembly develops
+      frequency ranges — <strong>band gaps</strong> — in which elastic waves simply cannot propagate. Drive
+      the structure inside a gap and the disturbance decays exponentially with distance instead of
+      travelling.</p>
+    <p>The version I work with is <em>locally resonant</em>: each cell carries a small internal oscillator
+      tuned to the frequency you want to block. Because the gap is governed by that local resonance rather
+      than by cell spacing, attenuation is possible at wavelengths much longer than the lattice itself.
+      That sub-wavelength behaviour is what makes the approach practical for low-frequency vibration, where
+      conventional isolators become impractically bulky.</p>
+    <p>The bio-inspired part matters. Natural structures — moth wings, spider webs, the ribbed tymbal of a
+      cicada — routinely combine periodicity, bistability and graded properties to shape their acoustic
+      response. Those architectures are worth borrowing, and they connect this thread directly to the
+      cicada work.</p>
+  </div>
+  <div class="wrap">
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 1 — Unit cell and band structure</span></div>
+      <div class="fig__body">
+        <svg viewBox="0 0 780 340" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="A locally resonant metamaterial unit cell chain and its dispersion diagram showing a band gap.">
+          <text class="s-txt" x="24" y="28">locally resonant lattice</text>
+          <g class="pop">
+            <line class="s-thin" x1="24" y1="230" x2="360" y2="230"/>
+            <g>
+              <rect class="s-card" x="44" y="122" width="46" height="46" rx="6"/>
+              <rect class="s-card" x="136" y="122" width="46" height="46" rx="6"/>
+              <rect class="s-card" x="228" y="122" width="46" height="46" rx="6"/>
+              <rect class="s-card" x="320" y="122" width="46" height="46" rx="6"/>
+            </g>
+            <path class="s-line" d="M90 145 L100 145 L104 137 L112 153 L120 137 L128 153 L132 145 L136 145"/>
+            <path class="s-line" d="M182 145 L192 145 L196 137 L204 153 L212 137 L220 153 L224 145 L228 145"/>
+            <path class="s-line" d="M274 145 L284 145 L288 137 L296 153 L304 137 L312 153 L316 145 L320 145"/>
+            <g class="s-thin">
+              <path d="M67 168 L67 188"/><path d="M159 168 L159 188"/>
+              <path d="M251 168 L251 188"/><path d="M343 168 L343 188"/>
+            </g>
+            <g>
+              <circle class="s-fill2" cx="67" cy="202" r="13"/>
+              <circle class="s-fill2" cx="159" cy="202" r="13"/>
+              <circle class="s-fill2" cx="251" cy="202" r="13"/>
+              <circle class="s-fill2" cx="343" cy="202" r="13"/>
+            </g>
+            <text class="s-mono2" x="150" y="264">local resonators</text>
+            <text class="s-mono" x="150" y="108">host lattice</text>
+            <path class="s-dash" d="M44 288 L136 288"/>
+            <text class="s-mono" x="80" y="308">a</text>
+          </g>
+
+          <text class="s-txt" x="430" y="28">dispersion</text>
+          <g class="pop pop--d2">
+            <path class="s-thin" d="M452 288 L452 62"/>
+            <path class="s-thin" d="M452 288 L756 288"/>
+            <text class="s-txt s-txt--sm" x="600" y="312">wavenumber</text>
+            <text class="s-txt s-txt--sm" x="404" y="70">&#969;</text>
+            <rect x="452" y="146" width="304" height="58" fill="rgba(255,90,31,.14)"/>
+            <text class="s-mono2" x="562" y="182">band gap</text>
+            <path class="s-accent draw" style="--len:400" d="M452 288 C512 250 566 218 640 206 C690 206 730 204 756 204"/>
+            <path class="s-accent3 draw draw--d2" style="--len:400" d="M452 146 C520 132 580 112 640 96 C690 84 730 74 756 68"/>
+            <path class="s-dash" d="M452 175 L756 175"/>
+            <text class="s-mono" x="640" y="140">&#969;&#8320; resonator</text>
+          </g>
+        </svg>
+      </div>
+      <p class="fig__cap"><b>Figure 1.</b> A periodic chain of masses with attached local resonators. Below the resonator's natural frequency the lattice transmits freely; near it, energy is trapped in the resonators instead of propagating, opening the shaded <b>band gap</b> where no travelling wave exists. Because the gap is set by the local resonance rather than the lattice spacing, it can sit far below the wavelength you would normally need — this is the sub-wavelength attenuation that makes metamaterials useful.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--alt">
+  <div class="wrap two-col">
+    <div class="card reveal">
+      <h3>Design and characterisation</h3>
+      <p>Cell geometry was tuned so that the band gap covers the frequency range of interest, then the assemblies were fabricated and measured rather than trusted to simulation.</p>
+      <p>Silicone casting was used for compliant cells; material characterisation mattered because polymer stiffness and loss are strongly frequency dependent, and a model using a single static modulus will predict the wrong gap.</p>
+      <ul>
+        <li>Unit cell design and parametric tuning</li>
+        <li>Finite element dispersion analysis</li>
+        <li>Silicone casting and 3D printing of specimens</li>
+        <li>Material characterisation across frequency</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <h3>Experimental validation</h3>
+      <p>Transmission through fabricated lattices was measured directly, giving the frequency ranges where energy fails to pass through.</p>
+      <p>Laser Doppler vibrometry gives full-field motion without adding mass to a lightweight specimen — important, since a contact accelerometer can detune the very resonators being measured.</p>
+      <ul>
+        <li>Laser Doppler vibrometry for full-field response</li>
+        <li>Experimental modal analysis</li>
+        <li>Measured transmission versus predicted band gaps</li>
+        <li>Model correction where measurements disagreed</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 2 — Wave transmission through the lattice</span><span class="fig__live">running</span></div>
+      <div class="fig__body">
+        <canvas id="mm-canvas" width="1520" height="640"></canvas>
+      </div>
+      <div class="fig__ctrls">
+        <div class="fig__ctrl">
+          <label>Excitation frequency &#969;/&#969;&#8320; <b id="mmv-f">0.55</b></label>
+          <input type="range" id="mm-f" min="0.20" max="2.20" step="0.01" value="0.55" />
+        </div>
+        <div class="fig__ctrl">
+          <label>Resonator mass ratio <b id="mmv-m">0.28</b></label>
+          <input type="range" id="mm-m" min="0.05" max="0.60" step="0.01" value="0.28" />
+        </div>
+      </div>
+      <p class="fig__cap"><b>Figure 2.</b> A harmonic wave is injected at the left of a twelve-cell chain. Drag the excitation frequency: below the gap the wave travels the full length, inside the shaded gap it decays exponentially within a few cells while the local resonators absorb the energy, and above the gap transmission returns. The bar on the right tracks amplitude reaching the far end.</p>
+    </div>
+  </div>
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">Vibration control and energy harvesting</h2>
+    <p>The two applications turn out to be the same physics read in opposite directions. For
+      <strong>attenuation</strong>, you want energy trapped in the resonators and kept away from the
+      protected structure. For <strong>harvesting</strong>, you want energy concentrated in resonators you
+      have instrumented, so that a transducer sees far larger local motion than the ambient field would
+      otherwise provide.</p>
+    <p>Both benefit from the same design lever: place the local resonance where the energy is, and accept
+      the trade-off that a narrow, sharply tuned gap protects a small band very well while a broader,
+      graded arrangement protects more bandwidth less deeply.</p>
+    <p>This work also feeds the reservoir computing thread. A lattice of bistable, viscoelastic cells is
+      simultaneously a metamaterial and a physical reservoir — the same hardware, asked a different
+      question.</p>
+    <div class="proj-links" style="margin-top:1.6rem"><a class="btn" href="project-cicada-tymbal.html">Related: cicada metastructure &rarr;</a>
+      <a class="btn" href="projects.html">All projects &rarr;</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>&copy; <span id="year"></span> Pritam Ghoshal</div>
+    <div>Mechanical Engineering &middot; Purdue University</div>
+  </div>
+</footer>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-in');o.unobserve(e.target);}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+<script>
+(function(){
+  const cv=document.getElementById('mm-canvas'); if(!cv) return;
+  const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
+  const css=getComputedStyle(document.documentElement); const C=k=>css.getPropertyValue(k).trim();
+  const N=12;
+  const P={f:0.55, mr:0.28};
+  const host=[], res=[];
+  for(let i=0;i<N;i++){host.push({u:0,v:0}); res.push({u:0,v:0});}
+  let t=0; let envelope=new Array(N).fill(0);
+
+  function step(dt){
+    t+=dt;
+    const w0=1.0, k=6.0, c=0.02;
+    const drive=0.5*Math.sin(P.f*w0*t*6.0);
+    for(let i=0;i<N;i++){
+      const uL=i>0?host[i-1].u:drive;
+      const uR=i<N-1?host[i+1].u:host[i].u;
+      const fRes=P.mr*w0*w0*6.0*(res[i].u-host[i].u);
+      const a=k*((uL-host[i].u)+(uR-host[i].u)) + fRes - c*host[i].v;
+      host[i].v+=a*dt; host[i].u+=host[i].v*dt;
+      const ar=-w0*w0*6.0*(res[i].u-host[i].u) - c*0.6*res[i].v;
+      res[i].v+=ar*dt; res[i].u+=res[i].v*dt;
+      if(!isFinite(host[i].u)||Math.abs(host[i].u)>50){host[i].u=0;host[i].v=0;res[i].u=0;res[i].v=0;}
+    }
+    for(let i=0;i<N;i++) envelope[i]=Math.max(envelope[i]*0.995, Math.abs(host[i].u));
+  }
+
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    const padL=90, padR=260, cy=H*0.42;
+    const gap=(W-padL-padR)/(N-1);
+    // gap indicator
+    const inGap = P.f>0.85 && P.f<1.45;
+    ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
+    ctx.fillText(inGap?'inside band gap — wave is evanescent':'outside band gap — wave propagates',30,48);
+    // baseline
+    ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(padL-40,cy);ctx.lineTo(W-padR+30,cy);ctx.stroke();
+    // envelope
+    ctx.strokeStyle=inGap?C('--accent-2'):C('--accent-3'); ctx.lineWidth=3; ctx.setLineDash([7,7]);
+    ctx.beginPath();
+    for(let i=0;i<N;i++){const px=padL+gap*i, py=cy-Math.min(120,envelope[i]*140);
+      i?ctx.lineTo(px,py):ctx.moveTo(px,py);} ctx.stroke();
+    ctx.setLineDash([]);
+    // chain
+    for(let i=0;i<N;i++){
+      const px=padL+gap*i;
+      const uy=cy-Math.max(-110,Math.min(110,host[i].u*140));
+      const ry=uy+96-Math.max(-60,Math.min(60,(res[i].u-host[i].u)*140));
+      ctx.strokeStyle=C('--border-2'); ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(px,uy);ctx.lineTo(px,ry);ctx.stroke();
+      if(i<N-1){
+        const px2=padL+gap*(i+1);
+        const uy2=cy-Math.max(-110,Math.min(110,host[i+1].u*140));
+        ctx.strokeStyle=C('--accent'); ctx.lineWidth=3;
+        ctx.beginPath();ctx.moveTo(px,uy);ctx.lineTo(px2,uy2);ctx.stroke();
+      }
+      ctx.fillStyle=C('--accent');
+      ctx.fillRect(px-17,uy-17,34,34);
+      const rmag=Math.min(1,Math.abs(res[i].u-host[i].u)*2.2);
+      ctx.fillStyle=`rgba(255,90,31,${0.35+rmag*0.65})`;
+      ctx.beginPath();ctx.arc(px,ry,14,0,7);ctx.fill();
+    }
+    ctx.fillStyle=C('--muted'); ctx.font='500 22px Outfit, sans-serif';
+    ctx.fillText('excitation', 30, cy+8);
+    // transmission bar
+    const bx=W-190, by=110, bh=H-260;
+    ctx.strokeStyle=C('--border-2'); ctx.lineWidth=2; ctx.strokeRect(bx,by,66,bh);
+    const trans=Math.min(1,envelope[N-1]*1.6);
+    ctx.fillStyle=inGap?C('--accent-2'):C('--accent-3');
+    ctx.fillRect(bx+3,by+bh-trans*bh+3,60,trans*bh-6);
+    ctx.fillStyle=C('--muted'); ctx.font='500 21px Outfit, sans-serif';
+    ctx.fillText('transmitted', bx-18, by-24);
+    ctx.fillText((trans*100).toFixed(0)+'%', bx+8, by+bh+34);
+  }
+
+  const b=(r,vv,key,dp)=>{const R=document.getElementById(r),V=document.getElementById(vv);
+    if(!R)return;R.addEventListener('input',()=>{P[key]=parseFloat(R.value);V.textContent=P[key].toFixed(dp);
+      envelope=new Array(N).fill(0);});};
+  b('mm-f','mmv-f','f',2); b('mm-m','mmv-m','mr',2);
+
+  let live=false;
+  new IntersectionObserver(e=>{live=e[0].isIntersecting;},{threshold:.05}).observe(cv);
+  let acc=0,last=performance.now();
+  (function loop(now){
+    requestAnimationFrame(loop);
+    const dtr=Math.min((now-last)/1000,.05); last=now;
+    if(!live) return;
+    acc+=dtr; let g=0;
+    while(acc>=0.002&&g++<400){ step(0.002); acc-=0.002; }
+    render();
+  })(performance.now());
+})();
+</script>
+</body>
+</html>
