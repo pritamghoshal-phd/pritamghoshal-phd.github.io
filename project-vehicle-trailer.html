@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Vehicle-Trailer Dynamics & Regenerative Suspension — Pritam Ghoshal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Modeling and simulation of vehicle-trailer dynamics in Abaqus and Simulink to analyse structural vibration and energy transfer for regenerative suspension development." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site.css" />
+</head>
+<body>
+<header class="nav">
+  <div class="nav__in">
+    <a href="index.html" class="nav__logo">Pritam <span>Ghoshal</span></a>
+    <nav class="nav__links">
+      <a href="index.html#about">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-header">
+  <div class="wrap hero-inner reveal">
+    <div class="eyebrow">Project &middot; Doctoral research</div>
+    <h1 class="page-title">Vehicle&ndash;trailer dynamics and <em>regenerative suspension</em></h1>
+    <p class="hero-sub">Suspension dampers exist to destroy energy. If you are going to destroy it anyway, it is worth asking how much can be recovered instead — and what towing does to the answer.</p>
+    <div class="hero-meta"><strong>Role:</strong> Modeling and simulation &middot; <strong>Tools:</strong> Abaqus, Simulink, MATLAB</div>
+    <div class="pill-row"><span class="tag">Vehicle dynamics</span>
+      <span class="tag">Abaqus</span>
+      <span class="tag">Simulink</span>
+      <span class="tag">Energy harvesting</span>
+      <span class="tag">Structural vibration</span></div>
+    <a href="projects.html" class="btn">&larr; Back to projects</a>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">Why the trailer changes everything</h2>
+    <p>A conventional damper converts suspension motion into heat and discards it. A regenerative
+      suspension replaces that damper with an electromagnetic transducer, so the same relative motion
+      produces electrical power. The engineering tension is immediate: the transducer must still supply
+      the damping the vehicle needs for ride and handling, and those two requirements do not automatically
+      agree.</p>
+    <p>Adding a trailer makes it considerably harder. A hitch couples two sprung masses that would
+      otherwise be analysed independently, creating modes belonging to neither vehicle alone — pitch
+      coupling, yaw interaction, and the low-frequency motions responsible for trailer sway. Energy
+      transfer runs in both directions across the hitch, so the trailer is not simply a passive follower.</p>
+    <p>I modelled the coupled system to answer two questions together: how much energy is genuinely
+      available at each axle over realistic road inputs, and how much damping can be diverted to
+      harvesting before ride and stability degrade.</p>
+  </div>
+  <div class="wrap">
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 1 — Vehicle, trailer and the quarter-car model</span></div>
+      <div class="fig__body">
+        <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="A towing vehicle and trailer coupled at a hitch, alongside a quarter-car suspension model with an electromagnetic harvester.">
+          <g class="pop">
+            <path class="s-line" d="M40 150 L40 116 L96 116 L112 92 L176 92 L188 116 L232 116 L232 150 Z" fill="var(--bg-alt)"/>
+            <circle class="s-line" cx="76" cy="158" r="18" fill="var(--bg)"/>
+            <circle class="s-line" cx="200" cy="158" r="18" fill="var(--bg)"/>
+            <path class="s-accent2" d="M232 140 L268 140"/>
+            <circle class="s-fill2" cx="270" cy="140" r="7"/>
+            <text class="s-mono2" x="244" y="126">hitch</text>
+            <path class="s-line" d="M272 150 L272 96 L432 96 L432 150 Z" fill="var(--bg-alt)"/>
+            <circle class="s-line" cx="392" cy="158" r="18" fill="var(--bg)"/>
+            <path class="s-thin" d="M20 176 L456 176"/>
+            <path class="s-accent3" d="M20 196 Q60 182 100 198 Q140 214 180 196 Q220 178 260 198 Q300 216 340 196 Q380 178 420 198 Q440 206 456 198"/>
+            <text class="s-mono" x="20" y="228" fill="var(--accent-3)">road profile</text>
+            <text class="s-txt s-txt--sm" x="60" y="270">vehicle</text>
+            <text class="s-txt s-txt--sm" x="330" y="270">trailer</text>
+          </g>
+
+          <text class="s-txt" x="530" y="30">quarter-car</text>
+          <g class="pop pop--d2">
+            <rect class="s-card" x="546" y="52" width="128" height="42" rx="6"/>
+            <text class="s-txt s-txt--sm" x="562" y="78">sprung mass</text>
+            <path class="s-line" d="M576 94 L576 108 L568 114 L584 122 L568 130 L584 138 L576 144 L576 156"/>
+            <g class="s-line">
+              <rect x="628" y="108" width="24" height="22" fill="var(--bg)"/>
+              <line x1="640" y1="130" x2="640" y2="156"/><line x1="640" y1="94" x2="640" y2="108"/>
+              <line x1="632" y1="119" x2="648" y2="119"/>
+            </g>
+            <circle cx="640" cy="119" r="19" fill="none" stroke="var(--accent-2)" stroke-width="2.4"/>
+            <text class="s-mono2" x="664" y="124">gen</text>
+            <rect class="s-card" x="546" y="156" width="128" height="36" rx="6"/>
+            <text class="s-txt s-txt--sm" x="558" y="180">unsprung mass</text>
+            <path class="s-line" d="M600 192 L600 206 L592 212 L608 220 L592 228 L608 236 L600 242 L600 254"/>
+            <text class="s-mono" x="616" y="224">tyre k</text>
+            <path class="s-accent3" d="M540 262 Q566 250 592 264 Q618 278 644 262 Q670 248 690 262"/>
+            <text class="s-txt s-txt--sm" x="540" y="292">base excitation from road</text>
+          </g>
+        </svg>
+      </div>
+      <p class="fig__cap"><b>Figure 1.</b> The hitch couples two sprung masses that would otherwise be analysed separately, introducing modes belonging to neither vehicle alone. Right: the quarter-car reduction used per corner — sprung mass on suspension spring and damper, unsprung mass on tyre stiffness, road profile as base excitation. Replacing the damper with an electromagnetic transducer turns dissipated energy into recovered energy.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--alt">
+  <div class="wrap two-col">
+    <div class="card reveal">
+      <h3>Modeling approach</h3>
+      <p>Two levels of fidelity, used for different questions. Abaqus captured structural flexibility and the vibration modes of the bodies themselves; Simulink handled the coupled multi-body dynamics and the energy-transfer path fast enough to sweep parameters.</p>
+      <p>The road input matters as much as the model. Real profiles are broadband and stochastic, so single-bump responses give a misleading picture of average recoverable power.</p>
+      <ul>
+        <li>Abaqus models for structural vibration</li>
+        <li>Simulink for coupled vehicle–trailer dynamics</li>
+        <li>Quarter-car reduction for parameter sweeps</li>
+        <li>Randomly generated road profiles as excitation</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <h3>What the model reveals</h3>
+      <p>Recoverable power scales with suspension velocity, which means rough roads and higher speeds help — but those are also the conditions where ride quality is least negotiable.</p>
+      <p>The hitch turns out to be the interesting element. It transmits motion in both directions, so trailer behaviour feeds back into the towing vehicle, and there are speed and loading combinations where the coupled pair performs worse than the vehicle alone.</p>
+      <ul>
+        <li>Energy availability across the operating envelope</li>
+        <li>Damping split between ride control and harvesting</li>
+        <li>Hitch force as a two-way coupling path</li>
+        <li>Sensitivity to trailer loading and tow speed</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 2 — Driving the model</span><span class="fig__live">running</span></div>
+      <div class="fig__body">
+        <canvas id="vt-canvas" width="1520" height="620"></canvas>
+      </div>
+      <div class="fig__ctrls">
+        <div class="fig__ctrl">
+          <label>Speed <b id="vtv-s">1.00</b></label>
+          <input type="range" id="vt-s" min="0.30" max="2.20" step="0.02" value="1.00" />
+        </div>
+        <div class="fig__ctrl">
+          <label>Road roughness <b id="vtv-r">0.70</b></label>
+          <input type="range" id="vt-r" min="0.10" max="1.60" step="0.02" value="0.70" />
+        </div>
+        <div class="fig__ctrl">
+          <label>Harvester damping <b id="vtv-c">0.55</b></label>
+          <input type="range" id="vt-c" min="0.10" max="1.40" step="0.02" value="0.55" />
+        </div>
+      </div>
+      <p class="fig__cap"><b>Figure 2.</b> The coupled vehicle and trailer traversing a randomly generated road at your chosen speed and roughness. Suspension travel is drawn live at each axle; the amber bar tracks instantaneous power through the harvester and the reservoir below accumulates recovered energy. Notice that the trailer does not simply follow — the hitch transfers motion in both directions, and there are speeds where the pair behaves noticeably worse than the vehicle alone.</p>
+    </div>
+  </div>
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">The trade-off</h2>
+    <p>Harvesting more energy means extracting more force per unit of suspension velocity, which stiffens
+      the damping the occupants feel. There is a genuine optimum rather than a free lunch, and where it
+      sits depends on the road spectrum, the vehicle, and — with a trailer attached — on load distribution
+      as well.</p>
+    <p>The useful conclusion for design is that the harvester should not be tuned as a fixed component. The
+      conditions offering the most recoverable energy are the same conditions demanding the most from the
+      suspension, so a semi-active strategy that shifts the split according to what the road is currently
+      doing outperforms any single passive setting.</p>
+    <div class="proj-links" style="margin-top:1.6rem"><a class="btn" href="projects.html">All projects &rarr;</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>&copy; <span id="year"></span> Pritam Ghoshal</div>
+    <div>Mechanical Engineering &middot; Purdue University</div>
+  </div>
+</footer>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-in');o.unobserve(e.target);}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+<script>
+(function(){
+  const cv=document.getElementById('vt-canvas'); if(!cv) return;
+  const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
+  const css=getComputedStyle(document.documentElement); const C=k=>css.getPropertyValue(k).trim();
+  const P={speed:1.00, rough:0.70, cd:0.55};
+  // road: sum of sinusoids -> pseudo-random profile
+  const comps=[]; for(let i=0;i<9;i++) comps.push({k:0.5+i*0.62+Math.random()*0.3, a:1/(1+i*1.15), p:Math.random()*6.283});
+  const road=s=>comps.reduce((acc,c)=>acc+c.a*Math.sin(c.k*s+c.p),0)*0.09*P.rough;
+
+  let s=0, energy=0, power=0;
+  // two quarter-cars + hitch coupling
+  const A={zs:0,vs:0,zu:0,vu:0}, B={zs:0,vs:0,zu:0,vu:0};
+  const powHist=[]; const PH=420;
+
+  function corner(M,x,hitchF){
+    const zr=road(x);
+    const ks=9.0, kt=48.0, ms=1.0, mu=0.16;
+    const fsp=ks*(M.zu-M.zs), fd=P.cd*3.2*(M.vu-M.vs);
+    const as=(fsp+fd+hitchF)/ms;
+    const au=(-fsp-fd+kt*(zr-M.zu))/mu;
+    M.vs+=as*0.004; M.zs+=M.vs*0.004;
+    M.vu+=au*0.004; M.zu+=M.vu*0.004;
+    return P.cd*3.2*Math.pow(M.vu-M.vs,2);
+  }
+
+  function step(){
+    s+=P.speed*0.016;
+    const hitch=2.2*(B.zs-A.zs)+0.5*(B.vs-A.vs);
+    const pA=corner(A,s,hitch);
+    const pB=corner(B,s-1.9,-hitch);
+    power=(pA+pB);
+    energy+=power*0.004;
+    [A,B].forEach(M=>{if(!isFinite(M.zs)||Math.abs(M.zs)>9){M.zs=0;M.vs=0;M.zu=0;M.vu=0;}});
+  }
+
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    const ground=H*0.62, scale=150, wR=W*0.72;
+    // road
+    ctx.strokeStyle=C('--accent-3'); ctx.lineWidth=3.5; ctx.beginPath();
+    for(let px=0;px<wR;px++){
+      const xx=s+(px-260)/120;
+      const py=ground-road(xx)*scale;
+      px?ctx.lineTo(px,py):ctx.moveTo(px,py);
+    }
+    ctx.stroke();
+    ctx.fillStyle='rgba(0,166,166,0.07)';
+    ctx.lineTo(wR,H);ctx.lineTo(0,H);ctx.closePath();ctx.fill();
+
+    function drawUnit(M,px,label,w){
+      const zr=road(s-(260-px)/120);
+      const uy=ground-zr*scale-M.zu*scale*0.5-26;
+      const sy=uy-92-M.zs*scale*0.5;
+      // suspension
+      ctx.strokeStyle=C('--ink'); ctx.lineWidth=3;
+      ctx.beginPath();
+      ctx.moveTo(px,uy);
+      for(let i=0;i<8;i++) ctx.lineTo(px+(i%2?15:-15), uy-(i+1)*((uy-sy-14)/8));
+      ctx.lineTo(px,sy+14); ctx.stroke();
+      // harvester ring
+      ctx.strokeStyle=C('--accent-2'); ctx.lineWidth=3;
+      ctx.beginPath();ctx.arc(px+42,(uy+sy)/2,17,0,7);ctx.stroke();
+      // body
+      ctx.fillStyle=C('--accent'); ctx.fillRect(px-w/2,sy-52,w,54);
+      // wheel
+      ctx.fillStyle=C('--ink'); ctx.beginPath();ctx.arc(px,uy+22,22,0,7);ctx.fill();
+      ctx.fillStyle=C('--bg'); ctx.beginPath();ctx.arc(px,uy+22,8,0,7);ctx.fill();
+      ctx.fillStyle=C('--muted'); ctx.font='500 21px Outfit, sans-serif';
+      ctx.fillText(label,px-w/2,sy-66);
+      return {sy,px};
+    }
+    const a=drawUnit(A,300,'vehicle',180);
+    const bb=drawUnit(B,640,'trailer',210);
+    ctx.strokeStyle=C('--accent-2'); ctx.lineWidth=5;
+    ctx.beginPath();ctx.moveTo(a.px+90,a.sy-16);ctx.lineTo(bb.px-105,bb.sy-16);ctx.stroke();
+
+    ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
+    ctx.fillText('coupled vehicle–trailer over random road', 30, 46);
+
+    // power trace + energy
+    const x0=W*0.74, w2=W-x0-40;
+    ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(x0,H*0.42);ctx.lineTo(x0+w2,H*0.42);ctx.stroke();
+    ctx.strokeStyle=C('--accent-2'); ctx.lineWidth=3; ctx.beginPath();
+    for(let i=0;i<powHist.length;i++){
+      const px=x0+(i/PH)*w2, py=H*0.42-Math.min(1,powHist[i]*0.5)*H*0.24;
+      i?ctx.lineTo(px,py):ctx.moveTo(px,py);
+    }
+    ctx.stroke();
+    ctx.fillStyle=C('--muted'); ctx.font='500 24px Outfit, sans-serif';
+    ctx.fillText('harvested power', x0, H*0.13);
+    // energy tank
+    const ty=H*0.52, th=H*0.32;
+    ctx.strokeStyle=C('--border-2'); ctx.lineWidth=2; ctx.strokeRect(x0,ty,w2,th);
+    const frac=Math.min(1,(energy%40)/40);
+    ctx.fillStyle='rgba(255,90,31,0.35)';
+    ctx.fillRect(x0+3,ty+th-frac*th+3,w2-6,frac*th-6);
+    ctx.fillStyle=C('--muted'); ctx.fillText('recovered energy', x0, ty-14);
+  }
+
+  const b=(r,vv,key,dp)=>{const R=document.getElementById(r),V=document.getElementById(vv);
+    if(!R)return;R.addEventListener('input',()=>{P[key]=parseFloat(R.value);V.textContent=P[key].toFixed(dp);});};
+  b('vt-s','vtv-s','speed',2); b('vt-r','vtv-r','rough',2); b('vt-c','vtv-c','cd',2);
+
+  let live=false,fr=0;
+  new IntersectionObserver(e=>{live=e[0].isIntersecting;},{threshold:.05}).observe(cv);
+  let acc=0,last=performance.now();
+  (function loop(now){
+    requestAnimationFrame(loop);
+    const dtr=Math.min((now-last)/1000,.05); last=now;
+    if(!live) return;
+    acc+=dtr; let g=0;
+    while(acc>=0.004&&g++<300){ step(); acc-=0.004; }
+    if(fr++%2===0){ powHist.push(power); if(powHist.length>PH) powHist.shift(); }
+    render();
+  })(performance.now());
+})();
+</script>
+</body>
+</html>
