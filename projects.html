@@ -1,138 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Pritam Ghoshal – Projects</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg:#f7f4ef; --bg-alt:#edeae3; --bg-card:#ffffff;
-      --border:#dedad3; --text:#1c1a17; --text-muted:#6b6560; --text-sub:#9a9590;
-      --accent:#1e6b5e; --accent-lt:rgba(30,107,94,0.09); --accent-hv:#155048;
-      --gold:#b5831f;
-      --shadow-sm:0 1px 3px rgba(0,0,0,0.07),0 1px 2px rgba(0,0,0,0.04);
-      --shadow-md:0 4px 16px rgba(0,0,0,0.07),0 2px 4px rgba(0,0,0,0.04);
-      --shadow-lg:0 8px 32px rgba(0,0,0,0.09),0 4px 8px rgba(0,0,0,0.05);
-    }
-    *{box-sizing:border-box;margin:0;padding:0;}
-    html{scroll-behavior:smooth;}
-    body{font-family:'Outfit',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
-    a{color:inherit;text-decoration:none;}
-    .max-width{max-width:1120px;margin:0 auto;padding:0 1.5rem;}
-
-    .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(20px);background:rgba(247,244,239,0.92);border-bottom:1px solid var(--border);}
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:58px;}
-    .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;letter-spacing:0.06em;color:var(--text);}
-    .nav-links{display:flex;gap:1.25rem;font-size:0.875rem;}
-    .nav-links a{color:var(--text-muted);padding-bottom:2px;border-bottom:1px solid transparent;transition:color .2s,border-color .2s;}
-    .nav-links a:hover{color:var(--accent);border-color:var(--accent);}
-
-    .page-header{padding:4.5rem 0 2.5rem;background:radial-gradient(ellipse at 10% 0%,rgba(30,107,94,0.1),transparent 55%),var(--bg);border-bottom:1px solid var(--border);}
-    .eyebrow{text-transform:uppercase;letter-spacing:0.18em;font-size:0.7rem;color:var(--gold);font-weight:600;margin-bottom:0.6rem;}
-    .page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3rem);line-height:1.1;font-weight:500;margin-bottom:0.75rem;}
-    .page-subtitle{color:var(--text-muted);max-width:640px;font-size:0.95rem;}
-
-    .btn-ghost{border-radius:999px;padding:0.55rem 1.2rem;font-size:0.875rem;border:1px solid var(--border);display:inline-flex;align-items:center;gap:0.4rem;margin-top:1.5rem;background:var(--bg-card);cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;}
-    .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
-
-    .projects-list{padding:2rem 0 4rem;display:grid;gap:1.75rem;}
-    .project-card{border-radius:1.3rem;border:1px solid var(--border);background:var(--bg-card);padding:1.75rem 1.5rem;box-shadow:var(--shadow-sm);transition:box-shadow .25s,transform .25s;}
-    .project-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px);}
-    .project-header{display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.5rem;margin-bottom:0.25rem;}
-    .project-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:500;}
-    .project-tagline{font-size:0.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:0.16em;font-weight:600;align-self:center;}
-    .project-meta-row{font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;margin-bottom:0.6rem;}
-    .project-body{font-size:0.875rem;color:var(--text-muted);margin-top:0.5rem;line-height:1.7;}
-    .project-links{margin-top:0.85rem;display:flex;flex-wrap:wrap;gap:0.6rem;font-size:0.8rem;}
-    .pill-link{border-radius:999px;border:1px solid var(--border);padding:0.38rem 0.9rem;background:var(--bg);transition:all .2s;}
-    .pill-link:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-lt);}
-
-    footer{border-top:1px solid var(--border);padding:1.75rem 1.5rem 2.5rem;font-size:0.8rem;color:var(--text-sub);background:var(--bg-alt);margin-top:2rem;}
-    footer .max-width{display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.75rem;align-items:center;}
-
-    .reveal{opacity:0;transform:translateY(36px);transition:opacity .8s ease-out,transform .8s ease-out;}
-    .reveal--visible{opacity:1;transform:translateY(0);}
-  </style>
+<meta charset="UTF-8" />
+<title>Research Projects — Pritam Ghoshal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Research projects in nonlinear dynamics, viscoelasticity, bistable structures and physical reservoir computing." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site.css" />
 </head>
 <body>
-  <header class="nav">
-    <div class="max-width nav-inner">
-      <div class="nav-logo">Pritam Ghoshal</div>
-      <nav class="nav-links">
-        <a href="index.html#overview">Overview</a>
-        <a href="index.html#projects">Selected work</a>
-        <a href="index.html#about">Background</a>
-        <a href="index.html#contact">Contact</a>
-      </nav>
+
+<header class="nav">
+  <div class="nav__in">
+    <a href="index.html" class="nav__logo">Pritam <span>Ghoshal</span></a>
+    <nav class="nav__links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#research">Research</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="index.html#lab">Lab</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-header">
+  <div class="wrap reveal">
+    <div class="eyebrow">Research projects</div>
+    <h1 class="page-title">Three threads, one <em>question</em>.</h1>
+    <p class="page-sub">
+      Everything below asks a version of the same thing: what happens when a structure that can snap
+      between two states also remembers its recent past? The answer turned out to be useful for
+      computation, for vibration control, and — unexpectedly — for explaining how a cicada sings.
+    </p>
+    <div style="margin-top:1.6rem">
+      <a href="index.html#publications" class="btn">← Back to publications</a>
     </div>
-  </header>
+  </div>
+</section>
 
-  <section class="page-header reveal">
-    <div class="max-width">
-      <div class="eyebrow">Projects</div>
-      <h1 class="page-title">Detailed project list.</h1>
-      <p class="page-subtitle">A more complete overview of my research and engineering projects. Each entry includes a short summary here and a dedicated page with more detail on the problem, methods, and results.</p>
-      <a href="index.html#projects" class="btn-ghost">← Back to selected work</a>
+<section>
+  <div class="wrap proj-list">
+
+    <!-- 1 -->
+    <article class="proj-card reveal">
+      <div class="proj-head">
+        <div class="proj-name">Bio-inspired: the cicada tymbal as a metastructure</div>
+        <div class="proj-kind">Thread 03</div>
+      </div>
+      <div class="proj-venue">Nature Communications · 2025 · vol. 16</div>
+      <div class="proj-meta"><strong>Role:</strong> Lead author</div>
+      <div class="proj-meta"><strong>Methods:</strong> Reduced-order modeling · nonlinear dynamics · high-speed imaging · laser vibrometry · X-ray microscopy</div>
+      <div class="proj-meta"><strong>With:</strong> R. Singh, H. Tao, E. Ganju, N. Chawla, J. M. Gibert, A. K. Bajaj</div>
+      <p class="proj-body">
+        Cicadas produce extraordinarily loud, tonal calls through the interplay of tymbal buckling and
+        body resonance, but no framework explained why calls differ so much between species. We
+        reconceptualised the organ as a naturally occurring biological metastructure — periodically
+        arranged ribs with inherent frequency filtering — and modelled it as a chain of bistable
+        oscillators coupled to a chain of resonators. The model captures both the snap-through dynamics
+        of the ribs and the acoustic filtering that follows, and is the first species-adaptable framework
+        able to reproduce the distinct song frequencies and call patterns observed across multiple species.
+      </p>
+      <div class="proj-links">
+        <a class="pill" href="project-cicada-tymbal.html">Project detail →</a>
+        <a class="pill" href="https://www.nature.com/articles/s41467-025-65149-5" target="_blank" rel="noopener">Read the paper ↗</a>
+        <a class="pill" href="https://doi.org/10.1038/s41467-025-65149-5" target="_blank" rel="noopener">DOI ↗</a>
+      </div>
+    </article>
+
+    <!-- 2 -->
+    <article class="proj-card reveal">
+      <div class="proj-head">
+        <div class="proj-name">Bistability and viscoelasticity in reservoir computing</div>
+        <div class="proj-kind">Thread 01</div>
+      </div>
+      <div class="proj-venue">Nonlinear Dynamics · 2025</div>
+      <div class="proj-meta"><strong>Role:</strong> Lead author</div>
+      <div class="proj-meta"><strong>Methods:</strong> Analytical modeling · time integration · Melnikov analysis · information-rate and memory-capacity metrics</div>
+      <div class="proj-meta"><strong>With:</strong> J. M. Gibert, A. K. Bajaj</div>
+      <p class="proj-body">
+        In electrical reservoir computers, short-term memory comes free from a delay line. In mechanical
+        ones there is no such shortcut — viscoelasticity is the only mechanism by which a structure's
+        state can depend on its deformation history. This project studies a viscoelastic bistable chain as
+        a physical reservoir, using a bistable oscillator coupled to a standard linear solid element as the
+        unit cell. Bistability supplies nonlinearity, viscoelasticity supplies fading memory, and the
+        Deborah number sets the balance between them. Simulation identified the parameter windows where
+        information rate and memory capacity peak, and a Melnikov-based criterion characterises the
+        transition from useful dynamics into chaos.
+      </p>
+      <div class="proj-links">
+        <a class="pill" href="project-nonlinear-dynamics.html">Project detail →</a>
+        <a class="pill" href="https://scholar.google.com/citations?user=1Nab30AAAAAJ&amp;hl=en" target="_blank" rel="noopener">Scholar ↗</a>
+      </div>
+    </article>
+
+    <!-- 3 -->
+    <article class="proj-card reveal">
+      <div class="proj-head">
+        <div class="proj-name">Dynamics of the viscoelastic bistable von Mises truss</div>
+        <div class="proj-kind">Thread 02</div>
+      </div>
+      <div class="proj-venue">Int. J. Non-Linear Mechanics 2024 · J. Comput. Nonlinear Dynamics 2024 &amp; 2025 · ICNDA</div>
+      <div class="proj-meta"><strong>Role:</strong> Lead author</div>
+      <div class="proj-meta"><strong>Methods:</strong> Harmonic balance · stability &amp; continuation analysis · chaos diagnostics · high-frequency averaging</div>
+      <div class="proj-meta"><strong>With:</strong> J. M. Gibert, A. K. Bajaj, Q. Zhao</div>
+      <p class="proj-body">
+        The foundational thread of my PhD, spanning four papers. A lumped-parameter viscoelastic von Mises
+        truss is governed by a second-order Duffing-type equation with quadratic nonlinearity coupled to a
+        first-order equation for the viscoelastic force — together a third-order jerk system whose slow and
+        fast timescales interact in genuinely surprising ways. The work establishes that viscoelasticity
+        introduces additional timescales and degrees of freedom, that multiple coexisting periodic solutions
+        arise, that an equivalent viscous approximation fundamentally fails to reproduce the dynamics, and
+        that the system becomes chaotic under harmonic forcing. It also identifies the configuration that
+        maximises energy dissipation, which matters directly for vibration suppression, and examines how
+        high-frequency base excitation biases the system toward one equilibrium.
+      </p>
+      <div class="proj-links">
+        <a class="pill" href="project-vonmises-truss.html">Project detail →</a>
+        <a class="pill" href="https://doi.org/10.1016/j.ijnonlinmec.2024.104858" target="_blank" rel="noopener">IJNLM 2024 ↗</a>
+        <a class="pill" href="https://doi.org/10.1115/1.4064554" target="_blank" rel="noopener">JCND 2024 ↗</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section class="sec sec--alt">
+  <div class="wrap">
+    <div class="eyebrow reveal">Publication record</div>
+    <h2 class="page-title reveal" style="font-size:clamp(1.8rem,3.4vw,2.4rem)">Every paper, in <em>one place</em>.</h2>
+    <p class="page-sub reveal" style="margin-bottom:1.8rem">
+      The three threads above draw on six peer-reviewed outputs. The full list with citation counts lives
+      on Google Scholar.
+    </p>
+    <div class="proj-links reveal">
+      <a class="btn btn--solid" href="index.html#publications">See the publication list →</a>
+      <a class="btn" href="https://scholar.google.com/citations?user=1Nab30AAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar ↗</a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section>
-    <div class="max-width projects-list">
-      <article class="project-card reveal">
-        <div class="project-header">
-          <div class="project-title">Nonlinear dynamics of a mechanical structure</div>
-          <div class="project-tagline">Modeling & simulation</div>
-        </div>
-        <div class="project-meta-row"><strong>Role:</strong> Lead researcher · <strong>Tools:</strong> MATLAB, Python · <strong>Methods:</strong> Numerical integration, parameter studies</div>
-        <p class="project-body">Developed a nonlinear dynamic model for a mechanical structure subject to realistic loads and uncertainties. Derived governing equations, implemented solvers, and performed parameter sweeps to understand stability, resonance, and sensitivity, with validation against experimental measurements.</p>
-        <div class="project-links"><a class="pill-link" href="project-nonlinear-dynamics.html">See details →</a></div>
-      </article>
+<footer>
+  <div class="wrap">
+    <div>© <span id="year"></span> Pritam Ghoshal</div>
+    <div>Mechanical Engineering · Purdue University</div>
+  </div>
+</footer>
 
-      <article class="project-card reveal">
-        <div class="project-header">
-          <div class="project-title">CFD-guided design of a thermal-fluid subsystem</div>
-          <div class="project-tagline">CFD & experiments</div>
-        </div>
-        <div class="project-meta-row"><strong>Role:</strong> Modeling & validation · <strong>Tools:</strong> ANSYS Fluent / OpenFOAM, MATLAB · <strong>Methods:</strong> Mesh refinement, experimental comparison</div>
-        <p class="project-body">Used CFD simulations to evaluate a thermal-fluid subsystem, focusing on pressure loss and temperature distribution. Calibrated models against lab data and iterated on the design to improve performance while keeping manufacturing constraints in mind.</p>
-        <div class="project-links"><a class="pill-link" href="project-cfd-thermal-fluid.html">See details →</a></div>
-      </article>
-
-      <article class="project-card reveal">
-        <div class="project-header">
-          <div class="project-title">Experimental characterization of vibration behavior</div>
-          <div class="project-tagline">Experiments & data analysis</div>
-        </div>
-        <div class="project-meta-row"><strong>Role:</strong> Test design & analysis · <strong>Tools:</strong> DAQ system, MATLAB/Python · <strong>Methods:</strong> Signal processing, system identification</div>
-        <p class="project-body">Designed and executed vibration tests for a mechanical assembly. Acquired time-series data, applied frequency-domain analysis and system identification techniques, and used the results to estimate parameters and validate predictive models.</p>
-        <div class="project-links"><a class="pill-link" href="project-vibration-experiments.html">See details →</a></div>
-      </article>
-
-      <article class="project-card reveal">
-        <div class="project-header">
-          <div class="project-title">Optimization of a mechanical design parameter space</div>
-          <div class="project-tagline">Design & optimization</div>
-        </div>
-        <div class="project-meta-row"><strong>Role:</strong> Modeling & optimization · <strong>Tools:</strong> MATLAB / Python · <strong>Methods:</strong> Design of experiments, surrogate modeling</div>
-        <p class="project-body">Explored a multi-parameter design space for a mechanical component. Built a parametric model, ran design of experiments, fit surrogate models to performance metrics, and carried out multi-objective optimization to balance stiffness, mass, and cost.</p>
-        <div class="project-links"><a class="pill-link" href="project-design-optimization.html">See details →</a></div>
-      </article>
-    </div>
-  </section>
-
-  <footer>
-    <div class="max-width">
-      <div>© <span id="year"></span> Pritam Ghoshal</div>
-      <div>Mechanical Engineering · PhD candidate</div>
-    </div>
-  </footer>
-  <script>
-    document.getElementById("year").textContent=new Date().getFullYear();
-    const obs=new IntersectionObserver((entries,o)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("reveal--visible");o.unobserve(e.target);}});},{threshold:0.12});
-    document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
-  </script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+const io = new IntersectionObserver((es,o)=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('is-in');o.unobserve(e.target);}
+}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4*60)+'ms';io.observe(el);});
+</script>
 </body>
 </html>
