@@ -60,47 +60,51 @@
     <div class="fig reveal">
       <div class="fig__head"><span class="fig__no">Figure 1 — Where the squawk comes from</span></div>
       <div class="fig__body">
-        <svg viewBox="0 0 780 330" xmlns="http://www.w3.org/2000/svg" role="img"
-             aria-label="Schematic of a clutch friction interface and the falling friction curve that destabilises it.">
-          <text class="s-txt" x="24" y="30">clutch interface</text>
-          <g class="pop">
-            <rect class="s-card" x="46" y="76" width="52" height="180" rx="8"/>
-            <text class="s-txt s-txt--sm" x="40" y="278">flywheel</text>
-            <rect class="s-card" x="150" y="96" width="44" height="140" rx="8"/>
-            <text class="s-txt s-txt--sm" x="138" y="278">disc</text>
-            <line class="s-accent2" x1="104" y1="166" x2="144" y2="166" stroke-width="6"/>
-            <text class="s-mono2" x="98" y="150">contact</text>
-          </g>
-          <g class="pop pop--d1">
-            <path class="s-line" d="M194 166 L246 166"/>
-            <path class="s-line" d="M246 140 L246 192"/>
-            <path class="s-line" d="M246 152 L262 142 L262 190 L246 180"/>
-            <text class="s-mono" x="236" y="216">torsional mode</text>
-            <path class="s-accent" d="M212 122 A26 26 0 0 1 246 122"/>
-            <path class="s-fill" d="M246 122 L238 112 L250 108 Z"/>
-            <text class="s-mono" x="200" y="106">&#952;(t)</text>
-          </g>
-          <g class="pop pop--d2">
-            <line class="s-accent2" x1="72" y1="60" x2="72" y2="26"/>
-            <path class="s-fill2" d="M72 68 L66 54 L78 54 Z"/>
-            <text class="s-mono2" x="24" y="20">normal force N</text>
-          </g>
-
-          <text class="s-txt" x="430" y="30">friction characteristic</text>
-          <g class="pop pop--d3">
-            <path class="s-thin" d="M446 250 L744 250"/>
-            <path class="s-thin" d="M446 250 L446 66"/>
-            <text class="s-txt s-txt--sm" x="640" y="272">relative velocity</text>
-            <text class="s-txt s-txt--sm" x="392" y="80">&#956;</text>
-            <rect x="470" y="66" width="120" height="184" fill="rgba(255,90,31,.10)"/>
-            <path class="s-accent draw" style="--len:420"
-                  d="M446 100 C470 100 486 132 530 168 C572 202 640 210 740 212"/>
-            <text class="s-mono2" x="470" y="300">d&#956;/dv &lt; 0 &#8594; negative damping</text>
-            <circle class="s-fill2" cx="530" cy="168" r="8"/>
-          </g>
+        <svg viewBox="0 0 1270 452" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="A clutch disc in frictional contact with a flywheel under normal force N, restrained by driveline stiffness k and damping c, with the Stribeck friction curve whose falling region produces negative damping.">
+          <rect x="20" y="26" width="600" height="404" rx="16" fill="rgba(22,82,240,.05)" stroke="var(--border)" stroke-width="1.6"/>
+          <text x="300" y="62" style="font-size:25px;font-family:Outfit,sans-serif" fill="var(--accent)" font-weight="600">clutch engagement</text>
+          <rect x="70" y="130" width="70" height="210" rx="8" fill="var(--bg-alt)" stroke="var(--ink)" stroke-width="2.6"/>
+          <text x="56" y="378" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--muted)">flywheel</text>
+          <path d="M104 106 A30 30 0 0 1 142 120" fill="none" stroke="var(--accent)" stroke-width="3"/>
+          <path d="M146 124 L132 110 L147 105 Z" fill="var(--accent)"/>
+          <text x="62" y="100" style="font-size:22px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">Ω</text>
+          <rect x="140" y="140" width="16" height="190" fill="rgba(255,90,31,.32)"/>
+          <rect x="156" y="150" width="56" height="170" rx="8" fill="var(--bg-alt)" stroke="var(--ink)" stroke-width="2.6"/>
+          <text x="160" y="378" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--muted)">disc</text>
+          <line x1="184" y1="72" x2="184" y2="130" stroke="var(--accent-2)" stroke-width="4"/>
+          <path d="M184 142 L176 122 L192 122 Z" fill="var(--accent-2)"/>
+          <text x="198" y="96" style="font-size:22px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">N</text>
+          <path d="M212.0 196.0 L228.0 196.0 L228.0 196.0 L228.9 199.1 L229.9 202.0 L230.8 204.6 L231.8 206.7 L232.7 208.2 L233.7 208.9 L234.6 208.9 L235.6 208.2 L236.5 206.7 L237.5 204.6 L238.4 202.0 L239.4 199.1 L240.3 196.0 L241.3 192.9 L242.2 190.0 L243.2 187.4 L244.1 185.3 L245.1 183.8 L246.0 183.1 L247.0 183.1 L247.9 183.8 L248.9 185.3 L249.8 187.4 L250.8 190.0 L251.7 192.9 L252.7 196.0 L253.6 199.1 L254.6 202.0 L255.5 204.6 L256.5 206.7 L257.4 208.2 L258.4 208.9 L259.3 208.9 L260.3 208.2 L261.2 206.7 L262.2 204.6 L263.1 202.0 L264.1 199.1 L265.0 196.0 L265.9 192.9 L266.9 190.0 L267.8 187.4 L268.8 185.3 L269.7 183.8 L270.7 183.1 L271.6 183.1 L272.6 183.8 L273.5 185.3 L274.5 187.4 L275.4 190.0 L276.4 192.9 L277.3 196.0 L278.3 199.1 L279.2 202.0 L280.2 204.6 L281.1 206.7 L282.1 208.2 L283.0 208.9 L284.0 208.9 L284.9 208.2 L285.9 206.7 L286.8 204.6 L287.8 202.0 L288.7 199.1 L289.7 196.0 L290.6 192.9 L291.6 190.0 L292.5 187.4 L293.5 185.3 L294.4 183.8 L295.4 183.1 L296.3 183.1 L297.3 183.8 L298.2 185.3 L299.2 187.4 L300.1 190.0 L301.1 192.9 L302.0 196.0 L302.9 199.1 L303.9 202.0 L304.8 204.6 L305.8 206.7 L306.7 208.2 L307.7 208.9 L308.6 208.9 L309.6 208.2 L310.5 206.7 L311.5 204.6 L312.4 202.0 L313.4 199.1 L314.3 196.0 L315.3 192.9 L316.2 190.0 L317.2 187.4 L318.1 185.3 L319.1 183.8 L320.0 183.1 L321.0 183.1 L321.9 183.8 L322.9 185.3 L323.8 187.4 L324.8 190.0 L325.7 192.9 L326.7 196.0 L327.6 199.1 L328.6 202.0 L329.5 204.6 L330.5 206.7 L331.4 208.2 L332.4 208.9 L333.3 208.9 L334.3 208.2 L335.2 206.7 L336.2 204.6 L337.1 202.0 L338.1 199.1 L339.0 196.0 L339.9 192.9 L340.9 190.0 L341.8 187.4 L342.8 185.3 L343.7 183.8 L344.7 183.1 L345.6 183.1 L346.6 183.8 L347.5 185.3 L348.5 187.4 L349.4 190.0 L350.4 192.9 L351.3 196.0 L352.3 199.1 L353.2 202.0 L354.2 204.6 L355.1 206.7 L356.1 208.2 L357.0 208.9 L358.0 208.9 L358.9 208.2 L359.9 206.7 L360.8 204.6 L361.8 202.0 L362.7 199.1 L363.7 196.0 L364.6 192.9 L365.6 190.0 L366.5 187.4 L367.5 185.3 L368.4 183.8 L369.4 183.1 L370.3 183.1 L371.3 183.8 L372.2 185.3 L373.2 187.4 L374.1 190.0 L375.1 192.9 L376.0 196.0 L392.0 196.0" stroke="var(--ink)" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="292" y="170" style="font-size:25px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600" font-style="italic">k</text>
+          <g stroke="var(--ink)" stroke-width="2.6" fill="none" stroke-linecap="round"><line x1="212" y1="278" x2="242" y2="278"/><path d="M300 258 L242 258 L242 298 L300 298" fill="var(--bg-alt)"/><line x1="284" y1="263" x2="284" y2="293" stroke-width="3.2"/><line x1="284" y1="278" x2="392" y2="278"/></g>
+          <text x="292" y="330" style="font-size:25px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600" font-style="italic">c</text>
+          <line x1="212" y1="196" x2="212" y2="278" stroke="var(--ink)" stroke-width="2.6"/>
+          <line x1="392" y1="196" x2="392" y2="278" stroke="var(--ink)" stroke-width="2.6"/>
+          <g><line x1="452" y1="171" x2="452" y2="303" stroke="var(--ink)" stroke-width="3"/><g stroke="var(--sub)" stroke-width="1.5"><line x1="452" y1="171" x2="464" y2="162"/><line x1="452" y1="181" x2="464" y2="172"/><line x1="452" y1="191" x2="464" y2="182"/><line x1="452" y1="201" x2="464" y2="192"/><line x1="452" y1="211" x2="464" y2="202"/><line x1="452" y1="221" x2="464" y2="212"/><line x1="452" y1="231" x2="464" y2="222"/><line x1="452" y1="241" x2="464" y2="232"/><line x1="452" y1="251" x2="464" y2="242"/><line x1="452" y1="261" x2="464" y2="252"/><line x1="452" y1="271" x2="464" y2="262"/><line x1="452" y1="281" x2="464" y2="272"/><line x1="452" y1="291" x2="464" y2="282"/><line x1="452" y1="301" x2="464" y2="292"/></g></g>
+          <line x1="392" y1="237" x2="452" y2="237" stroke="var(--ink)" stroke-width="2.6"/>
+          <text x="468" y="178" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--muted)">driveline</text>
+          <line x1="240" y1="408" x2="322" y2="408" stroke="var(--ink)" stroke-width="2.4"/>
+          <path d="M334 408 L318 401 L318 415 Z" fill="var(--ink)"/>
+          <text x="344" y="415" style="font-size:22px;font-family:'JetBrains Mono',monospace" fill="var(--ink)">θ</text>
+          <rect x="650" y="26" width="600" height="404" rx="16" fill="rgba(255,90,31,.06)" stroke="var(--border)" stroke-width="1.6"/>
+          <text x="678" y="66" style="font-size:25px;font-family:Outfit,sans-serif" fill="var(--accent-2)" font-weight="600">friction characteristic</text>
+          <rect x="760" y="120" width="151" height="210" fill="rgba(255,90,31,.16)"/>
+          <line x1="760" y1="330" x2="1200" y2="330" stroke="var(--border-2)" stroke-width="1.8"/>
+          <line x1="760" y1="120" x2="760" y2="330" stroke="var(--border-2)" stroke-width="1.8"/>
+          <path d="M760.5 156.0 L762.0 158.6 L763.5 161.2 L765.0 163.8 L766.4 166.2 L767.9 168.7 L769.4 171.0 L770.8 173.3 L772.3 175.6 L773.8 177.8 L775.2 180.0 L776.7 182.1 L778.1 184.2 L779.6 186.3 L781.1 188.3 L782.5 190.2 L784.0 192.2 L785.5 194.0 L787.0 195.9 L788.4 197.7 L789.9 199.4 L791.4 201.1 L792.8 202.8 L794.3 204.5 L795.8 206.1 L797.2 207.7 L798.7 209.2 L800.1 210.7 L801.6 212.2 L803.1 213.7 L804.5 215.1 L806.0 216.5 L807.5 217.8 L809.0 219.2 L810.4 220.5 L811.9 221.8 L813.4 223.0 L814.8 224.2 L816.3 225.4 L817.8 226.6 L819.2 227.8 L820.7 228.9 L822.1 230.0 L823.6 231.1 L825.1 232.1 L826.5 233.1 L828.0 234.2 L829.5 235.1 L831.0 236.1 L832.4 237.1 L833.9 238.0 L835.4 238.9 L836.8 239.8 L838.3 240.6 L839.8 241.5 L841.2 242.3 L842.7 243.2 L844.1 243.9 L845.6 244.7 L847.1 245.5 L848.5 246.2 L850.0 247.0 L851.5 247.7 L853.0 248.4 L854.4 249.1 L855.9 249.8 L857.4 250.4 L858.8 251.1 L860.3 251.7 L861.8 252.3 L863.2 252.9 L864.7 253.5 L866.1 254.1 L867.6 254.7 L869.1 255.2 L870.5 255.8 L872.0 256.3 L873.5 256.8 L875.0 257.3 L876.4 257.8 L877.9 258.3 L879.4 258.8 L880.8 259.3 L882.3 259.7 L883.8 260.2 L885.2 260.6 L886.7 261.0 L888.1 261.5 L889.6 261.9 L891.1 262.3 L892.5 262.7 L894.0 263.1 L895.5 263.4 L897.0 263.8 L898.4 264.2 L899.9 264.5 L901.4 264.9 L902.8 265.2 L904.3 265.5 L905.8 265.9 L907.2 266.2 L908.7 266.5 L910.1 266.8 L911.6 267.1 L913.1 267.4 L914.5 267.7 L916.0 268.0 L917.5 268.2 L919.0 268.5 L920.4 268.8 L921.9 269.0 L923.4 269.3 L924.8 269.5 L926.3 269.8 L927.8 270.0 L929.2 270.2 L930.7 270.5 L932.1 270.7 L933.6 270.9 L935.1 271.1 L936.5 271.3 L938.0 271.5 L939.5 271.7 L941.0 271.9 L942.4 272.1 L943.9 272.3 L945.4 272.5 L946.8 272.7 L948.3 272.9 L949.8 273.0 L951.2 273.2 L952.7 273.4 L954.1 273.5 L955.6 273.7 L957.1 273.8 L958.5 274.0 L960.0 274.1 L961.5 274.3 L963.0 274.4 L964.4 274.6 L965.9 274.7 L967.4 274.8 L968.8 275.0 L970.3 275.1 L971.8 275.2 L973.2 275.3 L974.7 275.5 L976.1 275.6 L977.6 275.7 L979.1 275.8 L980.5 275.9 L982.0 276.0 L983.5 276.1 L985.0 276.2 L986.4 276.3 L987.9 276.4 L989.4 276.5 L990.8 276.6 L992.3 276.7 L993.8 276.8 L995.2 276.9 L996.7 277.0 L998.1 277.1 L999.6 277.1 L1001.1 277.2 L1002.5 277.3 L1004.0 277.4 L1005.5 277.5 L1007.0 277.5 L1008.4 277.6 L1009.9 277.7 L1011.4 277.7 L1012.8 277.8 L1014.3 277.9 L1015.8 277.9 L1017.2 278.0 L1018.7 278.1 L1020.1 278.1 L1021.6 278.2 L1023.1 278.3 L1024.5 278.3 L1026.0 278.4 L1027.5 278.4 L1029.0 278.5 L1030.4 278.5 L1031.9 278.6 L1033.3 278.6 L1034.8 278.7 L1036.3 278.7 L1037.8 278.8 L1039.2 278.8 L1040.7 278.9 L1042.2 278.9 L1043.6 279.0 L1045.1 279.0 L1046.5 279.0 L1048.0 279.1 L1049.5 279.1 L1051.0 279.2 L1052.4 279.2 L1053.9 279.2 L1055.3 279.3 L1056.8 279.3 L1058.3 279.4 L1059.8 279.4 L1061.2 279.4 L1062.7 279.5 L1064.2 279.5 L1065.6 279.5 L1067.1 279.6 L1068.5 279.6 L1070.0 279.6 L1071.5 279.6 L1073.0 279.7 L1074.4 279.7 L1075.9 279.7 L1077.3 279.8 L1078.8 279.8 L1080.3 279.8 L1081.8 279.8 L1083.2 279.9 L1084.7 279.9 L1086.2 279.9 L1087.6 279.9 L1089.1 279.9 L1090.5 280.0 L1092.0 280.0 L1093.5 280.0 L1095.0 280.0 L1096.4 280.1 L1097.9 280.1 L1099.3 280.1 L1100.8 280.1 L1102.3 280.1 L1103.8 280.2 L1105.2 280.2 L1106.7 280.2 L1108.2 280.2 L1109.6 280.2 L1111.1 280.2 L1112.5 280.3 L1114.0 280.3 L1115.5 280.3 L1117.0 280.3 L1118.4 280.3 L1119.9 280.3 L1121.3 280.3 L1122.8 280.4 L1124.3 280.4 L1125.8 280.4 L1127.2 280.4 L1128.7 280.4 L1130.2 280.4 L1131.6 280.4 L1133.1 280.4 L1134.5 280.5 L1136.0 280.5 L1137.5 280.5 L1139.0 280.5 L1140.4 280.5 L1141.9 280.5 L1143.3 280.5 L1144.8 280.5 L1146.3 280.5 L1147.8 280.6 L1149.2 280.6 L1150.7 280.6 L1152.2 280.6 L1153.6 280.6 L1155.1 280.6 L1156.5 280.6 L1158.0 280.6 L1159.5 280.6 L1160.9 280.6 L1162.4 280.6 L1163.9 280.6 L1165.3 280.7 L1166.8 280.7 L1168.3 280.7 L1169.8 280.7 L1171.2 280.7 L1172.7 280.7 L1174.2 280.7 L1175.6 280.7 L1177.1 280.7 L1178.5 280.7 L1180.0 280.7 L1181.5 280.7 L1183.0 280.7 L1184.4 280.7 L1185.9 280.7 L1187.3 280.7 L1188.8 280.8 L1190.3 280.8 L1191.8 280.8 L1193.2 280.8 L1194.7 280.8 L1196.2 280.8 L1197.6 280.8 L1199.1 280.8 L1200.5 280.8" fill="none" stroke="var(--accent-2)" stroke-width="3.4"/>
+          <text x="834.25" y="80" style="font-size:21px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--accent-2)">dμ/dv < 0</text>
+          <text x="834.25" y="106" style="font-size:20px;font-family:Outfit,sans-serif" text-anchor="middle" fill="var(--accent-2)">negative damping</text>
+          <text x="748" y="162.00000000000003" style="font-size:21px;font-family:'JetBrains Mono',monospace" text-anchor="end" fill="var(--sub)">μs</text>
+          <text x="748" y="288.0" style="font-size:21px;font-family:'JetBrains Mono',monospace" text-anchor="end" fill="var(--sub)">μk</text>
+          <line x1="760" y1="281" x2="1200" y2="281" stroke="var(--sub)" stroke-width="1.2" stroke-dasharray="4 5"/>
+          <text x="940" y="370" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--muted)">relative sliding velocity</text>
+          <text x="678" y="404" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">μ(v) = μk + (μs − μk) exp(−|v|/vs)</text>
+        <line x1="150" y1="342" x2="150" y2="392" stroke="var(--accent-2)" stroke-width="1.4" stroke-dasharray="4 5"/>
+          <text x="150" y="414" style="font-size:20px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--accent-2)">contact</text>
         </svg>
       </div>
-      <p class="fig__cap"><b>Figure 1.</b> During slow engagement the clutch disc and flywheel are in frictional contact. If the friction coefficient falls as relative sliding velocity rises — the negative slope shaded in orange — the equilibrium becomes unstable. Energy is fed into the torsional mode each cycle, the surfaces alternately stick and slip, and the resulting limit cycle radiates as audible squawk.</p>
+      <p class="fig__cap"><b>Figure 1.</b> During slow engagement the disc and flywheel are in frictional contact under normal force <i>N</i>, with the disc restrained by driveline stiffness <i>k</i> and damping <i>c</i>. The friction coefficient follows a Stribeck law, &mu;(v) = &mu;<sub>k</sub> + (&mu;<sub>s</sub> &minus; &mu;<sub>k</sub>)e<sup>&minus;|v|/v<sub>s</sub></sup>: it starts at the static value and falls toward the kinetic one as sliding speed rises. The shaded region is where d&mu;/dv &lt; 0 &mdash; and a resisting force that <i>decreases</i> as velocity increases is, formally, negative damping.</p>
     </div>
   </div>
 </section>
@@ -135,24 +139,64 @@
 <section class="sec">
   <div class="wrap">
     <div class="fig reveal">
-      <div class="fig__head"><span class="fig__no">Figure 2 — Stick-slip, with the controller on and off</span><span class="fig__live">running</span></div>
+      <div class="fig__head"><span class="fig__no">Figure 2 &mdash; When does it squawk?</span></div>
       <div class="fig__body">
-        <canvas id="cl-canvas" width="1520" height="620"></canvas>
+        <svg viewBox="0 0 1270 486" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="Effective damping against sliding velocity: without control it is negative below a critical speed, producing squawk; damping injection lifts the whole curve into the stable region.">
+          <rect x="20" y="24" width="1230" height="440" rx="16" fill="var(--bg-alt)" stroke="var(--border)" stroke-width="1.6"/>
+          <text x="48" y="66" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">when does it squawk?</text>
+          <rect x="120" y="245" width="580" height="115" fill="rgba(255,90,31,.13)"/>
+          <line x1="120" y1="245" x2="700" y2="245" stroke="var(--ink)" stroke-width="2"/>
+          <line x1="120" y1="110" x2="120" y2="360" stroke="var(--border-2)" stroke-width="1.8"/>
+          <path d="M121.5 380.5 L123.4 377.4 L125.3 374.4 L127.2 371.4 L129.2 368.5 L131.1 365.6 L133.1 362.8 L135.0 360.1 L136.9 357.4 L138.8 354.7 L140.8 352.2 L142.7 349.7 L144.7 347.2 L146.6 344.8 L148.5 342.4 L150.4 340.1 L152.4 337.8 L154.3 335.6 L156.2 333.5 L158.2 331.3 L160.1 329.3 L162.1 327.2 L164.0 325.2 L165.9 323.3 L167.9 321.4 L169.8 319.5 L171.7 317.7 L173.7 315.9 L175.6 314.1 L177.5 312.4 L179.4 310.8 L181.4 309.1 L183.3 307.5 L185.2 305.9 L187.2 304.4 L189.1 302.9 L191.1 301.4 L193.0 300.0 L194.9 298.5 L196.9 297.2 L198.8 295.8 L200.7 294.5 L202.6 293.2 L204.6 291.9 L206.5 290.7 L208.4 289.4 L210.4 288.2 L212.3 287.1 L214.2 285.9 L216.2 284.8 L218.1 283.7 L220.1 282.6 L222.0 281.6 L223.9 280.6 L225.9 279.6 L227.8 278.6 L229.7 277.6 L231.6 276.7 L233.6 275.7 L235.5 274.8 L237.4 274.0 L239.4 273.1 L241.3 272.2 L243.2 271.4 L245.2 270.6 L247.1 269.8 L249.1 269.0 L251.0 268.3 L252.9 267.5 L254.8 266.8 L256.8 266.1 L258.7 265.4 L260.6 264.7 L262.6 264.0 L264.5 263.4 L266.4 262.7 L268.4 262.1 L270.3 261.5 L272.2 260.9 L274.2 260.3 L276.1 259.7 L278.0 259.1 L280.0 258.6 L281.9 258.0 L283.9 257.5 L285.8 257.0 L287.7 256.5 L289.7 256.0 L291.6 255.5 L293.5 255.0 L295.4 254.6 L297.4 254.1 L299.3 253.7 L301.2 253.2 L303.2 252.8 L305.1 252.4 L307.1 252.0 L309.0 251.6 L310.9 251.2 L312.9 250.8 L314.8 250.4 L316.7 250.0 L318.6 249.7 L320.6 249.3 L322.5 249.0 L324.5 248.6 L326.4 248.3 L328.3 248.0 L330.2 247.7 L332.2 247.3 L334.1 247.0 L336.1 246.7 L338.0 246.5 L339.9 246.2 L341.8 245.9 L343.8 245.6 L345.7 245.3 L347.7 245.1 L349.6 244.8 L351.5 244.6 L353.4 244.3 L355.4 244.1 L357.3 243.9 L359.2 243.6 L361.2 243.4 L363.1 243.2 L365.0 243.0 L367.0 242.7 L368.9 242.5 L370.9 242.3 L372.8 242.1 L374.7 241.9 L376.6 241.8 L378.6 241.6 L380.5 241.4 L382.4 241.2 L384.4 241.0 L386.3 240.9 L388.2 240.7 L390.2 240.5 L392.1 240.4 L394.1 240.2 L396.0 240.1 L397.9 239.9 L399.8 239.8 L401.8 239.6 L403.7 239.5 L405.6 239.3 L407.6 239.2 L409.5 239.1 L411.4 238.9 L413.4 238.8 L415.3 238.7 L417.2 238.6 L419.2 238.4 L421.1 238.3 L423.0 238.2 L425.0 238.1 L426.9 238.0 L428.8 237.9 L430.8 237.8 L432.7 237.7 L434.6 237.6 L436.6 237.5 L438.5 237.4 L440.4 237.3 L442.4 237.2 L444.3 237.1 L446.2 237.0 L448.2 236.9 L450.1 236.8 L452.1 236.8 L454.0 236.7 L455.9 236.6 L457.9 236.5 L459.8 236.4 L461.7 236.4 L463.6 236.3 L465.6 236.2 L467.5 236.2 L469.4 236.1 L471.4 236.0 L473.3 236.0 L475.2 235.9 L477.2 235.8 L479.1 235.8 L481.1 235.7 L483.0 235.6 L484.9 235.6 L486.8 235.5 L488.8 235.5 L490.7 235.4 L492.7 235.4 L494.6 235.3 L496.5 235.3 L498.4 235.2 L500.4 235.2 L502.3 235.1 L504.2 235.1 L506.2 235.0 L508.1 235.0 L510.1 234.9 L512.0 234.9 L513.9 234.9 L515.9 234.8 L517.8 234.8 L519.7 234.7 L521.6 234.7 L523.6 234.7 L525.5 234.6 L527.5 234.6 L529.4 234.6 L531.3 234.5 L533.2 234.5 L535.2 234.5 L537.1 234.4 L539.0 234.4 L541.0 234.4 L542.9 234.3 L544.9 234.3 L546.8 234.3 L548.7 234.2 L550.7 234.2 L552.6 234.2 L554.5 234.2 L556.5 234.1 L558.4 234.1 L560.3 234.1 L562.2 234.1 L564.2 234.0 L566.1 234.0 L568.0 234.0 L570.0 234.0 L571.9 233.9 L573.9 233.9 L575.8 233.9 L577.7 233.9 L579.7 233.9 L581.6 233.8 L583.5 233.8 L585.5 233.8 L587.4 233.8 L589.3 233.8 L591.2 233.7 L593.2 233.7 L595.1 233.7 L597.0 233.7 L599.0 233.7 L600.9 233.7 L602.9 233.6 L604.8 233.6 L606.7 233.6 L608.7 233.6 L610.6 233.6 L612.5 233.6 L614.5 233.6 L616.4 233.5 L618.3 233.5 L620.2 233.5 L622.2 233.5 L624.1 233.5 L626.0 233.5 L628.0 233.5 L629.9 233.5 L631.9 233.4 L633.8 233.4 L635.7 233.4 L637.7 233.4 L639.6 233.4 L641.5 233.4 L643.4 233.4 L645.4 233.4 L647.3 233.4 L649.2 233.4 L651.2 233.3 L653.1 233.3 L655.0 233.3 L657.0 233.3 L658.9 233.3 L660.9 233.3 L662.8 233.3 L664.7 233.3 L666.7 233.3 L668.6 233.3 L670.5 233.3 L672.5 233.3 L674.4 233.2 L676.3 233.2 L678.2 233.2 L680.2 233.2 L682.1 233.2 L684.1 233.2 L686.0 233.2 L687.9 233.2 L689.9 233.2 L691.8 233.2 L693.7 233.2 L695.6 233.2 L697.6 233.2 L699.5 233.2 L701.4 233.2" fill="none" stroke="var(--accent-2)" stroke-width="3.4"/>
+          <path d="M121.5 276.4 L123.4 273.3 L125.3 270.2 L127.2 267.2 L129.2 264.3 L131.1 261.4 L133.1 258.6 L135.0 255.9 L136.9 253.2 L138.8 250.6 L140.8 248.0 L142.7 245.5 L144.7 243.0 L146.6 240.6 L148.5 238.3 L150.4 235.9 L152.4 233.7 L154.3 231.5 L156.2 229.3 L158.2 227.2 L160.1 225.1 L162.1 223.1 L164.0 221.1 L165.9 219.1 L167.9 217.2 L169.8 215.4 L171.7 213.5 L173.7 211.7 L175.6 210.0 L177.5 208.3 L179.4 206.6 L181.4 204.9 L183.3 203.3 L185.2 201.8 L187.2 200.2 L189.1 198.7 L191.1 197.2 L193.0 195.8 L194.9 194.4 L196.9 193.0 L198.8 191.6 L200.7 190.3 L202.6 189.0 L204.6 187.7 L206.5 186.5 L208.4 185.3 L210.4 184.1 L212.3 182.9 L214.2 181.8 L216.2 180.6 L218.1 179.6 L220.1 178.5 L222.0 177.4 L223.9 176.4 L225.9 175.4 L227.8 174.4 L229.7 173.4 L231.6 172.5 L233.6 171.6 L235.5 170.7 L237.4 169.8 L239.4 168.9 L241.3 168.1 L243.2 167.2 L245.2 166.4 L247.1 165.6 L249.1 164.9 L251.0 164.1 L252.9 163.4 L254.8 162.6 L256.8 161.9 L258.7 161.2 L260.6 160.5 L262.6 159.9 L264.5 159.2 L266.4 158.6 L268.4 157.9 L270.3 157.3 L272.2 156.7 L274.2 156.1 L276.1 155.5 L278.0 155.0 L280.0 154.4 L281.9 153.9 L283.9 153.3 L285.8 152.8 L287.7 152.3 L289.7 151.8 L291.6 151.3 L293.5 150.9 L295.4 150.4 L297.4 149.9 L299.3 149.5 L301.2 149.1 L303.2 148.6 L305.1 148.2 L307.1 147.8 L309.0 147.4 L310.9 147.0 L312.9 146.6 L314.8 146.2 L316.7 145.9 L318.6 145.5 L320.6 145.2 L322.5 144.8 L324.5 144.5 L326.4 144.1 L328.3 143.8 L330.2 143.5 L332.2 143.2 L334.1 142.9 L336.1 142.6 L338.0 142.3 L339.9 142.0 L341.8 141.7 L343.8 141.4 L345.7 141.2 L347.7 140.9 L349.6 140.7 L351.5 140.4 L353.4 140.2 L355.4 139.9 L357.3 139.7 L359.2 139.5 L361.2 139.2 L363.1 139.0 L365.0 138.8 L367.0 138.6 L368.9 138.4 L370.9 138.2 L372.8 138.0 L374.7 137.8 L376.6 137.6 L378.6 137.4 L380.5 137.2 L382.4 137.0 L384.4 136.9 L386.3 136.7 L388.2 136.5 L390.2 136.4 L392.1 136.2 L394.1 136.0 L396.0 135.9 L397.9 135.7 L399.8 135.6 L401.8 135.4 L403.7 135.3 L405.6 135.2 L407.6 135.0 L409.5 134.9 L411.4 134.8 L413.4 134.6 L415.3 134.5 L417.2 134.4 L419.2 134.3 L421.1 134.2 L423.0 134.0 L425.0 133.9 L426.9 133.8 L428.8 133.7 L430.8 133.6 L432.7 133.5 L434.6 133.4 L436.6 133.3 L438.5 133.2 L440.4 133.1 L442.4 133.0 L444.3 132.9 L446.2 132.8 L448.2 132.8 L450.1 132.7 L452.1 132.6 L454.0 132.5 L455.9 132.4 L457.9 132.4 L459.8 132.3 L461.7 132.2 L463.6 132.1 L465.6 132.1 L467.5 132.0 L469.4 131.9 L471.4 131.9 L473.3 131.8 L475.2 131.7 L477.2 131.7 L479.1 131.6 L481.1 131.5 L483.0 131.5 L484.9 131.4 L486.8 131.4 L488.8 131.3 L490.7 131.3 L492.7 131.2 L494.6 131.2 L496.5 131.1 L498.4 131.1 L500.4 131.0 L502.3 131.0 L504.2 130.9 L506.2 130.9 L508.1 130.8 L510.1 130.8 L512.0 130.7 L513.9 130.7 L515.9 130.7 L517.8 130.6 L519.7 130.6 L521.6 130.5 L523.6 130.5 L525.5 130.5 L527.5 130.4 L529.4 130.4 L531.3 130.4 L533.2 130.3 L535.2 130.3 L537.1 130.3 L539.0 130.2 L541.0 130.2 L542.9 130.2 L544.9 130.1 L546.8 130.1 L548.7 130.1 L550.7 130.0 L552.6 130.0 L554.5 130.0 L556.5 130.0 L558.4 129.9 L560.3 129.9 L562.2 129.9 L564.2 129.9 L566.1 129.8 L568.0 129.8 L570.0 129.8 L571.9 129.8 L573.9 129.8 L575.8 129.7 L577.7 129.7 L579.7 129.7 L581.6 129.7 L583.5 129.7 L585.5 129.6 L587.4 129.6 L589.3 129.6 L591.2 129.6 L593.2 129.6 L595.1 129.5 L597.0 129.5 L599.0 129.5 L600.9 129.5 L602.9 129.5 L604.8 129.5 L606.7 129.4 L608.7 129.4 L610.6 129.4 L612.5 129.4 L614.5 129.4 L616.4 129.4 L618.3 129.4 L620.2 129.4 L622.2 129.3 L624.1 129.3 L626.0 129.3 L628.0 129.3 L629.9 129.3 L631.9 129.3 L633.8 129.3 L635.7 129.3 L637.7 129.2 L639.6 129.2 L641.5 129.2 L643.4 129.2 L645.4 129.2 L647.3 129.2 L649.2 129.2 L651.2 129.2 L653.1 129.2 L655.0 129.2 L657.0 129.2 L658.9 129.1 L660.9 129.1 L662.8 129.1 L664.7 129.1 L666.7 129.1 L668.6 129.1 L670.5 129.1 L672.5 129.1 L674.4 129.1 L676.3 129.1 L678.2 129.1 L680.2 129.1 L682.1 129.1 L684.1 129.0 L686.0 129.0 L687.9 129.0 L689.9 129.0 L691.8 129.0 L693.7 129.0 L695.6 129.0 L697.6 129.0 L699.5 129.0 L701.4 129.0" fill="none" stroke="var(--accent-3)" stroke-width="3.4"/>
+          <text x="452" y="60" style="font-size:21px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">no control</text>
+          <text x="452" y="86" style="font-size:21px;font-family:'JetBrains Mono',monospace" fill="var(--accent-3)">with damping injection</text>
+          <text x="106" y="252.41666666666669" style="font-size:20px;font-family:'JetBrains Mono',monospace" text-anchor="end" fill="var(--sub)">0</text>
+          <text x="126" y="94" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--muted)">effective damping</text>
+          <text x="132" y="392" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">UNSTABLE — squawk</text>
+          <text x="490" y="398" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--muted)">sliding velocity</text>
+          <line x1="345" y1="110" x2="345" y2="360" stroke="var(--accent-2)" stroke-width="2" stroke-dasharray="8 6"/>
+          <text x="372" y="96" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">v* ≈ 0.62</text>
+          <line x1="770" y1="60" x2="770" y2="430" stroke="var(--border-2)" stroke-width="1.6"/>
+          <text x="806" y="100" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">the instability</text>
+          <text x="806" y="140" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--ink)">θ̈ + 2ζθ̇ + θ = μ(v_rel)</text>
+          <text x="806" y="172" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--ink)">v_rel = Ω − θ̇</text>
+          <text x="806" y="214" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">linearising about steady sliding gives</text>
+          <text x="806" y="248" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">θ̈ + (2ζ + dμ/dv) θ̇ + θ = 0</text>
+          <text x="806" y="290" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">so a falling friction curve subtracts</text>
+          <text x="806" y="318" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">damping. Below v* the total goes</text>
+          <text x="806" y="346" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">negative and the equilibrium is lost.</text>
+          <text x="806" y="392" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--muted)">The controller adds damping back to</text>
+          <text x="806" y="420" style="font-size:20px;font-family:Outfit,sans-serif" fill="var(--accent-3)">that mode — it moves the curve up.</text>
+        </svg>
+      </div>
+      <p class="fig__cap"><b>Figure 2.</b> Linearising about steady sliding gives &theta;&#776; + (2&zeta; + d&mu;/dv)&theta;&#775; + &theta; = 0, so a <i>falling</i> friction curve contributes <b>negative</b> damping. Below a critical sliding speed the total goes negative, the steady-sliding equilibrium is lost, and the response grows until it settles onto a stick-slip limit cycle. With these parameters that threshold sits at <b>v* &asymp; 0.62</b> &mdash; slower than that and it squawks, faster and it does not. Injecting damping into the unstable mode lifts the whole curve, which is what the controller does: it does not flatten the friction characteristic or add broadband dissipation, it moves an eigenvalue.</p>
+    </div>
+
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 3 &mdash; Stick-slip, with the controller on and off</span><span class="fig__live">running</span></div>
+      <div class="fig__body">
+        <canvas id="cl-canvas" width="1520" height="760"></canvas>
       </div>
       <div class="fig__ctrls">
         <div class="fig__ctrl">
-          <label>Engagement speed <b id="clv-v">0.70</b></label>
-          <input type="range" id="cl-v" min="0.20" max="1.60" step="0.02" value="0.70" />
+          <label>Sliding speed Ω <b id="clv-v">0.35</b></label>
+          <input type="range" id="cl-v" min="0.05" max="1.60" step="0.01" value="0.35" />
         </div>
         <div class="fig__ctrl">
-          <label>Torsional stiffness <b id="clv-k">1.30</b></label>
-          <input type="range" id="cl-k" min="0.40" max="3.00" step="0.05" value="1.30" />
+          <label>Structural damping ζ <b id="clv-z">0.030</b></label>
+          <input type="range" id="cl-z" min="0.005" max="0.20" step="0.005" value="0.03" />
+        </div>
+        <div class="fig__ctrl">
+          <label>Controller gain g <b id="clv-gn">0.50</b></label>
+          <input type="range" id="cl-gn" min="0.00" max="1.20" step="0.01" value="0.50" />
         </div>
       </div>
       <div class="fig__ctrls" style="padding-top:0">
         <button class="btn btn--solid" id="cl-toggle" type="button">Controller: OFF</button>
       </div>
-      <p class="fig__cap"><b>Figure 2.</b> A lumped torsional model of the engagement, integrated live. Left: the disc alternately sticks to and slips against the flywheel; the block turns orange while stuck. Middle: the phase portrait, where the uncontrolled system collapses onto a large limit cycle. Right: the radiated waveform — the squawk itself. Toggle the controller and the limit cycle shrinks toward the equilibrium and the waveform goes quiet.</p>
+      <p class="fig__cap"><b>Figure 3.</b> The lumped torsional model integrated live with a Stribeck friction law and a <b>true stick phase</b> — the interface locks whenever the required friction torque falls inside the static limit, and the block turns amber while stuck. <b>Left:</b> the engagement, with the effective damping reported live. <b>Right:</b> the phase portrait; uncontrolled it winds outward onto a large stick-slip limit cycle around the steady-sliding point, controlled it spirals in. <b>Below:</b> the radiated waveform. Raise the sliding speed past v* &asymp; 0.62 and the squawk disappears on its own, which is why the problem is worst during slow engagement. Then set the speed low again and toggle the controller — the limit cycle collapses and the waveform goes quiet without touching the friction characteristic.</p>
     </div>
   </div>
   <div class="wrap body-copy reveal">
@@ -182,101 +226,139 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
 
 <script>
+/* ---- stick-slip limit cycle with Stribeck friction, controller toggle ---- */
 (function(){
   const cv=document.getElementById('cl-canvas'); if(!cv) return;
   const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
   const css=getComputedStyle(document.documentElement); const C=k=>css.getPropertyValue(k).trim();
-  const P={vbelt:0.70, k:1.30, ctrl:false};
-  let x=0, v=0, t=0, stuck=false;
-  const hist=[], wave=[]; const HIST=420;
 
-  function mu(vr){ const a=Math.abs(vr); return 0.32 + 0.30*Math.exp(-a*3.4); }
+  const MUS=0.40, MUK=0.22, VS=0.25;
+  const P={vb:0.35, ze:0.03, g:0.50, ctrl:false};
+  const mu=vr=>MUK+(MUS-MUK)*Math.exp(-Math.abs(vr)/VS);
+  // effective damping of steady sliding: negative => squawk
+  const effDamp=()=>2*P.ze+(P.ctrl?P.g:0)-((MUS-MUK)/VS)*Math.exp(-P.vb/VS);
+
+  let x=0, v=0, t=0, stick=true, slipT=0;
+  const traj=[], TRAJ=1400;
+  const wave=[], WAVE=460;
+
+  function reset(){ x=0; v=0; t=0; stick=true; traj.length=0; wave.length=0; }
 
   function step(dt){
+    const vr=P.vb-v;
+    const u = P.ctrl ? -P.g*v : 0;
+    if(stick){
+      v=P.vb;
+      // force the interface must carry to keep them locked
+      const need = x + 2*P.ze*P.vb - u;
+      if(Math.abs(need)>MUS){ stick=false; }
+      else { x += v*dt; }
+    }
+    if(!stick){
+      const F = Math.abs(vr)>1e-9 ? Math.sign(vr)*mu(vr) : 0;
+      const a = -2*P.ze*v - x + F + u;
+      v += a*dt; x += v*dt;
+      if(Math.abs(P.vb-v)<2.5e-3 && Math.abs(x+2*P.ze*P.vb-u)<=MUS){ stick=true; v=P.vb; }
+    }
     t+=dt;
-    const vr=v-P.vbelt;
-    const fric=-Math.sign(vr||1)*mu(vr)*1.0;
-    let u=0;
-    if(P.ctrl){ u = -0.85*v - 0.35*Math.tanh(6*vr); }   // damping injection
-    const a=-P.k*x + fric + 0.06*P.vbelt + u - 0.05*v;
-    v+=a*dt; x+=v*dt;
-    stuck=Math.abs(vr)<0.04;
-    if(!isFinite(x)||Math.abs(x)>8){x=0;v=0;}
-    return fric;
+    if(!isFinite(x)||Math.abs(x)>40) reset();
+  }
+
+  function drawRig(x0,y0,w,hgt){
+    ctx.save();
+    const cy=y0+hgt*0.52;
+    ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
+    ctx.fillText('engagement', x0+28, y0+40);
+    // moving surface
+    ctx.fillStyle=C('--bg-alt'); ctx.fillRect(x0+40,cy+58,w-80,56);
+    ctx.strokeStyle=C('--border-2'); ctx.lineWidth=2; ctx.strokeRect(x0+40,cy+58,w-80,56);
+    ctx.strokeStyle=C('--sub'); ctx.lineWidth=3;
+    for(let i=0;i<16;i++){
+      const px=x0+40+(((i*44)+t*P.vb*130)%(w-80));
+      ctx.beginPath();ctx.moveTo(px,cy+64);ctx.lineTo(px+16,cy+108);ctx.stroke();
+    }
+    ctx.fillStyle=C('--sub'); ctx.font='500 20px "JetBrains Mono", monospace';
+    ctx.fillText('flywheel  Ω = '+P.vb.toFixed(2), x0+46, cy+140);
+    // spring to ground
+    const bx=x0+w*0.52+x*95;
+    ctx.strokeStyle=C('--ink'); ctx.lineWidth=3;
+    ctx.beginPath(); ctx.moveTo(x0+40,cy+24);
+    const n=12, span=(bx-56)-(x0+40);
+    for(let i=1;i<n;i++) ctx.lineTo(x0+40+span*i/n, cy+24+(i%2?15:-15));
+    ctx.lineTo(bx-56,cy+24); ctx.stroke();
+    // disc block
+    ctx.fillStyle = stick ? C('--accent-2') : C('--accent');
+    ctx.fillRect(bx-56,cy-14,112,68);
+    ctx.strokeStyle=C('--ink'); ctx.lineWidth=2.4; ctx.strokeRect(bx-56,cy-14,112,68);
+    ctx.fillStyle='#fff'; ctx.font='600 24px Outfit, sans-serif';
+    ctx.fillText(stick?'STICK':'SLIP', bx-32, cy+26);
+    // stability readout
+    const ed=effDamp();
+    ctx.fillStyle = ed<0 ? C('--accent-2') : C('--accent-3');
+    ctx.font='500 22px Outfit, sans-serif';
+    ctx.fillText('effective damping '+ed.toFixed(3)+(ed<0?'  → unstable':'  → stable'), x0+28, y0+hgt-16);
+    ctx.restore();
+  }
+
+  function drawPhase(x0,y0,w,hgt){
+    ctx.save();
+    const cx=x0+w*0.46, cy=y0+hgt*0.52, sx=w*0.30, sy=hgt*0.22;
+    ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(x0+40,cy);ctx.lineTo(x0+w-40,cy);
+    ctx.moveTo(cx,y0+44);ctx.lineTo(cx,y0+hgt-44);ctx.stroke();
+    // steady-sliding equilibrium
+    ctx.fillStyle=C('--border-2');
+    ctx.beginPath();ctx.arc(cx+mu(P.vb)*sx,cy,9,0,7);ctx.fill();
+    ctx.lineWidth=2.2;
+    for(let i=1;i<traj.length;i++){
+      const p0=traj[i-1],p1=traj[i], al=(i/traj.length)*0.7;
+      ctx.strokeStyle = P.ctrl ? `rgba(0,166,166,${al})` : `rgba(255,90,31,${al})`;
+      ctx.beginPath();ctx.moveTo(cx+p0.x*sx,cy-p0.v*sy);ctx.lineTo(cx+p1.x*sx,cy-p1.v*sy);ctx.stroke();
+    }
+    ctx.fillStyle=C('--accent');
+    ctx.beginPath();ctx.arc(cx+x*sx,cy-v*sy,9,0,7);ctx.fill();
+    ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
+    ctx.fillText('phase portrait  (θ, θ̇)', x0+30, y0+40);
+    ctx.fillStyle=C('--sub'); ctx.font='500 20px "JetBrains Mono", monospace';
+    ctx.fillText('grey dot = steady sliding', x0+30, y0+hgt-16);
+    ctx.restore();
+  }
+
+  function drawWave(x0,y0,w,hgt){
+    ctx.save();
+    const cy=y0+hgt*0.56, span=w-120;
+    ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(x0+60,cy);ctx.lineTo(x0+60+span,cy);ctx.stroke();
+    ctx.strokeStyle = P.ctrl ? C('--accent-3') : C('--accent-2');
+    ctx.lineWidth=3; ctx.beginPath();
+    for(let i=0;i<wave.length;i++){
+      const px=x0+60+(i/WAVE)*span, py=cy-wave[i]*hgt*0.30;
+      i?ctx.lineTo(px,py):ctx.moveTo(px,py);
+    }
+    ctx.stroke();
+    ctx.fillStyle = P.ctrl ? C('--accent-3') : C('--accent-2');
+    ctx.font='500 24px Outfit, sans-serif';
+    ctx.fillText(P.ctrl?'radiated noise — suppressed':'radiated noise — squawk', x0+60, y0+30);
+    ctx.restore();
   }
 
   function render(){
     ctx.clearRect(0,0,W,H);
-    // --- panel 1: physical ---
-    const w1=W*0.34;
-    ctx.save();
-    ctx.fillStyle=C('--muted'); ctx.font='500 25px Outfit, sans-serif';
-    ctx.fillText('engagement', 30, 44);
-    const cy=H*0.5;
-    // moving flywheel surface
-    ctx.fillStyle=C('--bg-alt'); ctx.fillRect(40,cy+56,w1-80,54);
-    ctx.strokeStyle=C('--border-2'); ctx.lineWidth=2; ctx.strokeRect(40,cy+56,w1-80,54);
-    ctx.strokeStyle=C('--sub'); ctx.lineWidth=3;
-    for(let i=0;i<14;i++){
-      const px=40+((i*46 + t*P.vbelt*150)%(w1-80));
-      ctx.beginPath();ctx.moveTo(px,cy+62);ctx.lineTo(px+18,cy+104);ctx.stroke();
-    }
-    // disc block
-    const bx=w1*0.5+x*90;
-    ctx.fillStyle= stuck ? C('--accent-2') : C('--accent');
-    ctx.fillRect(bx-52,cy-8,104,62);
-    // spring to ground
-    ctx.strokeStyle=C('--ink'); ctx.lineWidth=3; ctx.beginPath();
-    ctx.moveTo(40,cy+22);
-    for(let i=0;i<10;i++){const px=40+i*((bx-92)/10);ctx.lineTo(px,cy+22+(i%2?14:-14));}
-    ctx.lineTo(bx-52,cy+22); ctx.stroke();
-    ctx.fillStyle=stuck?C('--accent-2'):C('--muted'); ctx.font='500 22px Outfit, sans-serif';
-    ctx.fillText(stuck?'STICK':'SLIP', bx-30, cy+34);
-    ctx.restore();
-
-    // --- panel 2: phase ---
-    ctx.save();
-    const x0=w1, w2=W*0.33, ccx=x0+w2*0.5, ccy=H*0.5;
+    drawRig(0,0,W*0.50,H*0.60);
+    drawPhase(W*0.50,0,W*0.50,H*0.60);
+    drawWave(0,H*0.60,W,H*0.40);
     ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
-    ctx.beginPath();ctx.moveTo(x0+40,ccy);ctx.lineTo(x0+w2-40,ccy);
-    ctx.moveTo(ccx,60);ctx.lineTo(ccx,H-60);ctx.stroke();
-    ctx.lineWidth=2.5;
-    for(let i=1;i<hist.length;i++){
-      const p0=hist[i-1],p1=hist[i];
-      ctx.strokeStyle=`rgba(${P.ctrl?'0,166,166':'255,90,31'},${(i/hist.length)*0.8})`;
-      ctx.beginPath();
-      ctx.moveTo(ccx+p0.x*110, ccy-p0.v*110);
-      ctx.lineTo(ccx+p1.x*110, ccy-p1.v*110);
-      ctx.stroke();
-    }
-    ctx.fillStyle=C('--accent'); ctx.beginPath();ctx.arc(ccx+x*110,ccy-v*110,9,0,7);ctx.fill();
-    ctx.fillStyle=C('--muted'); ctx.font='500 25px Outfit, sans-serif';
-    ctx.fillText('phase portrait', x0+30, 44);
-    ctx.restore();
-
-    // --- panel 3: radiated waveform ---
-    ctx.save();
-    const x3=w1+w2, w3=W-x3, wcy=H*0.5, span=w3-80;
-    ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
-    ctx.beginPath();ctx.moveTo(x3+40,wcy);ctx.lineTo(x3+40+span,wcy);ctx.stroke();
-    ctx.strokeStyle=P.ctrl?C('--accent-3'):C('--accent-2'); ctx.lineWidth=3;
-    ctx.beginPath();
-    for(let i=0;i<wave.length;i++){
-      const px=x3+40+(i/HIST)*span, py=wcy-wave[i]*150;
-      i?ctx.lineTo(px,py):ctx.moveTo(px,py);
-    }
-    ctx.stroke();
-    ctx.fillStyle=C('--muted'); ctx.font='500 25px Outfit, sans-serif';
-    ctx.fillText(P.ctrl?'radiated noise — suppressed':'radiated noise — squawk', x3+30, 44);
-    ctx.restore();
+    ctx.beginPath();ctx.moveTo(W*0.50,30);ctx.lineTo(W*0.50,H*0.60-20);ctx.stroke();
   }
 
-  const b=(r,vv,key,dp)=>{const R=document.getElementById(r),V=document.getElementById(vv);
-    if(!R)return;R.addEventListener('input',()=>{P[key]=parseFloat(R.value);V.textContent=P[key].toFixed(dp);});};
-  b('cl-v','clv-v','vbelt',2); b('cl-k','clv-k','k',2);
+  [['cl-v','clv-v','vb',2],['cl-z','clv-z','ze',3],['cl-gn','clv-gn','g',2]].forEach(a=>{
+    const R=document.getElementById(a[0]), V=document.getElementById(a[1]);
+    if(!R) return;
+    R.addEventListener('input',()=>{P[a[2]]=parseFloat(R.value);V.textContent=P[a[2]].toFixed(a[3]);traj.length=0;});
+  });
   const tg=document.getElementById('cl-toggle');
-  if(tg) tg.addEventListener('click',()=>{P.ctrl=!P.ctrl;
-    tg.textContent='Controller: '+(P.ctrl?'ON':'OFF'); hist.length=0;});
+  if(tg) tg.addEventListener('click',()=>{
+    P.ctrl=!P.ctrl; tg.textContent='Controller: '+(P.ctrl?'ON':'OFF'); traj.length=0;});
 
   let live=false;
   new IntersectionObserver(e=>{live=e[0].isIntersecting;},{threshold:.05}).observe(cv);
@@ -285,10 +367,10 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     requestAnimationFrame(loop);
     const dtr=Math.min((now-last)/1000,.05); last=now;
     if(!live) return;
-    acc+=dtr; let f=0,g=0;
-    while(acc>=0.004&&g++<300){ f=step(0.010); acc-=0.004; }
-    if(fr++%2===0){ hist.push({x,v}); if(hist.length>260)hist.shift();
-      wave.push(v*0.55); if(wave.length>HIST)wave.shift(); }
+    acc+=dtr; let g=0;
+    while(acc>=0.0015&&g++<600){ step(0.0035); acc-=0.0015; }
+    traj.push({x,v}); if(traj.length>TRAJ) traj.shift();
+    if(fr++%2===0){ wave.push(v-P.vb); if(wave.length>WAVE) wave.shift(); }
     render();
   })(performance.now());
 })();
