@@ -225,119 +225,117 @@
     <div class="fig reveal">
       <div class="fig__head"><span class="fig__no">Figure 2 &mdash; The model, as published</span></div>
       <div class="fig__body">
-        <svg viewBox="0 0 860 470" xmlns="http://www.w3.org/2000/svg" role="img"
-             aria-label="The reduced-order model: a chain of lumped-parameter von Mises trusses whose tilted springs represent membrane stretching and horizontal springs represent bending, coupled to a linear spring-mass resonator chain representing the abdominal cavity.">
-
-          <!-- shaded regions -->
-          <rect x="52" y="38" width="756" height="186" rx="14" fill="rgba(255,90,31,.09)"/>
-          <rect x="52" y="284" width="756" height="80" rx="14" fill="rgba(0,166,166,.11)"/>
-          <text class="s-mono2" x="64" y="30">truss chain &mdash; tymbal membrane</text>
-          <text class="s-mono" x="64" y="384" fill="var(--accent-3)">resonator array &mdash; abdominal cavity</text>
-
-          <!-- fixed support -->
-          <g class="s-thin">
-            <line x1="60" y1="64" x2="756" y2="64" stroke-width="2.4"/>
-            <line x1="72" y1="64" x2="61" y2="51"/><line x1="89" y1="64" x2="78" y2="51"/><line x1="106" y1="64" x2="95" y2="51"/><line x1="123" y1="64" x2="112" y2="51"/><line x1="140" y1="64" x2="129" y2="51"/><line x1="157" y1="64" x2="146" y2="51"/><line x1="174" y1="64" x2="163" y2="51"/><line x1="191" y1="64" x2="180" y2="51"/><line x1="208" y1="64" x2="197" y2="51"/><line x1="225" y1="64" x2="214" y2="51"/><line x1="242" y1="64" x2="231" y2="51"/><line x1="259" y1="64" x2="248" y2="51"/><line x1="276" y1="64" x2="265" y2="51"/><line x1="293" y1="64" x2="282" y2="51"/><line x1="310" y1="64" x2="299" y2="51"/><line x1="327" y1="64" x2="316" y2="51"/><line x1="344" y1="64" x2="333" y2="51"/><line x1="361" y1="64" x2="350" y2="51"/><line x1="378" y1="64" x2="367" y2="51"/><line x1="395" y1="64" x2="384" y2="51"/><line x1="412" y1="64" x2="401" y2="51"/><line x1="429" y1="64" x2="418" y2="51"/><line x1="446" y1="64" x2="435" y2="51"/><line x1="463" y1="64" x2="452" y2="51"/><line x1="480" y1="64" x2="469" y2="51"/><line x1="497" y1="64" x2="486" y2="51"/><line x1="514" y1="64" x2="503" y2="51"/><line x1="531" y1="64" x2="520" y2="51"/><line x1="548" y1="64" x2="537" y2="51"/><line x1="565" y1="64" x2="554" y2="51"/><line x1="582" y1="64" x2="571" y2="51"/><line x1="599" y1="64" x2="588" y2="51"/><line x1="616" y1="64" x2="605" y2="51"/><line x1="633" y1="64" x2="622" y2="51"/><line x1="650" y1="64" x2="639" y2="51"/><line x1="667" y1="64" x2="656" y2="51"/><line x1="684" y1="64" x2="673" y2="51"/><line x1="701" y1="64" x2="690" y2="51"/><line x1="718" y1="64" x2="707" y2="51"/><line x1="735" y1="64" x2="724" y2="51"/>
-          </g>
-
-          <!-- tilted springs (stretching) -->
-          <g class="draw" style="--len:800">
-            <path class="s-line" d="M76.0 64.0 L81.0 72.7 L81.1 86.7 L99.3 90.3 L93.3 107.9 L111.6 111.5 L105.6 129.1 L123.8 132.7 L117.8 150.3 L136.1 153.8 L135.0 166.0"/>
-            <path class="s-line" d="M236.0 64.0 L241.0 72.7 L241.1 86.7 L259.3 90.3 L253.3 107.9 L271.6 111.5 L265.6 129.1 L283.8 132.7 L277.8 150.3 L296.1 153.8 L295.0 166.0"/>
-            <path class="s-line" d="M396.0 64.0 L401.0 72.7 L401.1 86.7 L419.3 90.3 L413.3 107.9 L431.6 111.5 L425.6 129.1 L443.8 132.7 L437.8 150.3 L456.1 153.8 L455.0 166.0"/>
-            <path class="s-line" d="M556.0 64.0 L561.0 72.7 L561.1 86.7 L579.3 90.3 L573.3 107.9 L591.6 111.5 L585.6 129.1 L603.8 132.7 L597.8 150.3 L616.1 153.8 L615.0 166.0"/>
-            <path class="s-line" d="M224.0 64.0 L219.0 72.7 L206.8 79.7 L212.8 97.3 L194.6 100.9 L200.6 118.5 L182.3 122.1 L188.3 139.7 L170.1 143.3 L176.1 160.8 L165.0 166.0"/>
-            <path class="s-line" d="M384.0 64.0 L379.0 72.7 L366.8 79.7 L372.8 97.3 L354.6 100.9 L360.6 118.5 L342.3 122.1 L348.3 139.7 L330.1 143.3 L336.1 160.8 L325.0 166.0"/>
-            <path class="s-line" d="M544.0 64.0 L539.0 72.7 L526.8 79.7 L532.8 97.3 L514.6 100.9 L520.6 118.5 L502.3 122.1 L508.3 139.7 L490.1 143.3 L496.1 160.8 L485.0 166.0"/>
-            <path class="s-line" d="M704.0 64.0 L699.0 72.7 L686.8 79.7 L692.8 97.3 L674.6 100.9 L680.6 118.5 L662.3 122.1 L668.3 139.7 L650.1 143.3 L656.1 160.8 L645.0 166.0"/>
-          </g>
-          <circle cx="76" cy="64" r="4" fill="var(--ink)"/><circle cx="224" cy="64" r="4" fill="var(--ink)"/>
-            <circle cx="236" cy="64" r="4" fill="var(--ink)"/><circle cx="384" cy="64" r="4" fill="var(--ink)"/>
-            <circle cx="396" cy="64" r="4" fill="var(--ink)"/><circle cx="544" cy="64" r="4" fill="var(--ink)"/>
-            <circle cx="556" cy="64" r="4" fill="var(--ink)"/><circle cx="704" cy="64" r="4" fill="var(--ink)"/>
-
-          <!-- horizontal springs (bending) -->
-          <g class="draw draw--d1" style="--len:900">
-            <path class="s-line" d="M174.0 180.0 L184.0 180.0 L193.2 189.0 L202.4 171.0 L211.6 189.0 L220.8 171.0 L230.0 189.0 L239.2 171.0 L248.4 189.0 L257.6 171.0 L266.8 189.0 L276.0 171.0 L286.0 180.0"/>
-            <path class="s-line" d="M334.0 180.0 L344.0 180.0 L353.2 189.0 L362.4 171.0 L371.6 189.0 L380.8 171.0 L390.0 189.0 L399.2 171.0 L408.4 189.0 L417.6 171.0 L426.8 189.0 L436.0 171.0 L446.0 180.0"/>
-            <path class="s-line" d="M494.0 180.0 L504.0 180.0 L513.2 189.0 L522.4 171.0 L531.6 189.0 L540.8 171.0 L550.0 189.0 L559.2 171.0 L568.4 189.0 L577.6 171.0 L586.8 189.0 L596.0 171.0 L606.0 180.0"/>
-            <path class="s-line" d="M70.0 180.0 L78.0 180.0 L84.7 188.0 L91.3 172.0 L98.0 188.0 L104.7 172.0 L111.3 188.0 L118.0 172.0 L126.0 180.0"/>
-            <path class="s-line" d="M654.0 180.0 L662.0 180.0 L673.7 188.0 L685.3 172.0 L697.0 188.0 L708.7 172.0 L720.3 188.0 L732.0 172.0 L740.0 180.0"/>
-          </g>
-
-          <!-- coupling springs to resonators -->
-          <g class="pop pop--d3">
-            <path class="s-accent3" d="M150.0 199.0 L150.0 207.0 L142.0 217.5 L158.0 228.0 L142.0 238.5 L158.0 249.0 L142.0 259.5 L158.0 270.0 L142.0 280.5 L158.0 291.0 L150.0 299.0"/>
-            <path class="s-accent3" d="M310.0 199.0 L310.0 207.0 L302.0 217.5 L318.0 228.0 L302.0 238.5 L318.0 249.0 L302.0 259.5 L318.0 270.0 L302.0 280.5 L318.0 291.0 L310.0 299.0"/>
-            <path class="s-accent3" d="M470.0 199.0 L470.0 207.0 L462.0 217.5 L478.0 228.0 L462.0 238.5 L478.0 249.0 L462.0 259.5 L478.0 270.0 L462.0 280.5 L478.0 291.0 L470.0 299.0"/>
-            <path class="s-accent3" d="M630.0 199.0 L630.0 207.0 L622.0 217.5 L638.0 228.0 L622.0 238.5 L638.0 249.0 L622.0 259.5 L638.0 270.0 L622.0 280.5 L638.0 291.0 L630.0 299.0"/>
-          </g>
-
-          <!-- resonator chain springs -->
-          <g class="draw draw--d2" style="--len:900">
-            <path class="s-accent3" d="M174.0 322.0 L184.0 322.0 L193.2 330.0 L202.4 314.0 L211.6 330.0 L220.8 314.0 L230.0 330.0 L239.2 314.0 L248.4 330.0 L257.6 314.0 L266.8 330.0 L276.0 314.0 L286.0 322.0"/>
-            <path class="s-accent3" d="M334.0 322.0 L344.0 322.0 L353.2 330.0 L362.4 314.0 L371.6 330.0 L380.8 314.0 L390.0 330.0 L399.2 314.0 L408.4 330.0 L417.6 314.0 L426.8 330.0 L436.0 314.0 L446.0 322.0"/>
-            <path class="s-accent3" d="M494.0 322.0 L504.0 322.0 L513.2 330.0 L522.4 314.0 L531.6 330.0 L540.8 314.0 L550.0 330.0 L559.2 314.0 L568.4 330.0 L577.6 314.0 L586.8 330.0 L596.0 314.0 L606.0 322.0"/>
-            <path class="s-accent3" d="M70.0 322.0 L78.0 322.0 L84.7 329.0 L91.3 315.0 L98.0 329.0 L104.7 315.0 L111.3 329.0 L118.0 315.0 L126.0 322.0"/>
-            <path class="s-accent3" d="M654.0 322.0 L662.0 322.0 L673.7 329.0 L685.3 315.0 L697.0 329.0 L708.7 315.0 L720.3 329.0 L732.0 315.0 L740.0 322.0"/>
-          </g>
-
-          <!-- masses -->
-          <g class="pop pop--d1">
-            <rect x="126" y="162" width="48" height="36" rx="6" fill="var(--accent)" stroke="var(--ink)" stroke-width="2"/><text class="s-txt" x="137" y="186" fill="#fff">U<tspan font-size="9" dy="4">1</tspan></text>
-            <rect x="286" y="162" width="48" height="36" rx="6" fill="var(--accent)" stroke="var(--ink)" stroke-width="2"/><text class="s-txt" x="297" y="186" fill="#fff">U<tspan font-size="9" dy="4">2</tspan></text>
-            <rect x="446" y="162" width="48" height="36" rx="6" fill="var(--accent)" stroke="var(--ink)" stroke-width="2"/><text class="s-txt" x="457" y="186" fill="#fff">U<tspan font-size="9" dy="4">3</tspan></text>
-            <rect x="606" y="162" width="48" height="36" rx="6" fill="var(--accent)" stroke="var(--ink)" stroke-width="2"/><text class="s-txt" x="617" y="186" fill="#fff">U<tspan font-size="9" dy="4">4</tspan></text>
-          </g>
-          <g class="pop pop--d4">
-            <circle cx="150" cy="322" r="23" fill="var(--accent-3)" stroke="var(--ink)" stroke-width="2"/><text class="s-txt" x="137" y="328">V<tspan font-size="9" dy="4">1</tspan></text>
-            <circle cx="310" cy="322" r="23" fill="var(--accent-3)" stroke="var(--ink)" stroke-width="2"/><text class="s-txt" x="297" y="328">V<tspan font-size="9" dy="4">2</tspan></text>
-            <circle cx="470" cy="322" r="23" fill="var(--accent-3)" stroke="var(--ink)" stroke-width="2"/><text class="s-txt" x="457" y="328">V<tspan font-size="9" dy="4">3</tspan></text>
-            <circle cx="630" cy="322" r="23" fill="var(--accent-3)" stroke="var(--ink)" stroke-width="2"/><text class="s-txt" x="617" y="328">V<tspan font-size="9" dy="4">4</tspan></text>
-          </g>
-
-          <!-- unit cell box -->
-          <rect x="228" y="44" width="164" height="308" rx="10" fill="none"
-                stroke="#e11d48" stroke-width="2" stroke-dasharray="8 6"/>
-          <text x="234" y="368" font-family="'JetBrains Mono',monospace" font-size="11"
-                fill="#e11d48">unit cell</text>
-
-          <!-- boundary conditions -->
-          <g stroke="#e11d48" stroke-width="2.6" fill="#e11d48">
-            <line x1="96" y1="248" x2="60" y2="248"/>
-            <path d="M56 248 L70 242 L70 254 Z"/>
-            <line x1="716" y1="248" x2="752" y2="248"/>
-            <path d="M756 248 L742 242 L742 254 Z"/>
-          </g>
-          <text x="60" y="234" font-family="'JetBrains Mono',monospace" font-size="11" fill="#e11d48">transmission</text>
-          <text x="672" y="234" font-family="'JetBrains Mono',monospace" font-size="11" fill="#e11d48">reflective</text>
-
-          <!-- labels -->
-          <text class="s-mono" x="228" y="128">tilted springs &rarr; stretching</text>
-          <text class="s-mono" x="196" y="164">R&#771;&#8321; horizontal &rarr; bending</text>
-          <text class="s-mono" x="330" y="262" fill="var(--accent-3)">&#955;&#8322; coupling (weak)</text>
-          <text class="s-mono" x="196" y="348" fill="var(--accent-3)">R&#771;&#8322;</text>
-
-          <!-- Kelvin-Voigt inset -->
-          <g class="pop pop--d5">
-            <rect x="520" y="382" width="288" height="76" rx="12" fill="var(--bg-alt)"
-                  stroke="var(--border-2)" stroke-width="1.4"/>
-            <text class="s-txt s-txt--sm" x="534" y="404">resilin viscoelasticity:</text>
-            <text class="s-txt s-txt--sm" x="534" y="422">Kelvin&ndash;Voigt</text>
-            <path class="s-line" d="M600.0 404.0 L608.0 404.0 L615.0 411.0 L622.0 397.0 L629.0 411.0 L636.0 397.0 L643.0 411.0 L650.0 397.0 L657.0 411.0 L664.0 397.0 L672.0 404.0"/>
-            <g class="s-line">
-              <rect x="612" y="424" width="26" height="20" fill="var(--bg)"/>
-              <line x1="625" y1="434" x2="638" y2="434"/>
-              <line x1="625" y1="426" x2="625" y2="442"/>
-            </g>
-            <line class="s-line" x1="600" y1="404" x2="600" y2="434"/>
-            <line class="s-line" x1="600" y1="434" x2="612" y2="434"/>
-            <line class="s-line" x1="672" y1="404" x2="672" y2="434"/>
-            <line class="s-line" x1="638" y1="434" x2="672" y2="434"/>
-            <line class="s-line" x1="686" y1="419" x2="672" y2="419"/>
-            <line class="s-line" x1="586" y1="419" x2="600" y2="419"/>
-            <text class="s-mono" x="694" y="424">&#8741;</text>
-          </g>
+        <svg viewBox="0 0 1120 660" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="The published model: a truss chain of von Mises snapping units with tilted springs k to pinned supports, Kelvin-Voigt elements k1 and c to ground, and chain springs r1, coupled through springs k2 to a resonator chain of masses m1 joined by springs r2.">
+          <rect x="14" y="18" width="1092" height="404" rx="12" fill="rgba(255,90,31,.10)"/>
+          <rect x="14" y="422" width="1092" height="212" rx="12" fill="rgba(0,166,166,.12)"/>
+          <line x1="30" y1="250" x2="1090" y2="250" stroke="var(--ink)" stroke-width="1.6"/>
+          <line x1="30" y1="554" x2="1090" y2="554" stroke="var(--ink)" stroke-width="1.6"/>
+          <line x1="450" y1="110" x2="450" y2="390" stroke="var(--sub)" stroke-width="1" stroke-dasharray="3 4"/>
+          <line x1="740" y1="110" x2="740" y2="390" stroke="var(--sub)" stroke-width="1" stroke-dasharray="3 4"/>
+          <line x1="1030" y1="110" x2="1030" y2="390" stroke="var(--sub)" stroke-width="1" stroke-dasharray="3 4"/>
+          <path class="s-line" d="M300.0 250.0 L311.7 239.1 L330.5 233.8 L330.9 208.9 L355.8 210.2 L356.2 185.2 L381.1 186.6 L381.5 161.6 L406.5 162.9 L406.8 138.0 L431.8 139.3 L432.2 114.3 L450.0 110.0"/>
+          <path class="s-line" d="M590.0 250.0 L601.7 239.1 L620.5 233.8 L620.9 208.9 L645.8 210.2 L646.2 185.2 L671.1 186.6 L671.5 161.6 L696.5 162.9 L696.8 138.0 L721.8 139.3 L722.2 114.3 L740.0 110.0"/>
+          <path class="s-line" d="M880.0 250.0 L891.7 239.1 L910.5 233.8 L910.9 208.9 L935.8 210.2 L936.2 185.2 L961.1 186.6 L961.5 161.6 L986.5 162.9 L986.8 138.0 L1011.8 139.3 L1012.2 114.3 L1030.0 110.0"/>
+          <path class="s-line" d="M300.0 250.0 L311.7 260.9 L318.2 279.3 L343.2 278.0 L343.5 302.9 L368.5 301.6 L368.9 326.6 L393.8 325.2 L394.2 350.2 L419.1 348.9 L419.5 373.8 L444.4 372.5 L450.0 390.0"/>
+          <path class="s-line" d="M590.0 250.0 L601.7 260.9 L608.2 279.3 L633.2 278.0 L633.5 302.9 L658.5 301.6 L658.9 326.6 L683.8 325.2 L684.2 350.2 L709.1 348.9 L709.5 373.8 L734.4 372.5 L740.0 390.0"/>
+          <path class="s-line" d="M880.0 250.0 L891.7 260.9 L898.2 279.3 L923.2 278.0 L923.5 302.9 L948.5 301.6 L948.9 326.6 L973.8 325.2 L974.2 350.2 L999.1 348.9 L999.5 373.8 L1024.4 372.5 L1030.0 390.0"/>
+          <g><line x1="462" y1="92" x2="462" y2="128" stroke="var(--ink)" stroke-width="2"/><g stroke="var(--sub)" stroke-width="1.3"><line x1="462" y1="94" x2="473" y2="86"/><line x1="462" y1="105" x2="473" y2="97"/><line x1="462" y1="116" x2="473" y2="108"/><line x1="462" y1="127" x2="473" y2="119"/></g><rect x="443" y="103" width="14" height="14" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.8"/><circle cx="450" cy="110" r="2.6" fill="var(--ink)"/></g>
+          <g><line x1="462" y1="372" x2="462" y2="408" stroke="var(--ink)" stroke-width="2"/><g stroke="var(--sub)" stroke-width="1.3"><line x1="462" y1="374" x2="473" y2="366"/><line x1="462" y1="385" x2="473" y2="377"/><line x1="462" y1="396" x2="473" y2="388"/><line x1="462" y1="407" x2="473" y2="399"/></g><rect x="443" y="383" width="14" height="14" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.8"/><circle cx="450" cy="390" r="2.6" fill="var(--ink)"/></g>
+          <g><line x1="752" y1="92" x2="752" y2="128" stroke="var(--ink)" stroke-width="2"/><g stroke="var(--sub)" stroke-width="1.3"><line x1="752" y1="94" x2="763" y2="86"/><line x1="752" y1="105" x2="763" y2="97"/><line x1="752" y1="116" x2="763" y2="108"/><line x1="752" y1="127" x2="763" y2="119"/></g><rect x="733" y="103" width="14" height="14" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.8"/><circle cx="740" cy="110" r="2.6" fill="var(--ink)"/></g>
+          <g><line x1="752" y1="372" x2="752" y2="408" stroke="var(--ink)" stroke-width="2"/><g stroke="var(--sub)" stroke-width="1.3"><line x1="752" y1="374" x2="763" y2="366"/><line x1="752" y1="385" x2="763" y2="377"/><line x1="752" y1="396" x2="763" y2="388"/><line x1="752" y1="407" x2="763" y2="399"/></g><rect x="733" y="383" width="14" height="14" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.8"/><circle cx="740" cy="390" r="2.6" fill="var(--ink)"/></g>
+          <g><line x1="1042" y1="92" x2="1042" y2="128" stroke="var(--ink)" stroke-width="2"/><g stroke="var(--sub)" stroke-width="1.3"><line x1="1042" y1="94" x2="1053" y2="86"/><line x1="1042" y1="105" x2="1053" y2="97"/><line x1="1042" y1="116" x2="1053" y2="108"/><line x1="1042" y1="127" x2="1053" y2="119"/></g><rect x="1023" y="103" width="14" height="14" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.8"/><circle cx="1030" cy="110" r="2.6" fill="var(--ink)"/></g>
+          <g><line x1="1042" y1="372" x2="1042" y2="408" stroke="var(--ink)" stroke-width="2"/><g stroke="var(--sub)" stroke-width="1.3"><line x1="1042" y1="374" x2="1053" y2="366"/><line x1="1042" y1="385" x2="1053" y2="377"/><line x1="1042" y1="396" x2="1053" y2="388"/><line x1="1042" y1="407" x2="1053" y2="399"/></g><rect x="1023" y="383" width="14" height="14" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="1.8"/><circle cx="1030" cy="390" r="2.6" fill="var(--ink)"/></g>
+          <g><line x1="85" y1="170" x2="85" y2="222" stroke="var(--ink)" stroke-width="2.4"/><g stroke="var(--sub)" stroke-width="1.3"><line x1="85" y1="170" x2="74" y2="162"/><line x1="85" y1="180" x2="74" y2="172"/><line x1="85" y1="190" x2="74" y2="182"/><line x1="85" y1="200" x2="74" y2="192"/><line x1="85" y1="210" x2="74" y2="202"/><line x1="85" y1="220" x2="74" y2="212"/></g></g>
+          <g><line x1="85" y1="278" x2="85" y2="330" stroke="var(--ink)" stroke-width="2.4"/><g stroke="var(--sub)" stroke-width="1.3"><line x1="85" y1="278" x2="74" y2="270"/><line x1="85" y1="288" x2="74" y2="280"/><line x1="85" y1="298" x2="74" y2="290"/><line x1="85" y1="308" x2="74" y2="300"/><line x1="85" y1="318" x2="74" y2="310"/><line x1="85" y1="328" x2="74" y2="320"/></g></g>
+          <path class="s-line" d="M85.0 196.0 L95.0 196.0 L104.0 204.0 L113.0 188.0 L122.0 204.0 L131.0 188.0 L140.0 204.0 L149.0 188.0 L158.0 204.0 L167.0 188.0 L176.0 204.0 L185.0 188.0 L195.0 196.0"/>
+          <g stroke="var(--ink)" stroke-width="2" fill="none"><line x1="85" y1="304" x2="111" y2="304"/><rect x="111" y="287" width="42" height="34" fill="var(--bg-alt)"/><line x1="141" y1="291" x2="141" y2="317" stroke-width="2.6"/><line x1="141" y1="304" x2="195" y2="304"/></g>
+          <line x1="195" y1="196" x2="195" y2="304" stroke="var(--ink)" stroke-width="2.4"/>
+          <line x1="195" y1="250" x2="282" y2="250" stroke="var(--ink)" stroke-width="2.4"/>
+          <g><line x1="375" y1="170" x2="375" y2="222" stroke="var(--ink)" stroke-width="2.4"/><g stroke="var(--sub)" stroke-width="1.3"><line x1="375" y1="170" x2="364" y2="162"/><line x1="375" y1="180" x2="364" y2="172"/><line x1="375" y1="190" x2="364" y2="182"/><line x1="375" y1="200" x2="364" y2="192"/><line x1="375" y1="210" x2="364" y2="202"/><line x1="375" y1="220" x2="364" y2="212"/></g></g>
+          <g><line x1="375" y1="278" x2="375" y2="330" stroke="var(--ink)" stroke-width="2.4"/><g stroke="var(--sub)" stroke-width="1.3"><line x1="375" y1="278" x2="364" y2="270"/><line x1="375" y1="288" x2="364" y2="280"/><line x1="375" y1="298" x2="364" y2="290"/><line x1="375" y1="308" x2="364" y2="300"/><line x1="375" y1="318" x2="364" y2="310"/><line x1="375" y1="328" x2="364" y2="320"/></g></g>
+          <path class="s-line" d="M375.0 196.0 L385.0 196.0 L394.0 204.0 L403.0 188.0 L412.0 204.0 L421.0 188.0 L430.0 204.0 L439.0 188.0 L448.0 204.0 L457.0 188.0 L466.0 204.0 L475.0 188.0 L485.0 196.0"/>
+          <g stroke="var(--ink)" stroke-width="2" fill="none"><line x1="375" y1="304" x2="401" y2="304"/><rect x="401" y="287" width="42" height="34" fill="var(--bg-alt)"/><line x1="431" y1="291" x2="431" y2="317" stroke-width="2.6"/><line x1="431" y1="304" x2="485" y2="304"/></g>
+          <line x1="485" y1="196" x2="485" y2="304" stroke="var(--ink)" stroke-width="2.4"/>
+          <line x1="485" y1="250" x2="572" y2="250" stroke="var(--ink)" stroke-width="2.4"/>
+          <g><line x1="665" y1="170" x2="665" y2="222" stroke="var(--ink)" stroke-width="2.4"/><g stroke="var(--sub)" stroke-width="1.3"><line x1="665" y1="170" x2="654" y2="162"/><line x1="665" y1="180" x2="654" y2="172"/><line x1="665" y1="190" x2="654" y2="182"/><line x1="665" y1="200" x2="654" y2="192"/><line x1="665" y1="210" x2="654" y2="202"/><line x1="665" y1="220" x2="654" y2="212"/></g></g>
+          <g><line x1="665" y1="278" x2="665" y2="330" stroke="var(--ink)" stroke-width="2.4"/><g stroke="var(--sub)" stroke-width="1.3"><line x1="665" y1="278" x2="654" y2="270"/><line x1="665" y1="288" x2="654" y2="280"/><line x1="665" y1="298" x2="654" y2="290"/><line x1="665" y1="308" x2="654" y2="300"/><line x1="665" y1="318" x2="654" y2="310"/><line x1="665" y1="328" x2="654" y2="320"/></g></g>
+          <path class="s-line" d="M665.0 196.0 L675.0 196.0 L684.0 204.0 L693.0 188.0 L702.0 204.0 L711.0 188.0 L720.0 204.0 L729.0 188.0 L738.0 204.0 L747.0 188.0 L756.0 204.0 L765.0 188.0 L775.0 196.0"/>
+          <g stroke="var(--ink)" stroke-width="2" fill="none"><line x1="665" y1="304" x2="691" y2="304"/><rect x="691" y="287" width="42" height="34" fill="var(--bg-alt)"/><line x1="721" y1="291" x2="721" y2="317" stroke-width="2.6"/><line x1="721" y1="304" x2="775" y2="304"/></g>
+          <line x1="775" y1="196" x2="775" y2="304" stroke="var(--ink)" stroke-width="2.4"/>
+          <line x1="775" y1="250" x2="862" y2="250" stroke="var(--ink)" stroke-width="2.4"/>
+          <path class="s-line" d="M318.0 250.0 L330.0 250.0 L344.3 260.0 L358.6 240.0 L372.9 260.0 L387.2 240.0 L401.5 260.0 L415.8 240.0 L430.1 260.0 L444.4 240.0 L458.7 260.0 L473.0 240.0 L485.0 250.0"/>
+          <path class="s-line" d="M608.0 250.0 L620.0 250.0 L634.3 260.0 L648.6 240.0 L662.9 260.0 L677.2 240.0 L691.5 260.0 L705.8 240.0 L720.1 260.0 L734.4 240.0 L748.7 260.0 L763.0 240.0 L775.0 250.0"/>
+          <path class="s-line" d="M898.0 250.0 L908.0 250.0 L923.3 260.0 L938.7 240.0 L954.0 260.0 L969.3 240.0 L984.7 260.0 L1000.0 240.0 L1010.0 250.0"/>
+          <path class="s-line" d="M40.0 250.0 L50.0 250.0 L72.5 260.0 L95.0 240.0 L117.5 260.0 L140.0 240.0 L162.5 260.0 L185.0 240.0 L195.0 250.0"/>
+          <line x1="300" y1="268" x2="300" y2="506" stroke="var(--ink)" stroke-width="2.4"/>
+          <line x1="590" y1="268" x2="590" y2="506" stroke="var(--ink)" stroke-width="2.4"/>
+          <line x1="880" y1="268" x2="880" y2="506" stroke="var(--ink)" stroke-width="2.4"/>
+          <path class="s-accent3" d="M300.0 506.0 L310.0 506.0 L320.9 514.0 L331.8 498.0 L342.6 514.0 L353.5 498.0 L364.4 514.0 L375.2 498.0 L386.1 514.0 L397.0 498.0 L407.0 506.0" stroke-width="2.4"/>
+          <line x1="407" y1="506" x2="407" y2="526" stroke="var(--ink)" stroke-width="2.4"/>
+          <rect x="407" y="526" width="46" height="56" rx="4" fill="var(--accent-3)" stroke="var(--ink)" stroke-width="2"/>
+          <path class="s-accent3" d="M590.0 506.0 L600.0 506.0 L610.9 514.0 L621.8 498.0 L632.6 514.0 L643.5 498.0 L654.4 514.0 L665.2 498.0 L676.1 514.0 L687.0 498.0 L697.0 506.0" stroke-width="2.4"/>
+          <line x1="697" y1="506" x2="697" y2="526" stroke="var(--ink)" stroke-width="2.4"/>
+          <rect x="697" y="526" width="46" height="56" rx="4" fill="var(--accent-3)" stroke="var(--ink)" stroke-width="2"/>
+          <path class="s-accent3" d="M880.0 506.0 L890.0 506.0 L900.9 514.0 L911.8 498.0 L922.6 514.0 L933.5 498.0 L944.4 514.0 L955.2 498.0 L966.1 514.0 L977.0 498.0 L987.0 506.0" stroke-width="2.4"/>
+          <line x1="987" y1="506" x2="987" y2="526" stroke="var(--ink)" stroke-width="2.4"/>
+          <rect x="987" y="526" width="46" height="56" rx="4" fill="var(--accent-3)" stroke="var(--ink)" stroke-width="2"/>
+          <path class="s-accent3" d="M453.0 554.0 L465.0 554.0 L487.0 563.0 L509.0 545.0 L531.0 563.0 L553.0 545.0 L575.0 563.0 L597.0 545.0 L619.0 563.0 L641.0 545.0 L663.0 563.0 L685.0 545.0 L697.0 554.0" stroke-width="2.4"/>
+          <path class="s-accent3" d="M743.0 554.0 L755.0 554.0 L777.0 563.0 L799.0 545.0 L821.0 563.0 L843.0 545.0 L865.0 563.0 L887.0 545.0 L909.0 563.0 L931.0 545.0 L953.0 563.0 L975.0 545.0 L987.0 554.0" stroke-width="2.4"/>
+          <path class="s-accent3" d="M1033.0 554.0 L1043.0 554.0 L1055.8 563.0 L1068.7 545.0 L1081.5 563.0 L1094.3 545.0 L1107.2 563.0 L1120.0 545.0 L1130.0 554.0" stroke-width="2.4"/>
+          <path class="s-accent3" d="M40.0 554.0 L52.0 554.0 L94.9 563.0 L137.8 545.0 L180.6 563.0 L223.5 545.0 L266.4 563.0 L309.2 545.0 L352.1 563.0 L395.0 545.0 L407.0 554.0" stroke-width="2.4"/>
+          <circle cx="300" cy="250" r="18" fill="var(--accent)" stroke="var(--ink)" stroke-width="2"/>
+          <circle cx="590" cy="250" r="18" fill="var(--accent)" stroke="var(--ink)" stroke-width="2"/>
+          <circle cx="880" cy="250" r="18" fill="var(--accent)" stroke="var(--ink)" stroke-width="2"/>
+          <g stroke="var(--ink)" stroke-width="1.8" fill="var(--ink)"><line x1="270" y1="212" x2="270" y2="228"/><line x1="270" y1="220" x2="298" y2="220"/><path d="M304 220 L294 215 L294 225 Z"/></g>
+          <text class="s-txt" x="248" y="204" font-style="italic">u<tspan font-size="10" dy="4">j&minus;1</tspan></text>
+          <g stroke="var(--ink)" stroke-width="1.8" fill="var(--ink)"><line x1="560" y1="212" x2="560" y2="228"/><line x1="560" y1="220" x2="588" y2="220"/><path d="M594 220 L584 215 L584 225 Z"/></g>
+          <text class="s-txt" x="538" y="204" font-style="italic">u<tspan font-size="10" dy="4">j</tspan></text>
+          <g stroke="var(--ink)" stroke-width="1.8" fill="var(--ink)"><line x1="850" y1="212" x2="850" y2="228"/><line x1="850" y1="220" x2="878" y2="220"/><path d="M884 220 L874 215 L874 225 Z"/></g>
+          <text class="s-txt" x="828" y="204" font-style="italic">u<tspan font-size="10" dy="4">j+1</tspan></text>
+          <g stroke="var(--ink)" stroke-width="1.8" fill="var(--ink)"><line x1="422" y1="598" x2="422" y2="614"/><line x1="422" y1="606" x2="446" y2="606"/><path d="M452 606 L442 601 L442 611 Z"/></g>
+          <text class="s-txt" x="456" y="612" font-style="italic">v<tspan font-size="10" dy="4">j&minus;1</tspan></text>
+          <g stroke="var(--ink)" stroke-width="1.8" fill="var(--ink)"><line x1="712" y1="598" x2="712" y2="614"/><line x1="712" y1="606" x2="736" y2="606"/><path d="M742 606 L732 601 L732 611 Z"/></g>
+          <text class="s-txt" x="746" y="612" font-style="italic">v<tspan font-size="10" dy="4">j</tspan></text>
+          <g stroke="var(--ink)" stroke-width="1.8" fill="var(--ink)"><line x1="1002" y1="598" x2="1002" y2="614"/><line x1="1002" y1="606" x2="1026" y2="606"/><path d="M1032 606 L1022 601 L1022 611 Z"/></g>
+          <text class="s-txt" x="1036" y="612" font-style="italic">v<tspan font-size="10" dy="4">j+1</tspan></text>
+          <g stroke="var(--ink)" stroke-width="2" fill="var(--ink)"><line x1="1068" y1="110" x2="1068" y2="390"/><path d="M1068 104 L1063 118 L1073 118 Z"/><path d="M1068 396 L1063 382 L1073 382 Z"/></g>
+          <text class="s-txt" x="1082" y="262" font-style="italic" transform="rotate(-90 1082 262)">2w<tspan font-size="10" dy="4">0</tspan></text>
+          <path d="M740 144 A34 34 0 0 0 714.5 132.4" fill="none" stroke="var(--ink)" stroke-width="1.5"/>
+          <text class="s-txt s-txt--sm" x="726" y="168" font-style="italic">&#945;<tspan font-size="9" dy="3">0</tspan></text>
+          <path d="M740 356 A34 34 0 0 1 714.5 367.6" fill="none" stroke="var(--ink)" stroke-width="1.5"/>
+          <text class="s-txt s-txt--sm" x="726" y="350" font-style="italic">&#945;<tspan font-size="9" dy="3">0</tspan></text>
+          <rect x="352" y="66" width="416" height="524" rx="8" fill="none" stroke="#e11d48" stroke-width="2.2" stroke-dasharray="9 7"/>
+          <text x="486" y="56" font-family="'JetBrains Mono',monospace" font-size="13" fill="#e11d48">Unit Cell</text>
+          <g stroke="#e11d48" stroke-width="6" fill="#e11d48"><line x1="132" y1="250" x2="66" y2="250"/><path d="M52 250 L74 237 L74 263 Z"/></g>
+          <path d="M1048 224 A28 28 0 1 1 1048 276" fill="none" stroke="#e11d48" stroke-width="6"/>
+          <path d="M1042 284 L1058 268 L1036 264 Z" fill="#e11d48"/>
+          <g stroke="#e11d48" stroke-width="6" fill="#e11d48"><line x1="132" y1="554" x2="66" y2="554"/><path d="M52 554 L74 541 L74 567 Z"/></g>
+          <path d="M1048 528 A28 28 0 1 1 1048 580" fill="none" stroke="#e11d48" stroke-width="6"/>
+          <path d="M1042 588 L1058 572 L1036 568 Z" fill="#e11d48"/>
+          <circle cx="150" cy="250" r="3.4" fill="var(--ink)"/>
+          <circle cx="1012" cy="250" r="3.4" fill="var(--ink)"/>
+          <circle cx="164" cy="250" r="3.4" fill="var(--ink)"/>
+          <circle cx="1026" cy="250" r="3.4" fill="var(--ink)"/>
+          <circle cx="178" cy="250" r="3.4" fill="var(--ink)"/>
+          <circle cx="1040" cy="250" r="3.4" fill="var(--ink)"/>
+          <circle cx="150" cy="554" r="3.4" fill="var(--ink)"/>
+          <circle cx="1012" cy="554" r="3.4" fill="var(--ink)"/>
+          <circle cx="164" cy="554" r="3.4" fill="var(--ink)"/>
+          <circle cx="1026" cy="554" r="3.4" fill="var(--ink)"/>
+          <circle cx="178" cy="554" r="3.4" fill="var(--ink)"/>
+          <circle cx="1040" cy="554" r="3.4" fill="var(--ink)"/>
+          <text class="s-txt" x="34" y="44" font-weight="600">Truss Chain</text>
+          <text class="s-txt" x="34" y="620" font-weight="600">Resonator Chain</text>
+          <text class="s-txt" x="646" y="176" font-style="italic" font-weight="600">k</text>
+          <text class="s-txt" x="646" y="342" font-style="italic" font-weight="600">k</text>
+          <text class="s-txt" x="417" y="176" font-style="italic" font-weight="600">k<tspan font-size="10" dy="4">1</tspan></text>
+          <text class="s-txt" x="413" y="352" font-style="italic" font-weight="600">c</text>
+          <text class="s-txt" x="686" y="234" font-style="italic" font-weight="600">r<tspan font-size="10" dy="4">1</tspan></text>
+          <text class="s-txt" x="598" y="288" font-style="italic" font-weight="600">m</text>
+          <text class="s-txt" x="636" y="490" font-style="italic" font-weight="600">k<tspan font-size="10" dy="4">2</tspan></text>
+          <text class="s-txt" x="706" y="514" font-style="italic" font-weight="600">m<tspan font-size="10" dy="4">1</tspan></text>
+          <text class="s-txt" x="550" y="588" font-style="italic" font-weight="600">r<tspan font-size="10" dy="4">2</tspan></text>
         </svg>
       </div>
       <div class="eqn-block">
@@ -351,21 +349,30 @@
           &minus; R&#771;<sub>2</sub>(V<sub>j&minus;1</sub> &minus; 2V<sub>j</sub> + V<sub>j+1</sub>) = 0
         </div>
         <div class="eqn-note">
-          Six nondimensional parameters: R&#771;<sub>1</sub>, R&#771;<sub>2</sub>,
-          &lambda;<sub>1</sub>, &lambda;<sub>2</sub>, M, &zeta;
+          &lambda;<sub>1</sub> &larr; k<sub>1</sub> &nbsp;&middot;&nbsp; &zeta; &larr; c &nbsp;&middot;&nbsp;
+          &lambda;<sub>2</sub> &larr; k<sub>2</sub> &nbsp;&middot;&nbsp; R&#771;<sub>1</sub> &larr; r<sub>1</sub>
+          &nbsp;&middot;&nbsp; R&#771;<sub>2</sub> &larr; r<sub>2</sub> &nbsp;&middot;&nbsp; M &larr; m/m<sub>1</sub>
         </div>
       </div>
       <p class="fig__cap">
-        <b>Figure 2.</b> The tymbal membrane is represented by a chain of lumped-parameter <b>von Mises
-        trusses</b> (orange). The <i>tilted</i> springs account for stretching of the membrane and the
-        <i>horizontal</i> springs for its bending; the snapping units also carry a Kelvin&ndash;Voigt
-        element representing the viscoelasticity of the chitinous resilin. That truss chain is coupled to
-        a linear spring&ndash;mass <b>resonator array</b> (blue), which stands in for the abdominal cavity
-        and, more generally, for every resonating structure in the cicada's body. The red dashed box marks
-        one unit cell; red arrows mark the boundary conditions used in simulation &mdash; transmission at
-        the left end, reflective at the right. Coupling between the two chains (&lambda;<sub>2</sub>) is
-        deliberately <i>weak</i>, while coupling within each chain (R&#771;<sub>1</sub>,
-        R&#771;<sub>2</sub>) is larger so that waves can propagate.
+        <b>Figure 2.</b> Each unit of the <b>truss chain</b> (orange) is a mass <i>m</i> that moves
+        <i>along</i> the chain by <i>u<sub>j</sub></i>, restrained by two tilted springs <i>k</i> anchored
+        at pinned supports set at angle <i>&alpha;<sub>0</sub></i> and separated vertically by
+        <i>2w<sub>0</sub></i>. That inclined geometry is what makes the unit snap: it is a von Mises truss,
+        and the tilted springs carry the membrane's stretching. A Kelvin&ndash;Voigt element &mdash; spring
+        <i>k<sub>1</sub></i> in parallel with dashpot <i>c</i>, both grounded &mdash; supplies the
+        viscoelasticity of the chitinous resilin. Neighbouring masses are joined along the chain by springs
+        <i>r<sub>1</sub></i>, which carry the bending.
+      </p>
+      <p class="fig__cap" style="padding-top:0">
+        Each truss mass is tied through a rigid link and a spring <i>k<sub>2</sub></i> to a mass
+        <i>m<sub>1</sub></i> of the <b>resonator chain</b> (blue), whose own neighbours are joined by
+        springs <i>r<sub>2</sub></i>. The red dashed box marks one unit cell. Red arrows mark the boundary
+        conditions used in simulation: <b>transmission</b> at the left end (straight arrows) and
+        <b>reflection</b> at the right (curved arrows). Coupling between the chains,
+        <i>k<sub>2</sub></i>&nbsp;&rarr;&nbsp;&lambda;<sub>2</sub>, is deliberately weak so the resonator
+        filters the output without overwriting the truss dynamics; coupling within each chain
+        (<i>r<sub>1</sub></i>, <i>r<sub>2</sub></i>) is larger so that waves can propagate.
       </p>
     </div>
 
