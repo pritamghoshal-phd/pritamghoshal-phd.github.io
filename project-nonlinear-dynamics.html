@@ -1,138 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Exploiting Bistability and Viscoelasticity – Pritam Ghoshal</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    :root{--bg:#f7f4ef;--bg-alt:#edeae3;--bg-card:#ffffff;--border:#dedad3;--text:#1c1a17;--text-muted:#6b6560;--text-sub:#9a9590;--accent:#1e6b5e;--accent-lt:rgba(30,107,94,0.09);--gold:#b5831f;--shadow-sm:0 1px 3px rgba(0,0,0,0.07),0 1px 2px rgba(0,0,0,0.04);--shadow-md:0 4px 16px rgba(0,0,0,0.07),0 2px 4px rgba(0,0,0,0.04);}
-    *{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
-    body{font-family:'Outfit',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
-    a{color:inherit;text-decoration:none;}
-    .max-width{max-width:1120px;margin:0 auto;padding:0 1.5rem;}
-
-    .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(20px);background:rgba(247,244,239,0.92);border-bottom:1px solid var(--border);}
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:58px;}
-    .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--text);}
-    .nav-links{display:flex;gap:1.25rem;font-size:0.875rem;}
-    .nav-links a{color:var(--text-muted);padding-bottom:2px;border-bottom:1px solid transparent;transition:color .2s,border-color .2s;}
-    .nav-links a:hover{color:var(--accent);border-color:var(--accent);}
-
-    .hero{padding:4.5rem 0 3rem;background:radial-gradient(ellipse at 10% 0%,rgba(30,107,94,0.12),transparent 55%),radial-gradient(ellipse at 90% 100%,rgba(181,131,31,0.08),transparent 55%),var(--bg);border-bottom:1px solid var(--border);}
-    .hero-inner{max-width:800px;}
-    .eyebrow{text-transform:uppercase;letter-spacing:0.18em;font-size:0.7rem;color:var(--gold);font-weight:600;margin-bottom:0.6rem;}
-    .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);line-height:1.1;font-weight:500;margin-bottom:0.5rem;}
-    .hero-sub{color:var(--text-muted);font-size:0.95rem;margin-bottom:0.75rem;line-height:1.7;}
-    .hero-meta{font-size:0.83rem;color:var(--text-muted);margin-bottom:1.25rem;}
-    .pill-row{display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:1rem;}
-    .pill{border-radius:999px;border:1px solid var(--border);padding:0.35rem 0.85rem;font-size:0.78rem;background:var(--bg-card);}
-    .btn-ghost{border-radius:999px;border:1px solid var(--border);padding:0.5rem 1.1rem;font-size:0.85rem;display:inline-flex;align-items:center;gap:0.4rem;background:var(--bg-card);cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;}
-    .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
-
-    .section{padding:2.75rem 0;}
-    .section-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:500;margin-bottom:0.75rem;}
-    .section-body{font-size:0.9rem;color:var(--text-muted);max-width:800px;line-height:1.8;}
-    .section-body p+p{margin-top:0.85rem;}
-
-    .two-column{display:grid;gap:2rem;max-width:900px;}
-    @media(min-width:768px){.two-column{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);}}
-    .card{border-radius:1.2rem;border:1px solid var(--border);background:var(--bg-card);padding:1.5rem 1.4rem;font-size:0.875rem;color:var(--text-muted);box-shadow:var(--shadow-sm);}
-    .card h3{font-size:1rem;font-weight:600;margin-bottom:0.65rem;color:var(--text);}
-    .card p+p{margin-top:0.65rem;}
-    .card ul{margin-top:0.6rem;padding-left:1.1rem;}
-    .card li{margin-bottom:0.3rem;}
-
-    footer{border-top:1px solid var(--border);padding:1.75rem 1.5rem 2.5rem;font-size:0.8rem;color:var(--text-sub);background:var(--bg-alt);margin-top:2rem;}
-    footer .max-width{display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.75rem;align-items:center;}
-    .reveal{opacity:0;transform:translateY(36px);transition:opacity .8s ease-out,transform .8s ease-out;}
-    .reveal--visible{opacity:1;transform:translateY(0);}
-  </style>
+<meta charset="UTF-8" />
+<title>Bistability &amp; Viscoelasticity in Reservoir Computing — Pritam Ghoshal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site.css" />
 </head>
 <body>
-  <header class="nav">
-    <div class="max-width nav-inner">
-      <div class="nav-logo">Pritam Ghoshal</div>
-      <nav class="nav-links">
-        <a href="index.html#overview">Overview</a>
-        <a href="projects.html">All projects</a>
-        <a href="index.html#about">Background</a>
-        <a href="index.html#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
+<header class="nav">
+  <div class="nav__in">
+    <a href="index.html" class="nav__logo">Pritam <span>Ghoshal</span></a>
+    <nav class="nav__links">
+      <a href="index.html#about">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="index.html#lab">Lab</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
 
-  <section class="hero">
-    <div class="max-width hero-inner reveal">
-      <div class="eyebrow">Project</div>
-      <h1 class="hero-title">Exploiting Bistability and Viscoelasticity in Reservoir Computing</h1>
-      <p class="hero-sub">Demonstrating the efficacy of nonlinear viscoelastic oscillator chain as a reservoir computer and studying the effects of viscoelasticity which introduces fading memory in the system.</p>
-      <div class="hero-meta"><strong>Role:</strong> Lead researcher · <strong>Context:</strong> PhD research in mechanical engineering</div>
-      <div class="pill-row">
-        <span class="pill">Dynamics & vibration</span>
-        <span class="pill">Numerical simulation</span>
-        <span class="pill">MATLAB</span>
-        <span class="pill">Electronics</span>
-      </div>
-      <a href="projects.html" class="btn-ghost">← Back to project list</a>
+<section class="page-header">
+  <div class="wrap hero-inner reveal">
+    <div class="eyebrow">Project · Nonlinear Dynamics 2025</div>
+    <h1 class="page-title">Exploiting bistability and viscoelasticity in <em>reservoir computing</em></h1>
+    <p class="hero-sub">
+      Mechanical systems have no delay line. Viscoelasticity is the only way a structure can remember —
+      so I built a reservoir computer around it.
+    </p>
+    <div class="hero-meta">
+      <strong>Role:</strong> Lead author ·
+      <strong>Co-authors:</strong> J. M. Gibert, A. K. Bajaj
     </div>
-  </section>
+    <div class="pill-row">
+      <span class="tag">Reservoir computing</span>
+      <span class="tag">Bistable chains</span>
+      <span class="tag">Melnikov analysis</span>
+      <span class="tag">MATLAB</span>
+      <span class="tag">Electronics</span>
+    </div>
+    <a href="projects.html" class="btn">← Back to projects</a>
+  </div>
+</section>
 
-  <section class="section">
-    <div class="max-width section-body reveal">
-      <h2 class="section-title">Overview</h2>
-      <p>Reservoir Computing utilizes the inherent nonlinear dynamics of a mechanical system to perform intelligent computations—for example time series prediction or logic operations. The success of a reservoir computer depends on its ability to address the memory-nonlinearity trade-off. In this project, we investigate the role of bistability (which introduces nonlinearity) and viscoelasticity (which introduces fading memory) in enhancing the performance of the reservoir. We show that by tuning the viscoelastic properties of the system, optimal reservoir performance can be extracted based on the task at hand.</p>
-      <p>A reservoir computer was implemented using a chain of bistable mechanical oscillators capable of large amplitude oscillations between two stable states, which introduces strong nonlinearity. The oscillators were coupled to a viscoelastic element (standard linear solid element) that introduces short-term memory. The governing equations were derived from first principles and subsequently nondimensionalized. The system was numerically simulated in MATLAB using a time-stepping scheme, and parameter ranges were identified for optimal reservoir performance using the information rate as the metric for discrete tasks and nonlinear mean square error for continuous tasks.</p>
-    </div>
-  </section>
+<section class="sec">
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">The problem</h2>
+    <p>Reservoir computing lets a physical system do the heavy lifting of machine learning. Instead of
+      training a deep network, you feed a signal into a nonlinear dynamical system, let its own physics
+      transform the input into a rich high-dimensional response, and train only a simple linear readout.
+      The appeal for mechanical engineering is obvious: computation with almost no power and no processor.</p>
+    <p>But a reservoir has to satisfy one hard requirement — it must <strong>retain recent inputs while
+      gradually forgetting older ones</strong>. In electrical implementations this fading memory is trivial
+      to arrange with a delay line. In a mechanical system there is no equivalent. Viscoelasticity is the
+      only available mechanism, because a viscoelastic structure's state depends not just on how it is
+      deformed now but on how it has been deformed.</p>
+  </div>
+</section>
 
-  <section class="section">
-    <div class="max-width two-column">
-      <div class="card reveal">
-        <h3>Methods & tools</h3>
-        <p>The modeling work combined analytical and numerical techniques. I started with the equations of motion for the structure, including relevant nonlinear terms, and derived a form suitable for time-domain simulation.</p>
-        <p>I implemented the model in MATLAB, using:</p>
-        <ul>
-          <li>Time integration schemes for stiff and non-stiff systems</li>
-          <li>Parameter sweeps to explore frequency response and stability</li>
-          <li>Post-processing scripts to generate response curves and phase portraits</li>
-        </ul>
-        <p>Where appropriate, I linearized the model about operating points to compare linear and nonlinear predictions and relate results back to classical vibration theory.</p>
-      </div>
-      <div class="card reveal">
-        <h3>My role</h3>
-        <p>I led the modeling and simulation effort, including:</p>
-        <ul>
-          <li>Defining the modeling scope and assumptions</li>
-          <li>Deriving and implementing the nonlinear equations of motion</li>
-          <li>Designing parameter studies and organizing simulation campaigns</li>
-          <li>Comparing predictions with experimental data and refining the model</li>
-        </ul>
-        <p>I also prepared technical figures and documentation so that the workflow could be reused and extended in related studies.</p>
-      </div>
+<section class="sec sec--alt">
+  <div class="wrap two-col">
+    <div class="card reveal">
+      <h3>The reservoir</h3>
+      <p>The unit cell is a bistable von Mises truss coupled to a standard linear solid element. Chained
+        together, these form the reservoir.</p>
+      <ul>
+        <li>Bistability supplies strong nonlinearity through snap-through between wells</li>
+        <li>The standard linear solid supplies fading memory with a tunable relaxation time</li>
+        <li>Governing equations derived from first principles</li>
+        <li>Nondimensionalised in terms of the Deborah number and dimensionless stiffness and viscoelastic parameters</li>
+      </ul>
+      <p>Nondimensionalising early was the decision that made the rest tractable — it collapsed a large
+        parameter space into the handful of ratios that actually control behaviour.</p>
     </div>
-  </section>
+    <div class="card reveal">
+      <h3>Evaluating it</h3>
+      <p>Performance was measured against tasks, not aesthetics:</p>
+      <ul>
+        <li><strong>Information rate</strong> for discrete tasks such as logic operations</li>
+        <li><strong>Normalised mean-square error</strong> for continuous prediction tasks</li>
+        <li><strong>Memory capacity</strong> and autocorrelation as direct measures of short-term memory</li>
+        <li>Largest Lyapunov exponent to detect when the reservoir had gone chaotic</li>
+      </ul>
+      <p>Parameter sweeps mapped how performance varies with viscoelastic and excitation parameters,
+        including the finding that near resonance a monostable cell outperforms a bistable one.</p>
+    </div>
+  </div>
+</section>
 
-  <section class="section">
-    <div class="max-width section-body reveal">
-      <h2 class="section-title">Results & impact</h2>
-      <p>The project highlighted the ability of tuning viscoelastic properties of a reservoir to optimize performance for different computational tasks. The memory–nonlinearity tradeoff was clearly demonstrated, showing a contrasting influence of nonlinearity and viscoelasticity on reservoir performance.</p>
-      <p>These insights informed design recommendations for the structure, such as how to adjust stiffness and mass to avoid undesirable operating regimes. More broadly, the modeling approach can be adapted to other systems with similar nonlinear characteristics.</p>
+<section class="sec">
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">The trade-off, made explicit</h2>
+    <p>The central result is that memory and nonlinearity pull against each other, and the Deborah number
+      sets where you sit between them. Increase the relaxation time and memory improves while the useful
+      nonlinearity washes out; shorten it and the reverse happens. There is no universally optimal
+      setting — <strong>the right balance depends on the task</strong>, and the paper shows how to tune
+      toward it deliberately rather than by search.</p>
+    <p>Push too far and the unit cells become chaotic, at which point prediction collapses entirely. To
+      characterise that boundary analytically rather than empirically, I developed a framework based on
+      <strong>Melnikov's method</strong> that predicts the transition from optimal to poor reservoir
+      performance. It gives a design criterion instead of a warning after the fact.</p>
+    <p>A physical breadboard implementation was built to check that the behaviour survives contact with
+      real hardware, and it reproduced logic operations with reasonable fidelity.</p>
+    <div class="proj-links" style="margin-top:1.6rem">
+      <a class="btn btn--solid" href="index.html#lab">Try the interactive double well →</a>
+      <a class="btn" href="https://scholar.google.com/citations?user=1Nab30AAAAAJ&amp;hl=en" target="_blank" rel="noopener">Scholar ↗</a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer>
-    <div class="max-width">
-      <div>© <span id="year"></span> Pritam Ghoshal</div>
-      <div>Mechanical Engineering · PhD candidate</div>
-    </div>
-  </footer>
-  <script>
-    document.getElementById("year").textContent=new Date().getFullYear();
-    const obs=new IntersectionObserver((entries,o)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("reveal--visible");o.unobserve(e.target);}});},{threshold:0.15});
-    document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
-  </script>
+<footer>
+  <div class="wrap">
+    <div>© <span id="year"></span> Pritam Ghoshal</div>
+    <div>Mechanical Engineering · Purdue University</div>
+  </div>
+</footer>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-in');o.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
 </body>
 </html>
