@@ -421,8 +421,8 @@
       </div>
       <div class="fig__ctrls">
         <div class="fig__ctrl">
-          <label>Muscle force F<sub>hold</sub> <b id="cv-F">0.32</b></label>
-          <input type="range" id="cr-F" min="0.00" max="0.46" step="0.01" value="0.32" />
+          <label>Muscle pull F<sub>hold</sub> <b id="cv-F">0.42</b></label>
+          <input type="range" id="cr-F" min="0.00" max="0.55" step="0.01" value="0.42" />
         </div>
         <div class="fig__ctrl">
           <label>R&#771;<sub>1</sub> truss coupling <b id="cv-R1">5.00</b></label>
@@ -437,15 +437,15 @@
           <input type="range" id="cr-l2" min="0.01" max="0.60" step="0.01" value="0.05" />
         </div>
         <div class="fig__ctrl">
-          <label>&zeta; damping <b id="cv-z">0.120</b></label>
-          <input type="range" id="cr-z" min="0.00" max="0.30" step="0.005" value="0.12" />
+          <label>&zeta; damping <b id="cv-z">0.180</b></label>
+          <input type="range" id="cr-z" min="0.02" max="0.40" step="0.005" value="0.18" />
         </div>
       </div>
       <div class="fig__ctrls" style="padding-top:0">
         <button class="btn btn--solid" id="cr-go" type="button">Restart actuation cycle</button>
       </div>
       <p class="fig__cap">
-        <b>Figure 4.</b> Eqs. (1)&ndash;(2) with a static muscle force <i>F</i>(<i>T</i>) added to the truss equation, integrated live on a 20-cell chain. <i>F</i> tilts the double well: the Maxwell point sits at <i>F</i>&nbsp;=&nbsp;&lambda;<sub>1</sub>+&lambda;<sub>2</sub>&nbsp;=&nbsp;0.20, so above it the buckled state becomes the <i>deeper</i> well and cells the front has passed stay buckled. The cycle runs: the muscle ramps up, rib&nbsp;1 is driven past the barrier, the front travels the chain leaving every cell latched, and the instant it reaches the far end the muscle begins to release &mdash; overshooting to <i>F</i>&nbsp;=&nbsp;&minus;0.22, below the reverse spinodal at &minus;0.075 where the buckled state ceases to exist at all, so the chitin snaps every rib back. Release is about 2.6&times; faster than buckling, matching the asymmetry reported in the paper. The bar at the top left tracks <i>F</i> with the phase named beside it; both dashed reference levels move as the well tilts, and the amber ticks on each gauge follow the shifting barrier. Push F<sub>hold</sub> above 0.475 and the unbuckled state vanishes entirely &mdash; every cell snaps at once with no travelling wave. Below 0.20 the front no longer latches and cells fall back behind it.</p>
+        <b>Figure 4.</b> Eqs. (1)&ndash;(2) with the tymbal muscle added as a static pull <i>F</i>(<i>T</i>) on the truss equation, integrated live on a 20-cell chain. The muscle only ever <i>pulls</i>: <i>F</i> ramps up, holds, and is released to zero &mdash; there is no push in the opposite direction. What makes that work is that the rib is <b>monostable when unloaded</b>. With &lambda;<sub>1</sub>+&lambda;<sub>2</sub>&nbsp;=&nbsp;0.32 the chain is bistable only for <i>F</i> between 0.10 and 0.54; at <i>F</i>&nbsp;=&nbsp;0 the buckled state does not exist at all, so the instant the muscle lets go every rib has nowhere to sit but flat and the chitin snaps them back. The cycle runs: contract, drive rib&nbsp;1 past the barrier, let the front travel the chain leaving every cell latched, then release the moment it reaches the far end. Release is about 2.8&times; faster than buckling, matching the asymmetry in the paper. The bar at top left tracks the pull with the phase named beside it; the dashed levels and the amber tick on every gauge move as the load tilts the well, and both vanish at release when bistability disappears. Take F<sub>hold</sub> below 0.32 and the front stops latching; above 0.54 the flat state disappears and the whole chain snaps at once with no wave.</p>
     </div>
     <h2 class="sec-title">Result</h2>
     <p>The model reproduces both the snap-through dynamics of the tymbals and the subsequent acoustic
@@ -493,8 +493,8 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   const css=getComputedStyle(document.documentElement); const C=k=>css.getPropertyValue(k).trim();
 
   const N=20;
-  const P={R1:5.0, R2:5.0, l1:0.15, l2:0.05, M:1.0, z:0.12, Fh:0.32};
-  const TRAMP=2.5, TNUC=1.2, TDOWN=1.6, FMIN=-0.22, TRELAX=3.0, TREST=2.0, UNUC=2.4;
+  const P={R1:5.0, R2:5.0, l1:0.27, l2:0.05, M:1.0, z:0.18, Fh:0.42};
+  const TRAMP=2.5, TNUC=1.2, TREST=4.0, TSETTLE=1.5, UNUC=2.6;
 
   let U=new Float64Array(N), Ud=new Float64Array(N),
       V=new Float64Array(N), Vd=new Float64Array(N);
@@ -526,18 +526,15 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   reset();
 
   function actuation(dt){
+    // the tymbal muscle can only PULL: F ramps up, holds, then releases to zero.
     if(phase==='up'){ F=P.Fh*Math.min(1,T/TRAMP); if(T>=TRAMP){phase='nuc'; t0=T;} }
     else if(phase==='nuc'){ F=P.Fh; if(T-t0>=TNUC) phase='hold'; }
-    else if(phase==='hold'){ F=P.Fh; if(buckled[N-1]){phase='down'; td=T;} }
-    else if(phase==='down'){
-      const f=Math.min(1,(T-td)/TDOWN); F=P.Fh+(FMIN-P.Fh)*f;
-      if(f>=1){phase='relax'; trx=T;}
+    else if(phase==='hold'){ F=P.Fh; if(buckled[N-1]){phase='release'; td=T;} }
+    else if(phase==='release'){
+      F=0;                                     // muscle lets go
+      if(!buckled.some(Boolean) || T-td>TREST){ phase='rest'; tr=T; }
     }
-    else if(phase==='relax'){
-      F=FMIN;
-      if(!buckled.some(Boolean) || T-trx>TRELAX){phase='rest'; tr=T;}
-    }
-    else { F=FMIN*Math.max(0,1-(T-tr)/TREST); if(T-tr>TREST+1.5) reset(); }
+    else { F=0; if(T-tr>TSETTLE) reset(); }
   }
 
   function step(dt){
@@ -570,7 +567,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   }
 
   const PHASE_LABEL={up:'muscle contracting',nuc:'rib 1 buckling',hold:'wave propagating',
-                     down:'muscle releasing',relax:'elastic snap-back',rest:'resetting'};
+                     release:'muscle released — ribs snap back',rest:'reset'};
 
   function drawChain(y0,hgt){
     const pad=90, gap=(W-pad*2)/(N-1);
@@ -610,7 +607,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
       ctx.fillText('buckled state U = '+well.toFixed(2), 62, Y(well)-12);
     } else {
       ctx.fillStyle='rgba(0,166,166,0.95)';
-      ctx.fillText('buckled state has vanished', 62, Y(bar)+34);
+      ctx.fillText('no buckled state exists at this load', 62, Y(bar)+34);
     }
     ctx.strokeStyle=C('--border-2'); ctx.lineWidth=2.4;
     ctx.beginPath();ctx.moveTo(58,base);ctx.lineTo(W-58,base);ctx.stroke();
@@ -636,19 +633,15 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
       ctx.beginPath();ctx.arc(x,y,13,0,7);ctx.fill();
       ctx.strokeStyle=C('--ink'); ctx.lineWidth=1.8; ctx.stroke();
     }
-    // muscle actuation gauge
+    // muscle actuation gauge (pull only: 0 .. F_hold)
     let nb=0; for(let j=0;j<N;j++) if(buckled[j]) nb++;
     const gx=40, gy=y0+34, gw=430, gh=16;
     ctx.fillStyle='rgba(11,21,38,0.10)'; ctx.fillRect(gx,gy,gw,gh);
-    const f0=(0-FMIN)/(P.Fh-FMIN);
-    ctx.strokeStyle=C('--sub'); ctx.lineWidth=2;
-    ctx.beginPath();ctx.moveTo(gx+gw*f0,gy-4);ctx.lineTo(gx+gw*f0,gy+gh+4);ctx.stroke();
-    const ff=Math.max(0,Math.min(1,(F-FMIN)/(P.Fh-FMIN)));
-    ctx.fillStyle = F>=0 ? C('--accent-2') : C('--accent-3');
-    if(F>=0) ctx.fillRect(gx+gw*f0, gy, gw*(ff-f0), gh);
-    else     ctx.fillRect(gx+gw*ff, gy, gw*(f0-ff), gh);
+    const ff=Math.max(0,Math.min(1,F/Math.max(P.Fh,1e-6)));
+    ctx.fillStyle=C('--accent-2'); ctx.fillRect(gx,gy,gw*ff,gh);
+    ctx.strokeStyle=C('--border-2'); ctx.lineWidth=1.6; ctx.strokeRect(gx,gy,gw,gh);
     ctx.fillStyle=C('--muted'); ctx.font='500 23px Outfit, sans-serif';
-    ctx.fillText('muscle force  F = '+F.toFixed(3)+'   ·   '+PHASE_LABEL[phase], gx+gw+22, gy+15);
+    ctx.fillText('muscle pull  F = '+F.toFixed(3)+'   ·   '+PHASE_LABEL[phase], gx+gw+22, gy+15);
     ctx.fillStyle=C('--muted'); ctx.font='500 25px Outfit, sans-serif';
     ctx.fillText('truss chain — buckling level per cell', 40, y0+14);
     ctx.fillStyle=C('--accent-2'); ctx.font='500 24px Outfit, sans-serif';
