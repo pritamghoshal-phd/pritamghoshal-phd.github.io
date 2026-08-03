@@ -441,7 +441,7 @@
         <button class="btn btn--solid" id="cr-go" type="button">Launch buckling wave &rarr;</button>
       </div>
       <p class="fig__cap">
-        <b>Figure 4.</b> The published equations, integrated live on a 20-cell chain with &lambda;<sub>1</sub>&nbsp;=&nbsp;0.15, M&nbsp;=&nbsp;1, an initial displacement of 5 units at the left end, transmission at the left boundary and reflection at the right. <b>Top:</b> the truss chain, each unit drawn at its live coordinate U<sub>j</sub> &mdash; a cell turns orange once it clears the barrier. Watch the buckling front travel left to right, then the far faster reflected unbuckling wave return. <b>Middle:</b> the resonator chain, whose response is delayed and much smaller because &lambda;<sub>2</sub> is weak. <b>Bottom:</b> U (solid) and V (dashed) at three probe locations, offset vertically as in the paper. Raise &lambda;<sub>2</sub> and the resonator begins to follow the truss chain but distorts its dynamics; drop R&#771;<sub>1</sub> below about 3 and the wave can no longer propagate at all.</p>
+        <b>Figure 4.</b> The published equations, integrated live on a 20-cell chain with &lambda;<sub>1</sub>&nbsp;=&nbsp;0.15, M&nbsp;=&nbsp;1, an initial displacement of 5 units at the left end, transmission at the left boundary and reflection at the right. <b>Top:</b> each cell now carries a vertical <b>buckling-level gauge</b>. The bar fills to that cell's current coordinate U<sub>j</sub>, and the short amber tick across every gauge marks the barrier U*&nbsp;=&nbsp;1.28 &mdash; the moment a bar rises past its own tick, that rib has snapped, the mass turns amber and a ring pulses. The dashed amber line is that threshold read across the whole chain and the dashed cyan line is the buckled equilibrium at U&nbsp;=&nbsp;1.72, so the travelling front is visible as a wave of bars crossing the amber line left to right. A live counter reports how many cells are currently buckled &mdash; watch it climb as the front advances, then fall as the far faster reflected unbuckling wave returns. <b>Middle:</b> the resonator chain, delayed and much smaller because &lambda;<sub>2</sub> is weak. <b>Bottom:</b> U (solid) and V (dashed) at three probe locations, offset vertically as in the paper. Raise &lambda;<sub>2</sub> and the resonator begins to follow the truss chain but distorts its dynamics; drop R&#771;<sub>1</sub> below about 3 and the wave can no longer propagate at all.</p>
     </div>
     <h2 class="sec-title">Result</h2>
     <p>The model reproduces both the snap-through dynamics of the tymbals and the subsequent acoustic
@@ -533,43 +533,81 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     T+=dt;
   }
 
+  function wellPos(){ const d=9-4*K(); return d>0 ? (3+Math.sqrt(d))/2 : 1.72; }
+
   function drawChain(y0,hgt){
     const pad=90, gap=(W-pad*2)/(N-1);
-    const ceil=y0+34, base=y0+hgt-26;
+    const ceil=y0+38, base=y0+hgt-30;
+    const span=(base-ceil-52)/5.4;
+    const Y=u=>base-Math.max(-0.6,Math.min(5.4,u))*span;
+    const bar=barrier(), well=wellPos();
     ctx.save();
     ctx.fillStyle='rgba(255,90,31,0.07)'; ctx.fillRect(30,y0+14,W-60,hgt-24);
-    // fixed support
-    ctx.strokeStyle=C('--border-2'); ctx.lineWidth=3;
-    ctx.beginPath();ctx.moveTo(60,ceil);ctx.lineTo(W-60,ceil);ctx.stroke();
-    ctx.strokeStyle=C('--sub'); ctx.lineWidth=2;
-    for(let x=64;x<W-60;x+=26){ctx.beginPath();ctx.moveTo(x,ceil);ctx.lineTo(x-11,ceil-14);ctx.stroke();}
-    const uy=j=>base-Math.max(-0.6,Math.min(5.4,U[j]))*((base-ceil-40)/5.4);
-    // horizontal (bending) springs
-    ctx.strokeStyle=C('--ink'); ctx.lineWidth=2.4;
-    for(let j=0;j<N-1;j++){
-      const x1=pad+gap*j, x2=pad+gap*(j+1), y1=uy(j), y2=uy(j+1);
-      ctx.beginPath();ctx.moveTo(x1+13,y1);
-      for(let k=1;k<6;k++){const f=k/6;ctx.lineTo(x1+13+((x2-13)-(x1+13))*f, y1+(y2-y1)*f+(k%2?9:-9));}
-      ctx.lineTo(x2-13,y2);ctx.stroke();
-    }
-    // tilted (stretching) springs + masses
+
+    // ---- per-cell buckling level gauges (drawn behind the mechanism) ----
     for(let j=0;j<N;j++){
-      const x=pad+gap*j, y=uy(j);
-      ctx.strokeStyle=C('--sub'); ctx.lineWidth=1.8;
-      ctx.beginPath();ctx.moveTo(x-26,ceil);ctx.lineTo(x,y);ctx.lineTo(x+26,ceil);ctx.stroke();
+      const x=pad+gap*j;
+      ctx.lineCap='round';
+      ctx.strokeStyle='rgba(11,21,38,0.10)'; ctx.lineWidth=13;
+      ctx.beginPath();ctx.moveTo(x,base);ctx.lineTo(x,Y(4.9));ctx.stroke();
+      const uy=Y(U[j]);
+      ctx.strokeStyle = buckled[j] ? 'rgba(255,90,31,0.80)' : 'rgba(22,82,240,0.55)';
+      ctx.lineWidth=13;
+      ctx.beginPath();ctx.moveTo(x,base);ctx.lineTo(x,uy);ctx.stroke();
+      // threshold tick on each gauge
+      ctx.strokeStyle=C('--accent-2'); ctx.lineWidth=3.4; ctx.lineCap='butt';
+      ctx.beginPath();ctx.moveTo(x-13,Y(bar));ctx.lineTo(x+13,Y(bar));ctx.stroke();
+    }
+
+    // ---- threshold and buckled-state reference levels ----
+    ctx.setLineDash([13,10]); ctx.lineWidth=2.6; ctx.lineCap='butt';
+    ctx.strokeStyle='rgba(255,90,31,0.9)';
+    ctx.beginPath();ctx.moveTo(58,Y(bar));ctx.lineTo(W-58,Y(bar));ctx.stroke();
+    ctx.strokeStyle='rgba(0,166,166,0.75)';
+    ctx.beginPath();ctx.moveTo(58,Y(well));ctx.lineTo(W-58,Y(well));ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.font='500 21px "JetBrains Mono", monospace';
+    ctx.fillStyle='rgba(255,90,31,0.95)';
+    ctx.fillText('buckling threshold  U* = '+bar.toFixed(2), 62, Y(bar)-12);
+    ctx.fillStyle='rgba(0,166,166,0.95)';
+    ctx.fillText('buckled state  U = '+well.toFixed(2), 62, Y(well)-12);
+
+    // ---- baseline (unbuckled, U = 0) ----
+    ctx.strokeStyle=C('--border-2'); ctx.lineWidth=2.4;
+    ctx.beginPath();ctx.moveTo(58,base);ctx.lineTo(W-58,base);ctx.stroke();
+    ctx.fillStyle=C('--sub'); ctx.font='500 20px "JetBrains Mono", monospace';
+    ctx.fillText('U = 0', 62, base+26);
+
+    // ---- bending springs between masses ----
+    ctx.strokeStyle='rgba(11,21,38,0.55)'; ctx.lineWidth=2.2;
+    for(let j=0;j<N-1;j++){
+      const x1=pad+gap*j, x2=pad+gap*(j+1), y1=Y(U[j]), y2=Y(U[j+1]);
+      ctx.beginPath();ctx.moveTo(x1+14,y1);
+      for(let k=1;k<6;k++){const f=k/6;ctx.lineTo(x1+14+((x2-14)-(x1+14))*f, y1+(y2-y1)*f+(k%2?8:-8));}
+      ctx.lineTo(x2-14,y2);ctx.stroke();
+    }
+
+    // ---- masses ----
+    for(let j=0;j<N;j++){
+      const x=pad+gap*j, y=Y(U[j]);
       if(flash[j]>0.02){
-        ctx.strokeStyle='rgba(255,90,31,'+flash[j]+')'; ctx.lineWidth=4;
-        ctx.beginPath();ctx.arc(x,y,20+26*(1-flash[j]),0,7);ctx.stroke();
+        ctx.strokeStyle='rgba(255,90,31,'+flash[j]+')'; ctx.lineWidth=4.5;
+        ctx.beginPath();ctx.arc(x,y,20+28*(1-flash[j]),0,7);ctx.stroke();
       }
       ctx.fillStyle = buckled[j] ? C('--accent-2') : C('--accent');
       ctx.beginPath();ctx.arc(x,y,13,0,7);ctx.fill();
-      ctx.strokeStyle=C('--ink'); ctx.lineWidth=1.6; ctx.stroke();
+      ctx.strokeStyle=C('--ink'); ctx.lineWidth=1.8; ctx.stroke();
     }
+
+    // ---- readouts ----
+    let nb=0; for(let j=0;j<N;j++) if(buckled[j]) nb++;
     ctx.fillStyle=C('--muted'); ctx.font='500 25px Outfit, sans-serif';
-    ctx.fillText('truss chain  U'+String.fromCharCode(0x2C7C), 40, y0+12);
+    ctx.fillText('truss chain — buckling level per cell', 40, y0+14);
+    ctx.fillStyle=C('--accent-2'); ctx.font='500 24px Outfit, sans-serif';
+    ctx.fillText(nb+' / '+N+' buckled', W-260, y0+14);
     ctx.fillStyle='#e11d48'; ctx.font='500 19px "JetBrains Mono", monospace';
-    ctx.fillText('transmission', 46, base+18);
-    ctx.fillText('reflective', W-186, base+18);
+    ctx.fillText('transmission', 300, base+26);
+    ctx.fillText('reflective', W-300, base+26);
     ctx.restore();
   }
 
@@ -629,8 +667,8 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
   function render(){
     ctx.clearRect(0,0,W,H);
-    drawChain(0,H*0.40);
-    drawResonators(H*0.40,H*0.20);
+    drawChain(0,H*0.44);
+    drawResonators(H*0.44,H*0.18);
     drawTraces(H*0.62,H*0.38);
   }
 
