@@ -59,6 +59,126 @@
       to arrange with a delay line. In a mechanical system there is no equivalent. Viscoelasticity is the
       only available mechanism, because a viscoelastic structure's state depends not just on how it is
       deformed now but on how it has been deformed.</p>
+
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 1 — Reservoir computing architecture</span></div>
+      <div class="fig__body">
+        <svg viewBox="0 0 780 330" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="Block diagram: an input signal drives a chain of bistable viscoelastic unit cells; only the linear readout weights are trained.">
+          <!-- input -->
+          <g class="pop">
+            <rect class="s-card" x="24" y="120" width="104" height="72" rx="12"/>
+            <text class="s-txt" x="46" y="150">input</text>
+            <text class="s-mono" x="46" y="172">u(t)</text>
+          </g>
+          <path class="s-accent flow" d="M132 156 L182 156"/>
+
+          <!-- reservoir box -->
+          <rect x="188" y="52" width="356" height="216" rx="18" fill="none"
+                stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="7 6" opacity=".6"/>
+          <text class="s-mono" x="204" y="76">reservoir — fixed, never trained</text>
+
+          <!-- unit cells -->
+          <g class="pop pop--d1">
+            <circle cx="240" cy="126" r="21" class="s-fill" opacity=".85"/>
+            <circle cx="316" cy="180" r="21" class="s-fill" opacity=".85"/>
+            <circle cx="392" cy="118" r="21" class="s-fill" opacity=".85"/>
+            <circle cx="468" cy="188" r="21" class="s-fill" opacity=".85"/>
+            <circle cx="404" cy="232" r="21" class="s-fill" opacity=".85"/>
+            <circle cx="284" cy="236" r="21" class="s-fill" opacity=".85"/>
+          </g>
+          <g class="s-thin" opacity=".75">
+            <path d="M240 126 L316 180"/><path d="M316 180 L392 118"/>
+            <path d="M392 118 L468 188"/><path d="M316 180 L404 232"/>
+            <path d="M404 232 L468 188"/><path d="M240 126 L284 236"/>
+            <path d="M284 236 L404 232"/><path d="M284 236 L316 180"/>
+          </g>
+          <text class="s-txt s-txt--sm" x="204" y="256">coupled bistable + viscoelastic unit cells</text>
+
+          <!-- states out -->
+          <path class="s-accent3 flow" d="M548 156 L598 156"/>
+          <text class="s-mono" x="552" y="146" fill="var(--accent-3)">x(t)</text>
+
+          <!-- readout -->
+          <g class="pop pop--d3">
+            <rect x="604" y="112" width="150" height="88" rx="12"
+                  fill="var(--bg-alt)" stroke="var(--accent-2)" stroke-width="2"/>
+            <text class="s-txt" x="622" y="142">linear readout</text>
+            <text class="s-mono2" x="622" y="166">W_out — trained</text>
+            <text class="s-mono2" x="622" y="188">y = W_out · x</text>
+          </g>
+
+          <!-- annotation -->
+          <path class="s-dash" d="M679 208 L679 246"/>
+          <text class="s-txt s-txt--sm" x="560" y="266">the only weights that ever change</text>
+        </svg>
+      </div>
+      <p class="fig__cap">
+        <b>Figure 1.</b> The reservoir itself is fixed — its physics does the nonlinear, high-dimensional
+        transformation for free. Training touches only the linear readout, which is why a mechanical
+        reservoir can run on almost no power.
+      </p>
+    </div>
+
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 2 — The unit cell</span></div>
+      <div class="fig__body">
+        <svg viewBox="0 0 780 300" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="A unit cell: a bistable von Mises truss coupled to a standard linear solid element, with its double-well potential shown alongside.">
+          <!-- bistable element -->
+          <g class="pop">
+            <text class="s-txt" x="40" y="46">bistable element → nonlinearity</text>
+            <path class="s-accent draw" style="--len:260" d="M60 176 L152 122"/>
+            <path class="s-accent draw draw--d1" style="--len:260" d="M244 176 L152 122"/>
+            <line class="s-thin" x1="46" y1="176" x2="258" y2="176"/>
+            <circle class="s-fill2" cx="152" cy="122" r="11"/>
+            <path class="s-dash" d="M60 176 L152 230 L244 176"/>
+          </g>
+
+          <!-- coupling -->
+          <path class="s-thin" d="M264 150 L318 150"/>
+          <text class="s-txt s-txt--sm" x="266" y="140">coupled to</text>
+
+          <!-- SLS -->
+          <g class="pop pop--d2">
+            <text class="s-txt" x="330" y="46">standard linear solid → fading memory</text>
+            <path class="s-line" d="M348 120 L362 120 L367 110 L377 130 L387 110 L397 130 L407 110 L412 120 L426 120"/>
+            <text class="s-mono" x="434" y="124">E∞</text>
+            <path class="s-line" d="M348 178 L358 178 L362 170 L370 186 L378 170 L386 186 L390 178 L400 178"/>
+            <g class="s-line">
+              <rect x="402" y="168" width="24" height="20" fill="var(--bg)"/>
+              <line x1="414" y1="178" x2="426" y2="178"/><line x1="414" y1="170" x2="414" y2="186"/>
+            </g>
+            <text class="s-mono" x="400" y="208">E₁</text><text class="s-mono" x="430" y="208">η</text>
+            <line class="s-line" x1="348" y1="120" x2="348" y2="178"/>
+            <line class="s-line" x1="426" y1="120" x2="426" y2="178"/>
+            <line class="s-line" x1="334" y1="149" x2="348" y2="149"/>
+            <line class="s-line" x1="426" y1="149" x2="440" y2="149"/>
+            <text class="s-mono" x="330" y="238">De = λ / t_obs</text>
+          </g>
+
+          <!-- potential well -->
+          <g class="pop pop--d4">
+            <text class="s-txt" x="520" y="46">resulting potential</text>
+            <path class="s-thin" d="M520 210 L756 210"/>
+            <path class="s-accent3" d="M528 96 C566 96 570 200 610 200 C650 200 656 118 638 118
+                                        C660 118 664 200 706 200 C744 200 748 96 750 96"
+                  fill="none" stroke-width="2.6"/>
+            <circle class="s-fill2" cx="610" cy="196" r="9"/>
+            <circle cx="706" cy="196" r="9" fill="none" stroke="var(--sub)" stroke-width="1.6"/>
+            <text class="s-mono" x="576" y="236">well A</text>
+            <text class="s-mono" x="676" y="236">well B</text>
+            <text class="s-txt s-txt--sm" x="520" y="262">snapping between wells is the nonlinearity</text>
+          </g>
+        </svg>
+      </div>
+      <p class="fig__cap">
+        <b>Figure 2.</b> Each unit cell pairs a bistable von Mises truss with a standard linear solid.
+        The truss supplies nonlinearity through snap-through; the SLS supplies fading memory with
+        relaxation time λ. Their ratio to the observation timescale — the Deborah number — decides which
+        of the two dominates.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -106,6 +226,33 @@
       performance. It gives a design criterion instead of a warning after the fact.</p>
     <p>A physical breadboard implementation was built to check that the behaviour survives contact with
       real hardware, and it reproduced logic operations with reasonable fidelity.</p>
+
+    <div class="fig reveal">
+      <div class="fig__head">
+        <span class="fig__no">Figure 3 — Memory–nonlinearity trade-off, live</span>
+        <span class="fig__live">running</span>
+      </div>
+      <div class="fig__body">
+        <canvas id="rc-canvas" width="1520" height="720"></canvas>
+      </div>
+      <div class="fig__ctrls">
+        <div class="fig__ctrl">
+          <label>Deborah number De <b id="rv-de">1.00</b></label>
+          <input type="range" id="rr-de" min="0.05" max="4.0" step="0.05" value="1.0" />
+        </div>
+        <div class="fig__ctrl">
+          <label>Drive amplitude <b id="rv-a">0.55</b></label>
+          <input type="range" id="rr-a" min="0.1" max="1.2" step="0.02" value="0.55" />
+        </div>
+      </div>
+      <p class="fig__cap">
+        <b>Figure 3.</b> An eight-cell chain driven by a random input stream. Cell brightness tracks
+        instantaneous state; the amber ring marks a cell that has just snapped wells. Below, the input
+        and the reservoir's response. On the right, the trade-off curve: memory capacity rises with the
+        Deborah number while effective nonlinearity falls, and the shaded band is where useful computation
+        lives. Drag De and watch the operating point move.
+      </p>
+    </div>
     <div class="proj-links" style="margin-top:1.6rem">
       <a class="btn btn--solid" href="index.html#lab">Try the interactive double well →</a>
       <a class="btn" href="https://scholar.google.com/citations?user=1Nab30AAAAAJ&amp;hl=en" target="_blank" rel="noopener">Scholar ↗</a>
@@ -123,6 +270,158 @@
 document.getElementById('year').textContent=new Date().getFullYear();
 const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-in');o.unobserve(e.target);}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+<script>
+/* ---- Figure 3: live reservoir chain + trade-off curve ---- */
+(function(){
+  const cv=document.getElementById('rc-canvas'); if(!cv) return;
+  const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
+  const css=getComputedStyle(document.documentElement); const C=k=>css.getPropertyValue(k).trim();
+
+  const N=8;
+  const P={De:1.0, amp:0.55};
+  const cells=[];
+  for(let i=0;i<N;i++) cells.push({q:(i%2?1:-1)*0.7, v:0, z:0, flash:0, well:Math.sign(i%2?1:-1)});
+
+  let t=0, u=0, uTarget=0, nextSwitch=0;
+  const uHist=[], yHist=[]; const HIST=380;
+
+  function step(dt){
+    t+=dt;
+    if(t>nextSwitch){ uTarget=(Math.random()*2-1); nextSwitch=t+0.55+Math.random()*0.7; }
+    u+=(uTarget-u)*Math.min(1,dt*6);
+    const lam=Math.max(0.05,P.De);
+    for(let i=0;i<N;i++){
+      const c=cells[i];
+      const left=i>0?cells[i-1].q:u*1.4;
+      const right=i<N-1?cells[i+1].q:0;
+      const coupling=0.16*((left-c.q)+(right-c.q));
+      const drive=P.amp*(i===0?u*1.6:0)+P.amp*0.32*Math.sin(1.1*t+i);
+      const a=-0.16*c.v + (c.q-c.q*c.q*c.q) - 0.5*(c.q-c.z) + coupling + drive;
+      c.v+=a*dt; c.q+=c.v*dt;
+      c.z+=((c.q-c.z)/lam)*dt;
+      if(!isFinite(c.q)||Math.abs(c.q)>4){c.q=0.7;c.v=0;c.z=0;}
+      const s=Math.sign(c.q);
+      if(s!==0&&s!==c.well){c.well=s;c.flash=1;}
+      c.flash=Math.max(0,c.flash-dt*1.6);
+    }
+    let y=0; for(let i=0;i<N;i++) y+=cells[i].q*(i%2?0.5:-0.42);
+    return y/N*2.4;
+  }
+
+  function drawChain(x0,y0,w,hgt){
+    const cy=y0+hgt*0.52, pad=90, gap=(w-pad*2)/(N-1);
+    ctx.save();
+    ctx.strokeStyle=C('--border-2'); ctx.lineWidth=3;
+    ctx.beginPath();ctx.moveTo(x0+pad,cy);ctx.lineTo(x0+pad+gap*(N-1),cy);ctx.stroke();
+    // input arrow
+    ctx.strokeStyle=C('--accent'); ctx.lineWidth=4;
+    ctx.beginPath();ctx.moveTo(x0+22,cy);ctx.lineTo(x0+pad-24,cy);ctx.stroke();
+    ctx.fillStyle=C('--accent');
+    ctx.beginPath();ctx.moveTo(x0+pad-14,cy);ctx.lineTo(x0+pad-28,cy-9);ctx.lineTo(x0+pad-28,cy+9);
+    ctx.closePath();ctx.fill();
+    ctx.font='500 24px Outfit, sans-serif'; ctx.fillText('u(t)', x0+22, cy-20);
+    for(let i=0;i<N;i++){
+      const c=cells[i], px=x0+pad+gap*i;
+      const py=cy-c.q*hgt*0.20;
+      const mag=Math.min(1,Math.abs(c.q));
+      ctx.strokeStyle=C('--border-2'); ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(px,cy);ctx.lineTo(px,py);ctx.stroke();
+      if(c.flash>0){
+        ctx.strokeStyle=`rgba(255,90,31,${c.flash})`; ctx.lineWidth=5;
+        ctx.beginPath();ctx.arc(px,py,30+18*(1-c.flash),0,7);ctx.stroke();
+      }
+      ctx.fillStyle=`rgba(22,82,240,${0.35+mag*0.6})`;
+      ctx.beginPath();ctx.arc(px,py,20,0,7);ctx.fill();
+    }
+    // readout
+    const rx=x0+pad+gap*(N-1)+60;
+    ctx.strokeStyle=C('--accent-2'); ctx.lineWidth=4;
+    ctx.beginPath();ctx.moveTo(rx-46,cy);ctx.lineTo(rx-8,cy);ctx.stroke();
+    ctx.fillStyle=C('--accent-2'); ctx.font='500 24px Outfit, sans-serif';
+    ctx.fillText('y(t)', rx, cy+8);
+    ctx.fillStyle=C('--muted'); ctx.fillText('8-cell reservoir', x0+22, y0+40);
+    ctx.restore();
+  }
+
+  function drawSignals(x0,y0,w,hgt){
+    const cy=y0+hgt*0.5, sy=hgt*0.3, span=w-90;
+    ctx.save();
+    ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(x0+45,cy);ctx.lineTo(x0+45+span,cy);ctx.stroke();
+    const plot=(arr,col,lw)=>{ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.beginPath();
+      for(let i=0;i<arr.length;i++){const px=x0+45+(i/HIST)*span,py=cy-arr[i]*sy;
+        i?ctx.lineTo(px,py):ctx.moveTo(px,py);} ctx.stroke();};
+    plot(uHist,C('--accent-3'),3);
+    plot(yHist,C('--accent-2'),3.5);
+    ctx.fillStyle=C('--accent-3'); ctx.font='500 24px Outfit, sans-serif';
+    ctx.fillText('input u(t)', x0+45, y0+34);
+    ctx.fillStyle=C('--accent-2'); ctx.fillText('reservoir response y(t)', x0+230, y0+34);
+    ctx.restore();
+  }
+
+  function drawTradeoff(x0,y0,w,hgt){
+    const px0=x0+80, px1=x0+w-50, py0=y0+64, py1=y0+hgt-70;
+    ctx.save();
+    ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(px0,py0);ctx.lineTo(px0,py1);ctx.lineTo(px1,py1);ctx.stroke();
+    const X=d=>px0+(Math.log10(d/0.05)/Math.log10(4/0.05))*(px1-px0);
+    const Y=v=>py1-v*(py1-py0);
+    // useful band
+    ctx.fillStyle='rgba(22,82,240,0.07)';
+    ctx.fillRect(X(0.55),py0,X(1.9)-X(0.55),py1-py0);
+    // memory curve
+    ctx.strokeStyle=C('--accent-3'); ctx.lineWidth=3.5; ctx.beginPath();
+    for(let d=0.05;d<=4;d*=1.04){const m=d/(d+0.75);const px=X(d),py=Y(m);
+      d<=0.052?ctx.moveTo(px,py):ctx.lineTo(px,py);} ctx.stroke();
+    // nonlinearity curve
+    ctx.strokeStyle=C('--accent-2'); ctx.lineWidth=3.5; ctx.beginPath();
+    for(let d=0.05;d<=4;d*=1.04){const n=1/(1+d*0.9);const px=X(d),py=Y(n);
+      d<=0.052?ctx.moveTo(px,py):ctx.lineTo(px,py);} ctx.stroke();
+    // operating point
+    const opx=X(P.De);
+    ctx.strokeStyle=C('--accent'); ctx.lineWidth=3; ctx.setLineDash([7,7]);
+    ctx.beginPath();ctx.moveTo(opx,py0);ctx.lineTo(opx,py1);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle=C('--accent-3');
+    ctx.beginPath();ctx.arc(opx,Y(P.De/(P.De+0.75)),11,0,7);ctx.fill();
+    ctx.fillStyle=C('--accent-2');
+    ctx.beginPath();ctx.arc(opx,Y(1/(1+P.De*0.9)),11,0,7);ctx.fill();
+    ctx.fillStyle=C('--muted'); ctx.font='500 24px Outfit, sans-serif';
+    ctx.fillText('trade-off vs Deborah number', x0+60, y0+38);
+    ctx.font='500 21px Outfit, sans-serif';
+    ctx.fillStyle=C('--accent-3'); ctx.fillText('memory', px1-150, py0+30);
+    ctx.fillStyle=C('--accent-2'); ctx.fillText('nonlinearity', px1-150, py0+58);
+    ctx.fillStyle=C('--sub'); ctx.font='400 20px "JetBrains Mono", monospace';
+    ctx.fillText('0.05', px0-16, py1+34); ctx.fillText('4.0', px1-24, py1+34);
+    ctx.restore();
+  }
+
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    drawChain(0,0,W*0.62,H*0.5);
+    drawSignals(0,H*0.5,W*0.62,H*0.5);
+    drawTradeoff(W*0.62,0,W*0.38,H);
+  }
+
+  const bind=(r,v,key,dp)=>{const R=document.getElementById(r),V=document.getElementById(v);
+    if(!R)return; R.addEventListener('input',()=>{P[key]=parseFloat(R.value);V.textContent=P[key].toFixed(dp);});};
+  bind('rr-de','rv-de','De',2); bind('rr-a','rv-a','amp',2);
+
+  let live=false;
+  new IntersectionObserver(e=>{live=e[0].isIntersecting;},{threshold:.05}).observe(cv);
+  let acc=0,last=performance.now(),frame=0;
+  (function loop(now){
+    requestAnimationFrame(loop);
+    const dtr=Math.min((now-last)/1000,.05); last=now;
+    if(!live) return;
+    acc+=dtr; let y=0,g=0;
+    while(acc>=0.005&&g++<200){ y=step(0.018); acc-=0.005; }
+    if(frame++%2===0){ uHist.push(u); yHist.push(y);
+      if(uHist.length>HIST){uHist.shift();yHist.shift();} }
+    render();
+  })(performance.now());
+})();
 </script>
 </body>
 </html>
