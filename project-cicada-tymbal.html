@@ -421,6 +421,10 @@
       </div>
       <div class="fig__ctrls">
         <div class="fig__ctrl">
+          <label>Muscle force F<sub>hold</sub> <b id="cv-F">0.32</b></label>
+          <input type="range" id="cr-F" min="0.00" max="0.46" step="0.01" value="0.32" />
+        </div>
+        <div class="fig__ctrl">
           <label>R&#771;<sub>1</sub> truss coupling <b id="cv-R1">5.00</b></label>
           <input type="range" id="cr-R1" min="1.0" max="10.0" step="0.1" value="5.0" />
         </div>
@@ -433,15 +437,15 @@
           <input type="range" id="cr-l2" min="0.01" max="0.60" step="0.01" value="0.05" />
         </div>
         <div class="fig__ctrl">
-          <label>&zeta; damping <b id="cv-z">0.02</b></label>
-          <input type="range" id="cr-z" min="0.00" max="0.20" step="0.005" value="0.02" />
+          <label>&zeta; damping <b id="cv-z">0.120</b></label>
+          <input type="range" id="cr-z" min="0.00" max="0.30" step="0.005" value="0.12" />
         </div>
       </div>
       <div class="fig__ctrls" style="padding-top:0">
-        <button class="btn btn--solid" id="cr-go" type="button">Launch buckling wave &rarr;</button>
+        <button class="btn btn--solid" id="cr-go" type="button">Restart actuation cycle</button>
       </div>
       <p class="fig__cap">
-        <b>Figure 4.</b> The published equations, integrated live on a 20-cell chain with &lambda;<sub>1</sub>&nbsp;=&nbsp;0.15, M&nbsp;=&nbsp;1, an initial displacement of 5 units at the left end, transmission at the left boundary and reflection at the right. <b>Top:</b> each cell now carries a vertical <b>buckling-level gauge</b>. The bar fills to that cell's current coordinate U<sub>j</sub>, and the short amber tick across every gauge marks the barrier U*&nbsp;=&nbsp;1.28 &mdash; the moment a bar rises past its own tick, that rib has snapped, the mass turns amber and a ring pulses. The dashed amber line is that threshold read across the whole chain and the dashed cyan line is the buckled equilibrium at U&nbsp;=&nbsp;1.72, so the travelling front is visible as a wave of bars crossing the amber line left to right. A live counter reports how many cells are currently buckled &mdash; watch it climb as the front advances, then fall as the far faster reflected unbuckling wave returns. <b>Middle:</b> the resonator chain, delayed and much smaller because &lambda;<sub>2</sub> is weak. <b>Bottom:</b> U (solid) and V (dashed) at three probe locations, offset vertically as in the paper. Raise &lambda;<sub>2</sub> and the resonator begins to follow the truss chain but distorts its dynamics; drop R&#771;<sub>1</sub> below about 3 and the wave can no longer propagate at all.</p>
+        <b>Figure 4.</b> Eqs. (1)&ndash;(2) with a static muscle force <i>F</i>(<i>T</i>) added to the truss equation, integrated live on a 20-cell chain. <i>F</i> tilts the double well: the Maxwell point sits at <i>F</i>&nbsp;=&nbsp;&lambda;<sub>1</sub>+&lambda;<sub>2</sub>&nbsp;=&nbsp;0.20, so above it the buckled state becomes the <i>deeper</i> well and cells the front has passed stay buckled. The cycle runs: the muscle ramps up, rib&nbsp;1 is driven past the barrier, the front travels the chain leaving every cell latched, and the instant it reaches the far end the muscle begins to release &mdash; overshooting to <i>F</i>&nbsp;=&nbsp;&minus;0.22, below the reverse spinodal at &minus;0.075 where the buckled state ceases to exist at all, so the chitin snaps every rib back. Release is about 2.6&times; faster than buckling, matching the asymmetry reported in the paper. The bar at the top left tracks <i>F</i> with the phase named beside it; both dashed reference levels move as the well tilts, and the amber ticks on each gauge follow the shifting barrier. Push F<sub>hold</sub> above 0.475 and the unbuckled state vanishes entirely &mdash; every cell snaps at once with no travelling wave. Below 0.20 the front no longer latches and cells fall back behind it.</p>
     </div>
     <h2 class="sec-title">Result</h2>
     <p>The model reproduces both the snap-through dynamics of the tymbals and the subsequent acoustic
@@ -482,112 +486,146 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
 
 <script>
-/* ---- Figure 4: Eqs (1)-(2) from Ghoshal et al., Nat Commun 16, 10270 (2025) ---- */
+/* ---- Figure 4: Eqs (1)-(2) with muscle actuation F(T) tilting the potential ---- */
 (function(){
   const cv=document.getElementById('cic-canvas'); if(!cv) return;
   const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
   const css=getComputedStyle(document.documentElement); const C=k=>css.getPropertyValue(k).trim();
 
   const N=20;
-  const P={R1:5.0, R2:5.0, l1:0.15, l2:0.05, M:1.0, z:0.02};
+  const P={R1:5.0, R2:5.0, l1:0.15, l2:0.05, M:1.0, z:0.12, Fh:0.32};
+  const TRAMP=2.5, TNUC=1.2, TDOWN=1.6, FMIN=-0.22, TRELAX=3.0, TREST=2.0, UNUC=2.4;
+
   let U=new Float64Array(N), Ud=new Float64Array(N),
       V=new Float64Array(N), Vd=new Float64Array(N);
   let buckled=new Array(N).fill(false), flash=new Float64Array(N);
-  let T=0;
+  let T=0, F=0, phase='up', t0=0, td=0, trx=0, tr=0;
   const PROBE=[3,10,17];
-  const trace=[[],[],[]], HIST=520;
+  const trace=[[],[],[]], Fhist=[], HIST=520;
 
-  function K(){ return P.l1+P.l2+2; }
-  function barrier(){ const d=9-4*K(); return d>0 ? (3-Math.sqrt(d))/2 : 1.0; }
+  const K=()=>P.l1+P.l2+2;
+  // real roots of U^3 - 3U^2 + K U - F = 0  (equilibria of the tilted potential)
+  function roots(f){
+    const p=K()-3, q=K()-2-f;
+    if(4*p*p*p+27*q*q>0 || p>=0) return null;
+    const m=2*Math.sqrt(-p/3);
+    const arg=Math.max(-1,Math.min(1,(3*q)/(2*p)*Math.sqrt(-3/p)));
+    const r=[0,1,2].map(k=>m*Math.cos(Math.acos(arg)/3-2*Math.PI*k/3)+1);
+    return r.sort((a,b)=>a-b);
+  }
+  function barrier(){ const r=roots(F); return r?r[1]:0.9; }
+  function wellPos(){ const r=roots(F); return r?r[2]:null; }
 
-  function launch(){
+  function reset(){
     U=new Float64Array(N); Ud=new Float64Array(N);
     V=new Float64Array(N); Vd=new Float64Array(N);
-    buckled.fill(false); flash.fill(0); T=0;
-    trace.forEach(a=>a.length=0);
-    U[0]=5.0;
+    buckled.fill(false); flash.fill(0);
+    T=0; F=0; phase='up'; t0=td=trx=tr=0;
+    trace.forEach(a=>a.length=0); Fhist.length=0;
   }
-  launch();
+  reset();
+
+  function actuation(dt){
+    if(phase==='up'){ F=P.Fh*Math.min(1,T/TRAMP); if(T>=TRAMP){phase='nuc'; t0=T;} }
+    else if(phase==='nuc'){ F=P.Fh; if(T-t0>=TNUC) phase='hold'; }
+    else if(phase==='hold'){ F=P.Fh; if(buckled[N-1]){phase='down'; td=T;} }
+    else if(phase==='down'){
+      const f=Math.min(1,(T-td)/TDOWN); F=P.Fh+(FMIN-P.Fh)*f;
+      if(f>=1){phase='relax'; trx=T;}
+    }
+    else if(phase==='relax'){
+      F=FMIN;
+      if(!buckled.some(Boolean) || T-trx>TRELAX){phase='rest'; tr=T;}
+    }
+    else { F=FMIN*Math.max(0,1-(T-tr)/TREST); if(T-tr>TREST+1.5) reset(); }
+  }
 
   function step(dt){
+    actuation(dt);
     const k=K(), bar=barrier();
     for(let j=0;j<N;j++){
-      const uL = j>0 ? U[j-1] : U[j];        // transmission side
-      const uR = j<N-1 ? U[j+1] : U[j];      // reflective (Neumann) end
-      const sponge = j<2 ? 0.9 : 0.0;        // absorbing layer = transmission BC
+      const uL = j>0 ? U[j-1] : U[j];
+      const uR = j<N-1 ? U[j+1] : U[j];
+      const sponge = j<2 ? 0.9 : 0.0;                 // transmission boundary
       const a = -(P.z+sponge)*Ud[j] + 3*U[j]*U[j] - U[j]*U[j]*U[j]
-                - k*U[j] + P.l2*V[j] + P.R1*(uL-2*U[j]+uR);
+                - k*U[j] + P.l2*V[j] + P.R1*(uL-2*U[j]+uR) + F;
       Ud[j]+=a*dt;
       const vL = j>0 ? V[j-1] : V[j];
       const vR = j<N-1 ? V[j+1] : V[j];
-      const av = -P.M*P.l2*V[j] + P.M*P.l2*U[j] + P.R2*(vL-2*V[j]+vR);
-      Vd[j]+=av*dt;
+      Vd[j]+=(-P.M*P.l2*V[j] + P.M*P.l2*U[j] + P.R2*(vL-2*V[j]+vR))*dt;
     }
     for(let j=0;j<N;j++){
       U[j]+=Ud[j]*dt; V[j]+=Vd[j]*dt;
-      if(!isFinite(U[j])||Math.abs(U[j])>1e3){ launch(); return; }
-      const isB = U[j]>bar;
+      if(!isFinite(U[j])||Math.abs(U[j])>1e3){ reset(); return; }
+    }
+    if(phase==='nuc'){                                 // clamped nucleation at rib 1
+      const f=(T-t0)/TNUC; U[0]=UNUC*f; Ud[0]=UNUC/TNUC;
+    }
+    for(let j=0;j<N;j++){
+      const isB=U[j]>bar;
       if(isB!==buckled[j]){ buckled[j]=isB; flash[j]=1; }
       flash[j]=Math.max(0,flash[j]-dt*1.1);
     }
     T+=dt;
   }
 
-  function wellPos(){ const d=9-4*K(); return d>0 ? (3+Math.sqrt(d))/2 : 1.72; }
+  const PHASE_LABEL={up:'muscle contracting',nuc:'rib 1 buckling',hold:'wave propagating',
+                     down:'muscle releasing',relax:'elastic snap-back',rest:'resetting'};
 
   function drawChain(y0,hgt){
     const pad=90, gap=(W-pad*2)/(N-1);
-    const ceil=y0+38, base=y0+hgt-30;
-    const span=(base-ceil-52)/5.4;
-    const Y=u=>base-Math.max(-0.6,Math.min(5.4,u))*span;
+    const ceil=y0+62, base=y0+hgt-30;
+    const span=(base-ceil-30)/3.2;
+    const Y=u=>base-Math.max(-0.8,Math.min(3.2,u))*span;
     const bar=barrier(), well=wellPos();
     ctx.save();
     ctx.fillStyle='rgba(255,90,31,0.07)'; ctx.fillRect(30,y0+14,W-60,hgt-24);
 
-    // ---- per-cell buckling level gauges (drawn behind the mechanism) ----
+    // per-cell gauges
     for(let j=0;j<N;j++){
       const x=pad+gap*j;
       ctx.lineCap='round';
       ctx.strokeStyle='rgba(11,21,38,0.10)'; ctx.lineWidth=13;
-      ctx.beginPath();ctx.moveTo(x,base);ctx.lineTo(x,Y(4.9));ctx.stroke();
-      const uy=Y(U[j]);
+      ctx.beginPath();ctx.moveTo(x,base);ctx.lineTo(x,Y(3.0));ctx.stroke();
       ctx.strokeStyle = buckled[j] ? 'rgba(255,90,31,0.80)' : 'rgba(22,82,240,0.55)';
       ctx.lineWidth=13;
-      ctx.beginPath();ctx.moveTo(x,base);ctx.lineTo(x,uy);ctx.stroke();
-      // threshold tick on each gauge
+      ctx.beginPath();ctx.moveTo(x,base);ctx.lineTo(x,Y(U[j]));ctx.stroke();
       ctx.strokeStyle=C('--accent-2'); ctx.lineWidth=3.4; ctx.lineCap='butt';
       ctx.beginPath();ctx.moveTo(x-13,Y(bar));ctx.lineTo(x+13,Y(bar));ctx.stroke();
     }
-
-    // ---- threshold and buckled-state reference levels ----
-    ctx.setLineDash([13,10]); ctx.lineWidth=2.6; ctx.lineCap='butt';
+    // reference levels (they MOVE as F tilts the well)
+    ctx.setLineDash([13,10]); ctx.lineWidth=2.6;
     ctx.strokeStyle='rgba(255,90,31,0.9)';
     ctx.beginPath();ctx.moveTo(58,Y(bar));ctx.lineTo(W-58,Y(bar));ctx.stroke();
-    ctx.strokeStyle='rgba(0,166,166,0.75)';
-    ctx.beginPath();ctx.moveTo(58,Y(well));ctx.lineTo(W-58,Y(well));ctx.stroke();
+    if(well!==null){
+      ctx.strokeStyle='rgba(0,166,166,0.75)';
+      ctx.beginPath();ctx.moveTo(58,Y(well));ctx.lineTo(W-58,Y(well));ctx.stroke();
+    }
     ctx.setLineDash([]);
     ctx.font='500 21px "JetBrains Mono", monospace';
     ctx.fillStyle='rgba(255,90,31,0.95)';
-    ctx.fillText('buckling threshold  U* = '+bar.toFixed(2), 62, Y(bar)-12);
-    ctx.fillStyle='rgba(0,166,166,0.95)';
-    ctx.fillText('buckled state  U = '+well.toFixed(2), 62, Y(well)-12);
-
-    // ---- baseline (unbuckled, U = 0) ----
+    ctx.fillText('barrier U* = '+bar.toFixed(2), 62, Y(bar)-12);
+    if(well!==null){
+      ctx.fillStyle='rgba(0,166,166,0.95)';
+      ctx.fillText('buckled state U = '+well.toFixed(2), 62, Y(well)-12);
+    } else {
+      ctx.fillStyle='rgba(0,166,166,0.95)';
+      ctx.fillText('buckled state has vanished', 62, Y(bar)+34);
+    }
     ctx.strokeStyle=C('--border-2'); ctx.lineWidth=2.4;
     ctx.beginPath();ctx.moveTo(58,base);ctx.lineTo(W-58,base);ctx.stroke();
     ctx.fillStyle=C('--sub'); ctx.font='500 20px "JetBrains Mono", monospace';
     ctx.fillText('U = 0', 62, base+26);
 
-    // ---- bending springs between masses ----
+    // bending springs
     ctx.strokeStyle='rgba(11,21,38,0.55)'; ctx.lineWidth=2.2;
     for(let j=0;j<N-1;j++){
-      const x1=pad+gap*j, x2=pad+gap*(j+1), y1=Y(U[j]), y2=Y(U[j+1]);
+      const x1=pad+gap*j,x2=pad+gap*(j+1),y1=Y(U[j]),y2=Y(U[j+1]);
       ctx.beginPath();ctx.moveTo(x1+14,y1);
-      for(let k=1;k<6;k++){const f=k/6;ctx.lineTo(x1+14+((x2-14)-(x1+14))*f, y1+(y2-y1)*f+(k%2?8:-8));}
+      for(let k=1;k<6;k++){const f=k/6;ctx.lineTo(x1+14+((x2-14)-(x1+14))*f,y1+(y2-y1)*f+(k%2?8:-8));}
       ctx.lineTo(x2-14,y2);ctx.stroke();
     }
-
-    // ---- masses ----
+    // masses
     for(let j=0;j<N;j++){
       const x=pad+gap*j, y=Y(U[j]);
       if(flash[j]>0.02){
@@ -598,9 +636,19 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
       ctx.beginPath();ctx.arc(x,y,13,0,7);ctx.fill();
       ctx.strokeStyle=C('--ink'); ctx.lineWidth=1.8; ctx.stroke();
     }
-
-    // ---- readouts ----
+    // muscle actuation gauge
     let nb=0; for(let j=0;j<N;j++) if(buckled[j]) nb++;
+    const gx=40, gy=y0+34, gw=430, gh=16;
+    ctx.fillStyle='rgba(11,21,38,0.10)'; ctx.fillRect(gx,gy,gw,gh);
+    const f0=(0-FMIN)/(P.Fh-FMIN);
+    ctx.strokeStyle=C('--sub'); ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(gx+gw*f0,gy-4);ctx.lineTo(gx+gw*f0,gy+gh+4);ctx.stroke();
+    const ff=Math.max(0,Math.min(1,(F-FMIN)/(P.Fh-FMIN)));
+    ctx.fillStyle = F>=0 ? C('--accent-2') : C('--accent-3');
+    if(F>=0) ctx.fillRect(gx+gw*f0, gy, gw*(ff-f0), gh);
+    else     ctx.fillRect(gx+gw*ff, gy, gw*(f0-ff), gh);
+    ctx.fillStyle=C('--muted'); ctx.font='500 23px Outfit, sans-serif';
+    ctx.fillText('muscle force  F = '+F.toFixed(3)+'   ·   '+PHASE_LABEL[phase], gx+gw+22, gy+15);
     ctx.fillStyle=C('--muted'); ctx.font='500 25px Outfit, sans-serif';
     ctx.fillText('truss chain — buckling level per cell', 40, y0+14);
     ctx.fillStyle=C('--accent-2'); ctx.font='500 24px Outfit, sans-serif';
@@ -632,7 +680,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
       ctx.strokeStyle=C('--ink'); ctx.lineWidth=1.4; ctx.stroke();
     }
     ctx.fillStyle=C('--accent-3'); ctx.font='500 25px Outfit, sans-serif';
-    ctx.fillText('resonator array  V'+String.fromCharCode(0x2C7C), 40, y0+6);
+    ctx.fillText('resonator array  V', 40, y0+6);
     ctx.restore();
   }
 
@@ -654,12 +702,20 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
         const px=90+(i/HIST)*span, py=cy-arr[i].v*(rh*0.30);
         i?ctx.lineTo(px,py):ctx.moveTo(px,py);
       } ctx.stroke(); ctx.setLineDash([]);
+      if(r===0){
+        ctx.strokeStyle='rgba(255,90,31,0.45)'; ctx.lineWidth=2; ctx.beginPath();
+        for(let i=0;i<Fhist.length;i++){
+          const px=90+(i/HIST)*span, py=cy-Fhist[i]*(rh*0.9);
+          i?ctx.lineTo(px,py):ctx.moveTo(px,py);
+        } ctx.stroke();
+      }
       ctx.fillStyle=C('--sub'); ctx.font='500 18px "JetBrains Mono", monospace';
       ctx.fillText('cell '+(PROBE[r]+1), 20, cy+5);
     }
     ctx.fillStyle=C('--muted'); ctx.font='500 24px Outfit, sans-serif';
     ctx.fillText('U (solid)', 90, y0+18);
-    ctx.fillStyle=C('--accent-3'); ctx.fillText('V (dashed)', 240, y0+18);
+    ctx.fillStyle=C('--accent-3'); ctx.fillText('V (dashed)', 220, y0+18);
+    ctx.fillStyle='rgba(255,90,31,0.75)'; ctx.fillText('F(T)', 370, y0+18);
     ctx.fillStyle=C('--sub'); ctx.font='500 19px "JetBrains Mono", monospace';
     ctx.fillText('T = '+T.toFixed(1), W-170, y0+18);
     ctx.restore();
@@ -673,13 +729,13 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   }
 
   [['cr-R1','cv-R1','R1',2],['cr-R2','cv-R2','R2',2],
-   ['cr-l2','cv-l2','l2',2],['cr-z','cv-z','z',3]].forEach(function(a){
+   ['cr-l2','cv-l2','l2',2],['cr-z','cv-z','z',3],['cr-F','cv-F','Fh',2]].forEach(function(a){
     const R=document.getElementById(a[0]), Vl=document.getElementById(a[1]);
     if(!R) return;
     R.addEventListener('input',function(){ P[a[2]]=parseFloat(R.value); Vl.textContent=P[a[2]].toFixed(a[3]); });
   });
   const go=document.getElementById('cr-go');
-  if(go) go.addEventListener('click',launch);
+  if(go) go.addEventListener('click',reset);
 
   let live=false;
   new IntersectionObserver(function(e){live=e[0].isIntersecting;},{threshold:.05}).observe(cv);
@@ -697,10 +753,10 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
           trace[r].push({u:U[PROBE[r]], v:V[PROBE[r]]});
           if(trace[r].length>HIST) trace[r].shift();
         }
+        Fhist.push(F); if(Fhist.length>HIST) Fhist.shift();
       }
       acc-=dt;
     }
-    if(T>26) launch();
     render();
   })(performance.now());
 })();
