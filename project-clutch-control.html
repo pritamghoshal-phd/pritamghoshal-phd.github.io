@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Clutch Squawk Control — Pritam Ghoshal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Patent-pending control algorithm for suppressing stick-slip instability and squawk noise in automotive clutch systems." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site.css" />
+</head>
+<body>
+<header class="nav">
+  <div class="nav__in">
+    <a href="index.html" class="nav__logo">Pritam <span>Ghoshal</span></a>
+    <nav class="nav__links">
+      <a href="index.html#about">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-header">
+  <div class="wrap hero-inner reveal">
+    <div class="eyebrow">Project &middot; Patent pending</div>
+    <h1 class="page-title">Robust control of <em>stick-slip instability</em> in automotive clutches</h1>
+    <p class="hero-sub">Clutch squawk is a friction-induced instability, not a manufacturing defect. Treating it as a dynamics problem rather than a damping problem is what makes it controllable.</p>
+    <div class="hero-meta"><strong>Role:</strong> Lead inventor &middot; <strong>Status:</strong> U.S. Patent Application No. 63/989902 (pending)</div>
+    <div class="pill-row"><span class="tag">Friction-induced vibration</span>
+      <span class="tag">Stick-slip</span>
+      <span class="tag">Control design</span>
+      <span class="tag">Simulink</span>
+      <span class="tag">NVH</span></div>
+    <a href="projects.html" class="btn">&larr; Back to projects</a>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">The problem</h2>
+    <p>Slipping clutches sometimes emit a loud, unpleasant groan during engagement — <strong>squawk</strong>.
+      It is one of the more stubborn NVH problems in a driveline, because it is not caused by a part being
+      out of tolerance. It is a self-excited vibration.</p>
+    <p>The mechanism is a falling friction characteristic. If the friction coefficient decreases as relative
+      sliding velocity increases, then a small increase in velocity reduces the resisting force, which
+      increases velocity further. Formally the system acquires <strong>negative damping</strong>: the
+      steady-sliding equilibrium loses stability and the response grows until it settles onto a stick-slip
+      limit cycle. That limit cycle is what you hear.</p>
+    <p>Conventional fixes attack the symptom — friction modifiers, additional damping, changed facing
+      materials — and tend to trade the noise against durability or engagement feel. I approached it as a
+      control problem instead: if the instability arises from a lack of damping in a specific mode, the
+      right response is to supply damping there, actively and only when needed.</p>
+  </div>
+  <div class="wrap">
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 1 — Where the squawk comes from</span></div>
+      <div class="fig__body">
+        <svg viewBox="0 0 780 330" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="Schematic of a clutch friction interface and the falling friction curve that destabilises it.">
+          <text class="s-txt" x="24" y="30">clutch interface</text>
+          <g class="pop">
+            <rect class="s-card" x="46" y="76" width="52" height="180" rx="8"/>
+            <text class="s-txt s-txt--sm" x="40" y="278">flywheel</text>
+            <rect class="s-card" x="150" y="96" width="44" height="140" rx="8"/>
+            <text class="s-txt s-txt--sm" x="138" y="278">disc</text>
+            <line class="s-accent2" x1="104" y1="166" x2="144" y2="166" stroke-width="6"/>
+            <text class="s-mono2" x="98" y="150">contact</text>
+          </g>
+          <g class="pop pop--d1">
+            <path class="s-line" d="M194 166 L246 166"/>
+            <path class="s-line" d="M246 140 L246 192"/>
+            <path class="s-line" d="M246 152 L262 142 L262 190 L246 180"/>
+            <text class="s-mono" x="236" y="216">torsional mode</text>
+            <path class="s-accent" d="M212 122 A26 26 0 0 1 246 122"/>
+            <path class="s-fill" d="M246 122 L238 112 L250 108 Z"/>
+            <text class="s-mono" x="200" y="106">&#952;(t)</text>
+          </g>
+          <g class="pop pop--d2">
+            <line class="s-accent2" x1="72" y1="60" x2="72" y2="26"/>
+            <path class="s-fill2" d="M72 68 L66 54 L78 54 Z"/>
+            <text class="s-mono2" x="24" y="20">normal force N</text>
+          </g>
+
+          <text class="s-txt" x="430" y="30">friction characteristic</text>
+          <g class="pop pop--d3">
+            <path class="s-thin" d="M446 250 L744 250"/>
+            <path class="s-thin" d="M446 250 L446 66"/>
+            <text class="s-txt s-txt--sm" x="640" y="272">relative velocity</text>
+            <text class="s-txt s-txt--sm" x="392" y="80">&#956;</text>
+            <rect x="470" y="66" width="120" height="184" fill="rgba(255,90,31,.10)"/>
+            <path class="s-accent draw" style="--len:420"
+                  d="M446 100 C470 100 486 132 530 168 C572 202 640 210 740 212"/>
+            <text class="s-mono2" x="470" y="300">d&#956;/dv &lt; 0 &#8594; negative damping</text>
+            <circle class="s-fill2" cx="530" cy="168" r="8"/>
+          </g>
+        </svg>
+      </div>
+      <p class="fig__cap"><b>Figure 1.</b> During slow engagement the clutch disc and flywheel are in frictional contact. If the friction coefficient falls as relative sliding velocity rises — the negative slope shaded in orange — the equilibrium becomes unstable. Energy is fed into the torsional mode each cycle, the surfaces alternately stick and slip, and the resulting limit cycle radiates as audible squawk.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--alt">
+  <div class="wrap two-col">
+    <div class="card reveal">
+      <h3>Modeling</h3>
+      <p>The engagement was reduced to a lumped torsional model: an inertia in frictional contact with a driven surface, restrained by driveline compliance, with a velocity-dependent friction law.</p>
+      <p>Reduced-order models like this are essential here — a full finite element model cannot be integrated over the many parameter combinations needed to map a stability boundary.</p>
+      <ul>
+        <li>Stability analysis of the steady-sliding equilibrium</li>
+        <li>Continuation of the limit cycle amplitude across parameters</li>
+        <li>Identification of the conditions under which squawk appears</li>
+        <li>Sensitivity to normal load, engagement rate and stiffness</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <h3>Control</h3>
+      <p>The controller injects damping into the unstable mode, targeting the negative-damping term directly rather than adding broadband dissipation that would degrade engagement quality.</p>
+      <p>Robustness mattered more than optimality: the friction characteristic varies with temperature, wear and contamination, so the algorithm had to hold up under substantial uncertainty in the very parameter driving the instability. That robustness requirement is the core of the patent application.</p>
+      <ul>
+        <li>Damping injection targeted at the unstable mode</li>
+        <li>Robust to variation in the friction characteristic</li>
+        <li>Validated in simulation across the engagement envelope</li>
+        <li>U.S. Patent Application No. 63/989902</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 2 — Stick-slip, with the controller on and off</span><span class="fig__live">running</span></div>
+      <div class="fig__body">
+        <canvas id="cl-canvas" width="1520" height="620"></canvas>
+      </div>
+      <div class="fig__ctrls">
+        <div class="fig__ctrl">
+          <label>Engagement speed <b id="clv-v">0.70</b></label>
+          <input type="range" id="cl-v" min="0.20" max="1.60" step="0.02" value="0.70" />
+        </div>
+        <div class="fig__ctrl">
+          <label>Torsional stiffness <b id="clv-k">1.30</b></label>
+          <input type="range" id="cl-k" min="0.40" max="3.00" step="0.05" value="1.30" />
+        </div>
+      </div>
+      <div class="fig__ctrls" style="padding-top:0">
+        <button class="btn btn--solid" id="cl-toggle" type="button">Controller: OFF</button>
+      </div>
+      <p class="fig__cap"><b>Figure 2.</b> A lumped torsional model of the engagement, integrated live. Left: the disc alternately sticks to and slips against the flywheel; the block turns orange while stuck. Middle: the phase portrait, where the uncontrolled system collapses onto a large limit cycle. Right: the radiated waveform — the squawk itself. Toggle the controller and the limit cycle shrinks toward the equilibrium and the waveform goes quiet.</p>
+    </div>
+  </div>
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">Why it matters</h2>
+    <p>Squawk sits at the intersection of tribology, structural dynamics and control, which is why it
+      resists single-discipline fixes. Framing it as a stability problem makes the solution space much
+      clearer: you are not trying to make the clutch quieter, you are trying to move an eigenvalue.</p>
+    <p>The same framing generalises. Brake squeal, machine-tool chatter and hose-clamp groan are all
+      friction-induced instabilities with the same underlying structure, and a controller that supplies
+      damping robustly against an uncertain friction law is applicable to all of them.</p>
+    <p><em>A patent application is pending on this work, so specific implementation details are not
+      published here.</em></p>
+    <div class="proj-links" style="margin-top:1.6rem"><a class="btn" href="projects.html">All projects &rarr;</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>&copy; <span id="year"></span> Pritam Ghoshal</div>
+    <div>Mechanical Engineering &middot; Purdue University</div>
+  </div>
+</footer>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-in');o.unobserve(e.target);}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+<script>
+(function(){
+  const cv=document.getElementById('cl-canvas'); if(!cv) return;
+  const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
+  const css=getComputedStyle(document.documentElement); const C=k=>css.getPropertyValue(k).trim();
+  const P={vbelt:0.70, k:1.30, ctrl:false};
+  let x=0, v=0, t=0, stuck=false;
+  const hist=[], wave=[]; const HIST=420;
+
+  function mu(vr){ const a=Math.abs(vr); return 0.32 + 0.30*Math.exp(-a*3.4); }
+
+  function step(dt){
+    t+=dt;
+    const vr=v-P.vbelt;
+    const fric=-Math.sign(vr||1)*mu(vr)*1.0;
+    let u=0;
+    if(P.ctrl){ u = -0.85*v - 0.35*Math.tanh(6*vr); }   // damping injection
+    const a=-P.k*x + fric + 0.06*P.vbelt + u - 0.05*v;
+    v+=a*dt; x+=v*dt;
+    stuck=Math.abs(vr)<0.04;
+    if(!isFinite(x)||Math.abs(x)>8){x=0;v=0;}
+    return fric;
+  }
+
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    // --- panel 1: physical ---
+    const w1=W*0.34;
+    ctx.save();
+    ctx.fillStyle=C('--muted'); ctx.font='500 25px Outfit, sans-serif';
+    ctx.fillText('engagement', 30, 44);
+    const cy=H*0.5;
+    // moving flywheel surface
+    ctx.fillStyle=C('--bg-alt'); ctx.fillRect(40,cy+56,w1-80,54);
+    ctx.strokeStyle=C('--border-2'); ctx.lineWidth=2; ctx.strokeRect(40,cy+56,w1-80,54);
+    ctx.strokeStyle=C('--sub'); ctx.lineWidth=3;
+    for(let i=0;i<14;i++){
+      const px=40+((i*46 + t*P.vbelt*150)%(w1-80));
+      ctx.beginPath();ctx.moveTo(px,cy+62);ctx.lineTo(px+18,cy+104);ctx.stroke();
+    }
+    // disc block
+    const bx=w1*0.5+x*90;
+    ctx.fillStyle= stuck ? C('--accent-2') : C('--accent');
+    ctx.fillRect(bx-52,cy-8,104,62);
+    // spring to ground
+    ctx.strokeStyle=C('--ink'); ctx.lineWidth=3; ctx.beginPath();
+    ctx.moveTo(40,cy+22);
+    for(let i=0;i<10;i++){const px=40+i*((bx-92)/10);ctx.lineTo(px,cy+22+(i%2?14:-14));}
+    ctx.lineTo(bx-52,cy+22); ctx.stroke();
+    ctx.fillStyle=stuck?C('--accent-2'):C('--muted'); ctx.font='500 22px Outfit, sans-serif';
+    ctx.fillText(stuck?'STICK':'SLIP', bx-30, cy+34);
+    ctx.restore();
+
+    // --- panel 2: phase ---
+    ctx.save();
+    const x0=w1, w2=W*0.33, ccx=x0+w2*0.5, ccy=H*0.5;
+    ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(x0+40,ccy);ctx.lineTo(x0+w2-40,ccy);
+    ctx.moveTo(ccx,60);ctx.lineTo(ccx,H-60);ctx.stroke();
+    ctx.lineWidth=2.5;
+    for(let i=1;i<hist.length;i++){
+      const p0=hist[i-1],p1=hist[i];
+      ctx.strokeStyle=`rgba(${P.ctrl?'0,166,166':'255,90,31'},${(i/hist.length)*0.8})`;
+      ctx.beginPath();
+      ctx.moveTo(ccx+p0.x*110, ccy-p0.v*110);
+      ctx.lineTo(ccx+p1.x*110, ccy-p1.v*110);
+      ctx.stroke();
+    }
+    ctx.fillStyle=C('--accent'); ctx.beginPath();ctx.arc(ccx+x*110,ccy-v*110,9,0,7);ctx.fill();
+    ctx.fillStyle=C('--muted'); ctx.font='500 25px Outfit, sans-serif';
+    ctx.fillText('phase portrait', x0+30, 44);
+    ctx.restore();
+
+    // --- panel 3: radiated waveform ---
+    ctx.save();
+    const x3=w1+w2, w3=W-x3, wcy=H*0.5, span=w3-80;
+    ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(x3+40,wcy);ctx.lineTo(x3+40+span,wcy);ctx.stroke();
+    ctx.strokeStyle=P.ctrl?C('--accent-3'):C('--accent-2'); ctx.lineWidth=3;
+    ctx.beginPath();
+    for(let i=0;i<wave.length;i++){
+      const px=x3+40+(i/HIST)*span, py=wcy-wave[i]*150;
+      i?ctx.lineTo(px,py):ctx.moveTo(px,py);
+    }
+    ctx.stroke();
+    ctx.fillStyle=C('--muted'); ctx.font='500 25px Outfit, sans-serif';
+    ctx.fillText(P.ctrl?'radiated noise — suppressed':'radiated noise — squawk', x3+30, 44);
+    ctx.restore();
+  }
+
+  const b=(r,vv,key,dp)=>{const R=document.getElementById(r),V=document.getElementById(vv);
+    if(!R)return;R.addEventListener('input',()=>{P[key]=parseFloat(R.value);V.textContent=P[key].toFixed(dp);});};
+  b('cl-v','clv-v','vbelt',2); b('cl-k','clv-k','k',2);
+  const tg=document.getElementById('cl-toggle');
+  if(tg) tg.addEventListener('click',()=>{P.ctrl=!P.ctrl;
+    tg.textContent='Controller: '+(P.ctrl?'ON':'OFF'); hist.length=0;});
+
+  let live=false;
+  new IntersectionObserver(e=>{live=e[0].isIntersecting;},{threshold:.05}).observe(cv);
+  let acc=0,last=performance.now(),fr=0;
+  (function loop(now){
+    requestAnimationFrame(loop);
+    const dtr=Math.min((now-last)/1000,.05); last=now;
+    if(!live) return;
+    acc+=dtr; let f=0,g=0;
+    while(acc>=0.004&&g++<300){ f=step(0.010); acc-=0.004; }
+    if(fr++%2===0){ hist.push({x,v}); if(hist.length>260)hist.shift();
+      wave.push(v*0.55); if(wave.length>HIST)wave.shift(); }
+    render();
+  })(performance.now());
+})();
+</script>
+</body>
+</html>
