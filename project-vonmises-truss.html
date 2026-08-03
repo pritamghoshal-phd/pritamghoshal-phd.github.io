@@ -64,87 +64,44 @@
         <span class="fig__no">Figure 1 — System schematic</span>
       </div>
       <div class="fig__body">
-        <svg viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg" role="img"
-             aria-label="Schematic of a viscoelastic von Mises truss showing two pinned bars meeting at an apex mass, with the standard linear solid material model shown as an inset.">
-          <!-- ground hatch -->
-          <g class="s-thin">
-            <line x1="80" y1="262" x2="200" y2="262"/>
-            <line x1="86" y1="262" x2="76" y2="274"/><line x1="98" y1="262" x2="88" y2="274"/>
-            <line x1="110" y1="262" x2="100" y2="274"/><line x1="122" y1="262" x2="112" y2="274"/>
-            <line x1="134" y1="262" x2="124" y2="274"/><line x1="146" y1="262" x2="136" y2="274"/>
-            <line x1="158" y1="262" x2="148" y2="274"/><line x1="170" y1="262" x2="160" y2="274"/>
-            <line x1="182" y1="262" x2="172" y2="274"/><line x1="194" y1="262" x2="184" y2="274"/>
-            <line x1="380" y1="262" x2="500" y2="262"/>
-            <line x1="386" y1="262" x2="376" y2="274"/><line x1="398" y1="262" x2="388" y2="274"/>
-            <line x1="410" y1="262" x2="400" y2="274"/><line x1="422" y1="262" x2="412" y2="274"/>
-            <line x1="434" y1="262" x2="424" y2="274"/><line x1="446" y1="262" x2="436" y2="274"/>
-            <line x1="458" y1="262" x2="448" y2="274"/><line x1="470" y1="262" x2="460" y2="274"/>
-            <line x1="482" y1="262" x2="472" y2="274"/><line x1="494" y1="262" x2="484" y2="274"/>
-          </g>
-
-          <!-- mirrored (snapped-through) state -->
-          <path class="s-dash" d="M140 262 L290 330 L440 262"/>
-          <circle cx="290" cy="330" r="9" fill="none" stroke="var(--sub)" stroke-width="1.4"/>
-          <text class="s-txt s-txt--sm" x="304" y="348">second stable state</text>
-
-          <!-- span + height guides -->
-          <line class="s-dash" x1="140" y1="262" x2="440" y2="262"/>
-          <line class="s-dash" x1="290" y1="196" x2="290" y2="262"/>
-          <text class="s-mono" x="298" y="234">h</text>
-          <text class="s-mono" x="212" y="256">a</text>
-          <text class="s-mono" x="358" y="256">a</text>
-
-          <!-- the two bars -->
-          <path class="s-accent draw" style="--len:340" d="M140 262 L290 196"/>
-          <path class="s-accent draw draw--d1" style="--len:340" d="M440 262 L290 196"/>
-
-          <!-- pins -->
-          <g class="pop">
-            <path class="s-line" d="M140 262 L128 280 L152 280 Z" fill="var(--bg-alt)"/>
-            <path class="s-line" d="M440 262 L428 280 L452 280 Z" fill="var(--bg-alt)"/>
-          </g>
-
-          <!-- apex mass -->
-          <circle class="s-fill2 pop pop--d2" cx="290" cy="196" r="13"/>
-          <text class="s-txt" x="308" y="192">m</text>
-
-          <!-- forcing arrow -->
-          <g class="pop pop--d3">
-            <line class="s-accent2" x1="290" y1="128" x2="290" y2="174"/>
-            <path class="s-fill2" d="M290 182 L284 168 L296 168 Z"/>
-            <text class="s-mono2" x="302" y="136">F(t) = γ cos(ωt)</text>
-          </g>
-
-          <!-- generalised coordinate -->
-          <text class="s-mono" x="196" y="180">q(t)</text>
-
-          <!-- inset: standard linear solid -->
-          <g class="pop pop--d4">
-            <rect class="s-card" x="520" y="96" width="216" height="196" rx="14"/>
-            <text class="s-txt" x="538" y="124">Bar material: SLS</text>
-
-            <!-- parallel spring E-infinity -->
-            <path class="s-line" d="M544 164 L558 164 L563 154 L573 174 L583 154 L593 174 L603 154 L608 164 L622 164"/>
-            <text class="s-mono" x="630" y="168">E∞</text>
-
-            <!-- Maxwell arm: spring + dashpot -->
-            <path class="s-line" d="M544 214 L554 214 L558 206 L566 222 L574 206 L582 222 L586 214 L596 214"/>
-            <g class="s-line">
-              <rect x="598" y="204" width="26" height="20" fill="var(--bg)"/>
-              <line x1="611" y1="214" x2="624" y2="214"/>
-              <line x1="611" y1="206" x2="611" y2="222"/>
-            </g>
-            <line class="s-line" x1="624" y1="214" x2="636" y2="214"/>
-            <text class="s-mono" x="596" y="248">E₁</text>
-            <text class="s-mono" x="626" y="248">η</text>
-
-            <!-- rails -->
-            <line class="s-line" x1="544" y1="164" x2="544" y2="214"/>
-            <line class="s-line" x1="636" y1="164" x2="636" y2="214"/>
-            <line class="s-line" x1="530" y1="189" x2="544" y2="189"/>
-            <line class="s-line" x1="636" y1="189" x2="650" y2="189"/>
-            <text class="s-txt s-txt--sm" x="530" y="278">relaxation time λ = η / E₁</text>
-          </g>
+        <svg viewBox="0 0 1270 440" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="A von Mises truss with apex mass m on inclined springs k pinned at both ends, harmonically forced, together with the standard linear solid viscoelastic element made of spring k1 in parallel with a Maxwell arm of k2 and dashpot eta.">
+          <rect x="20" y="26" width="640" height="392" rx="16" fill="rgba(22,82,240,.05)" stroke="var(--border)" stroke-width="1.6"/>
+          <text x="46" y="66" style="font-size:25px;font-family:Outfit,sans-serif" fill="var(--accent)" font-weight="600">von Mises truss</text>
+          <line x1="190" y1="250" x2="470" y2="250" stroke="var(--sub)" stroke-width="1.4" stroke-dasharray="6 6"/>
+          <line x1="330" y1="250" x2="330" y2="188" stroke="var(--sub)" stroke-width="1.2" stroke-dasharray="4 5"/>
+          <path d="M190 250 L330 312 L470 250" fill="none" stroke="var(--border-2)" stroke-width="2.2" stroke-dasharray="7 6"/>
+          <circle cx="330" cy="312" r="11" fill="none" stroke="var(--border-2)" stroke-width="2"/>
+          <path d="M190.0 250.0 L204.6 243.5 L204.6 243.5 L206.5 245.3 L208.2 247.0 L209.9 248.5 L211.4 249.5 L212.7 250.2 L213.8 250.3 L214.6 250.0 L215.2 249.1 L215.6 247.7 L215.8 245.8 L215.9 243.6 L215.8 241.2 L215.7 238.6 L215.6 236.1 L215.5 233.6 L215.6 231.4 L215.8 229.6 L216.2 228.2 L216.8 227.3 L217.6 226.9 L218.7 227.0 L220.0 227.7 L221.5 228.8 L223.2 230.2 L225.0 231.9 L226.8 233.7 L228.6 235.5 L230.4 237.2 L232.0 238.6 L233.5 239.7 L234.8 240.4 L235.9 240.5 L236.8 240.1 L237.4 239.2 L237.8 237.8 L238.0 236.0 L238.0 233.8 L238.0 231.4 L237.9 228.8 L237.7 226.2 L237.7 223.8 L237.7 221.6 L237.9 219.8 L238.3 218.4 L238.9 217.5 L239.8 217.1 L240.9 217.2 L242.2 217.9 L243.7 219.0 L245.3 220.4 L247.1 222.1 L248.9 223.9 L250.7 225.7 L252.5 227.4 L254.2 228.8 L255.7 229.9 L257.0 230.6 L258.1 230.7 L258.9 230.3 L259.5 229.4 L259.9 228.0 L260.1 226.2 L260.2 224.0 L260.1 221.6 L260.0 219.0 L259.9 216.4 L259.8 214.0 L259.9 211.8 L260.1 210.0 L260.5 208.6 L261.1 207.7 L261.9 207.3 L263.0 207.4 L264.3 208.1 L265.8 209.2 L267.5 210.6 L269.3 212.3 L271.1 214.1 L272.9 215.9 L274.7 217.6 L276.3 219.0 L277.8 220.1 L279.1 220.8 L280.2 220.9 L281.1 220.5 L281.7 219.6 L282.1 218.2 L282.3 216.4 L282.3 214.2 L282.3 211.8 L282.1 209.2 L282.0 206.6 L282.0 204.2 L282.0 202.0 L282.2 200.2 L282.6 198.8 L283.2 197.9 L284.1 197.5 L285.2 197.6 L286.5 198.3 L288.0 199.4 L289.6 200.8 L291.4 202.5 L293.2 204.3 L295.0 206.1 L296.8 207.8 L298.5 209.2 L300.0 210.3 L301.3 211.0 L302.4 211.1 L303.2 210.7 L303.8 209.8 L304.2 208.4 L304.4 206.6 L304.5 204.4 L304.4 201.9 L304.3 199.4 L304.2 196.8 L304.1 194.4 L304.2 192.2 L304.4 190.3 L304.8 188.9 L305.4 188.0 L306.2 187.7 L307.3 187.8 L308.6 188.5 L310.1 189.5 L311.8 191.0 L313.5 192.7 L315.4 194.5 L330.0 188.0" stroke="var(--ink)" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M470.0 250.0 L455.4 243.5 L455.4 243.5 L455.5 241.0 L455.5 238.5 L455.5 236.3 L455.3 234.5 L454.9 233.1 L454.3 232.2 L453.4 231.8 L452.3 232.0 L451.0 232.6 L449.5 233.7 L447.9 235.1 L446.1 236.8 L444.3 238.6 L442.5 240.4 L440.7 242.1 L439.1 243.5 L437.6 244.6 L436.3 245.3 L435.2 245.4 L434.3 245.1 L433.7 244.1 L433.3 242.7 L433.1 240.9 L433.0 238.7 L433.1 236.3 L433.2 233.7 L433.3 231.1 L433.4 228.7 L433.4 226.5 L433.1 224.7 L432.7 223.3 L432.1 222.4 L431.3 222.0 L430.2 222.1 L428.9 222.8 L427.4 223.9 L425.7 225.3 L424.0 227.0 L422.1 228.8 L420.3 230.6 L418.6 232.3 L416.9 233.7 L415.4 234.8 L414.1 235.5 L413.0 235.6 L412.2 235.2 L411.5 234.3 L411.1 232.9 L410.9 231.1 L410.9 228.9 L411.0 226.5 L411.1 223.9 L411.2 221.3 L411.3 218.9 L411.2 216.7 L411.0 214.9 L410.6 213.5 L410.0 212.6 L409.1 212.2 L408.0 212.3 L406.7 213.0 L405.2 214.1 L403.6 215.5 L401.8 217.2 L400.0 219.0 L398.2 220.8 L396.4 222.5 L394.8 223.9 L393.3 225.0 L392.0 225.7 L390.9 225.8 L390.0 225.4 L389.4 224.5 L389.0 223.1 L388.8 221.3 L388.7 219.1 L388.8 216.7 L388.9 214.1 L389.0 211.5 L389.1 209.1 L389.1 206.9 L388.9 205.1 L388.5 203.7 L387.8 202.8 L387.0 202.4 L385.9 202.5 L384.6 203.2 L383.1 204.3 L381.4 205.7 L379.7 207.4 L377.9 209.2 L376.0 211.0 L374.3 212.7 L372.6 214.1 L371.1 215.2 L369.8 215.9 L368.7 216.0 L367.9 215.6 L367.3 214.7 L366.9 213.3 L366.6 211.5 L366.6 209.3 L366.7 206.9 L366.8 204.3 L366.9 201.7 L367.0 199.3 L366.9 197.1 L366.7 195.3 L366.3 193.9 L365.7 192.9 L364.8 192.6 L363.7 192.7 L362.4 193.4 L360.9 194.5 L359.3 195.9 L357.5 197.6 L355.7 199.4 L353.9 201.2 L352.1 202.9 L350.5 204.3 L349.0 205.4 L347.7 206.0 L346.6 206.2 L345.7 205.8 L345.1 204.9 L344.7 203.5 L344.5 201.7 L344.5 199.5 L344.5 197.0 L344.6 194.5 L330.0 188.0" stroke="var(--ink)" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <g><path d="M190 250 L172 272 L208 272 Z" fill="var(--bg-alt)" stroke="var(--ink)" stroke-width="2.4"/><line x1="163" y1="272" x2="217" y2="272" stroke="var(--ink)" stroke-width="2.8"/><g stroke="var(--sub)" stroke-width="1.5"><line x1="166" y1="272" x2="156" y2="285"/><line x1="178" y1="272" x2="168" y2="285"/><line x1="190" y1="272" x2="180" y2="285"/><line x1="202" y1="272" x2="192" y2="285"/><line x1="214" y1="272" x2="204" y2="285"/></g><circle cx="190" cy="250" r="8" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="2.4"/></g>
+          <g><path d="M470 250 L452 272 L488 272 Z" fill="var(--bg-alt)" stroke="var(--ink)" stroke-width="2.4"/><line x1="443" y1="272" x2="497" y2="272" stroke="var(--ink)" stroke-width="2.8"/><g stroke="var(--sub)" stroke-width="1.5"><line x1="446" y1="272" x2="436" y2="285"/><line x1="458" y1="272" x2="448" y2="285"/><line x1="470" y1="272" x2="460" y2="285"/><line x1="482" y1="272" x2="472" y2="285"/><line x1="494" y1="272" x2="484" y2="285"/></g><circle cx="470" cy="250" r="8" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="2.4"/></g>
+          <circle cx="330" cy="188" r="21" fill="var(--accent)" stroke="var(--ink)" stroke-width="2.4"/>
+          <line x1="330" y1="92" x2="330" y2="154" stroke="var(--accent-2)" stroke-width="4"/>
+          <path d="M330 162 L321 144 L339 144 Z" fill="var(--accent-2)"/>
+          <text x="352" y="116" style="font-size:23px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">γ cos(ωt)</text>
+          <text x="372" y="176" style="font-size:26px;font-family:Outfit,sans-serif" font-weight="600" font-style="italic">m</text>
+          <text x="238" y="208" style="font-size:26px;font-family:Outfit,sans-serif" font-weight="600" font-style="italic">k</text>
+          <text x="418" y="208" style="font-size:26px;font-family:Outfit,sans-serif" font-weight="600" font-style="italic">k</text>
+          <text x="336" y="238" style="font-size:22px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">U</text>
+          <text x="250" y="306" style="font-size:22px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">a</text>
+          <text x="400" y="306" style="font-size:22px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">a</text>
+          <text x="46" y="398" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">apex snaps through the support line</text>
+          <rect x="690" y="26" width="560" height="392" rx="16" fill="rgba(0,166,166,.06)" stroke="var(--border)" stroke-width="1.6"/>
+          <text x="716" y="66" style="font-size:25px;font-family:Outfit,sans-serif" fill="var(--accent-3)" font-weight="600">viscoelastic element (SLS)</text>
+          <g><line x1="748" y1="172" x2="748" y2="288" stroke="var(--ink)" stroke-width="3"/><g stroke="var(--sub)" stroke-width="1.5"><line x1="748" y1="172" x2="736" y2="163"/><line x1="748" y1="182" x2="736" y2="173"/><line x1="748" y1="192" x2="736" y2="183"/><line x1="748" y1="202" x2="736" y2="193"/><line x1="748" y1="212" x2="736" y2="203"/><line x1="748" y1="222" x2="736" y2="213"/><line x1="748" y1="232" x2="736" y2="223"/><line x1="748" y1="242" x2="736" y2="233"/><line x1="748" y1="252" x2="736" y2="243"/><line x1="748" y1="262" x2="736" y2="253"/><line x1="748" y1="272" x2="736" y2="263"/><line x1="748" y1="282" x2="736" y2="273"/></g></g>
+          <line x1="748" y1="230" x2="790" y2="230" stroke="var(--ink)" stroke-width="2.8"/>
+          <line x1="790" y1="170" x2="790" y2="290" stroke="var(--ink)" stroke-width="2.8"/>
+          <line x1="1150" y1="170" x2="1150" y2="290" stroke="var(--ink)" stroke-width="2.8"/>
+          <line x1="1150" y1="230" x2="1196" y2="230" stroke="var(--ink)" stroke-width="2.8"/>
+          <circle cx="1208" cy="230" r="10" fill="var(--accent)"/>
+          <path d="M790.0 170.0 L806.0 170.0 L806.0 170.0 L808.1 172.9 L810.2 175.6 L812.3 178.0 L814.4 179.9 L816.5 181.2 L818.6 181.9 L820.7 181.9 L822.8 181.2 L824.9 179.9 L827.0 178.0 L829.1 175.6 L831.2 172.9 L833.3 170.0 L835.4 167.1 L837.5 164.4 L839.6 162.0 L841.7 160.1 L843.8 158.8 L845.9 158.1 L848.1 158.1 L850.2 158.8 L852.3 160.1 L854.4 162.0 L856.5 164.4 L858.6 167.1 L860.7 170.0 L862.8 172.9 L864.9 175.6 L867.0 178.0 L869.1 179.9 L871.2 181.2 L873.3 181.9 L875.4 181.9 L877.5 181.2 L879.6 179.9 L881.7 178.0 L883.8 175.6 L885.9 172.9 L888.0 170.0 L890.1 167.1 L892.2 164.4 L894.3 162.0 L896.4 160.1 L898.5 158.8 L900.6 158.1 L902.7 158.1 L904.8 158.8 L906.9 160.1 L909.0 162.0 L911.1 164.4 L913.2 167.1 L915.3 170.0 L917.4 172.9 L919.5 175.6 L921.6 178.0 L923.7 179.9 L925.8 181.2 L927.9 181.9 L930.1 181.9 L932.2 181.2 L934.3 179.9 L936.4 178.0 L938.5 175.6 L940.6 172.9 L942.7 170.0 L944.8 167.1 L946.9 164.4 L949.0 162.0 L951.1 160.1 L953.2 158.8 L955.3 158.1 L957.4 158.1 L959.5 158.8 L961.6 160.1 L963.7 162.0 L965.8 164.4 L967.9 167.1 L970.0 170.0 L972.1 172.9 L974.2 175.6 L976.3 178.0 L978.4 179.9 L980.5 181.2 L982.6 181.9 L984.7 181.9 L986.8 181.2 L988.9 179.9 L991.0 178.0 L993.1 175.6 L995.2 172.9 L997.3 170.0 L999.4 167.1 L1001.5 164.4 L1003.6 162.0 L1005.7 160.1 L1007.8 158.8 L1009.9 158.1 L1012.1 158.1 L1014.2 158.8 L1016.3 160.1 L1018.4 162.0 L1020.5 164.4 L1022.6 167.1 L1024.7 170.0 L1026.8 172.9 L1028.9 175.6 L1031.0 178.0 L1033.1 179.9 L1035.2 181.2 L1037.3 181.9 L1039.4 181.9 L1041.5 181.2 L1043.6 179.9 L1045.7 178.0 L1047.8 175.6 L1049.9 172.9 L1052.0 170.0 L1054.1 167.1 L1056.2 164.4 L1058.3 162.0 L1060.4 160.1 L1062.5 158.8 L1064.6 158.1 L1066.7 158.1 L1068.8 158.8 L1070.9 160.1 L1073.0 162.0 L1075.1 164.4 L1077.2 167.1 L1079.3 170.0 L1081.4 172.9 L1083.5 175.6 L1085.6 178.0 L1087.7 179.9 L1089.8 181.2 L1091.9 181.9 L1094.1 181.9 L1096.2 181.2 L1098.3 179.9 L1100.4 178.0 L1102.5 175.6 L1104.6 172.9 L1106.7 170.0 L1108.8 167.1 L1110.9 164.4 L1113.0 162.0 L1115.1 160.1 L1117.2 158.8 L1119.3 158.1 L1121.4 158.1 L1123.5 158.8 L1125.6 160.1 L1127.7 162.0 L1129.8 164.4 L1131.9 167.1 L1134.0 170.0 L1150.0 170.0" stroke="var(--ink)" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="970" y="142" style="font-size:26px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600" font-style="italic">k<tspan style="font-size:17px" dy="6">1</tspan></text>
+          <path d="M790.0 290.0 L804.0 290.0 L804.0 290.0 L805.0 292.6 L806.0 295.1 L807.0 297.3 L808.1 299.1 L809.1 300.3 L810.1 300.9 L811.1 300.9 L812.1 300.3 L813.1 299.1 L814.2 297.3 L815.2 295.1 L816.2 292.6 L817.2 290.0 L818.2 287.4 L819.2 284.9 L820.2 282.7 L821.3 280.9 L822.3 279.7 L823.3 279.1 L824.3 279.1 L825.3 279.7 L826.3 280.9 L827.4 282.7 L828.4 284.9 L829.4 287.4 L830.4 290.0 L831.4 292.6 L832.4 295.1 L833.4 297.3 L834.5 299.1 L835.5 300.3 L836.5 300.9 L837.5 300.9 L838.5 300.3 L839.5 299.1 L840.6 297.3 L841.6 295.1 L842.6 292.6 L843.6 290.0 L844.6 287.4 L845.6 284.9 L846.6 282.7 L847.7 280.9 L848.7 279.7 L849.7 279.1 L850.7 279.1 L851.7 279.7 L852.7 280.9 L853.8 282.7 L854.8 284.9 L855.8 287.4 L856.8 290.0 L857.8 292.6 L858.8 295.1 L859.8 297.3 L860.9 299.1 L861.9 300.3 L862.9 300.9 L863.9 300.9 L864.9 300.3 L865.9 299.1 L867.0 297.3 L868.0 295.1 L869.0 292.6 L870.0 290.0 L871.0 287.4 L872.0 284.9 L873.0 282.7 L874.1 280.9 L875.1 279.7 L876.1 279.1 L877.1 279.1 L878.1 279.7 L879.1 280.9 L880.2 282.7 L881.2 284.9 L882.2 287.4 L883.2 290.0 L884.2 292.6 L885.2 295.1 L886.2 297.3 L887.3 299.1 L888.3 300.3 L889.3 300.9 L890.3 300.9 L891.3 300.3 L892.3 299.1 L893.4 297.3 L894.4 295.1 L895.4 292.6 L896.4 290.0 L897.4 287.4 L898.4 284.9 L899.4 282.7 L900.5 280.9 L901.5 279.7 L902.5 279.1 L903.5 279.1 L904.5 279.7 L905.5 280.9 L906.6 282.7 L907.6 284.9 L908.6 287.4 L909.6 290.0 L910.6 292.6 L911.6 295.1 L912.6 297.3 L913.7 299.1 L914.7 300.3 L915.7 300.9 L916.7 300.9 L917.7 300.3 L918.7 299.1 L919.8 297.3 L920.8 295.1 L921.8 292.6 L922.8 290.0 L923.8 287.4 L924.8 284.9 L925.8 282.7 L926.9 280.9 L927.9 279.7 L928.9 279.1 L929.9 279.1 L930.9 279.7 L931.9 280.9 L933.0 282.7 L934.0 284.9 L935.0 287.4 L936.0 290.0 L950.0 290.0" stroke="var(--ink)" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <g stroke="var(--ink)" stroke-width="2.4" fill="none" stroke-linecap="round"><line x1="950" y1="290" x2="974" y2="290"/><path d="M1022 272 L974 272 L974 308 L1022 308" fill="var(--bg-alt)"/><line x1="1008" y1="276" x2="1008" y2="304" stroke-width="3"/><line x1="1008" y1="290" x2="1150" y2="290"/></g>
+          <text x="866" y="344" style="font-size:26px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600" font-style="italic">k<tspan style="font-size:17px" dy="6">2</tspan></text>
+          <text x="1046" y="344" style="font-size:26px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600" font-style="italic">η</text>
+          <text x="716" y="398" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--accent-3)">relaxation time  λ = η / k₂   →   fading memory</text>
         </svg>
       </div>
       <p class="fig__cap">
@@ -155,36 +112,77 @@
       </p>
     </div>
 
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 2 &mdash; Potential and the jerk structure</span></div>
+      <div class="fig__body">
+        <svg viewBox="0 0 1270 546" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="The asymmetric truss potential with equilibria at U equals zero and three halves plus or minus root one minus four lambda over two, alongside the third-order jerk structure of the governing equations.">
+          <rect x="20" y="24" width="1230" height="500" rx="16" fill="var(--bg-alt)" stroke="var(--border)" stroke-width="1.6"/>
+          <text x="48" y="66" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">the potential is asymmetric</text>
+          <text x="48" y="102" style="font-size:22px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">Π(U) = U⁴/4 − U³ + (λ+2)U²/2</text>
+          <path d="M115.0 155.4 L116.8 164.4 L118.6 173.2 L120.3 181.7 L122.1 190.1 L123.9 198.2 L125.7 206.2 L127.5 213.9 L129.2 221.5 L131.0 228.9 L132.8 236.1 L134.6 243.1 L136.4 249.9 L138.2 256.6 L139.9 263.1 L141.7 269.4 L143.5 275.5 L145.3 281.5 L147.1 287.3 L148.8 292.9 L150.6 298.4 L152.4 303.7 L154.2 308.9 L156.0 313.9 L157.8 318.8 L159.5 323.5 L161.3 328.0 L163.1 332.5 L164.9 336.8 L166.7 340.9 L168.4 344.9 L170.2 348.8 L172.0 352.6 L173.8 356.2 L175.6 359.7 L177.3 363.1 L179.1 366.3 L180.9 369.4 L182.7 372.5 L184.5 375.4 L186.2 378.1 L188.0 380.8 L189.8 383.4 L191.6 385.8 L193.4 388.2 L195.2 390.4 L196.9 392.6 L198.7 394.6 L200.5 396.6 L202.3 398.5 L204.1 400.2 L205.8 401.9 L207.6 403.5 L209.4 405.0 L211.2 406.4 L213.0 407.8 L214.8 409.0 L216.5 410.2 L218.3 411.3 L220.1 412.3 L221.9 413.3 L223.7 414.2 L225.4 415.0 L227.2 415.7 L229.0 416.4 L230.8 417.0 L232.6 417.6 L234.3 418.1 L236.1 418.5 L237.9 418.9 L239.7 419.2 L241.5 419.5 L243.2 419.7 L245.0 419.8 L246.8 419.9 L248.6 420.0 L250.4 420.0 L252.2 420.0 L253.9 419.9 L255.7 419.8 L257.5 419.6 L259.3 419.4 L261.1 419.2 L262.8 418.9 L264.6 418.6 L266.4 418.3 L268.2 417.9 L270.0 417.5 L271.8 417.1 L273.5 416.6 L275.3 416.1 L277.1 415.6 L278.9 415.0 L280.7 414.5 L282.4 413.9 L284.2 413.3 L286.0 412.7 L287.8 412.0 L289.6 411.4 L291.3 410.7 L293.1 410.0 L294.9 409.3 L296.7 408.5 L298.5 407.8 L300.2 407.1 L302.0 406.3 L303.8 405.6 L305.6 404.8 L307.4 404.0 L309.2 403.2 L310.9 402.4 L312.7 401.6 L314.5 400.8 L316.3 400.0 L318.1 399.2 L319.8 398.4 L321.6 397.6 L323.4 396.8 L325.2 396.0 L327.0 395.2 L328.8 394.4 L330.5 393.6 L332.3 392.8 L334.1 392.0 L335.9 391.3 L337.7 390.5 L339.4 389.7 L341.2 389.0 L343.0 388.2 L344.8 387.5 L346.6 386.8 L348.3 386.0 L350.1 385.3 L351.9 384.6 L353.7 383.9 L355.5 383.3 L357.2 382.6 L359.0 381.9 L360.8 381.3 L362.6 380.7 L364.4 380.1 L366.2 379.5 L367.9 378.9 L369.7 378.3 L371.5 377.8 L373.3 377.2 L375.1 376.7 L376.8 376.2 L378.6 375.7 L380.4 375.3 L382.2 374.8 L384.0 374.4 L385.8 374.0 L387.5 373.6 L389.3 373.2 L391.1 372.8 L392.9 372.5 L394.7 372.1 L396.4 371.8 L398.2 371.5 L400.0 371.3 L401.8 371.0 L403.6 370.8 L405.3 370.5 L407.1 370.3 L408.9 370.1 L410.7 370.0 L412.5 369.8 L414.2 369.7 L416.0 369.6 L417.8 369.5 L419.6 369.4 L421.4 369.3 L423.2 369.3 L424.9 369.2 L426.7 369.2 L428.5 369.2 L430.3 369.2 L432.1 369.3 L433.8 369.3 L435.6 369.4 L437.4 369.5 L439.2 369.5 L441.0 369.7 L442.7 369.8 L444.5 369.9 L446.3 370.0 L448.1 370.2 L449.9 370.4 L451.7 370.5 L453.4 370.7 L455.2 370.9 L457.0 371.1 L458.8 371.3 L460.6 371.6 L462.3 371.8 L464.1 372.0 L465.9 372.3 L467.7 372.5 L469.5 372.8 L471.2 373.0 L473.0 373.3 L474.8 373.6 L476.6 373.8 L478.4 374.1 L480.2 374.4 L481.9 374.6 L483.7 374.9 L485.5 375.2 L487.3 375.4 L489.1 375.7 L490.8 376.0 L492.6 376.2 L494.4 376.5 L496.2 376.7 L498.0 376.9 L499.8 377.1 L501.5 377.4 L503.3 377.6 L505.1 377.7 L506.9 377.9 L508.7 378.1 L510.4 378.2 L512.2 378.4 L514.0 378.5 L515.8 378.6 L517.6 378.6 L519.3 378.7 L521.1 378.7 L522.9 378.7 L524.7 378.7 L526.5 378.6 L528.2 378.6 L530.0 378.5 L531.8 378.3 L533.6 378.2 L535.4 378.0 L537.2 377.8 L538.9 377.5 L540.7 377.2 L542.5 376.9 L544.3 376.5 L546.1 376.1 L547.8 375.6 L549.6 375.1 L551.4 374.6 L553.2 374.0 L555.0 373.3 L556.8 372.6 L558.5 371.9 L560.3 371.1 L562.1 370.2 L563.9 369.3 L565.7 368.4 L567.4 367.3 L569.2 366.3 L571.0 365.1 L572.8 363.9 L574.6 362.6 L576.3 361.3 L578.1 359.9 L579.9 358.4 L581.7 356.8 L583.5 355.2 L585.2 353.5 L587.0 351.7 L588.8 349.8 L590.6 347.8 L592.4 345.8 L594.2 343.7 L595.9 341.5 L597.7 339.2 L599.5 336.8 L601.3 334.3 L603.1 331.7 L604.8 329.0 L606.6 326.2 L608.4 323.3 L610.2 320.3 L612.0 317.2 L613.8 314.0 L615.5 310.7 L617.3 307.3 L619.1 303.7 L620.9 300.0 L622.7 296.3 L624.4 292.4 L626.2 288.3 L628.0 284.2 L629.8 279.9 L631.6 275.5 L633.3 270.9 L635.1 266.2 L636.9 261.4 L638.7 256.4 L640.5 251.3 L642.2 246.1 L644.0 240.7 L645.8 235.1 L647.6 229.4 L649.4 223.6 L651.2 217.6 L652.9 211.4 L654.7 205.0 L656.5 198.5 L658.3 191.9 L660.1 185.0 L661.8 178.0 L663.6 170.8 L665.4 163.5 L667.2 155.9 L669.0 148.2 L670.8 140.3 L672.5 132.2 L674.3 123.9 L676.1 115.4 L677.9 106.7 L679.7 97.8 L681.4 88.7 L683.2 79.4 L685.0 69.9" fill="none" stroke="var(--accent)" stroke-width="3.4" stroke-linejoin="round"/>
+          <line x1="115" y1="420" x2="685" y2="420" stroke="var(--border-2)" stroke-width="1.6"/>
+          <circle cx="250" cy="420" r="12" fill="var(--accent)" stroke="var(--ink)" stroke-width="2"/>
+          <line x1="250" y1="420" x2="250" y2="446" stroke="var(--sub)" stroke-width="1.2" stroke-dasharray="4 5"/>
+          <circle cx="428" cy="369" r="11" fill="var(--bg-alt)" stroke="var(--sub)" stroke-width="2.4"/>
+          <line x1="428" y1="369" x2="428" y2="446" stroke="var(--sub)" stroke-width="1.2" stroke-dasharray="4 5"/>
+          <circle cx="522" cy="379" r="12" fill="var(--accent-2)" stroke="var(--ink)" stroke-width="2"/>
+          <line x1="522" y1="379" x2="522" y2="446" stroke="var(--sub)" stroke-width="1.2" stroke-dasharray="4 5"/>
+          <text x="250" y="476" style="font-size:22px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--accent)">U = 0</text>
+          <text x="250" y="504" style="font-size:20px;font-family:Outfit,sans-serif" text-anchor="middle" fill="var(--muted)">state A — natural</text>
+          <text x="427.5658350974743" y="476" style="font-size:22px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--sub)">1.184</text>
+          <text x="427.5658350974743" y="504" style="font-size:20px;font-family:Outfit,sans-serif" text-anchor="middle" fill="var(--muted)">barrier</text>
+          <text x="522.4341649025257" y="476" style="font-size:22px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--accent-2)">1.816</text>
+          <text x="522.4341649025257" y="504" style="font-size:20px;font-family:Outfit,sans-serif" text-anchor="middle" fill="var(--muted)">state B — snapped</text>
+          <line x1="562" y1="420" x2="562" y2="379" stroke="var(--accent-2)" stroke-width="2"/>
+          <text x="574.4341649025257" y="399.35608324512634" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">ΔΠ = 0.275</text>
+          <line x1="800" y1="60" x2="800" y2="490" stroke="var(--border-2)" stroke-width="1.6"/>
+          <text x="836" y="100" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">equilibria</text>
+          <text x="836" y="142" style="font-size:24px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">U = 0,  3/2 ± √(1−4λ)/2</text>
+          <text x="836" y="180" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--muted)">bistable only for λ < ¼</text>
+          <text x="836" y="236" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">third-order jerk system</text>
+          <text x="836" y="278" style="font-size:21px;font-family:'JetBrains Mono',monospace" fill="var(--ink)">Ü + ζU̇ − 3U² + U³ + (λ+2)U = f</text>
+          <text x="836" y="310" style="font-size:21px;font-family:'JetBrains Mono',monospace" fill="var(--accent-3)">λ Ḟ + F = k₂ U̇        (viscoelastic)</text>
+          <text x="836" y="352" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--muted)">a fast mechanical mode coupled to</text>
+          <text x="836" y="382" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--muted)">a slow material one — that mismatch</text>
+          <text x="836" y="412" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--accent-2)">is what drives it into chaos</text>
+          <text x="836" y="462" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--muted)">U = 0 is deeper — B is metastable</text>
+        </svg>
+      </div>
+      <p class="fig__cap"><b>Figure 2.</b> The quadratic nonlinearity of the truss contributes a &minus;<i>U</i>&sup3; term, so the potential &Pi;(<i>U</i>) = <i>U</i>&#8308;/4 &minus; <i>U</i>&sup3; + (&lambda;+2)<i>U</i>&sup2;/2 is <b>asymmetric</b>, with equilibria at <b>U = 0</b> and <b>3/2 &plusmn; &radic;(1&minus;4&lambda;)/2</b> &mdash; bistable only for &lambda; &lt; &frac14;. With &lambda; = 0.15 the barrier sits at 1.184 and the snapped state at 1.816, which lies &Delta;&Pi; = 0.275 <i>above</i> the natural state &mdash; which is why state B is metastable and the truss snaps back. Adding the viscoelastic force as a first-order equation turns the pair into a <b>third-order jerk system</b>: a fast mechanical mode coupled to a slow material one, and that timescale mismatch is what drives the system into chaos.</p>
+    </div>
+
     <div class="fig reveal" id="fig-snap">
       <div class="fig__head">
-        <span class="fig__no">Figure 2 — Snap-through, simulated live</span>
+        <span class="fig__no">Figure 3 &mdash; The jerk system, live</span>
         <span class="fig__live">running</span>
       </div>
       <div class="fig__body">
-        <canvas id="snap-canvas" width="1520" height="860"></canvas>
+        <canvas id="snap-canvas" width="1520" height="880"></canvas>
       </div>
       <div class="fig__ctrls">
         <div class="fig__ctrl">
-          <label>Forcing γ <b id="tv-g">0.09</b></label>
-          <input type="range" id="tr-g" min="0" max="0.30" step="0.005" value="0.09" />
+          <label>Forcing γ <b id="tv-g">0.85</b></label>
+          <input type="range" id="tr-g" min="0.30" max="1.20" step="0.01" value="0.85" />
         </div>
         <div class="fig__ctrl">
-          <label>Relaxation λ <b id="tv-l">1.20</b></label>
-          <input type="range" id="tr-l" min="0.05" max="4.0" step="0.05" value="1.20" />
+          <label>Drive frequency ω <b id="tv-w">0.70</b></label>
+          <input type="range" id="tr-w" min="0.40" max="1.40" step="0.01" value="0.70" />
         </div>
         <div class="fig__ctrl">
-          <label>Damping δ <b id="tv-d">0.10</b></label>
-          <input type="range" id="tr-d" min="0.01" max="0.40" step="0.01" value="0.10" />
+          <label>Relaxation time τ <b id="tv-t">0.80</b></label>
+          <input type="range" id="tr-t" min="0.20" max="3.00" step="0.05" value="0.80" />
+        </div>
+        <div class="fig__ctrl">
+          <label>Damping ζ <b id="tv-d">0.080</b></label>
+          <input type="range" id="tr-d" min="0.01" max="0.30" step="0.005" value="0.08" />
         </div>
       </div>
+      <div class="fig__ctrls" style="padding-top:0">
+        <button class="btn btn--solid" id="tr-reset" type="button">Restart</button>
+      </div>
       <p class="fig__cap">
-        <b>Figure 2.</b> The truss integrated in real time. Left: the physical structure, drawn from the
-        actual apex coordinate <i>q</i>. Right: the trajectory in phase space, with the two equilibria
-        marked. Below: <i>q(t)</i> against the slowly evolving viscoelastic internal variable <i>z(t)</i>
-        in cyan — note how <i>z</i> lags, and how that lag is what makes the system third-order. Raise γ
-        past roughly 0.12 and the apex begins clearing the barrier; increase λ and the memory grows long
-        enough to change which well it settles into.
-      </p>
+        <b>Figure 3.</b> The full third-order system integrated live, with &lambda; = 0.15. <b>Left:</b> the truss itself &mdash; the apex crosses the dashed support line and turns amber once past the barrier. <b>Right:</b> the phase portrait, with the <b>Poincar&eacute; section</b> sampled once per forcing period in orange. That is the clearest test of regime: at low &gamma; the orange points collapse onto a handful of dots (periodic motion), but raise &gamma; and they scatter into a fractal cloud &mdash; the signature of chaos. At &gamma; = 0.85, &omega; = 0.70 the largest Lyapunov exponent is <b>+0.106</b>; drop &gamma; to 0.55 and it turns negative and the motion becomes periodic. <b>Below:</b> U(t) against the viscoelastic variable Z(t) with the barrier marked &mdash; Z visibly lags, and the &tau; slider widens or closes that timescale gap.</p>
     </div>
   </div>
 </section>
@@ -260,156 +258,156 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
 
 <script>
-/* ---- Figure 2: live von Mises truss with viscoelastic memory ---- */
+/* ---- live third-order jerk system: truss, phase portrait, Poincare section ---- */
 (function(){
-  const cv = document.getElementById('snap-canvas');
-  if(!cv) return;
-  const ctx = cv.getContext('2d');
-  const W = cv.width, H = cv.height;
-  const css = getComputedStyle(document.documentElement);
-  const C = k => css.getPropertyValue(k).trim();
+  const cv=document.getElementById('snap-canvas'); if(!cv) return;
+  const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
+  const css=getComputedStyle(document.documentElement); const C=k=>css.getPropertyValue(k).trim();
 
-  // ---- truss geometry (nondimensional) ----
-  const A = 1.0;      // half span
-  const L0 = 1.18;    // undeformed bar length  -> bistable
-  const P = { gamma:0.09, lambda:1.20, delta:0.10, omega:0.85, beta:0.55 };
+  const P={lam:0.15, ze:0.08, be:0.05, tau:0.8, g:0.85, om:0.70};
+  const K=()=>P.lam+2;
+  const R2=()=>1.5+Math.sqrt(Math.max(0,1-4*P.lam))/2;
+  const BAR=()=>1.5-Math.sqrt(Math.max(0,1-4*P.lam))/2;
 
-  // elastic restoring force from actual truss geometry
-  function Fel(q){
-    const len = Math.hypot(A, q);
-    return -2 * (len - L0) * q / len;
-  }
-  const QE = Math.sqrt(Math.max(L0*L0 - A*A, 1e-6));   // equilibria at +-QE
+  let U=0.3, Ud=0, Z=0, t=0;
+  const hist=[], HIST=520;
+  let poin=[], nextP=0;
+  const traj=[]; const TRAJ=1600;
 
-  let q = QE, v = 0, z = QE, t = 0;
-  const hist = [];
-  const HIST = 460;
+  function reset(){ U=0.3; Ud=0; Z=0; t=0; hist.length=0; poin=[]; traj.length=0; nextP=0; }
 
   function step(dt){
-    const a = -P.delta*v + Fel(q) - P.beta*(q - z) + P.gamma*Math.cos(P.omega*t);
-    v += a*dt; q += v*dt;
-    z += ((q - z)/P.lambda)*dt;
-    t += dt;
-    if(!isFinite(q)||Math.abs(q)>4){ q=QE; v=0; z=QE; }
+    const a=-P.ze*Ud+3*U*U-U*U*U-K()*U+P.be*(Z-U)+P.g*Math.cos(P.om*t);
+    Ud+=a*dt; U+=Ud*dt; Z+=((U-Z)/P.tau)*dt; t+=dt;
+    if(!isFinite(U)||Math.abs(U)>60){ reset(); return; }
+    const Tp=2*Math.PI/P.om;
+    if(t>=nextP){ if(t>20) { poin.push({u:U,v:Ud}); if(poin.length>900) poin.shift(); } nextP+=Tp; }
   }
 
-  // ---- drawing ----
+  // ---------- panel 1: the truss ----------
   function drawTruss(x0,y0,w,hgt){
-    const cx = x0 + w*0.5, cy = y0 + hgt*0.56;
-    const sx = w*0.30, sy = hgt*0.30;
+    const SL=y0+hgt*0.50, SXL=x0+w*0.24, SXR=x0+w*0.76, APX=x0+w*0.5, Hh=hgt*0.26;
     ctx.save();
-    // ground line
-    ctx.strokeStyle=C('--border-2'); ctx.lineWidth=3;
-    ctx.beginPath(); ctx.moveTo(cx-sx*1.5,cy); ctx.lineTo(cx+sx*1.5,cy); ctx.stroke();
-    // hatching
-    ctx.strokeStyle=C('--sub'); ctx.lineWidth=2;
-    for(let i=-9;i<=9;i++){const px=cx+i*(sx*0.16);
-      ctx.beginPath();ctx.moveTo(px,cy);ctx.lineTo(px-12,cy+16);ctx.stroke();}
-    // ghost equilibria
-    ctx.strokeStyle=C('--border-2'); ctx.setLineDash([8,8]); ctx.lineWidth=2;
-    [QE,-QE].forEach(qq=>{const ay=cy-qq*sy;
-      ctx.beginPath();ctx.moveTo(cx-sx,cy);ctx.lineTo(cx,ay);ctx.lineTo(cx+sx,cy);ctx.stroke();});
+    ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
+    ctx.fillText('truss', x0+26, y0+40);
+    const r2=R2();
+    let off=Hh*(1-2*Math.max(-0.9,Math.min(2.9,U))/r2);
+    off=Math.max(-Hh*1.7,Math.min(Hh*1.7,off));
+    const ay=SL-off;
+    // support line + ghost
+    ctx.strokeStyle=C('--sub'); ctx.lineWidth=1.6; ctx.setLineDash([7,7]);
+    ctx.beginPath();ctx.moveTo(SXL-40,SL);ctx.lineTo(SXR+40,SL);ctx.stroke();
     ctx.setLineDash([]);
-    // live bars
-    const ay = cy - q*sy;
-    ctx.strokeStyle=C('--accent'); ctx.lineWidth=8; ctx.lineCap='round';
-    ctx.beginPath();ctx.moveTo(cx-sx,cy);ctx.lineTo(cx,ay);ctx.lineTo(cx+sx,cy);ctx.stroke();
+    ctx.strokeStyle=C('--border-2'); ctx.lineWidth=2.4; ctx.setLineDash([7,6]);
+    ctx.beginPath();ctx.moveTo(SXL,SL);ctx.lineTo(APX,SL+Hh);ctx.lineTo(SXR,SL);ctx.stroke();
+    ctx.setLineDash([]);
+    // bars
+    ctx.strokeStyle=C('--ink'); ctx.lineWidth=6; ctx.lineCap='round'; ctx.lineJoin='round';
+    ctx.beginPath();ctx.moveTo(SXL,SL);ctx.lineTo(APX,ay);ctx.lineTo(SXR,SL);ctx.stroke();
     // pins
     ctx.fillStyle=C('--ink');
-    [[cx-sx,cy],[cx+sx,cy]].forEach(p=>{
-      ctx.beginPath();ctx.moveTo(p[0],p[1]);ctx.lineTo(p[0]-14,p[1]+22);ctx.lineTo(p[0]+14,p[1]+22);
-      ctx.closePath();ctx.fill();});
-    // apex mass
-    ctx.fillStyle=C('--accent-2');
-    ctx.beginPath();ctx.arc(cx,ay,17,0,7);ctx.fill();
+    [[SXL,SL],[SXR,SL]].forEach(p=>{
+      ctx.beginPath();ctx.moveTo(p[0],p[1]);ctx.lineTo(p[0]-16,p[1]+24);ctx.lineTo(p[0]+16,p[1]+24);
+      ctx.closePath();ctx.fill();
+      ctx.beginPath();ctx.arc(p[0],p[1],7,0,7);ctx.fillStyle=C('--bg-card');ctx.fill();
+      ctx.strokeStyle=C('--ink');ctx.lineWidth=2.4;ctx.stroke();ctx.fillStyle=C('--ink');
+    });
+    // apex
+    const snapped=U>BAR();
+    ctx.fillStyle= snapped ? C('--accent-2') : C('--accent');
+    ctx.beginPath();ctx.arc(APX,ay,19,0,7);ctx.fill();
+    ctx.strokeStyle=C('--ink'); ctx.lineWidth=2.4; ctx.stroke();
     // forcing arrow
-    const fmag = P.gamma*Math.cos(P.omega*t);
-    const alen = fmag*420;
+    const f=P.g*Math.cos(P.om*t)*70;
     ctx.strokeStyle=C('--accent-2'); ctx.lineWidth=4;
-    ctx.beginPath();ctx.moveTo(cx,ay-26);ctx.lineTo(cx,ay-26-alen);ctx.stroke();
-    ctx.fillStyle=C('--accent-2');
-    const tip=ay-26-alen, dir=alen>=0?1:-1;
-    ctx.beginPath();ctx.moveTo(cx,tip);ctx.lineTo(cx-8,tip+10*dir);ctx.lineTo(cx+8,tip+10*dir);
-    ctx.closePath();ctx.fill();
-    ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
-    ctx.fillText('structure', x0+18, y0+40);
+    ctx.beginPath();ctx.moveTo(APX,ay-28);ctx.lineTo(APX,ay-28-f);ctx.stroke();
+    ctx.fillStyle=C('--muted'); ctx.font='500 22px Outfit, sans-serif';
+    ctx.fillText(snapped?'state B — snapped':'state A — natural', x0+26, y0+hgt-16);
     ctx.restore();
   }
 
+  // ---------- panel 2: phase portrait + Poincare ----------
   function drawPhase(x0,y0,w,hgt){
-    const cx=x0+w*0.5, cy=y0+hgt*0.5, sx=w*0.30, sy=hgt*0.26;
     ctx.save();
+    const cx=x0+w*0.42, cy=y0+hgt*0.52, sx=w*0.20, sy=hgt*0.15;
     ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
-    ctx.beginPath();ctx.moveTo(x0+30,cy);ctx.lineTo(x0+w-30,cy);
-    ctx.moveTo(cx,y0+30);ctx.lineTo(cx,y0+hgt-30);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(x0+40,cy);ctx.lineTo(x0+w-40,cy);
+    ctx.moveTo(cx,y0+44);ctx.lineTo(cx,y0+hgt-40);ctx.stroke();
     // equilibria
     ctx.fillStyle=C('--border-2');
-    [QE,-QE].forEach(qq=>{ctx.beginPath();ctx.arc(cx+qq*sx,cy,9,0,7);ctx.fill();});
+    [0,R2()].forEach(q=>{ctx.beginPath();ctx.arc(cx+q*sx,cy,8,0,7);ctx.fill();});
     // trajectory
-    ctx.lineWidth=2.5; ctx.lineJoin='round';
-    for(let i=1;i<hist.length;i++){
-      const p0=hist[i-1], p1=hist[i];
-      ctx.strokeStyle=`rgba(22,82,240,${(i/hist.length)*0.75})`;
-      ctx.beginPath();
-      ctx.moveTo(cx+p0.q*sx, cy-p0.v*sy);
-      ctx.lineTo(cx+p1.q*sx, cy-p1.v*sy);
-      ctx.stroke();
+    ctx.lineWidth=1.8;
+    for(let i=1;i<traj.length;i++){
+      const p0=traj[i-1],p1=traj[i];
+      ctx.strokeStyle=`rgba(22,82,240,${(i/traj.length)*0.5})`;
+      ctx.beginPath();ctx.moveTo(cx+p0.u*sx,cy-p0.v*sy);ctx.lineTo(cx+p1.u*sx,cy-p1.v*sy);ctx.stroke();
     }
+    // Poincare points
+    ctx.fillStyle='rgba(255,90,31,0.85)';
+    poin.forEach(p=>{ctx.beginPath();ctx.arc(cx+p.u*sx,cy-p.v*sy,3.2,0,7);ctx.fill();});
     ctx.fillStyle=C('--accent-2');
-    ctx.beginPath();ctx.arc(cx+q*sx,cy-v*sy,10,0,7);ctx.fill();
+    ctx.beginPath();ctx.arc(cx+U*sx,cy-Ud*sy,8,0,7);ctx.fill();
     ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
-    ctx.fillText('phase space  (q, q̇)', x0+18, y0+40);
+    ctx.fillText('phase portrait', x0+30, y0+40);
+    ctx.fillStyle='rgba(255,90,31,0.9)'; ctx.font='500 21px Outfit, sans-serif';
+    ctx.fillText('Poincaré section — '+poin.length+' pts', x0+30, y0+hgt-16);
     ctx.restore();
   }
 
+  // ---------- panel 3: traces ----------
   function drawTrace(x0,y0,w,hgt){
-    const cy=y0+hgt*0.55, sy=hgt*0.28;
     ctx.save();
+    const cy=y0+hgt*0.56, sy=hgt*0.16, span=w-120;
     ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
-    ctx.beginPath();ctx.moveTo(x0+30,cy);ctx.lineTo(x0+w-30,cy);ctx.stroke();
-    const n=hist.length, span=w-70;
-    function line(key,color,width){
-      ctx.strokeStyle=color; ctx.lineWidth=width; ctx.beginPath();
-      for(let i=0;i<n;i++){
-        const px=x0+35+(i/HIST)*span, py=cy-hist[i][key]*sy;
-        i?ctx.lineTo(px,py):ctx.moveTo(px,py);
-      }
-      ctx.stroke();
-    }
-    line('z', C('--accent-3'), 3);
-    line('q', C('--accent'), 3.5);
-    ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
-    ctx.fillText('q(t)', x0+18, y0+40);
-    ctx.fillStyle=C('--accent-3'); ctx.fillText('z(t) — viscoelastic memory', x0+110, y0+40);
+    ctx.beginPath();ctx.moveTo(x0+60,cy);ctx.lineTo(x0+60+span,cy);ctx.stroke();
+    // barrier level
+    ctx.strokeStyle='rgba(255,90,31,0.5)'; ctx.lineWidth=2; ctx.setLineDash([9,7]);
+    ctx.beginPath();ctx.moveTo(x0+60,cy-BAR()*sy);ctx.lineTo(x0+60+span,cy-BAR()*sy);ctx.stroke();
+    ctx.setLineDash([]);
+    const line=(key,col,lw)=>{ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.beginPath();
+      for(let i=0;i<hist.length;i++){const px=x0+60+(i/HIST)*span, py=cy-hist[i][key]*sy;
+        i?ctx.lineTo(px,py):ctx.moveTo(px,py);} ctx.stroke();};
+    line('z',C('--accent-3'),2.6);
+    line('u',C('--accent'),3.2);
+    ctx.fillStyle=C('--accent'); ctx.font='500 24px Outfit, sans-serif';
+    ctx.fillText('U(t)', x0+60, y0+30);
+    ctx.fillStyle=C('--accent-3'); ctx.fillText('Z(t) — viscoelastic memory', x0+180, y0+30);
+    ctx.fillStyle='rgba(255,90,31,0.9)'; ctx.font='500 20px "JetBrains Mono", monospace';
+    ctx.fillText('barrier '+BAR().toFixed(2), x0+60+span-190, cy-BAR()*sy-12);
     ctx.restore();
   }
 
   function render(){
     ctx.clearRect(0,0,W,H);
-    drawTruss(0,0,W*0.5,H*0.6);
-    drawPhase(W*0.5,0,W*0.5,H*0.6);
-    drawTrace(0,H*0.6,W,H*0.4);
+    drawTruss(0,0,W*0.42,H*0.56);
+    drawPhase(W*0.42,0,W*0.58,H*0.56);
+    drawTrace(0,H*0.56,W,H*0.44);
+    ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(W*0.42,30);ctx.lineTo(W*0.42,H*0.56-20);ctx.stroke();
   }
 
-  // controls
-  const bind=(r,v,key,dp)=>{
-    const R=document.getElementById(r), V=document.getElementById(v);
+  [['tr-g','tv-g','g',2],['tr-t','tv-t','tau',2],['tr-d','tv-d','ze',3],['tr-w','tv-w','om',2]]
+  .forEach(a=>{
+    const R=document.getElementById(a[0]), V=document.getElementById(a[1]);
     if(!R) return;
-    R.addEventListener('input',()=>{P[key]=parseFloat(R.value);V.textContent=P[key].toFixed(dp);});
-  };
-  bind('tr-g','tv-g','gamma',3); bind('tr-l','tv-l','lambda',2); bind('tr-d','tv-d','delta',2);
+    R.addEventListener('input',()=>{P[a[2]]=parseFloat(R.value);V.textContent=P[a[2]].toFixed(a[3]);
+      poin=[]; traj.length=0;});
+  });
+  const rb=document.getElementById('tr-reset');
+  if(rb) rb.addEventListener('click',reset);
 
   let live=false;
   new IntersectionObserver(e=>{live=e[0].isIntersecting;},{threshold:.05}).observe(cv);
-
-  let acc=0,last=performance.now(),frame=0;
+  let acc=0,last=performance.now(),fr=0;
   (function loop(now){
     requestAnimationFrame(loop);
     const dtr=Math.min((now-last)/1000,.05); last=now;
     if(!live) return;
     acc+=dtr; let g=0;
-    while(acc>=0.004 && g++<300){ step(0.012); acc-=0.004; }
-    if(frame++%2===0){ hist.push({q,v,z}); if(hist.length>HIST) hist.shift(); }
+    while(acc>=0.004&&g++<400){ step(0.009); acc-=0.004; }
+    traj.push({u:U,v:Ud}); if(traj.length>TRAJ) traj.shift();
+    if(fr++%2===0){ hist.push({u:U,z:Z}); if(hist.length>HIST) hist.shift(); }
     render();
   })(performance.now());
 })();
