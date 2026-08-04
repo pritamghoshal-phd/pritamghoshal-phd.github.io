@@ -383,10 +383,10 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
     <a href="#top" class="nav__logo">Pritam <span>Ghoshal</span></a>
     <nav class="nav__links">
       <a href="#about">About</a>
-      <a href="#research">Research</a>
-      <a href="#publications">Publications</a>
-      <a href="projects.html">Projects</a>
       <a href="#experience">Experience</a>
+      <a href="#research">Research</a>
+      <a href="publications.html">Publications</a>
+      <a href="projects.html">Projects</a>
       <a href="#awards">Awards</a>
       <a href="#chaos">Chaos</a>
       <a href="#lab">Lab</a>
@@ -506,181 +506,11 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 </section>
 
 <!-- ================= 3. RESEARCH THEMES ================= -->
-<section class="sec sec--alt" id="research">
-  <div class="wrap">
-    <div class="sec__head">
-      <div class="eyebrow will-reveal" data-rev>02 — Research</div>
-      <h2 class="sec__title will-reveal" data-rev>Three ideas I keep <em>returning to</em>.</h2>
-      <p class="sec__sub will-reveal" data-rev>
-        Almost everything I've published reduces to these: a system that bends the rules, a memory that
-        fades, and a trade-off between the two that decides whether the thing can compute at all.
-      </p>
-    </div>
-    <div class="concepts">
-      <article class="concept will-reveal" data-rev>
-        <div class="concept__idx">/ 001</div>
-        <h3 class="concept__t">Bistability</h3>
-        <p class="concept__d">Two stable states, one restless system. Push a von Mises truss hard enough and
-          it snaps between them — a strong, cheap source of nonlinearity that a reservoir computer can exploit.</p>
-        <div class="concept__eq">ẍ + δẋ − x + x³ = γ cos(ωt)</div>
-      </article>
-      <article class="concept will-reveal" data-rev>
-        <div class="concept__idx">/ 002</div>
-        <h3 class="concept__t">Fading memory</h3>
-        <p class="concept__d">In electrical reservoirs, short-term memory comes from a delay line. In
-          mechanical ones, viscoelasticity is the only mechanism available — the state depends on
-          deformation history, not just current deformation.</p>
-        <div class="concept__eq">σ + λσ̇ = E(ε + τ ε̇)</div>
-      </article>
-      <article class="concept will-reveal" data-rev>
-        <div class="concept__idx">/ 003</div>
-        <h3 class="concept__t">The trade-off</h3>
-        <p class="concept__d">Memory and nonlinearity pull in opposite directions. Tune one up and the
-          other collapses. Finding where they balance — set by the Deborah number — is the whole game.</p>
-        <div class="concept__eq">De = λ / t<sub>obs</sub></div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ================= 4. PUBLICATIONS ================= -->
-<section class="sec" id="publications">
-  <div class="wrap">
-    <div class="sec__head">
-      <div class="eyebrow will-reveal" data-rev>03 — Publications</div>
-      <h2 class="sec__title will-reveal" data-rev>Peer-reviewed <em>work</em>.</h2>
-      <p class="sec__sub will-reveal" data-rev>
-        Journal articles and conference papers, most recent first. Full list and citation counts on
-        <a href="https://scholar.google.com/citations?user=1Nab30AAAAAJ&amp;hl=en" target="_blank" rel="noopener" style="color:var(--accent);border-bottom:1px solid var(--accent)">Google Scholar</a>.
-      </p>
-    </div>
-
-    <div class="pubs">
-
-      <article class="pub will-reveal" data-rev>
-        <div class="pub__top">
-          <span class="pub__venue pub__venue--flag">Patent · pending</span>
-          <span class="pub__yr">U.S. App. No. 63/989902</span>
-        </div>
-        <h3 class="pub__t">Method for robust control of stick-slip instability in automotive clutches</h3>
-        <p class="pub__a"><b>P. Ghoshal</b> et al.</p>
-        <p class="pub__d">A control algorithm that suppresses clutch squawk — the audible noise produced
-          by stick-slip oscillations during engagement — by acting on the underlying friction-induced
-          instability rather than damping its symptoms.</p>
-      </article>
-
-      <article class="pub will-reveal" data-rev>
-        <div class="pub__top">
-          <span class="pub__venue pub__venue--flag">Nature Communications</span>
-          <span class="pub__yr">2025 · 16(1), 10270</span>
-        </div>
-        <h3 class="pub__t">The tymbal of a cicada: nature's sound-generating metastructure</h3>
-        <p class="pub__a"><b>P. Ghoshal</b>, R. Singh, H. Tao, E. Ganju, N. Chawla, J. M. Gibert, A. K. Bajaj</p>
-        <p class="pub__d">Reframes the cicada's sound organ as a naturally occurring biological
-          metastructure with periodically arranged ribs and inherent frequency filtering. Introduces a
-          chain of bistable oscillators coupled to resonators that captures both tymbal snap-through and
-          the subsequent acoustic filtering — the first species-adaptable framework able to reproduce
-          the distinct song frequencies and call patterns of multiple cicada species.</p>
-        <div class="pub__links">
-          <a class="pub__link" href="https://doi.org/10.1038/s41467-025-65149-5" target="_blank" rel="noopener">DOI ↗</a>
-          <a class="pub__link" href="https://www.nature.com/articles/s41467-025-65149-5" target="_blank" rel="noopener">Open access ↗</a>
-        </div>
-      </article>
-
-      <article class="pub will-reveal" data-rev>
-        <div class="pub__top">
-          <span class="pub__venue">Nonlinear Dynamics</span>
-          <span class="pub__yr">2025</span>
-        </div>
-        <h3 class="pub__t">Exploiting Bistability and Viscoelasticity in Reservoir Computing</h3>
-        <p class="pub__a"><b>P. Ghoshal</b>, J. M. Gibert, A. K. Bajaj</p>
-        <p class="pub__d">Studies a viscoelastic bistable chain as a physical reservoir computer, using a
-          bistable oscillator coupled to a standard linear solid element as the unit cell. Shows how the
-          memory–nonlinearity trade-off is governed by the Deborah number, identifies the parameter
-          windows for optimal information rate and memory capacity, and develops a Melnikov-based
-          criterion for the transition from useful to chaotic behaviour.</p>
-        <div class="pub__links">
-          <a class="pub__link" href="https://scholar.google.com/citations?user=1Nab30AAAAAJ&amp;hl=en" target="_blank" rel="noopener">Scholar ↗</a>
-          <a class="pub__link" href="project-nonlinear-dynamics.html">Project page →</a>
-        </div>
-      </article>
-
-      <article class="pub will-reveal" data-rev>
-        <div class="pub__top">
-          <span class="pub__venue">J. Computational &amp; Nonlinear Dynamics</span>
-          <span class="pub__yr">2025</span>
-        </div>
-        <h3 class="pub__t">Effects of High-Frequency Horizontal Base Excitation on a Bistable System</h3>
-        <p class="pub__a"><b>P. Ghoshal</b>, J. M. Gibert, A. K. Bajaj</p>
-        <p class="pub__d">High-frequency excitation induces stiffening, biasing and the smoothing of
-          discontinuities. This paper examines how those effects play out in a multi-stable system, where
-          the bias toward one equilibrium depends strongly on the combination of excitation parameters
-          and system geometry.</p>
-        <div class="pub__links">
-          <a class="pub__link" href="https://scholar.google.com/citations?user=1Nab30AAAAAJ&amp;hl=en" target="_blank" rel="noopener">Scholar ↗</a>
-        </div>
-      </article>
-
-      <article class="pub will-reveal" data-rev>
-        <div class="pub__top">
-          <span class="pub__venue">Int. J. Non-Linear Mechanics</span>
-          <span class="pub__yr">2024 · vol. 166, 104858</span>
-        </div>
-        <h3 class="pub__t">Periodic response and stability analysis of a bistable viscoelastic von Mises truss</h3>
-        <p class="pub__a"><b>P. Ghoshal</b>, J. M. Gibert, A. K. Bajaj</p>
-        <p class="pub__d">Uses the harmonic balance method to capture the interplay between geometric and
-          material parameters in a harmonically forced bistable viscoelastic truss. Shows that
-          viscoelasticity introduces additional timescales and degrees of freedom, that multiple
-          coexisting solutions arise, and that an equivalent viscous approximation fails to reproduce the
-          dynamics. Identifies the configuration maximising energy dissipation for vibration suppression.</p>
-        <div class="pub__links">
-          <a class="pub__link" href="https://doi.org/10.1016/j.ijnonlinmec.2024.104858" target="_blank" rel="noopener">DOI ↗</a>
-        </div>
-      </article>
-
-      <article class="pub will-reveal" data-rev>
-        <div class="pub__top">
-          <span class="pub__venue">J. Computational &amp; Nonlinear Dynamics</span>
-          <span class="pub__yr">2024 · 19(7): 071009</span>
-        </div>
-        <h3 class="pub__t">The Presence of Chaos in a Viscoelastic Harmonically Forced von Mises Truss</h3>
-        <p class="pub__a"><b>P. Ghoshal</b>, J. M. Gibert, A. K. Bajaj</p>
-        <p class="pub__d">Investigates how viscoelasticity reshapes the dynamics of a lumped-parameter
-          bistable von Mises truss. A second-order Duffing equation with quadratic nonlinearity governs
-          the mechanical motion and a first-order equation governs the viscoelastic force; together they
-          form a third-order jerk equation whose slow–fast structure produces chaos.</p>
-        <div class="pub__links">
-          <a class="pub__link" href="https://doi.org/10.1115/1.4064554" target="_blank" rel="noopener">DOI ↗</a>
-        </div>
-      </article>
-
-      <article class="pub will-reveal" data-rev>
-        <div class="pub__top">
-          <span class="pub__venue">ICNDA · Conference</span>
-          <span class="pub__yr">Springer Proceedings</span>
-        </div>
-        <h3 class="pub__t">Effect of Boundary Conditions on the Stability of a Viscoelastic von Mises Truss</h3>
-        <p class="pub__a"><b>P. Ghoshal</b>, Q. Zhao, J. M. Gibert, A. K. Bajaj</p>
-        <p class="pub__d">Examines how the choice of boundary conditions changes the bistability and
-          stability landscape of the viscoelastic truss — establishing the modelling assumptions that
-          the later journal work builds on.</p>
-        <div class="pub__links">
-          <a class="pub__link" href="https://scholar.google.com/citations?user=1Nab30AAAAAJ&amp;hl=en" target="_blank" rel="noopener">Scholar ↗</a>
-        </div>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- ================= 5. FEATURED PROJECTS ================= -->
-
-<!-- ================= 5. EXPERIENCE ================= -->
 <section class="sec" id="experience">
   <div class="wrap">
     <div class="sec__head">
-      <div class="eyebrow will-reveal" data-rev>04 — Experience</div>
-      <h2 class="sec__title will-reveal" data-rev>Where I've <em>worked</em>.</h2>
+      <div class="eyebrow will-reveal" data-rev>02 — Experience &amp; education</div>
+      <h2 class="sec__title will-reveal" data-rev>Where I've <em>worked</em>, and studied.</h2>
       <p class="sec__sub will-reveal" data-rev>
         Research, teaching, and industry — from a solar manufacturing floor in Florida to a
         hydrogen-corridor planning tool, alongside the doctoral work.
@@ -759,14 +589,93 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
       </div>
 
     </div>
+    <div class="cards" style="margin-top:2.6rem">
+      <article class="card will-reveal" data-rev>
+        <h3>Education</h3>
+        <div class="edu">
+          <div class="edu__row">
+            <div>
+              <div class="edu__deg">PhD, Mechanical Engineering — GPA 3.91/4.0</div>
+              <div class="edu__where">Purdue University, West Lafayette, Indiana</div>
+            </div>
+            <div class="edu__when">2022 – 2027</div>
+          </div>
+          <div class="edu__row">
+            <div>
+              <div class="edu__deg">M.Tech, Mechanical Engineering — GPA 4.0/4.0</div>
+              <div class="edu__where">Indian Institute of Technology Kanpur</div>
+            </div>
+            <div class="edu__when">2020 – 2022</div>
+          </div>
+          <div class="edu__row">
+            <div>
+              <div class="edu__deg">B.E., Mechanical Engineering — GPA 3.62/4.0</div>
+              <div class="edu__where">Jadavpur University, Kolkata</div>
+            </div>
+            <div class="edu__when">2016 – 2020</div>
+          </div>
+        </div>
+        <h3 style="margin-top:1.6rem">How I work</h3>
+        <p><strong>Model first.</strong> I start from governing equations rather than a solver — a
+          nondimensionalised model tells you which parameters matter before you spend a month sweeping them.</p>
+        <p><strong>Then build it.</strong> Every project I have led ended in hardware: a breadboard
+          reservoir, an instrumented truss, a dissected tymbal under a high-speed camera. The gap between
+          model and measurement is usually where the physics was hiding.</p>
+      </article>
+    </div>
   </div>
 </section>
+
+<section class="sec sec--alt" id="research">
+  <div class="wrap">
+    <div class="sec__head">
+      <div class="eyebrow will-reveal" data-rev>03 — Research</div>
+      <h2 class="sec__title will-reveal" data-rev>Three ideas I keep <em>returning to</em>.</h2>
+      <p class="sec__sub will-reveal" data-rev>
+        Almost everything I've published reduces to these: a system that bends the rules, a memory that
+        fades, and a trade-off between the two that decides whether the thing can compute at all.
+      </p>
+    </div>
+    <div class="concepts">
+      <article class="concept will-reveal" data-rev>
+        <div class="concept__idx">/ 001</div>
+        <h3 class="concept__t">Bistability</h3>
+        <p class="concept__d">Two stable states, one restless system. Push a von Mises truss hard enough and
+          it snaps between them — a strong, cheap source of nonlinearity that a reservoir computer can exploit.</p>
+        <div class="concept__eq">ẍ + δẋ − x + x³ = γ cos(ωt)</div>
+      </article>
+      <article class="concept will-reveal" data-rev>
+        <div class="concept__idx">/ 002</div>
+        <h3 class="concept__t">Fading memory</h3>
+        <p class="concept__d">In electrical reservoirs, short-term memory comes from a delay line. In
+          mechanical ones, viscoelasticity is the only mechanism available — the state depends on
+          deformation history, not just current deformation.</p>
+        <div class="concept__eq">σ + λσ̇ = E(ε + τ ε̇)</div>
+      </article>
+      <article class="concept will-reveal" data-rev>
+        <div class="concept__idx">/ 003</div>
+        <h3 class="concept__t">The trade-off</h3>
+        <p class="concept__d">Memory and nonlinearity pull in opposite directions. Tune one up and the
+          other collapses. Finding where they balance — set by the Deborah number — is the whole game.</p>
+        <div class="concept__eq">De = λ / t<sub>obs</sub></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 4. PUBLICATIONS ================= -->
+
+
+<!-- ================= 5. FEATURED PROJECTS ================= -->
+
+<!-- ================= 5. EXPERIENCE ================= -->
+
 
 <!-- ================= 6. AWARDS ================= -->
 <section class="sec sec--alt" id="awards">
   <div class="wrap">
     <div class="sec__head">
-      <div class="eyebrow will-reveal" data-rev>05 — Honours</div>
+      <div class="eyebrow will-reveal" data-rev>04 — Honours</div>
       <h2 class="sec__title will-reveal" data-rev>Awards &amp; <em>fellowships</em>.</h2>
       <p class="sec__sub will-reveal" data-rev>
         Recognition for research in nonlinear dynamics and vibration, and for teaching.
@@ -877,7 +786,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 <section class="sec" id="lab">
   <div class="wrap">
     <div class="sec__head">
-      <div class="eyebrow will-reveal" data-rev>06 — Interactive</div>
+      <div class="eyebrow will-reveal" data-rev>05 — Interactive</div>
       <h2 class="sec__title will-reveal" data-rev>A double well you can <em>actually push</em>.</h2>
       <p class="sec__sub will-reveal" data-rev>
         This is the Duffing oscillator at the centre of my research, rendered as the energy landscape it
@@ -936,7 +845,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 <section class="sec sec--alt" id="skills">
   <div class="wrap">
     <div class="sec__head">
-      <div class="eyebrow will-reveal" data-rev>07 — Capabilities</div>
+      <div class="eyebrow will-reveal" data-rev>06 — Capabilities</div>
       <h2 class="sec__title will-reveal" data-rev>What I bring to a <em>problem</em>.</h2>
     </div>
     <div class="two">
@@ -964,38 +873,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
           <li>Technical writing &amp; peer review</li>
         </ul>
       </article>
-      <article class="card will-reveal" data-rev>
-        <h3>Education</h3>
-        <div class="edu">
-          <div class="edu__row">
-            <div>
-              <div class="edu__deg">PhD, Mechanical Engineering — GPA 3.91/4.0</div>
-              <div class="edu__where">Purdue University, West Lafayette, Indiana</div>
-            </div>
-            <div class="edu__when">2022 – 2027</div>
-          </div>
-          <div class="edu__row">
-            <div>
-              <div class="edu__deg">M.Tech, Mechanical Engineering — GPA 4.0/4.0</div>
-              <div class="edu__where">Indian Institute of Technology Kanpur</div>
-            </div>
-            <div class="edu__when">2020 – 2022</div>
-          </div>
-          <div class="edu__row">
-            <div>
-              <div class="edu__deg">B.E., Mechanical Engineering — GPA 3.62/4.0</div>
-              <div class="edu__where">Jadavpur University, Kolkata</div>
-            </div>
-            <div class="edu__when">2016 – 2020</div>
-          </div>
-        </div>
-        <h3 style="margin-top:1.6rem">How I work</h3>
-        <p><strong>Model first.</strong> I start from governing equations rather than a solver — a
-          nondimensionalised model tells you which parameters matter before you spend a month sweeping them.</p>
-        <p><strong>Then build it.</strong> Every project I have led ended in hardware: a breadboard
-          reservoir, an instrumented truss, a dissected tymbal under a high-speed camera. The gap between
-          model and measurement is usually where the physics was hiding.</p>
-      </article>
+      
     </div>
   </div>
 </section>
@@ -1004,7 +882,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 <section class="sec" id="teaching">
   <div class="wrap">
     <div class="sec__head">
-      <div class="eyebrow will-reveal" data-rev>08 — Teaching &amp; leadership</div>
+      <div class="eyebrow will-reveal" data-rev>07 — Teaching &amp; leadership</div>
       <h2 class="sec__title will-reveal" data-rev>Helping equations become <em>intuition</em>.</h2>
       <p class="sec__sub will-reveal" data-rev>
         This semester I am Instructor of Record for <strong>ME&nbsp;274: Basic Mechanics II
@@ -1076,7 +954,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 <!-- ================= 10. CONTACT ================= -->
 <section class="sec sec--alt" id="contact">
   <div class="narrow" style="text-align:center">
-    <div class="eyebrow will-reveal" data-rev style="margin-bottom:1.2rem">09 — Contact</div>
+    <div class="eyebrow will-reveal" data-rev style="margin-bottom:1.2rem">08 — Contact</div>
     <h2 class="sec__title will-reveal" data-rev style="margin:0 auto 1rem">Let's <em>connect</em>.</h2>
     <p class="sec__sub will-reveal" data-rev style="margin:0 auto">
       If you'd like to talk about nonlinear dynamics, physical computing, collaborations, or roles in
