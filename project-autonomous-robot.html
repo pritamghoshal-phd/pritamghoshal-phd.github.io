@@ -28,8 +28,11 @@
 <section class="page-header">
   <div class="wrap hero-inner reveal">
     <div class="eyebrow">Project &middot; Mechatronics Competition, Purdue</div>
-    <h1 class="page-title">Autonomous <em>object-targeting robot</em></h1>
-    <p class="hero-sub">Navigate a track, avoid whatever is in the way, find the target, hit it. Every part of that is easy in isolation and awkward once they have to run at the same time.</p>
+    <h1 class="page-title">A robot that finds the bucket and <em>lands the ball</em></h1>
+    <p class="hero-sub">
+      A fixed course marked with a line, buckets set off to either side at varying distances, and one
+      job: notice each bucket in time and put a ball in it. Line-following optional.
+    </p>
     <div class="hero-meta"><strong>Competition:</strong> Mechatronics Competition, Purdue University &middot; <strong>Scope:</strong> Mechanical design, electronics, control</div>
     <div class="pill-row"><span class="tag">Arduino</span>
       <span class="tag">Ultrasonic + IR sensing</span>
@@ -42,66 +45,66 @@
 
 <section class="sec">
   <div class="wrap body-copy reveal">
-    <h2 class="sec-title">The build</h2>
-    <p>The robot had to traverse a track autonomously, detect and avoid obstacles in real time, identify
-      targets, and launch projectiles at them. No remote control and no map supplied in advance — every
-      decision had to come from what the sensors reported at that instant.</p>
-    <p>Sensing used ultrasonic and infrared together, because each fails differently. Ultrasonic gives
-      usable range but returns a wide cone, so it reports <em>something is roughly ahead</em> rather than
-      exactly where. Infrared is narrow and fast but strongly dependent on surface reflectivity — a dark
-      matte obstacle can read as much further away than it is. Combining them covered most of the cases
-      where either alone would have driven the robot into something.</p>
-    <p>The launcher was built from servo motors, custom mounts and 3D-printed components, which let the
-      geometry be revised between test runs in an afternoon rather than a week.</p>
-  </div>
+    <h2 class="sec-title">The task</h2>
+    <p>The robot had to traverse a <strong>fixed course</strong> on its own. The course was marked with a
+      painted line, but following that line was a choice rather than a requirement &mdash; what was fixed
+      was the path and where the buckets sat. Buckets were placed to either side of the line at varying
+      offsets, and for each one the robot had to notice it was there and <strong>land a ball in it</strong>.</p>
+    <p>That splits into three problems that trade against each other. <em>Navigation:</em> track the line
+      closely and you always know where you are, but you give up the ability to shorten the path or to
+      stand off from a bucket to improve the shot. <em>Detection:</em> a bucket is only worth detecting if
+      it is still in range by the time the firing solution is computed, so detection range and traverse
+      speed are coupled. <em>Ballistics:</em> the launcher has a finite maximum range, and the further the
+      bucket sits from the line, the more a small error in launch speed turns into a large error on the
+      floor.</p>
+    <p>The last of those is the one that actually decides the score, and it is worth doing the arithmetic
+      before building anything.</p>
+    </div>
   <div class="wrap">
     <div class="fig reveal">
-      <div class="fig__head"><span class="fig__no">Figure 1 — Sense, decide, act</span></div>
+      <div class="fig__head"><span class="fig__no">Figure 1 &mdash; The course</span></div>
       <div class="fig__body">
-        <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" role="img"
-             aria-label="Block diagram of the robot control loop and a plan view of the chassis showing sensor placement.">
-          <text class="s-txt" x="24" y="28">control loop</text>
-          <g class="pop">
-            <rect class="s-card" x="24" y="60" width="120" height="56" rx="8"/>
-            <text class="s-txt s-txt--sm" x="40" y="94">ultrasonic</text>
-            <rect class="s-card" x="24" y="136" width="120" height="56" rx="8"/>
-            <text class="s-txt s-txt--sm" x="52" y="170">IR pair</text>
-          </g>
-          <path class="s-accent flow" d="M146 88 L206 88 L206 128"/>
-          <path class="s-accent flow" d="M146 164 L206 164 L206 140"/>
-          <g class="pop pop--d1">
-            <rect x="208" y="106" width="128" height="72" rx="10" fill="var(--bg-alt)" stroke="var(--accent)" stroke-width="2.4"/>
-            <text class="s-txt s-txt--sm" x="230" y="140">Arduino</text>
-            <text class="s-mono" x="222" y="162">navigate + aim</text>
-          </g>
-          <path class="s-accent2 flow" d="M338 128 L396 128"/>
-          <path class="s-accent2 flow" d="M338 156 L396 156"/>
-          <g class="pop pop--d2">
-            <rect class="s-card" x="398" y="102" width="118" height="50" rx="8"/>
-            <text class="s-txt s-txt--sm" x="416" y="132">drive motors</text>
-            <rect class="s-card" x="398" y="160" width="118" height="50" rx="8"/>
-            <text class="s-txt s-txt--sm" x="410" y="190">launcher servo</text>
-          </g>
-          <path class="s-dash" d="M457 214 L457 250 L206 250 L206 186"/>
-          <text class="s-txt s-txt--sm" x="278" y="272">motion changes what the sensors see</text>
-
-          <text class="s-txt" x="566" y="28">chassis</text>
-          <g class="pop pop--d4">
-            <rect class="s-card" x="580" y="86" width="160" height="132" rx="14"/>
-            <circle class="s-line" cx="572" cy="118" r="14" fill="var(--bg)"/>
-            <circle class="s-line" cx="572" cy="188" r="14" fill="var(--bg)"/>
-            <circle class="s-line" cx="748" cy="118" r="14" fill="var(--bg)"/>
-            <circle class="s-line" cx="748" cy="188" r="14" fill="var(--bg)"/>
-            <path class="s-accent2" d="M660 86 L660 56"/>
-            <circle class="s-fill2" cx="660" cy="52" r="9"/>
-            <text class="s-mono2" x="676" y="50">launcher</text>
-            <path class="s-accent3" d="M614 86 L586 40" stroke-dasharray="5 5"/>
-            <path class="s-accent3" d="M706 86 L734 40" stroke-dasharray="5 5"/>
-            <text class="s-mono" x="588" y="252" fill="var(--accent-3)">sensor cones</text>
-          </g>
+        <svg viewBox="0 0 1270 550" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="A fixed course marked with a painted line, with buckets placed to either side at offsets between 0.9 and 2.7 metres, and a robot on the path with a forward detection cone.">
+          <rect x="20" y="20" width="1230" height="510" rx="16" fill="var(--bg-alt)" stroke="var(--border)" stroke-width="1.6"/>
+          <text x="48" y="58" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">the course</text>
+          <path d="M136.6 371.2 L138.2 369.7 L140.0 368.0 L141.9 366.1 L143.9 364.1 L146.0 362.0 L148.3 359.7 L150.6 357.4 L153.0 354.8 L155.5 352.2 L158.2 349.5 L160.9 346.7 L163.7 343.8 L166.5 340.8 L169.5 337.7 L172.5 334.6 L175.6 331.4 L178.8 328.1 L182.0 324.8 L185.3 321.5 L188.7 318.1 L192.1 314.7 L195.6 311.3 L199.1 307.8 L202.6 304.4 L206.2 300.9 L209.8 297.5 L213.5 294.1 L217.2 290.7 L220.9 287.3 L224.6 284.0 L228.4 280.7 L232.1 277.5 L235.9 274.3 L239.7 271.2 L243.5 268.2 L247.3 265.2 L251.1 262.4 L254.8 259.6 L258.6 256.9 L262.4 254.4 L266.1 251.9 L269.8 249.6 L273.5 247.3 L277.3 245.1 L281.1 242.8 L285.0 240.6 L288.9 238.4 L292.8 236.2 L296.8 234.0 L300.9 231.8 L304.9 229.6 L309.0 227.5 L313.1 225.4 L317.3 223.3 L321.5 221.2 L325.7 219.2 L330.0 217.2 L334.2 215.2 L338.5 213.3 L342.8 211.4 L347.1 209.5 L351.5 207.7 L355.8 205.9 L360.2 204.2 L364.6 202.5 L369.0 200.8 L373.3 199.2 L377.7 197.7 L382.2 196.2 L386.6 194.7 L391.0 193.3 L395.4 192.0 L399.8 190.7 L404.2 189.5 L408.5 188.4 L412.9 187.3 L417.3 186.3 L421.6 185.3 L426.0 184.4 L430.3 183.6 L434.6 182.9 L438.9 182.3 L443.2 181.7 L447.4 181.2 L451.6 180.8 L455.9 180.4 L460.2 180.2 L464.5 180.0 L468.9 179.8 L473.3 179.8 L477.6 179.8 L482.0 179.8 L486.5 179.9 L490.9 180.1 L495.3 180.4 L499.8 180.7 L504.2 181.1 L508.7 181.5 L513.1 182.0 L517.6 182.5 L522.0 183.1 L526.4 183.7 L530.9 184.4 L535.3 185.2 L539.7 185.9 L544.1 186.8 L548.4 187.7 L552.8 188.6 L557.1 189.6 L561.4 190.6 L565.7 191.6 L569.9 192.7 L574.1 193.9 L578.3 195.0 L582.4 196.3 L586.5 197.5 L590.6 198.8 L594.6 200.1 L598.6 201.4 L602.5 202.8 L606.4 204.2 L610.2 205.6 L614.0 207.1 L617.7 208.6 L621.4 210.1 L625.0 211.6 L628.5 213.2 L632.0 214.9 L635.4 216.6 L638.7 218.5 L642.0 220.4 L645.2 222.5 L648.3 224.5 L651.4 226.7 L654.4 228.9 L657.4 231.2 L660.4 233.6 L663.3 236.0 L666.2 238.4 L669.0 240.9 L671.8 243.4 L674.6 246.0 L677.3 248.5 L680.0 251.2 L682.8 253.8 L685.5 256.4 L688.1 259.1 L690.8 261.8 L693.5 264.4 L696.1 267.1 L698.8 269.8 L701.5 272.5 L704.1 275.1 L706.8 277.7 L709.5 280.4 L712.2 282.9 L714.9 285.5 L717.7 288.0 L720.5 290.5 L723.3 292.9 L726.1 295.3 L729.0 297.7 L731.9 300.0 L734.8 302.2 L737.8 304.4 L740.9 306.4 L744.0 308.5 L747.1 310.4 L750.3 312.3 L753.5 314.3 L756.7 316.2 L760.0 318.2 L763.3 320.2 L766.6 322.3 L770.0 324.3 L773.4 326.4 L776.8 328.4 L780.2 330.5 L783.6 332.5 L787.0 334.5 L790.5 336.5 L794.0 338.5 L797.5 340.5 L800.9 342.5 L804.5 344.4 L808.0 346.3 L811.5 348.1 L815.0 350.0 L818.6 351.7 L822.1 353.4 L825.6 355.1 L829.2 356.7 L832.7 358.3 L836.2 359.7 L839.8 361.1 L843.3 362.5 L846.8 363.7 L850.3 364.9 L853.8 366.0 L857.3 367.0 L860.8 367.9 L864.3 368.7 L867.7 369.4 L871.2 370.0 L874.6 370.5 L878.0 370.9 L881.4 371.2 L884.7 371.3 L888.1 371.3 L891.4 371.2 L894.7 370.9 L898.0 370.6 L901.3 370.0 L904.6 369.4 L907.9 368.6 L911.2 367.7 L914.5 366.7 L917.8 365.6 L921.1 364.4 L924.4 363.1 L927.6 361.6 L930.9 360.1 L934.2 358.5 L937.4 356.8 L940.7 355.1 L944.0 353.3 L947.2 351.4 L950.4 349.4 L953.7 347.4 L956.9 345.3 L960.1 343.2 L963.3 341.0 L966.5 338.8 L969.7 336.5 L972.8 334.3 L976.0 332.0 L979.1 329.6 L982.3 327.3 L985.4 324.9 L988.5 322.6 L991.6 320.2 L994.7 317.8 L997.7 315.5 L1000.8 313.1 L1003.8 310.8 L1006.8 308.5 L1009.8 306.2 L1012.8 303.9 L1015.8 301.7 L1018.7 299.5 L1021.7 297.3 L1024.6 295.2 L1027.5 293.1 L1030.5 290.9 L1033.5 288.6 L1036.5 286.3 L1039.5 283.9 L1042.6 281.4 L1045.7 278.9 L1048.8 276.4 L1051.9 273.8 L1055.0 271.1 L1058.1 268.4 L1061.2 265.8 L1064.3 263.0 L1067.4 260.3 L1070.4 257.5 L1073.5 254.8 L1076.5 252.0 L1079.5 249.3 L1082.5 246.5 L1085.5 243.8 L1088.4 241.1 L1091.3 238.3 L1094.2 235.7 L1097.0 233.0 L1099.7 230.4 L1102.4 227.9 L1105.1 225.3 L1107.6 222.9 L1110.2 220.4 L1112.6 218.1 L1115.0 215.8 L1117.3 213.6 L1119.6 211.4 L1121.7 209.4 L1123.8 207.4 L1125.8 205.5 L1127.7 203.7 L1129.4 202.1 L1131.1 200.5 L1132.7 199.0 L1134.2 197.6 L1135.6 196.4 L1136.9 195.3 L1138.0 194.3 L1139.0 193.4 L1139.9 192.5 L1140.7 191.8 L1141.4 191.2 L1142.0 190.7 L1142.5 190.2 L1142.9 189.9 L1143.3 189.6 L1143.5 189.4 L1143.7 189.2 L1143.8 189.1 L1143.8 189.1 L1143.8 189.1 L1143.7 189.2 L1143.6 189.3 L1143.4 189.5 L1143.1 189.7 L1142.9 189.9 L1142.5 190.2 L1142.2 190.5 L1141.8 190.9 L1141.4 191.2 L1141.0 191.6 L1140.6 192.0 L1140.2 192.3 L1139.7 192.7 L1139.3 193.1 L1138.8 193.5 L1138.4 193.9 L1138.0 194.3 L1137.6 194.6 L1137.2 194.9 L1136.9 195.3 L1136.6 195.5 L1136.3 195.8 L1136.1 196.0 L1135.9 196.2 L1135.7 196.3 L1135.6 196.4" fill="none" stroke="var(--border-2)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M136.6 371.2 L138.2 369.7 L140.0 368.0 L141.9 366.1 L143.9 364.1 L146.0 362.0 L148.3 359.7 L150.6 357.4 L153.0 354.8 L155.5 352.2 L158.2 349.5 L160.9 346.7 L163.7 343.8 L166.5 340.8 L169.5 337.7 L172.5 334.6 L175.6 331.4 L178.8 328.1 L182.0 324.8 L185.3 321.5 L188.7 318.1 L192.1 314.7 L195.6 311.3 L199.1 307.8 L202.6 304.4 L206.2 300.9 L209.8 297.5 L213.5 294.1 L217.2 290.7 L220.9 287.3 L224.6 284.0 L228.4 280.7 L232.1 277.5 L235.9 274.3 L239.7 271.2 L243.5 268.2 L247.3 265.2 L251.1 262.4 L254.8 259.6 L258.6 256.9 L262.4 254.4 L266.1 251.9 L269.8 249.6 L273.5 247.3 L277.3 245.1 L281.1 242.8 L285.0 240.6 L288.9 238.4 L292.8 236.2 L296.8 234.0 L300.9 231.8 L304.9 229.6 L309.0 227.5 L313.1 225.4 L317.3 223.3 L321.5 221.2 L325.7 219.2 L330.0 217.2 L334.2 215.2 L338.5 213.3 L342.8 211.4 L347.1 209.5 L351.5 207.7 L355.8 205.9 L360.2 204.2 L364.6 202.5 L369.0 200.8 L373.3 199.2 L377.7 197.7 L382.2 196.2 L386.6 194.7 L391.0 193.3 L395.4 192.0 L399.8 190.7 L404.2 189.5 L408.5 188.4 L412.9 187.3 L417.3 186.3 L421.6 185.3 L426.0 184.4 L430.3 183.6 L434.6 182.9 L438.9 182.3 L443.2 181.7 L447.4 181.2 L451.6 180.8 L455.9 180.4 L460.2 180.2 L464.5 180.0 L468.9 179.8 L473.3 179.8 L477.6 179.8 L482.0 179.8 L486.5 179.9 L490.9 180.1 L495.3 180.4 L499.8 180.7 L504.2 181.1 L508.7 181.5 L513.1 182.0 L517.6 182.5 L522.0 183.1 L526.4 183.7 L530.9 184.4 L535.3 185.2 L539.7 185.9 L544.1 186.8 L548.4 187.7 L552.8 188.6 L557.1 189.6 L561.4 190.6 L565.7 191.6 L569.9 192.7 L574.1 193.9 L578.3 195.0 L582.4 196.3 L586.5 197.5 L590.6 198.8 L594.6 200.1 L598.6 201.4 L602.5 202.8 L606.4 204.2 L610.2 205.6 L614.0 207.1 L617.7 208.6 L621.4 210.1 L625.0 211.6 L628.5 213.2 L632.0 214.9 L635.4 216.6 L638.7 218.5 L642.0 220.4 L645.2 222.5 L648.3 224.5 L651.4 226.7 L654.4 228.9 L657.4 231.2 L660.4 233.6 L663.3 236.0 L666.2 238.4 L669.0 240.9 L671.8 243.4 L674.6 246.0 L677.3 248.5 L680.0 251.2 L682.8 253.8 L685.5 256.4 L688.1 259.1 L690.8 261.8 L693.5 264.4 L696.1 267.1 L698.8 269.8 L701.5 272.5 L704.1 275.1 L706.8 277.7 L709.5 280.4 L712.2 282.9 L714.9 285.5 L717.7 288.0 L720.5 290.5 L723.3 292.9 L726.1 295.3 L729.0 297.7 L731.9 300.0 L734.8 302.2 L737.8 304.4 L740.9 306.4 L744.0 308.5 L747.1 310.4 L750.3 312.3 L753.5 314.3 L756.7 316.2 L760.0 318.2 L763.3 320.2 L766.6 322.3 L770.0 324.3 L773.4 326.4 L776.8 328.4 L780.2 330.5 L783.6 332.5 L787.0 334.5 L790.5 336.5 L794.0 338.5 L797.5 340.5 L800.9 342.5 L804.5 344.4 L808.0 346.3 L811.5 348.1 L815.0 350.0 L818.6 351.7 L822.1 353.4 L825.6 355.1 L829.2 356.7 L832.7 358.3 L836.2 359.7 L839.8 361.1 L843.3 362.5 L846.8 363.7 L850.3 364.9 L853.8 366.0 L857.3 367.0 L860.8 367.9 L864.3 368.7 L867.7 369.4 L871.2 370.0 L874.6 370.5 L878.0 370.9 L881.4 371.2 L884.7 371.3 L888.1 371.3 L891.4 371.2 L894.7 370.9 L898.0 370.6 L901.3 370.0 L904.6 369.4 L907.9 368.6 L911.2 367.7 L914.5 366.7 L917.8 365.6 L921.1 364.4 L924.4 363.1 L927.6 361.6 L930.9 360.1 L934.2 358.5 L937.4 356.8 L940.7 355.1 L944.0 353.3 L947.2 351.4 L950.4 349.4 L953.7 347.4 L956.9 345.3 L960.1 343.2 L963.3 341.0 L966.5 338.8 L969.7 336.5 L972.8 334.3 L976.0 332.0 L979.1 329.6 L982.3 327.3 L985.4 324.9 L988.5 322.6 L991.6 320.2 L994.7 317.8 L997.7 315.5 L1000.8 313.1 L1003.8 310.8 L1006.8 308.5 L1009.8 306.2 L1012.8 303.9 L1015.8 301.7 L1018.7 299.5 L1021.7 297.3 L1024.6 295.2 L1027.5 293.1 L1030.5 290.9 L1033.5 288.6 L1036.5 286.3 L1039.5 283.9 L1042.6 281.4 L1045.7 278.9 L1048.8 276.4 L1051.9 273.8 L1055.0 271.1 L1058.1 268.4 L1061.2 265.8 L1064.3 263.0 L1067.4 260.3 L1070.4 257.5 L1073.5 254.8 L1076.5 252.0 L1079.5 249.3 L1082.5 246.5 L1085.5 243.8 L1088.4 241.1 L1091.3 238.3 L1094.2 235.7 L1097.0 233.0 L1099.7 230.4 L1102.4 227.9 L1105.1 225.3 L1107.6 222.9 L1110.2 220.4 L1112.6 218.1 L1115.0 215.8 L1117.3 213.6 L1119.6 211.4 L1121.7 209.4 L1123.8 207.4 L1125.8 205.5 L1127.7 203.7 L1129.4 202.1 L1131.1 200.5 L1132.7 199.0 L1134.2 197.6 L1135.6 196.4 L1136.9 195.3 L1138.0 194.3 L1139.0 193.4 L1139.9 192.5 L1140.7 191.8 L1141.4 191.2 L1142.0 190.7 L1142.5 190.2 L1142.9 189.9 L1143.3 189.6 L1143.5 189.4 L1143.7 189.2 L1143.8 189.1 L1143.8 189.1 L1143.8 189.1 L1143.7 189.2 L1143.6 189.3 L1143.4 189.5 L1143.1 189.7 L1142.9 189.9 L1142.5 190.2 L1142.2 190.5 L1141.8 190.9 L1141.4 191.2 L1141.0 191.6 L1140.6 192.0 L1140.2 192.3 L1139.7 192.7 L1139.3 193.1 L1138.8 193.5 L1138.4 193.9 L1138.0 194.3 L1137.6 194.6 L1137.2 194.9 L1136.9 195.3 L1136.6 195.5 L1136.3 195.8 L1136.1 196.0 L1135.9 196.2 L1135.7 196.3 L1135.6 196.4" fill="none" stroke="var(--accent)" stroke-width="4" stroke-dasharray="20 16" stroke-linecap="round"/>
+          <line x1="274" y1="247" x2="308" y2="267" stroke="var(--sub)" stroke-width="1.4" stroke-dasharray="5 5"/>
+          <ellipse cx="308" cy="267" rx="17" ry="11" fill="none" stroke="var(--accent-2)" stroke-width="3"/>
+          <path d="M293 267 L297 284 L319 284 L323 267" fill="rgba(255,90,31,.18)" stroke="var(--accent-2)" stroke-width="2.4"/>
+          <text x="293.8796422670482" y="305.0359792737198" style="font-size:17px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">0.9 m</text>
+          <line x1="473" y1="180" x2="473" y2="105" stroke="var(--sub)" stroke-width="1.4" stroke-dasharray="5 5"/>
+          <ellipse cx="473" cy="105" rx="17" ry="11" fill="none" stroke="var(--accent-2)" stroke-width="3"/>
+          <path d="M458 105 L462 122 L484 122 L488 105" fill="rgba(255,90,31,.18)" stroke="var(--accent-2)" stroke-width="2.4"/>
+          <text x="459.13930367171184" y="142.95985912652392" style="font-size:17px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">1.7 m</text>
+          <line x1="669" y1="241" x2="570" y2="278" stroke="var(--sub)" stroke-width="1.4" stroke-dasharray="5 5"/>
+          <ellipse cx="570" cy="278" rx="17" ry="11" fill="none" stroke="var(--accent-2)" stroke-width="3"/>
+          <path d="M555 278 L559 295 L581 295 L585 278" fill="rgba(255,90,31,.18)" stroke="var(--accent-2)" stroke-width="2.4"/>
+          <text x="556.2961926965672" y="316.4388410544521" style="font-size:17px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">2.4 m</text>
+          <line x1="811" y1="348" x2="855" y2="319" stroke="var(--sub)" stroke-width="1.4" stroke-dasharray="5 5"/>
+          <ellipse cx="855" cy="319" rx="17" ry="11" fill="none" stroke="var(--accent-2)" stroke-width="3"/>
+          <path d="M840 319 L844 336 L866 336 L870 319" fill="rgba(255,90,31,.18)" stroke="var(--accent-2)" stroke-width="2.4"/>
+          <text x="841.4222640351793" y="356.8527052106509" style="font-size:17px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">1.2 m</text>
+          <line x1="970" y1="337" x2="1077" y2="388" stroke="var(--sub)" stroke-width="1.4" stroke-dasharray="5 5"/>
+          <ellipse cx="1077" cy="388" rx="17" ry="11" fill="none" stroke="var(--accent-2)" stroke-width="3"/>
+          <path d="M1062 388 L1066 405 L1088 405 L1092 388" fill="rgba(255,90,31,.18)" stroke="var(--accent-2)" stroke-width="2.4"/>
+          <text x="1062.9157987863098" y="425.60965105635415" style="font-size:17px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">2.7 m</text>
+          <line x1="1126" y1="206" x2="1047" y2="177" stroke="var(--sub)" stroke-width="1.4" stroke-dasharray="5 5"/>
+          <ellipse cx="1047" cy="177" rx="17" ry="11" fill="none" stroke="var(--accent-2)" stroke-width="3"/>
+          <path d="M1032 177 L1036 194 L1058 194 L1062 177" fill="rgba(255,90,31,.18)" stroke="var(--accent-2)" stroke-width="2.4"/>
+          <text x="1033.1466466526226" y="215.0934865474488" style="font-size:17px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">1.9 m</text>
+          <g transform="translate(574,194) rotate(39)"><rect x="-22" y="-16" width="44" height="32" rx="6" fill="var(--accent)" stroke="var(--ink)" stroke-width="2"/><path d="M22 0 L120 -46 L120 46 Z" fill="rgba(22,82,240,.13)" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="6 5"/></g>
+          <text x="670.1235766925818" y="135.87579635028615" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">detection cone</text>
+          <line x1="48" y1="478" x2="1222" y2="478" stroke="var(--border-2)" stroke-width="1.4"/>
+          <path d="M56 504 L104 504" stroke="var(--accent)" stroke-width="4" stroke-dasharray="12 9"/>
+          <text x="118" y="510" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">painted line</text>
+          <ellipse cx="300" cy="504" rx="14" ry="9" fill="none" stroke="var(--accent-2)" stroke-width="3"/>
+          <text x="326" y="510" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">bucket, offset from the line</text>
+          <text x="700" y="510" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">line-following is optional</text>
         </svg>
       </div>
-      <p class="fig__cap"><b>Figure 1.</b> Ultrasonic and infrared sensors feed an Arduino running the navigation and targeting logic, which drives the wheel motors and the launcher servo. The two sensing modalities are deliberately complementary: ultrasonic gives usable range but a wide, imprecise cone, while infrared is narrow and fast but easily confused by surface reflectivity. Neither alone is dependable enough.</p>
+      <p class="fig__cap"><b>Figure 1.</b> The course: a fixed path marked with a painted line, and six buckets set to either side at offsets from 0.9&nbsp;m to 2.7&nbsp;m. The robot carries a forward detection cone. Because line-following is optional, the interesting decisions are where to deviate and how close to pass a bucket &mdash; a nearer shot is a far more forgiving shot.</p>
     </div>
   </div>
 </section>
@@ -135,22 +138,99 @@
 
 <section class="sec">
   <div class="wrap">
-    <div class="fig reveal">
-      <div class="fig__head"><span class="fig__no">Figure 2 — Navigation and targeting, running</span><span class="fig__live">running</span></div>
+        <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 2 &mdash; The firing solution</span></div>
       <div class="fig__body">
-        <canvas id="rb-canvas" width="1520" height="700"></canvas>
+        <svg viewBox="0 0 1270 550" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="Landing distance against launch angle for three launch speeds with maximum range marked, alongside how a five per cent launch-speed error grows into a larger range error at longer distances.">
+          <rect x="20" y="20" width="700" height="510" rx="16" fill="var(--bg-alt)" stroke="var(--border)" stroke-width="1.6"/>
+          <text x="48" y="58" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">where the ball lands</text>
+          <line x1="120" y1="392" x2="660" y2="392" stroke="var(--border-2)" stroke-width="1.8"/>
+          <line x1="120" y1="110" x2="120" y2="392" stroke="var(--border-2)" stroke-width="1.8"/>
+          <path d="M30.0 351.2 L39.0 350.1 L48.0 348.8 L57.0 347.6 L66.0 346.3 L75.0 345.1 L84.0 343.7 L93.0 342.4 L102.0 341.0 L111.0 339.6 L120.0 338.2 L129.0 336.7 L138.0 335.3 L147.0 333.8 L156.0 332.3 L165.0 330.8 L174.0 329.3 L183.0 327.7 L192.0 326.2 L201.0 324.7 L210.0 323.1 L219.0 321.6 L228.0 320.1 L237.0 318.6 L246.0 317.1 L255.0 315.6 L264.0 314.1 L273.0 312.7 L282.0 311.3 L291.0 309.9 L300.0 308.6 L309.0 307.3 L318.0 306.0 L327.0 304.8 L336.0 303.6 L345.0 302.5 L354.0 301.5 L363.0 300.4 L372.0 299.5 L381.0 298.6 L390.0 297.8 L399.0 297.1 L408.0 296.4 L417.0 295.8 L426.0 295.3 L435.0 294.8 L444.0 294.5 L453.0 294.2 L462.0 294.0 L471.0 293.8 L480.0 293.8 L489.0 293.9 L498.0 294.0 L507.0 294.2 L516.0 294.5 L525.0 295.0 L534.0 295.4 L543.0 296.0 L552.0 296.7 L561.0 297.5 L570.0 298.3 L579.0 299.3 L588.0 300.3 L597.0 301.5 L606.0 302.7 L615.0 304.0 L624.0 305.4 L633.0 306.9 L642.0 308.4 L651.0 310.1 L660.0 311.8" fill="none" stroke="var(--accent-3)" stroke-width="3.2"/>
+          <circle cx="480" cy="294" r="6" fill="var(--accent-3)"/>
+          <path d="M30.0 344.2 L39.0 342.5 L48.0 340.8 L57.0 339.0 L66.0 337.1 L75.0 335.2 L84.0 333.2 L93.0 331.2 L102.0 329.1 L111.0 327.0 L120.0 324.7 L129.0 322.5 L138.0 320.2 L147.0 317.8 L156.0 315.4 L165.0 312.9 L174.0 310.5 L183.0 307.9 L192.0 305.4 L201.0 302.8 L210.0 300.3 L219.0 297.7 L228.0 295.1 L237.0 292.6 L246.0 290.0 L255.0 287.5 L264.0 284.9 L273.0 282.5 L282.0 280.0 L291.0 277.6 L300.0 275.3 L309.0 273.0 L318.0 270.8 L327.0 268.6 L336.0 266.5 L345.0 264.5 L354.0 262.6 L363.0 260.8 L372.0 259.1 L381.0 257.5 L390.0 255.9 L399.0 254.5 L408.0 253.2 L417.0 252.0 L426.0 251.0 L435.0 250.0 L444.0 249.2 L453.0 248.5 L462.0 248.0 L471.0 247.6 L480.0 247.3 L489.0 247.1 L498.0 247.1 L507.0 247.3 L516.0 247.5 L525.0 248.0 L534.0 248.5 L543.0 249.2 L552.0 250.1 L561.0 251.1 L570.0 252.2 L579.0 253.5 L588.0 255.0 L597.0 256.5 L606.0 258.3 L615.0 260.1 L624.0 262.1 L633.0 264.3 L642.0 266.5 L651.0 268.9 L660.0 271.5" fill="none" stroke="var(--accent)" stroke-width="3.2"/>
+          <circle cx="498" cy="247" r="6" fill="var(--accent)"/>
+          <path d="M30.0 338.1 L39.0 335.9 L48.0 333.6 L57.0 331.2 L66.0 328.7 L75.0 326.1 L84.0 323.3 L93.0 320.5 L102.0 317.5 L111.0 314.5 L120.0 311.3 L129.0 308.0 L138.0 304.6 L147.0 301.2 L156.0 297.6 L165.0 294.0 L174.0 290.3 L183.0 286.5 L192.0 282.6 L201.0 278.8 L210.0 274.9 L219.0 270.9 L228.0 267.0 L237.0 263.0 L246.0 259.1 L255.0 255.2 L264.0 251.3 L273.0 247.5 L282.0 243.7 L291.0 239.9 L300.0 236.3 L309.0 232.7 L318.0 229.2 L327.0 225.8 L336.0 222.6 L345.0 219.4 L354.0 216.4 L363.0 213.5 L372.0 210.8 L381.0 208.2 L390.0 205.7 L399.0 203.5 L408.0 201.3 L417.0 199.4 L426.0 197.6 L435.0 196.0 L444.0 194.6 L453.0 193.4 L462.0 192.4 L471.0 191.6 L480.0 191.0 L489.0 190.6 L498.0 190.4 L507.0 190.4 L516.0 190.6 L525.0 191.0 L534.0 191.6 L543.0 192.5 L552.0 193.5 L561.0 194.8 L570.0 196.3 L579.0 197.9 L588.0 199.8 L597.0 201.9 L606.0 204.3 L615.0 206.8 L624.0 209.5 L633.0 212.4 L642.0 215.5 L651.0 218.9 L660.0 222.4" fill="none" stroke="var(--accent-2)" stroke-width="3.2"/>
+          <circle cx="507" cy="190" r="6" fill="var(--accent-2)"/>
+          <line x1="150" y1="96" x2="190" y2="96" stroke="var(--accent-3)" stroke-width="3.4"/>
+          <text x="200" y="102" style="font-size:17px;font-family:'JetBrains Mono',monospace" fill="var(--accent-3)">4 m/s — max 1.95 m</text>
+          <line x1="150" y1="122" x2="190" y2="122" stroke="var(--accent)" stroke-width="3.4"/>
+          <text x="200" y="128" style="font-size:17px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">5 m/s — max 2.88 m</text>
+          <line x1="150" y1="148" x2="190" y2="148" stroke="var(--accent-2)" stroke-width="3.4"/>
+          <text x="200" y="154" style="font-size:17px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">6 m/s — max 4.00 m</text>
+          <text x="108.0" y="422" style="font-size:17px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">0°</text>
+          <text x="243.0" y="422" style="font-size:17px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">15°</text>
+          <text x="378.0" y="422" style="font-size:17px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">30°</text>
+          <text x="513.0" y="422" style="font-size:17px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">45°</text>
+          <text x="648.0" y="422" style="font-size:17px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">60°</text>
+          <text x="76" y="347.6428571428571" style="font-size:17px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">1</text>
+          <text x="76" y="297.2857142857143" style="font-size:17px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">2</text>
+          <text x="76" y="246.92857142857144" style="font-size:17px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">3</text>
+          <text x="76" y="196.57142857142856" style="font-size:17px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">4</text>
+          <text x="76" y="146.2142857142857" style="font-size:17px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">5</text>
+          <text x="420" y="456" style="font-size:19px;font-family:Outfit,sans-serif" fill="var(--muted)">launch angle</text>
+          <text x="48" y="466" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">vertical: range in metres</text>
+          <text x="48" y="496" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">launcher 0.35 m above the rim</text>
+          <rect x="750" y="20" width="500" height="510" rx="16" fill="var(--bg-alt)" stroke="var(--border)" stroke-width="1.6"/>
+          <text x="778" y="58" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">why far buckets are hard</text>
+          <text x="778" y="98" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">a 5% launch-speed error becomes</text>
+          <text x="792" y="152" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">0.5 m</text>
+          <rect x="880" y="138" width="39" height="17" rx="4" fill="rgba(255,90,31,.45)"/>
+          <text x="929.0" y="152" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">1.5 %</text>
+          <text x="792" y="206" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">1.0 m</text>
+          <rect x="880" y="192" width="94" height="17" rx="4" fill="rgba(255,90,31,.45)"/>
+          <text x="983.6" y="206" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">3.6 %</text>
+          <text x="792" y="260" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">1.5 m</text>
+          <rect x="880" y="246" width="146" height="17" rx="4" fill="rgba(255,90,31,.45)"/>
+          <text x="1035.6" y="260" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">5.6 %</text>
+          <text x="792" y="314" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">2.0 m</text>
+          <rect x="880" y="300" width="185" height="17" rx="4" fill="rgba(255,90,31,.45)"/>
+          <text x="1074.6" y="314" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">7.1 %</text>
+          <text x="792" y="368" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">2.5 m</text>
+          <rect x="880" y="354" width="216" height="17" rx="4" fill="rgba(255,90,31,.45)"/>
+          <text x="1105.8" y="368" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">8.3 %</text>
+          <text x="792" y="422" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">2.8 m</text>
+          <rect x="880" y="408" width="229" height="17" rx="4" fill="rgba(255,90,31,.45)"/>
+          <text x="1118.8" y="422" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">8.8 %</text>
+          <text x="778" y="500" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">so aim low and close where you can</text>
+        </svg>
+      </div>
+      <p class="fig__cap"><b>Figure 2.</b> With the launcher <i>h</i> above the bucket rim, a ball leaving
+        at speed <i>v</i><sub>0</sub> and angle &theta; lands at a distance that follows from
+        0 = <i>h</i> + <i>d</i>&thinsp;tan&theta; &minus; <i>gd</i>&sup2;/(2<i>v</i><sub>0</sub>&sup2;cos&sup2;&theta;).
+        Solving for &theta; gives two answers &mdash; a flat one and a lobbed one &mdash; and the maximum
+        range is (<i>v</i><sub>0</sub>/<i>g</i>)&radic;(<i>v</i><sub>0</sub>&sup2;+2<i>gh</i>): about
+        <b>2.88&nbsp;m</b> at 5&nbsp;m/s. Two things follow. The far buckets at 2.7&nbsp;m sit right at the
+        edge of what the launcher can reach, so there is no margin. And sensitivity grows with distance:
+        the same 5% error in launch speed puts the ball 1.5% long at half a metre but <b>8.8% long</b> at
+        2.8&nbsp;m. The flat solution is always the one to take &mdash; shorter flight time, less to go
+        wrong.</p>
+    </div>
+
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 3 &mdash; A run</span><span class="fig__live">running</span></div>
+      <div class="fig__body">
+        <canvas id="rb-run" width="1520" height="620"></canvas>
       </div>
       <div class="fig__ctrls">
         <div class="fig__ctrl">
-          <label>Obstacle density <b id="rbv-o">4</b></label>
-          <input type="range" id="rb-o" min="1" max="9" step="1" value="4" />
+          <label>launch speed <b id="rbv-v">5.0 m/s</b></label>
+          <input type="range" id="rb-v" min="3.0" max="7.0" step="0.1" value="5.0" />
         </div>
         <div class="fig__ctrl">
-          <label>Drive speed <b id="rbv-s">1.0</b></label>
-          <input type="range" id="rb-s" min="0.4" max="2.0" step="0.05" value="1.0" />
+          <label>detection range <b id="rbv-r">2.6 m</b></label>
+          <input type="range" id="rb-r" min="1.0" max="4.0" step="0.1" value="2.6" />
+        </div>
+        <div class="fig__ctrl">
+          <label>traverse speed <b id="rbv-s">100%</b></label>
+          <input type="range" id="rb-s" min="0.02" max="0.14" step="0.005" value="0.055" />
         </div>
       </div>
-      <p class="fig__cap"><b>Figure 2.</b> A top-down simulation of the control logic. The robot follows the track, sweeps its sensor cone for obstacles, steers around them, and fires when a target falls inside its aiming tolerance. The cone turns amber when something is detected. Widen the obstacle field and the avoidance behaviour starts competing with progress along the track — which is exactly the trade-off the competition scoring rewarded getting right.</p>
+      <div class="fig__ctrls" style="padding-top:0">
+        <button class="btn btn--solid" id="rb-reset" type="button">Restart run</button>
+      </div>
+      <p class="fig__cap"><b>Figure 3.</b> A full run. The robot traverses the course, and whenever a bucket enters the detection cone it computes the flat firing solution for that range and fires. Launch speed carries a &plusmn;5% scatter, as it does on real hardware, and a ball counts as landed only if it arrives within 14&nbsp;cm of the bucket &mdash; roughly the mouth. Buckets turn green when landed, red when missed, and grey when they are simply beyond the launcher&rsquo;s reach. The trades from Figure 2 show up directly: drop the launch speed and the far buckets go grey; raise the traverse speed and buckets leave the cone before a solution is worth taking; widen the detection range and you start engaging targets from further out, where the same speed scatter costs far more.</p>
     </div>
   </div>
   <div class="wrap body-copy reveal">
@@ -179,109 +259,175 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
 
 <script>
+/* ---- Figure 3: the run — traverse, detect, solve, fire ---- */
 (function(){
-  const cv=document.getElementById('rb-canvas'); if(!cv) return;
+  const cv=document.getElementById('rb-run'); if(!cv) return;
   const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
   const css=getComputedStyle(document.documentElement); const C=k=>css.getPropertyValue(k).trim();
-  const P={nObs:4, speed:1.0};
-  const bot={x:200,y:H*0.5,th:0,detect:false};
-  let obs=[], targets=[], shots=[], hits=0;
+  const G=9.81;
 
-  function seed(){
-    obs=[]; for(let i=0;i<P.nObs;i++)
-      obs.push({x:340+Math.random()*(W-600), y:120+Math.random()*(H-260), r:34+Math.random()*26});
-    targets=[]; for(let i=0;i<3;i++)
-      targets.push({x:W-260+Math.random()*160, y:120+Math.random()*(H-260), alive:true});
+  const WP=[[0.06,0.74],[0.18,0.42],[0.34,0.24],[0.50,0.32],[0.61,0.58],[0.74,0.74],[0.86,0.54],[0.96,0.28]];
+  function catmull(pts,n){
+    const P=[pts[0],...pts,pts[pts.length-1],pts[pts.length-1]], out=[];
+    const per=Math.floor(n/(P.length-3));
+    for(let i=0;i<P.length-3;i++){
+      const [p0,p1,p2,p3]=[P[i],P[i+1],P[i+2],P[i+3]];
+      for(let s=0;s<per;s++){
+        const t=s/per,t2=t*t,t3=t2*t;
+        out.push([0.5*(2*p1[0]+(-p0[0]+p2[0])*t+(2*p0[0]-5*p1[0]+4*p2[0]-p3[0])*t2+(-p0[0]+3*p1[0]-3*p2[0]+p3[0])*t3),
+                  0.5*(2*p1[1]+(-p0[1]+p2[1])*t+(2*p0[1]-5*p1[1]+4*p2[1]-p3[1])*t2+(-p0[1]+3*p1[1]-3*p2[1]+p3[1])*t3)]);
+      }
+    }
+    return out;
   }
-  seed();
+  const CURVE=catmull(WP,420);
+  const X0=60,Y0=80,SX=1000,SY=430, MPP=44;     // px per metre
+  const mx=p=>X0+p[0]*SX, my=p=>Y0+p[1]*SY;
+  function at(u){
+    const i=Math.max(0,Math.min(CURVE.length-2,Math.floor(u*(CURVE.length-1))));
+    const p=CURVE[i],q=CURVE[i+1];
+    let dx=q[0]-p[0],dy=q[1]-p[1]; const L=Math.hypot(dx,dy)||1e-9;
+    return {p,t:[dx/L,dy/L]};
+  }
+  const SPEC=[[0.13,1,0.9],[0.27,-1,1.7],[0.42,1,2.4],[0.56,-1,1.2],[0.70,1,2.7],[0.86,-1,1.9]];
+  let buckets=[];
+  function layout(){
+    buckets=SPEC.map(([u,side,off])=>{
+      const {p,t}=at(u);
+      return {u,off,x:mx(p)+(-t[1]*side)*off*MPP, y:my(p)+(t[0]*side)*off*MPP,
+              state:'idle'};
+    });
+  }
+  layout();
+
+  const P={v0:5.0, range:2.6, speed:0.055, follow:true};
+  const HL=0.35;
+  function solveAngle(d,v0){
+    const disc=v0**4-G*G*d*d+2*G*HL*v0*v0;
+    if(disc<0) return null;
+    return Math.atan((v0*v0-Math.sqrt(disc))/(G*d));   // low solution
+  }
+  let u=0, shots=[], hits=0, fired=0, flash=0, lastShot=null;
+  function reset(){ u=0; shots=[]; hits=0; fired=0; layout(); }
 
   function step(dt){
-    // steer: seek nearest live target, avoid obstacles
-    let tg=targets.find(t=>t.alive);
-    if(!tg){ targets.forEach(t=>t.alive=true); tg=targets[0]; }
-    let desired=Math.atan2(tg.y-bot.y, tg.x-bot.x);
-    bot.detect=false;
-    obs.forEach(o=>{
-      const dx=o.x-bot.x, dy=o.y-bot.y, d=Math.hypot(dx,dy);
-      if(d<o.r+150){
-        bot.detect=true;
-        const away=Math.atan2(dy,dx)+Math.PI;
-        const wgt=Math.min(1,(o.r+150-d)/150);
-        desired=desired*(1-wgt)+away*wgt;
+    u+=P.speed*dt;
+    if(u>=1){ u=0; layout(); }
+    const {p,t}=at(u);
+    const rx=mx(p), ry=my(p);
+    // detect + fire
+    buckets.forEach(b=>{
+      if(b.state!=='idle') return;
+      const dx=b.x-rx, dy=b.y-ry, dist=Math.hypot(dx,dy)/MPP;
+      const ang=Math.abs(Math.atan2(dx*t[1]-dy*t[0], dx*t[0]+dy*t[1]));
+      if(dist<=P.range && ang<Math.PI/3){
+        const th=solveAngle(dist,P.v0);
+        if(th===null){ b.state='unreachable'; return; }
+        // 5% launch-speed scatter, as on the real thing
+        const vAct=P.v0*(1+(Math.random()*0.10-0.05));
+        const disc=(vAct*Math.sin(th))**2+2*G*HL;
+        const tof=(vAct*Math.sin(th)+Math.sqrt(disc))/G;
+        const land=vAct*Math.cos(th)*tof;
+        const ux=dx/(dist*MPP), uy=dy/(dist*MPP);
+        shots.push({x0:rx,y0:ry,ux,uy,land,tof,th,t:0,b,dist,vAct});
+        b.state='firing'; fired++;
       }
     });
-    let err=((desired-bot.th+Math.PI*3)%(Math.PI*2))-Math.PI;
-    bot.th+=err*Math.min(1,dt*3.4);
-    const sp=110*P.speed*dt;
-    bot.x+=Math.cos(bot.th)*sp; bot.y+=Math.sin(bot.th)*sp;
-    if(bot.x<60||bot.x>W-60) bot.th=Math.PI-bot.th;
-    if(bot.y<70||bot.y>H-70) bot.th=-bot.th;
-    bot.x=Math.max(60,Math.min(W-60,bot.x)); bot.y=Math.max(70,Math.min(H-70,bot.y));
-
-    // fire when aimed and in range
-    const dxt=tg.x-bot.x, dyt=tg.y-bot.y, dt2=Math.hypot(dxt,dyt);
-    const aim=Math.abs(((Math.atan2(dyt,dxt)-bot.th+Math.PI*3)%(Math.PI*2))-Math.PI);
-    if(dt2<420 && aim<0.18 && Math.random()<0.05)
-      shots.push({x:bot.x,y:bot.y,vx:Math.cos(bot.th)*640,vy:Math.sin(bot.th)*640,life:1.4});
-
-    shots.forEach(s=>{s.x+=s.vx*dt;s.y+=s.vy*dt;s.life-=dt;
-      targets.forEach(t=>{if(t.alive&&Math.hypot(t.x-s.x,t.y-s.y)<26){t.alive=false;s.life=0;hits++;}});});
-    shots=shots.filter(s=>s.life>0);
+    shots.forEach(s=>{
+      s.t+=dt;
+      if(s.t>=s.tof && s.b.state==='firing'){
+        const err=Math.abs(s.land-s.dist);
+        const hit=err<0.14;                       // bucket mouth ~280 mm
+        s.b.state=hit?'hit':'miss'; if(hit) hits++;
+        flash=1; lastShot={d:s.dist,th:s.th,err,hit,v:s.vAct};
+      }
+    });
+    shots=shots.filter(s=>s.t<s.tof+0.5);
+    flash=Math.max(0,flash-dt*1.6);
   }
 
   function render(){
     ctx.clearRect(0,0,W,H);
-    // arena
-    ctx.strokeStyle=C('--border-2'); ctx.lineWidth=3;
-    ctx.strokeRect(50,60,W-100,H-120);
-    // obstacles
-    obs.forEach(o=>{
-      ctx.fillStyle=C('--bg-alt'); ctx.strokeStyle=C('--border-2'); ctx.lineWidth=2;
-      ctx.beginPath();ctx.arc(o.x,o.y,o.r,0,7);ctx.fill();ctx.stroke();
+    // course
+    ctx.lineCap='round'; ctx.lineJoin='round';
+    ctx.strokeStyle=C('--border-2'); ctx.lineWidth=26;
+    ctx.beginPath(); CURVE.forEach((p,i)=>i?ctx.lineTo(mx(p),my(p)):ctx.moveTo(mx(p),my(p))); ctx.stroke();
+    ctx.strokeStyle=C('--accent'); ctx.lineWidth=4; ctx.setLineDash([20,16]);
+    ctx.beginPath(); CURVE.forEach((p,i)=>i?ctx.lineTo(mx(p),my(p)):ctx.moveTo(mx(p),my(p))); ctx.stroke();
+    ctx.setLineDash([]);
+    const {p,t}=at(u); const rx=mx(p),ry=my(p);
+    // detection cone
+    const a0=Math.atan2(t[1],t[0]);
+    ctx.fillStyle='rgba(22,82,240,.10)'; ctx.strokeStyle='rgba(22,82,240,.45)'; ctx.lineWidth=1.6;
+    ctx.beginPath(); ctx.moveTo(rx,ry);
+    ctx.arc(rx,ry,P.range*MPP,a0-Math.PI/3,a0+Math.PI/3); ctx.closePath(); ctx.fill(); ctx.stroke();
+    // buckets
+    buckets.forEach(b=>{
+      const col=b.state==='hit'?C('--accent-3'):b.state==='miss'?'#e11d48':
+                b.state==='unreachable'?C('--sub'):C('--accent-2');
+      ctx.strokeStyle=col; ctx.lineWidth=3; ctx.fillStyle='rgba(255,255,255,.55)';
+      ctx.beginPath(); ctx.ellipse(b.x,b.y,17,11,0,0,7); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(b.x-15,b.y); ctx.lineTo(b.x-11,b.y+17);
+      ctx.lineTo(b.x+11,b.y+17); ctx.lineTo(b.x+15,b.y); ctx.stroke();
+      ctx.fillStyle=C('--sub'); ctx.font='500 15px "JetBrains Mono", monospace';
+      ctx.fillText(b.off.toFixed(1)+' m', b.x-20, b.y+36);
     });
-    // targets
-    targets.forEach(t=>{
-      if(!t.alive) return;
-      ctx.strokeStyle=C('--accent-2'); ctx.lineWidth=4;
-      ctx.beginPath();ctx.arc(t.x,t.y,24,0,7);ctx.stroke();
-      ctx.beginPath();ctx.arc(t.x,t.y,10,0,7);ctx.stroke();
-    });
-    // sensor cone
-    ctx.fillStyle= bot.detect ? 'rgba(255,90,31,0.16)' : 'rgba(0,166,166,0.13)';
-    ctx.beginPath();ctx.moveTo(bot.x,bot.y);
-    ctx.arc(bot.x,bot.y,190,bot.th-0.44,bot.th+0.44);
-    ctx.closePath();ctx.fill();
-    // robot
-    ctx.save();
-    ctx.translate(bot.x,bot.y); ctx.rotate(bot.th);
-    ctx.fillStyle=C('--accent'); ctx.fillRect(-26,-20,52,40);
-    ctx.fillStyle=C('--ink'); ctx.fillRect(-20,-26,14,10); ctx.fillRect(6,-26,14,10);
-    ctx.fillRect(-20,16,14,10); ctx.fillRect(6,16,14,10);
-    ctx.fillStyle=C('--accent-2'); ctx.fillRect(24,-5,20,10);
-    ctx.restore();
     // shots
-    ctx.fillStyle=C('--accent-2');
-    shots.forEach(s=>{ctx.beginPath();ctx.arc(s.x,s.y,7,0,7);ctx.fill();});
-    // hud
-    ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
-    ctx.fillText(bot.detect?'obstacle detected — steering around':'path clear — tracking target',70,42);
-    ctx.fillStyle=C('--accent-2'); ctx.fillText('hits: '+hits, W-190, 42);
+    shots.forEach(s=>{
+      const f=Math.min(1,s.t/s.tof), d=s.land*f*MPP;
+      const x=s.x0+s.ux*d, y=s.y0+s.uy*d;
+      const hgt=Math.sin(Math.PI*f)*s.land*MPP*0.16;
+      ctx.strokeStyle='rgba(11,21,38,.22)'; ctx.lineWidth=1.6;
+      ctx.beginPath(); ctx.moveTo(s.x0,s.y0); ctx.lineTo(x,y); ctx.stroke();
+      ctx.fillStyle=C('--accent-2');
+      ctx.beginPath(); ctx.arc(x,y-hgt,6,0,7); ctx.fill();
+    });
+    // robot
+    ctx.save(); ctx.translate(rx,ry); ctx.rotate(a0);
+    ctx.fillStyle=C('--accent'); ctx.strokeStyle=C('--ink'); ctx.lineWidth=2;
+    ctx.fillRect(-22,-16,44,32); ctx.strokeRect(-22,-16,44,32);
+    ctx.fillStyle=C('--ink'); ctx.fillRect(16,-5,16,10);
+    ctx.restore();
+    // readouts
+    const bx=1120;
+    ctx.fillStyle=C('--muted'); ctx.font='500 25px Outfit, sans-serif';
+    ctx.fillText('the run', bx, 110);
+    const rows=[['attempted',String(fired),'--muted'],
+                ['landed',String(hits),'--accent-3'],
+                ['hit rate',fired?Math.round(hits/fired*100)+'%':'—','--accent']];
+    rows.forEach((r,i)=>{
+      const y=168+i*84;
+      ctx.fillStyle=C('--sub'); ctx.font='500 19px Outfit, sans-serif'; ctx.fillText(r[0],bx,y);
+      ctx.fillStyle=C(r[2]); ctx.font='500 30px "JetBrains Mono", monospace'; ctx.fillText(r[1],bx,y+34);
+    });
+    ctx.fillStyle=C('--sub'); ctx.font='500 18px Outfit, sans-serif';
+    ctx.fillText('last firing solution', bx, 450);
+    if(lastShot){
+      ctx.fillStyle=C('--muted'); ctx.font='500 19px "JetBrains Mono", monospace';
+      ctx.fillText('range  '+lastShot.d.toFixed(2)+' m', bx, 482);
+      ctx.fillText('angle  '+(lastShot.th*180/Math.PI).toFixed(1)+'°', bx, 510);
+      ctx.fillStyle=lastShot.hit?C('--accent-3'):'#e11d48';
+      ctx.fillText('error  '+(lastShot.err*100).toFixed(0)+' cm', bx, 538);
+    }
+    ctx.fillStyle=C('--sub'); ctx.font='500 17px Outfit, sans-serif';
+    ctx.fillText('max range '+((P.v0/G)*Math.sqrt(P.v0*P.v0+2*G*HL)).toFixed(2)+' m', bx, 580);
   }
 
-  const ro=document.getElementById('rb-o');
-  if(ro) ro.addEventListener('input',()=>{P.nObs=parseInt(ro.value,10);
-    document.getElementById('rbv-o').textContent=P.nObs; seed();});
-  const rs=document.getElementById('rb-s');
-  if(rs) rs.addEventListener('input',()=>{P.speed=parseFloat(rs.value);
-    document.getElementById('rbv-s').textContent=P.speed.toFixed(2);});
+  const bind=(r,v,key,f,fmt)=>{const R=document.getElementById(r),V=document.getElementById(v);
+    if(!R)return; R.addEventListener('input',()=>{P[key]=f(R.value); if(V)V.textContent=fmt(P[key]); });};
+  bind('rb-v','rbv-v','v0',parseFloat,x=>x.toFixed(1)+' m/s');
+  bind('rb-r','rbv-r','range',parseFloat,x=>x.toFixed(1)+' m');
+  bind('rb-s','rbv-s','speed',parseFloat,x=>Math.round(x/0.055*100)+'%');
+  const go=document.getElementById('rb-reset'); if(go) go.addEventListener('click',reset);
 
-  let live=false,last=performance.now();
+  let live=false;
   new IntersectionObserver(e=>{live=e[0].isIntersecting;},{threshold:.05}).observe(cv);
+  let last=performance.now();
   (function loop(now){
     requestAnimationFrame(loop);
-    const dt=Math.min((now-last)/1000,0.05); last=now;
-    if(!live) return;
-    step(dt); render();
+    const dt=Math.min((now-last)/1000,.05); last=now;
+    if(live) step(dt);
+    render();
   })(performance.now());
 })();
 </script>
