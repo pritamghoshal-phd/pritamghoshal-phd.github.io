@@ -299,6 +299,13 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 .fact__v a{color:var(--accent);border-bottom:1px solid transparent;transition:border-color .2s}
 .fact__v a:hover{border-color:var(--accent)}
 
+
+.fact__edu{margin-bottom:.7rem}
+.fact__edu:last-child{margin-bottom:0}
+.fact__deg{display:block;color:var(--ink);font-weight:500;font-size:.82rem;line-height:1.4}
+.fact__where{display:block;font-family:'JetBrains Mono',monospace;font-size:.64rem;
+  letter-spacing:.05em;color:var(--sub);margin-top:.12rem}
+
 /* ===== publications ===== */
 .pubs{display:grid;gap:1rem;counter-reset:pub}
 .pub{background:var(--bg-card);border:1px solid var(--border);border-radius:1.2rem;
@@ -475,8 +482,21 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
           <div class="fact__v">Nonlinear dynamics · Vibration · Viscoelasticity · Bistable structures · Physical reservoir computing · Bio-inspired mechanics</div>
         </div>
         <div class="fact">
-          <div class="fact__k">Selected venues</div>
-          <div class="fact__v">Nature Communications · Nonlinear Dynamics · J. Computational &amp; Nonlinear Dynamics · Int. J. Non-Linear Mechanics</div>
+          <div class="fact__k">Education</div>
+          <div class="fact__v">
+            <div class="fact__edu">
+              <span class="fact__deg">PhD, Mechanical Engineering</span>
+              <span class="fact__where">Purdue University &middot; 2022&ndash;2027 &middot; GPA 3.91</span>
+            </div>
+            <div class="fact__edu">
+              <span class="fact__deg">M.Tech, Mechanical Engineering</span>
+              <span class="fact__where">IIT Kanpur &middot; 2020&ndash;2022 &middot; GPA 4.0</span>
+            </div>
+            <div class="fact__edu">
+              <span class="fact__deg">B.E., Mechanical Engineering</span>
+              <span class="fact__where">Jadavpur University &middot; 2016&ndash;2020 &middot; GPA 3.62</span>
+            </div>
+          </div>
         </div>
         <div class="fact">
           <div class="fact__k">Profiles</div>
@@ -485,18 +505,6 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
             <a href="https://orcid.org/0000-0002-1529-7973" target="_blank" rel="noopener">ORCID 0000-0002-1529-7973 ↗</a><br />
             <a href="https://www.linkedin.com/in/pritam-ghoshal/" target="_blank" rel="noopener">LinkedIn ↗</a>
           </div>
-        </div>
-        <div class="fact">
-          <div class="fact__k">Recent honours</div>
-          <div class="fact__v">Ali H. Nayfeh Award (NODYCON 2025) · Perry Graduate Teaching Fellowship (2026) · David Tree Fellowship (2025)</div>
-        </div>
-        <div class="fact">
-          <div class="fact__k">Teaching</div>
-          <div class="fact__v">Instructor of Record — ME 274: Basic Mechanics II (Dynamics), Fall 2026</div>
-        </div>
-        <div class="fact">
-          <div class="fact__k">Contact</div>
-          <div class="fact__v"><a href="mailto:pghoshal@purdue.edu">pghoshal@purdue.edu</a></div>
         </div>
       </aside>
     </div>
@@ -507,8 +515,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 <section class="sec" id="experience">
   <div class="wrap">
     <div class="sec__head">
-      <div class="eyebrow will-reveal" data-rev>02 — Experience &amp; education</div>
-      <h2 class="sec__title will-reveal" data-rev>Where I've <em>worked</em>, and studied.</h2>
+      <div class="eyebrow will-reveal" data-rev>02 — Experience</div>
+      <h2 class="sec__title will-reveal" data-rev>Where I've <em>worked</em>.</h2>
       <p class="sec__sub will-reveal" data-rev>
         Research, teaching, and industry — from a solar manufacturing floor in Florida to a
         hydrogen-corridor planning tool, alongside the doctoral work.
@@ -587,41 +595,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
       </div>
 
     </div>
-    <div class="cards" style="margin-top:2.6rem">
-      <article class="card will-reveal" data-rev>
-        <h3>Education</h3>
-        <div class="edu">
-          <div class="edu__row">
-            <div>
-              <div class="edu__deg">PhD, Mechanical Engineering — GPA 3.91/4.0</div>
-              <div class="edu__where">Purdue University, West Lafayette, Indiana</div>
-            </div>
-            <div class="edu__when">2022 – 2027</div>
-          </div>
-          <div class="edu__row">
-            <div>
-              <div class="edu__deg">M.Tech, Mechanical Engineering — GPA 4.0/4.0</div>
-              <div class="edu__where">Indian Institute of Technology Kanpur</div>
-            </div>
-            <div class="edu__when">2020 – 2022</div>
-          </div>
-          <div class="edu__row">
-            <div>
-              <div class="edu__deg">B.E., Mechanical Engineering — GPA 3.62/4.0</div>
-              <div class="edu__where">Jadavpur University, Kolkata</div>
-            </div>
-            <div class="edu__when">2016 – 2020</div>
-          </div>
-        </div>
-        <h3 style="margin-top:1.6rem">How I work</h3>
-        <p><strong>Model first.</strong> I start from governing equations rather than a solver — a
-          nondimensionalised model tells you which parameters matter before you spend a month sweeping them.</p>
-        <p><strong>Then build it.</strong> Every project I have led ended in hardware: a breadboard
-          reservoir, an instrumented truss, a dissected tymbal under a high-speed camera. The gap between
-          model and measurement is usually where the physics was hiding.</p>
-      </article>
     </div>
-  </div>
 </section>
 
 <section class="sec sec--alt" id="research">
