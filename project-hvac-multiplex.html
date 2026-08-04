@@ -57,41 +57,54 @@
     <div class="fig reveal">
       <div class="fig__head"><span class="fig__no">Figure 1 — Plant and distribution layout</span></div>
       <div class="fig__body">
-        <svg viewBox="0 0 800 340" xmlns="http://www.w3.org/2000/svg" role="img"
-             aria-label="Plan view of a three-screen multiplex with an air handling unit, trunk duct and branch ducts to each auditorium.">
-          <g class="pop">
-            <rect class="s-card" x="30" y="120" width="104" height="98" rx="10"/>
-            <text class="s-txt s-txt--sm" x="52" y="162">AHU</text>
-            <text class="s-txt s-txt--sm" x="40" y="184">chiller +</text>
-            <text class="s-txt s-txt--sm" x="46" y="202">blower</text>
-          </g>
-          <path class="s-accent flow" d="M134 168 L680 168" stroke-width="10"/>
-          <text class="s-mono" x="330" y="152">trunk duct</text>
-          <g class="pop pop--d1">
-            <path class="s-accent flow" d="M240 168 L240 74" stroke-width="6"/>
-            <path class="s-accent flow" d="M430 168 L430 74" stroke-width="6"/>
-            <path class="s-accent flow" d="M620 168 L620 74" stroke-width="6"/>
-            <rect class="s-card" x="176" y="14" width="128" height="60" rx="8"/>
-            <rect class="s-card" x="366" y="14" width="128" height="60" rx="8"/>
-            <rect class="s-card" x="556" y="14" width="128" height="60" rx="8"/>
-            <text class="s-txt s-txt--sm" x="212" y="50">Screen 1</text>
-            <text class="s-txt s-txt--sm" x="402" y="50">Screen 2</text>
-            <text class="s-txt s-txt--sm" x="592" y="50">Screen 3</text>
-          </g>
-          <g class="pop pop--d3">
-            <path class="s-accent3" d="M240 200 L240 268 L134 268 L134 218" stroke-dasharray="7 6"/>
-            <path class="s-accent3" d="M430 200 L430 268 L240 268" stroke-dasharray="7 6"/>
-            <path class="s-accent3" d="M620 200 L620 268 L430 268" stroke-dasharray="7 6"/>
-            <text class="s-mono" x="300" y="292" fill="var(--accent-3)">return air path</text>
-          </g>
-          <g class="pop pop--d4">
-            <text class="s-txt s-txt--sm" x="700" y="140">loads:</text>
-            <text class="s-txt s-txt--sm" x="700" y="164">occupants</text>
-            <text class="s-txt s-txt--sm" x="700" y="186">projector</text>
-            <text class="s-txt s-txt--sm" x="700" y="208">envelope</text>
-            <text class="s-txt s-txt--sm" x="700" y="230">lighting</text>
-            <text class="s-txt s-txt--sm" x="700" y="252">fresh air</text>
-          </g>
+        <svg viewBox="0 0 1270 510" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="Plan of the plant room containing chiller, air handling unit and supply fan, feeding a trunk duct and three branch ducts to auditoria of 480, 320 and 180 seats, each with ceiling diffusers and a return grille.">
+          <rect x="20" y="20" width="1230" height="470" rx="16" fill="var(--bg-alt)" stroke="var(--border)" stroke-width="1.6"/>
+          <text x="48" y="58" style="font-size:25px;font-family:Outfit,sans-serif" font-weight="600">plant and distribution</text>
+          <rect x="52" y="96" width="212" height="330" rx="12" fill="var(--bg-card)" stroke="var(--accent)" stroke-width="2.4"/>
+          <text x="158" y="132" style="font-size:21px;font-family:Outfit,sans-serif" text-anchor="middle" fill="var(--accent)" font-weight="600">plant room</text>
+          <rect x="76" y="150" width="164" height="56" rx="8" fill="var(--bg-alt)" stroke="var(--border-2)" stroke-width="2"/>
+          <text x="158" y="182" style="font-size:19px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--muted)">chiller</text>
+          <rect x="76" y="226" width="164" height="56" rx="8" fill="var(--bg-alt)" stroke="var(--border-2)" stroke-width="2"/>
+          <text x="158" y="258" style="font-size:19px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--muted)">AHU</text>
+          <rect x="76" y="302" width="164" height="56" rx="8" fill="var(--bg-alt)" stroke="var(--border-2)" stroke-width="2"/>
+          <text x="158" y="334" style="font-size:19px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--muted)">supply fan</text>
+          <text x="158" y="404" style="font-size:18px;font-family:'JetBrains Mono',monospace" text-anchor="middle" fill="var(--sub)">outside air + return</text>
+          <rect x="264" y="236" width="150" height="34" fill="rgba(22,82,240,.20)" stroke="var(--accent)" stroke-width="2"/>
+          <text x="300" y="224" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">trunk</text>
+          <rect x="414" y="120" width="34" height="270" fill="rgba(22,82,240,.20)" stroke="var(--accent)" stroke-width="2"/>
+          <rect x="448" y="110" width="34" height="26" fill="rgba(22,82,240,.20)" stroke="var(--accent)" stroke-width="2"/>
+          <rect x="500" y="48.0" width="450" height="150" rx="10" fill="var(--bg-card)" stroke="var(--accent-2)" stroke-width="2.4"/>
+          <text x="520" y="112" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--accent-2)" font-weight="600">Screen 1</text>
+          <text x="520" y="138" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">480 seats</text>
+          <rect x="560" y="53" width="26" height="9" rx="3" fill="var(--accent-2)"/>
+          <rect x="638" y="53" width="26" height="9" rx="3" fill="var(--accent-2)"/>
+          <rect x="716" y="53" width="26" height="9" rx="3" fill="var(--accent-2)"/>
+          <rect x="794" y="53" width="26" height="9" rx="3" fill="var(--accent-2)"/>
+          <rect x="872" y="53" width="26" height="9" rx="3" fill="var(--accent-2)"/>
+          <rect x="916" y="181" width="28" height="10" rx="3" fill="none" stroke="var(--accent-2)" stroke-width="2"/>
+          <rect x="448" y="238" width="34" height="26" fill="rgba(22,82,240,.20)" stroke="var(--accent)" stroke-width="2"/>
+          <rect x="500" y="191.0" width="420" height="120" rx="10" fill="var(--bg-card)" stroke="var(--accent-3)" stroke-width="2.4"/>
+          <text x="520" y="240" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--accent-3)" font-weight="600">Screen 2</text>
+          <text x="520" y="266" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">320 seats</text>
+          <rect x="560" y="196" width="26" height="9" rx="3" fill="var(--accent-3)"/>
+          <rect x="632" y="196" width="26" height="9" rx="3" fill="var(--accent-3)"/>
+          <rect x="704" y="196" width="26" height="9" rx="3" fill="var(--accent-3)"/>
+          <rect x="776" y="196" width="26" height="9" rx="3" fill="var(--accent-3)"/>
+          <rect x="848" y="196" width="26" height="9" rx="3" fill="var(--accent-3)"/>
+          <rect x="886" y="294" width="28" height="10" rx="3" fill="none" stroke="var(--accent-3)" stroke-width="2"/>
+          <rect x="448" y="348" width="34" height="26" fill="rgba(22,82,240,.20)" stroke="var(--accent)" stroke-width="2"/>
+          <rect x="500" y="313.0" width="396" height="96" rx="10" fill="var(--bg-card)" stroke="var(--accent)" stroke-width="2.4"/>
+          <text x="520" y="350" style="font-size:21px;font-family:Outfit,sans-serif" fill="var(--accent)" font-weight="600">Screen 3</text>
+          <text x="520" y="376" style="font-size:18px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">180 seats</text>
+          <rect x="560" y="318" width="26" height="9" rx="3" fill="var(--accent)"/>
+          <rect x="627" y="318" width="26" height="9" rx="3" fill="var(--accent)"/>
+          <rect x="694" y="318" width="26" height="9" rx="3" fill="var(--accent)"/>
+          <rect x="762" y="318" width="26" height="9" rx="3" fill="var(--accent)"/>
+          <rect x="829" y="318" width="26" height="9" rx="3" fill="var(--accent)"/>
+          <rect x="862" y="392" width="28" height="10" rx="3" fill="none" stroke="var(--accent)" stroke-width="2"/>
+          <text x="520" y="74" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">diffusers filled · returns outlined</text>
+          <text x="48" y="462" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">branch ducts sized per hall; each auditorium is balanced independently</text>
         </svg>
       </div>
       <p class="fig__cap"><b>Figure 1.</b> Chilled air from the air handling unit is distributed along a trunk duct and branched to three auditoria, each sized independently. Cinema auditoria are an unusual load case: occupant density is very high but intermittent, ceilings are tall, and projection equipment adds concentrated heat, so the peak for each screen depends heavily on scheduling.</p>
@@ -131,7 +144,7 @@
 <section class="sec">
   <div class="wrap">
     <div class="fig reveal">
-      <div class="fig__head"><span class="fig__no">Figure 2 — Load build-up and air distribution</span><span class="fig__live">running</span></div>
+      <div class="fig__head"><span class="fig__no">Figure 2 &mdash; Load build-up</span><span class="fig__live">running</span></div>
       <div class="fig__body">
         <canvas id="hv-canvas" width="1520" height="620"></canvas>
       </div>
@@ -145,7 +158,7 @@
           <input type="range" id="hv-t" min="0.20" max="1.60" step="0.02" value="1.00" />
         </div>
       </div>
-      <p class="fig__cap"><b>Figure 2.</b> Left: cooling load assembled contribution by contribution as occupancy rises — drag the occupancy slider and watch the sensible and latent components separate. Right: airflow through the trunk and branches, with particle density proportional to volumetric flow. Because occupants dominate the load, a nearly empty auditorium and a full one are effectively different buildings, which is the case for zoning each screen separately.</p>
+      <p class="fig__cap"><b>Figure 2.</b> The cooling load assembled contribution by contribution as occupancy rises. Drag the slider and watch the occupant terms &mdash; sensible and latent &mdash; separate and then dominate everything else. That is the whole difficulty of an auditorium: the envelope, the lighting and the projection load barely move, but the people are most of the load and they arrive all at once. A nearly empty screening and a full one are, thermally, two different buildings.</p>
     </div>
   </div>
   <div class="wrap body-copy reveal">
@@ -159,6 +172,35 @@
     <p>The habit of validating an analytical result against a simulation, and treating disagreement as
       information rather than nuisance, is the same one I rely on in my doctoral work.</p>
     <div class="proj-links" style="margin-top:1.6rem"><a class="btn" href="projects.html">All projects &rarr;</a></div>
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 3 &mdash; Air in the room, solved live</span><span class="fig__live">running</span></div>
+      <div class="fig__body">
+        <canvas id="hv-air" width="1520" height="640"></canvas>
+      </div>
+      <div class="fig__ctrls">
+        <div class="fig__ctrl">
+          <label>occupancy <b id="hvv-occ">75%</b></label>
+          <input type="range" id="hv-occ" min="0" max="1" step="0.01" value="0.75" />
+        </div>
+        <div class="fig__ctrl">
+          <label>supply air, relative to setpoint <b id="hvv-sup">-3.0</b></label>
+          <input type="range" id="hv-sup" min="-6" max="-0.5" step="0.1" value="-3.0" />
+        </div>
+      </div>
+      <div class="fig__ctrls" style="padding-top:0">
+        <button class="btn btn--solid" id="hv-mode" type="button">Strategy: underfloor displacement</button>
+      </div>
+      <p class="fig__cap"><b>Figure 3.</b> A section through an auditorium with the air actually solved
+        rather than sketched &mdash; a semi-Lagrangian fluid solver on a 118&times;48 grid, with buoyancy
+        driven by the occupant heat gains and the pressure field projected divergence-free every step. The
+        colour field is temperature relative to setpoint, the streaks are massless tracers following the
+        velocity field. Toggle the strategy and watch the difference: <b>overhead mixing</b> throws cold air
+        down through the whole volume and ends up pushing warm air back into the seated zone, while
+        <b>underfloor displacement</b> lets the occupant plumes do the work, floating the heat up to a
+        high-level extract and leaving cool air where people actually are. At full house, head-height
+        temperature sits about 0.8 lower under displacement for the same supply condition, and the
+        stratification flips sign.</p>
+    </div>
   </div>
 </section>
 
@@ -265,6 +307,256 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   let live=false;
   new IntersectionObserver(e=>{live=e[0].isIntersecting;},{threshold:.05}).observe(cv);
   (function loop(){requestAnimationFrame(loop); if(live) render();})();
+})();
+</script>
+<script>
+/* ---- Figure 3: auditorium airflow, solved live ---- */
+(function(){
+  const cv=document.getElementById('hv-air'); if(!cv) return;
+  const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
+  const css=getComputedStyle(document.documentElement); const C=k=>css.getPropertyValue(k).trim();
+
+  const NX=118, NY=48, N=NX*NY, IX=(i,j)=>i+j*NX;
+  const u=new Float32Array(N),v=new Float32Array(N),T=new Float32Array(N);
+  const u0=new Float32Array(N),v0=new Float32Array(N),T0=new Float32Array(N);
+  const pr=new Float32Array(N),dvg=new Float32Array(N),solid=new Uint8Array(N);
+  const floorJ=new Int32Array(NX), ceilJ=new Int32Array(NX);
+  for(let i=0;i<NX;i++){
+    const f=i/(NX-1);
+    floorJ[i]=Math.round(NY-2-Math.pow(f,1.12)*0.44*NY);
+    ceilJ[i]=1+Math.round(f*0.06*NY);
+  }
+  for(let i=0;i<NX;i++) for(let j=0;j<NY;j++)
+    solid[IX(i,j)]=(j>floorJ[i]||j<ceilJ[i]||i===0||i===NX-1)?1:0;
+
+  const P={mode:'displacement', occ:0.75, supplyT:-3.0};
+  const Tamb=0;
+
+  function sample(f,x,y){
+    x=Math.max(0.5,Math.min(NX-1.5,x)); y=Math.max(0.5,Math.min(NY-1.5,y));
+    const i=x|0,j=y|0,s=x-i,t=y-j;
+    return (1-s)*((1-t)*f[IX(i,j)]+t*f[IX(i,j+1)])+s*((1-t)*f[IX(i+1,j)]+t*f[IX(i+1,j+1)]);
+  }
+  function advect(dst,src,dt){
+    for(let j=1;j<NY-1;j++) for(let i=1;i<NX-1;i++){
+      const k=IX(i,j); if(solid[k]){dst[k]=0;continue;}
+      dst[k]=sample(src,i-u[k]*dt*NX*0.02,j-v[k]*dt*NY*0.05);
+    }
+  }
+  function project(it){
+    for(let j=1;j<NY-1;j++) for(let i=1;i<NX-1;i++){
+      const k=IX(i,j);
+      dvg[k]=solid[k]?0:-0.5*((u[IX(i+1,j)]-u[IX(i-1,j)])+(v[IX(i,j+1)]-v[IX(i,j-1)]));
+      pr[k]=0;
+    }
+    for(let s=0;s<it;s++)
+      for(let j=1;j<NY-1;j++) for(let i=1;i<NX-1;i++){
+        const k=IX(i,j); if(solid[k]){pr[k]=0;continue;}
+        pr[k]=(dvg[k]+pr[IX(i-1,j)]+pr[IX(i+1,j)]+pr[IX(i,j-1)]+pr[IX(i,j+1)])*0.25;
+      }
+    for(let j=1;j<NY-1;j++) for(let i=1;i<NX-1;i++){
+      const k=IX(i,j); if(solid[k]){u[k]=0;v[k]=0;continue;}
+      u[k]-=0.5*(pr[IX(i+1,j)]-pr[IX(i-1,j)]);
+      v[k]-=0.5*(pr[IX(i,j+1)]-pr[IX(i,j-1)]);
+    }
+  }
+  function step(dt){
+    for(let i=2;i<NX-2;i++){
+      if(i>NX*0.16 && P.occ>0.02 && i%2===0){
+        const fj=floorJ[i];
+        for(let d=1;d<=2;d++){
+          const k=IX(i,fj-d); if(solid[k])continue;
+          T[k]+=P.occ*2.6*dt; v[k]-=P.occ*0.9*dt;
+        }
+      }
+    }
+    if(P.mode==='overhead'){
+      const stp=Math.max(3,Math.floor(NX*0.11));
+      for(let i=Math.floor(NX*0.18);i<NX*0.94;i+=stp)
+        for(let d=0;d<2;d++){
+          const k=IX(i,ceilJ[i]+1+d); if(solid[k])continue;
+          T[k]+=(P.supplyT-T[k])*3*dt; v[k]+=3.2*dt;
+        }
+      for(let i=Math.floor(NX*0.80);i<NX*0.92;i++){
+        const k=IX(i,ceilJ[i]+1); if(!solid[k]) v[k]-=2.0*dt;
+      }
+    } else {
+      for(let i=Math.floor(NX*0.20);i<NX*0.95;i+=3){
+        const k=IX(i,floorJ[i]-1); if(solid[k])continue;
+        T[k]+=(P.supplyT-T[k])*2.5*dt; v[k]-=0.55*dt;
+      }
+      for(let i=Math.floor(NX*0.30);i<NX*0.85;i++){
+        const k=IX(i,ceilJ[i]+1); if(!solid[k]) v[k]-=1.4*dt;
+      }
+    }
+    for(let j=1;j<NY-1;j++) for(let i=1;i<NX-1;i++){
+      const k=IX(i,j); if(solid[k])continue;
+      v[k]-=0.55*(T[k]-Tamb)*dt;
+      u[k]*=0.993; v[k]*=0.993; T[k]+=(Tamb-T[k])*0.004*dt;
+    }
+    u0.set(u);v0.set(v);T0.set(T);
+    advect(u,u0,dt); advect(v,v0,dt); project(16); advect(T,T0,dt);
+    for(let j=1;j<NY-1;j++) for(let i=1;i<NX-1;i++){
+      const k=IX(i,j); if(solid[k])continue;
+      T[k]=T[k]*0.94+0.015*(T[IX(i-1,j)]+T[IX(i+1,j)]+T[IX(i,j-1)]+T[IX(i,j+1)]);
+    }
+  }
+
+  // ---------- geometry on canvas ----------
+  const RX0=76,RY0=64,RX1=1178,RY1=548;
+  const gx=i=>RX0+(i/(NX-1))*(RX1-RX0);
+  const gy=j=>RY0+(j/(NY-1))*(RY1-RY0);
+
+  // temperature field, drawn small then smoothly upscaled
+  const fc=document.createElement('canvas'); fc.width=NX; fc.height=NY;
+  const fctx=fc.getContext('2d'); const img=fctx.createImageData(NX,NY);
+  function tint(t){
+    const s=Math.max(-1,Math.min(1,t/2.4));
+    if(s<0){const a=-s;return [Math.round(238-178*a),Math.round(242-132*a),Math.round(248-28*a)];}
+    const a=s; return [Math.round(238+17*a),Math.round(242-122*a),Math.round(248-198*a)];
+  }
+  // trail layer
+  const tc=document.createElement('canvas'); tc.width=W; tc.height=H;
+  const tctx=tc.getContext('2d');
+
+  const NPART=760, px=new Float32Array(NPART),py=new Float32Array(NPART),
+        pa=new Float32Array(NPART);
+  function seed(k){
+    let i,j,tries=0;
+    do{ i=1+Math.random()*(NX-2); j=1+Math.random()*(NY-2); tries++; }
+    while(solid[IX(i|0,j|0)]&&tries<40);
+    px[k]=i; py[k]=j; pa[k]=0.4+Math.random()*0.6;
+  }
+  for(let k=0;k<NPART;k++) seed(k);
+
+  function zoneT(){
+    let a=0,an=0,b=0,bn=0;
+    for(let i=Math.floor(NX*0.2);i<NX*0.95;i++){
+      const fj=floorJ[i],cj=ceilJ[i];
+      for(let j=Math.max(cj+1,fj-5);j<=fj-1;j++){const k=IX(i,j);if(!solid[k]){a+=T[k];an++;}}
+      for(let j=cj+4;j<=cj+10&&j<fj-6;j++){const k=IX(i,j);if(!solid[k]){b+=T[k];bn++;}}
+    }
+    return [a/Math.max(an,1),b/Math.max(bn,1)];
+  }
+
+  function render(){
+    ctx.clearRect(0,0,W,H);
+    // ---- temperature field ----
+    for(let j=0;j<NY;j++) for(let i=0;i<NX;i++){
+      const k=IX(i,j),o=k*4;
+      if(solid[k]){img.data[o+3]=0;continue;}
+      const c=tint(T[k]);
+      img.data[o]=c[0];img.data[o+1]=c[1];img.data[o+2]=c[2];img.data[o+3]=235;
+    }
+    fctx.putImageData(img,0,0);
+    ctx.save(); ctx.imageSmoothingEnabled=true; ctx.imageSmoothingQuality='high';
+    ctx.drawImage(fc,RX0,RY0,RX1-RX0,RY1-RY0);
+    ctx.restore();
+    // ---- particle trails ----
+    tctx.globalCompositeOperation='destination-out';
+    tctx.fillStyle='rgba(0,0,0,0.075)'; tctx.fillRect(0,0,W,H);
+    tctx.globalCompositeOperation='source-over';
+    tctx.lineCap='round';
+    for(let k=0;k<NPART;k++){
+      const i=px[k],j=py[k];
+      if(i<1||i>NX-2||j<1||j>NY-2||solid[IX(i|0,j|0)]){ seed(k); continue; }
+      const uu=sample(u,i,j), vv=sample(v,i,j), tt=sample(T,i,j);
+      const ni=i+uu*0.42, nj=j+vv*0.42;
+      const sp=Math.hypot(uu,vv);
+      const c=tint(tt*1.5);
+      tctx.strokeStyle=`rgba(${Math.round(c[0]*0.55)},${Math.round(c[1]*0.6)},${Math.round(c[2]*0.75)},${(0.14+Math.min(0.5,sp*0.5))*pa[k]})`;
+      tctx.lineWidth=0.9+Math.min(1.8,sp*1.6);
+      tctx.beginPath(); tctx.moveTo(gx(i),gy(j)); tctx.lineTo(gx(ni),gy(nj)); tctx.stroke();
+      px[k]=ni; py[k]=nj;
+      if(Math.random()<0.004) seed(k);
+    }
+    ctx.drawImage(tc,0,0);
+    // ---- architecture ----
+    ctx.save();
+    ctx.strokeStyle=C('--ink'); ctx.lineWidth=2.6; ctx.lineJoin='round';
+    ctx.beginPath();
+    ctx.moveTo(gx(0),gy(ceilJ[0]));
+    for(let i=0;i<NX;i++) ctx.lineTo(gx(i),gy(ceilJ[i]));
+    ctx.lineTo(gx(NX-1),gy(floorJ[NX-1]));
+    for(let i=NX-1;i>=0;i--) ctx.lineTo(gx(i),gy(floorJ[i]));
+    ctx.closePath(); ctx.stroke();
+    // seating tiers
+    ctx.strokeStyle='rgba(11,21,38,.35)'; ctx.lineWidth=1.6;
+    for(let i=Math.floor(NX*0.18);i<NX*0.96;i+=4){
+      ctx.beginPath(); ctx.moveTo(gx(i),gy(floorJ[i]));
+      ctx.lineTo(gx(i),gy(floorJ[i]-1.6)); ctx.stroke();
+    }
+    // occupants
+    const nseat=Math.round(22*P.occ);
+    ctx.fillStyle='rgba(255,90,31,.75)';
+    for(let s=0;s<nseat;s++){
+      const i=Math.floor(NX*0.20+ (s/21)*NX*0.72);
+      ctx.beginPath(); ctx.arc(gx(i),gy(floorJ[i]-1.5),4.4,0,7); ctx.fill();
+    }
+    // screen
+    ctx.fillStyle='rgba(11,21,38,.85)';
+    ctx.fillRect(gx(1)-4,gy(ceilJ[0]+4),12,gy(floorJ[2])-gy(ceilJ[0]+4)-6);
+    // supply / return markers
+    ctx.fillStyle=C('--accent');
+    if(P.mode==='overhead'){
+      const stp=Math.max(3,Math.floor(NX*0.11));
+      for(let i=Math.floor(NX*0.18);i<NX*0.94;i+=stp) ctx.fillRect(gx(i)-13,gy(ceilJ[i])-3,26,7);
+    } else {
+      for(let i=Math.floor(NX*0.20);i<NX*0.95;i+=6) ctx.fillRect(gx(i)-8,gy(floorJ[i])-5,16,6);
+    }
+    ctx.strokeStyle=C('--accent-2'); ctx.lineWidth=2.4;
+    const r0=P.mode==='overhead'?0.80:0.30, r1=P.mode==='overhead'?0.92:0.85;
+    ctx.strokeRect(gx(Math.floor(NX*r0)),gy(ceilJ[0])-8,gx(Math.floor(NX*r1))-gx(Math.floor(NX*r0)),8);
+    ctx.restore();
+    // ---- labels ----
+    ctx.fillStyle=C('--muted'); ctx.font='500 25px Outfit, sans-serif';
+    ctx.fillText(P.mode==='overhead'?'overhead mixing':'underfloor displacement', 34, 40);
+    const [a,b]=zoneT();
+    const bx=1214;
+    ctx.font='500 20px Outfit, sans-serif'; ctx.fillStyle=C('--sub');
+    ctx.fillText('relative to setpoint', bx, 110);
+    const rows=[['head height',a,'--accent'],['upper zone',b,'--accent-2'],['stratification',b-a,'--accent-3']];
+    rows.forEach((rw,i)=>{
+      const y=160+i*74;
+      ctx.fillStyle=C('--muted'); ctx.font='500 20px Outfit, sans-serif';
+      ctx.fillText(rw[0], bx, y);
+      ctx.fillStyle=C(rw[2]); ctx.font='500 30px "JetBrains Mono", monospace';
+      ctx.fillText((rw[1]>=0?'+':'')+rw[1].toFixed(2), bx, y+34);
+    });
+    ctx.fillStyle=C('--sub'); ctx.font='500 18px Outfit, sans-serif';
+    ctx.fillText('warm', bx, 420); ctx.fillText('cool', bx, 486);
+    for(let s=0;s<40;s++){
+      const c=tint(2.4-(s/39)*4.8);
+      ctx.fillStyle=`rgb(${c[0]},${c[1]},${c[2]})`;
+      ctx.fillRect(bx+66,404+s*2.2,54,2.4);
+    }
+    ctx.fillStyle=C('--muted'); ctx.font='500 19px Outfit, sans-serif';
+    ctx.fillText('occupancy '+Math.round(P.occ*100)+'%', 34, H-26);
+  }
+
+  const bind=(r,val,key,f)=>{const R=document.getElementById(r),V=document.getElementById(val);
+    if(!R)return; R.addEventListener('input',()=>{P[key]=f(R.value);
+      if(V) V.textContent = key==='occ'?Math.round(P.occ*100)+'%':P[key].toFixed(1);});};
+  bind('hv-occ','hvv-occ','occ',x=>parseFloat(x));
+  bind('hv-sup','hvv-sup','supplyT',x=>parseFloat(x));
+  const tg=document.getElementById('hv-mode');
+  if(tg) tg.addEventListener('click',()=>{
+    P.mode = P.mode==='overhead'?'displacement':'overhead';
+    tg.textContent = P.mode==='overhead'?'Strategy: overhead mixing':'Strategy: underfloor displacement';
+    u.fill(0);v.fill(0);T.fill(0); tctx.clearRect(0,0,W,H);
+  });
+
+  let live=false;
+  new IntersectionObserver(e=>{live=e[0].isIntersecting;},{threshold:.05}).observe(cv);
+  let acc=0,last=performance.now();
+  (function loop(now){
+    requestAnimationFrame(loop);
+    const dtr=Math.min((now-last)/1000,.05); last=now;
+    if(!live) return;
+    acc+=dtr; let g=0;
+    while(acc>=0.033&&g++<3){ step(0.13); acc-=0.033; }
+    render();
+  })(performance.now());
 })();
 </script>
 </body>
