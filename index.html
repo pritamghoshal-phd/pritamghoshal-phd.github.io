@@ -282,7 +282,6 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 .will-reveal{opacity:0}
 .no-motion .will-reveal{opacity:1}
 
-
 /* ===== about / bio ===== */
 .bio{display:grid;gap:2.5rem}
 @media(min-width:900px){.bio{grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);align-items:start}}
@@ -322,7 +321,6 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
   border:1px solid var(--border);border-radius:100px;padding:.3rem .75rem;
   background:var(--bg);transition:all .22s}
 .pub__link:hover{border-color:var(--accent);color:var(--accent)}
-
 
 /* ===== experience timeline ===== */
 .tl{position:relative;padding-left:2rem}
@@ -387,7 +385,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
       <a href="#about">About</a>
       <a href="#research">Research</a>
       <a href="#publications">Publications</a>
-      <a href="#work">Projects</a>
+      <a href="projects.html">Projects</a>
       <a href="#experience">Experience</a>
       <a href="#awards">Awards</a>
       <a href="#chaos">Chaos</a>
@@ -676,83 +674,12 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 </section>
 
 <!-- ================= 5. FEATURED PROJECTS ================= -->
-<section class="sec sec--alt" id="work">
-  <div class="wrap">
-    <div class="sec__head">
-      <div class="eyebrow will-reveal" data-rev>04 — Selected work</div>
-      <h2 class="sec__title will-reveal" data-rev>Two projects, in <em>more depth</em>.</h2>
-      <p class="sec__sub will-reveal" data-rev>
-        These best represent how I work: derive the model from first principles, simulate it honestly,
-        then build the thing and find out where the model was wrong.
-      </p>
-    </div>
-
-    <div class="projects">
-      <article class="proj will-reveal" data-rev data-tilt>
-        <div class="proj__body">
-          <div class="proj__tag">Physical reservoir computing</div>
-          <h3 class="proj__t">Exploiting Bistability and Viscoelasticity in Reservoir Computing</h3>
-          <p class="proj__lede">Using viscoelasticity to supply the short-term memory that mechanical
-            reservoir computing has always lacked.</p>
-          <p class="proj__d">A reservoir computer built from a chain of bistable von Mises trusses, each
-            coupled to a viscoelastic standard-linear-solid element. Bistability supplies nonlinearity;
-            viscoelasticity supplies fading memory. Governing equations were derived from first principles
-            and nondimensionalised in terms of the Deborah number. Simulation identified the windows where
-            information rate and memory capacity peak, a Melnikov-based framework characterised the
-            transition into chaos, and a physical breadboard prototype reproduced logic operations.</p>
-          <div class="proj__meta"><strong>Role:</strong> Lead author</div>
-          <div class="proj__meta"><strong>Methods:</strong> Analytical modeling · time integration · Melnikov analysis · harmonic balance</div>
-          <div class="proj__meta"><strong>Tools:</strong> MATLAB · electronics</div>
-          <div class="proj__links">
-            <a class="pill" href="project-nonlinear-dynamics.html">Read the detail →</a>
-          </div>
-        </div>
-        <div class="proj__media">
-          <img src="Images/23.png" alt="Simulation results from the bistable viscoelastic reservoir computing study" />
-        </div>
-      </article>
-
-      <article class="proj will-reveal" data-rev data-tilt>
-        <div class="proj__body">
-          <div class="proj__tag">Bio-inspired dynamics · Nature Communications</div>
-          <h3 class="proj__t">The Tymbal of a Cicada: Nature's Sound-Generating Metastructure</h3>
-          <p class="proj__lede">The first species-adaptable model of how cicadas make their remarkably
-            loud, tonal calls.</p>
-          <p class="proj__d">Cicadas generate sound through the interplay of tymbal buckling and body
-            resonance, but no unified framework explained the diversity of calls across species. We
-            conceptualised the organ as a biological metastructure — periodically arranged ribs with
-            inherent frequency filtering — and modelled it as a chain of bistable oscillators coupled to
-            resonators. The model captures both the snap-through dynamics and the acoustic filtering, and
-            reproduces the distinct song frequencies of multiple species. Validated with high-speed
-            imaging, laser vibrometry and X-ray microscopy.</p>
-          <div class="proj__meta"><strong>Role:</strong> Lead author</div>
-          <div class="proj__meta"><strong>Methods:</strong> Nonlinear dynamics · reduced-order modeling · experimental validation</div>
-          <div class="proj__meta"><strong>Tools:</strong> MATLAB · high-speed imaging · laser vibrometry</div>
-          <div class="proj__links">
-            <a class="pill" href="project-cicada-tymbal.html">Read the detail →</a>
-            <a class="pill" href="projects.html">All projects →</a>
-          </div>
-        </div>
-        <div class="proj__media">
-          <video autoplay loop muted playsinline>
-            <source src="Images/Video1.mp4" type="video/mp4" />
-          </video>
-        </div>
-      </article>
-    </div>
-
-    <div style="margin-top:2.5rem;text-align:center" class="will-reveal" data-rev>
-      <a href="projects.html" class="btn btn--ghost">View the full project list</a>
-    </div>
-  </div>
-</section>
-
 
 <!-- ================= 5. EXPERIENCE ================= -->
 <section class="sec" id="experience">
   <div class="wrap">
     <div class="sec__head">
-      <div class="eyebrow will-reveal" data-rev>05 — Experience</div>
+      <div class="eyebrow will-reveal" data-rev>04 — Experience</div>
       <h2 class="sec__title will-reveal" data-rev>Where I've <em>worked</em>.</h2>
       <p class="sec__sub will-reveal" data-rev>
         Research, teaching, and industry — from a solar manufacturing floor in Florida to a
@@ -839,7 +766,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 <section class="sec sec--alt" id="awards">
   <div class="wrap">
     <div class="sec__head">
-      <div class="eyebrow will-reveal" data-rev>06 — Honours</div>
+      <div class="eyebrow will-reveal" data-rev>05 — Honours</div>
       <h2 class="sec__title will-reveal" data-rev>Awards &amp; <em>fellowships</em>.</h2>
       <p class="sec__sub will-reveal" data-rev>
         Recognition for research in nonlinear dynamics and vibration, and for teaching.
@@ -950,7 +877,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 <section class="sec" id="lab">
   <div class="wrap">
     <div class="sec__head">
-      <div class="eyebrow will-reveal" data-rev>07 — Interactive</div>
+      <div class="eyebrow will-reveal" data-rev>06 — Interactive</div>
       <h2 class="sec__title will-reveal" data-rev>A double well you can <em>actually push</em>.</h2>
       <p class="sec__sub will-reveal" data-rev>
         This is the Duffing oscillator at the centre of my research, rendered as the energy landscape it
@@ -1009,7 +936,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 <section class="sec sec--alt" id="skills">
   <div class="wrap">
     <div class="sec__head">
-      <div class="eyebrow will-reveal" data-rev>08 — Capabilities</div>
+      <div class="eyebrow will-reveal" data-rev>07 — Capabilities</div>
       <h2 class="sec__title will-reveal" data-rev>What I bring to a <em>problem</em>.</h2>
     </div>
     <div class="two">
@@ -1077,7 +1004,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 <section class="sec" id="teaching">
   <div class="wrap">
     <div class="sec__head">
-      <div class="eyebrow will-reveal" data-rev>09 — Teaching &amp; leadership</div>
+      <div class="eyebrow will-reveal" data-rev>08 — Teaching &amp; leadership</div>
       <h2 class="sec__title will-reveal" data-rev>Helping equations become <em>intuition</em>.</h2>
       <p class="sec__sub will-reveal" data-rev>
         This semester I am Instructor of Record for <strong>ME&nbsp;274: Basic Mechanics II
@@ -1149,7 +1076,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 <!-- ================= 10. CONTACT ================= -->
 <section class="sec sec--alt" id="contact">
   <div class="narrow" style="text-align:center">
-    <div class="eyebrow will-reveal" data-rev style="margin-bottom:1.2rem">10 — Contact</div>
+    <div class="eyebrow will-reveal" data-rev style="margin-bottom:1.2rem">09 — Contact</div>
     <h2 class="sec__title will-reveal" data-rev style="margin:0 auto 1rem">Let's <em>connect</em>.</h2>
     <p class="sec__sub will-reveal" data-rev style="margin:0 auto">
       If you'd like to talk about nonlinear dynamics, physical computing, collaborations, or roles in
