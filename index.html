@@ -185,6 +185,19 @@ body::after{
   min-height:440px;cursor:grab}
 .lab__stage:active{cursor:grabbing}
 #lab-gl{display:block;width:100%;height:100%;position:absolute;inset:0}
+.lab__nrg{position:absolute;right:1rem;top:3.1rem;font-family:'JetBrains Mono',monospace;
+  font-size:.62rem;padding:.28rem .68rem;border-radius:100px;border:1px solid var(--border);
+  background:rgba(255,255,255,.92);color:var(--accent);pointer-events:none;
+  transition:color .3s ease,border-color .3s ease}
+.lab__nrg.is-over{color:var(--accent-2);border-color:rgba(255,90,31,.45)}
+.lab__legend{position:absolute;left:1rem;top:1rem;display:flex;align-items:center;gap:.4rem;
+  font-family:'JetBrains Mono',monospace;font-size:.56rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--sub);pointer-events:none}
+.lab__legend .lk{width:14px;height:2px;border-radius:2px;display:inline-block}
+.lab__legend .lk:not(:first-child){margin-left:.7rem}
+.lk--well{background:var(--accent-3)}
+.lk--ridge{background:var(--accent-2)}
+.lk--nrg{background:var(--accent)}
 .lab__hint{position:absolute;left:1rem;bottom:.9rem;font-family:'JetBrains Mono',monospace;
   font-size:.6rem;letter-spacing:.12em;color:var(--sub);text-transform:uppercase;pointer-events:none}
 .lab__badge{position:absolute;right:1rem;top:1rem;font-family:'JetBrains Mono',monospace;
@@ -710,14 +723,17 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
       <div class="lab__stage will-reveal" data-rev>
         <canvas id="lab-gl"></canvas>
         <div class="lab__badge" id="lab-badge">single-well</div>
-        <div class="lab__hint">Drag to orbit · scroll page to continue</div>
+        <div class="lab__nrg" id="lab-nrg">E = 0.000 · below the barrier</div>
+          <div class="lab__legend"><span class="lk lk--well"></span>well floors<span class="lk lk--ridge"></span>ridge<span class="lk lk--nrg"></span>energy level</div>
+          <div class="lab__hint">Drag to orbit · scroll page to continue</div>
       </div>
 
       <div class="lab__panel will-reveal" data-rev>
         <div>
           <h3>Duffing oscillator</h3>
-          <p>The gold ball moves under ẍ + δẋ − x + x³ = γ cos(ωt). The surface is the potential
-            V(x) = x⁴/4 − x²/2 — two valleys separated by a hill.</p>
+          <p>The ball moves under ẍ + δẋ − x + x³ = γ cos(ωt), rolling on V = x⁴/4 − x²/2 + 0.35z²
+            — two valleys at x = ±1 separated by a ridge. Well floors sit at E = −0.25, the ridge at
+            E = 0, so the plane clearing the ridge is exactly the crossing condition.</p>
         </div>
 
         <div>
@@ -1319,7 +1335,7 @@ if (hasGSAP && !REDUCED) {
 /* ---------------------------------------------------------------
    5. LAB — Three.js double-well surface with live Duffing ball
 --------------------------------------------------------------- */
-(function dufingLab(){
+(function duffingLab(){
   const canvas = document.getElementById('lab-gl');
   if (!canvas) return;
 
@@ -1331,148 +1347,171 @@ if (hasGSAP && !REDUCED) {
   camera.position.set(3.4, 2.9, 4.4);
 
   const controls = new OrbitControls(camera, canvas);
-  controls.enableDamping = true;
-  controls.dampingFactor = 0.08;
-  controls.enablePan = false;
-  controls.minDistance = 3.2;
-  controls.maxDistance = 10;
-  controls.maxPolarAngle = Math.PI * 0.48;
-  controls.target.set(0, 0.15, 0);
+  controls.enableDamping = true; controls.dampingFactor = 0.08;
+  controls.enablePan = false; controls.minDistance = 3.2; controls.maxDistance = 10;
+  controls.maxPolarAngle = Math.PI * 0.48; controls.target.set(0, 0.05, 0);
 
-  scene.add(new THREE.AmbientLight(0xffffff, 0.72));
-  const key = new THREE.DirectionalLight(0xffffff, 1.05);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.66));
+  const key = new THREE.DirectionalLight(0xffffff, 1.0);
   key.position.set(4, 7, 3); scene.add(key);
-  const rim = new THREE.DirectionalLight(0xff5a1f, 0.5);
+  const rim = new THREE.DirectionalLight(0x1652f0, 0.42);
   rim.position.set(-5, 2, -4); scene.add(rim);
 
-  // potential V(x,y) = x^4/4 - x^2/2 + 0.35 y^2
-  const XR = 1.9, YR = 1.35, VS = 1.9;
-  const V = (x, y) => (x*x*x*x/4 - x*x/2 + 0.35*y*y) * VS;
+  /* ---- the potential. the ball rolls on exactly this surface ----
+     V0(x,z) = x^4/4 - x^2/2 + 0.35 z^2      (well floors at -0.25, saddle at 0)
+     drawn at VS times that, and the accelerations are -grad V0, so the
+     x-equation is literally  x'' + d x' - x + x^3 = g cos(w t).            */
+  const XR = 1.9, YR = 1.35, VS = 1.9, TZ = 0.70;
+  const V0 = (x, z) => x*x*x*x/4 - x*x/2 + 0.35*z*z;
+  const V  = (x, z) => V0(x, z) * VS;
+  const BARRIER = 0.0, FLOOR = -0.25;
 
-  const SEG = 90;
+  const SEG = 96;
   const geo = new THREE.PlaneGeometry(XR*2, YR*2, SEG, SEG);
   geo.rotateX(-Math.PI/2);
   {
     const pos = geo.attributes.position;
-    for (let i = 0; i < pos.count; i++) {
-      pos.setY(i, V(pos.getX(i), pos.getZ(i)));
-    }
+    for (let i = 0; i < pos.count; i++) pos.setY(i, V(pos.getX(i), pos.getZ(i)));
     geo.computeVertexNormals();
   }
-  const surface = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({
-    color: 0x2f5fd0, roughness: 0.62, metalness: 0.12,
-    transparent: true, opacity: 0.88, side: THREE.DoubleSide,
-    flatShading: false
-  }));
-  scene.add(surface);
+  scene.add(new THREE.Mesh(geo, new THREE.MeshStandardMaterial({
+    color: 0x2f5fd0, roughness: 0.58, metalness: 0.14,
+    transparent: true, opacity: 0.9, side: THREE.DoubleSide
+  })));
 
-  const wire = new THREE.LineSegments(
-    new THREE.WireframeGeometry(new THREE.PlaneGeometry(XR*2, YR*2, 30, 22).rotateX(-Math.PI/2)
-      .translate(0,0,0)),
-    new THREE.LineBasicMaterial({ color: 0x0c2c78, transparent: true, opacity: 0.18 })
-  );
+  const wireGeo = new THREE.PlaneGeometry(XR*2, YR*2, 32, 24).rotateX(-Math.PI/2);
   {
-    const wp = wire.geometry.attributes.position;
+    const wp = wireGeo.attributes.position;
     for (let i = 0; i < wp.count; i++) wp.setY(i, V(wp.getX(i), wp.getZ(i)) + 0.006);
     wp.needsUpdate = true;
   }
-  scene.add(wire);
+  scene.add(new THREE.LineSegments(new THREE.WireframeGeometry(wireGeo),
+    new THREE.LineBasicMaterial({ color: 0x0c2c78, transparent: true, opacity: 0.16 })));
 
-  // the ball
-  const ball = new THREE.Mesh(
-    new THREE.SphereGeometry(0.115, 32, 24),
-    new THREE.MeshStandardMaterial({ color: 0xff5a1f, roughness: 0.24, metalness: 0.5 })
-  );
+  /* ---- landmarks: the two well floors and the ridge between them ---- */
+  [-1, 1].forEach(sx => {
+    const ring = new THREE.Mesh(
+      new THREE.TorusGeometry(0.17, 0.011, 8, 40),
+      new THREE.MeshBasicMaterial({ color: 0x00a6a6, transparent: true, opacity: 0.75 }));
+    ring.rotation.x = -Math.PI/2;
+    ring.position.set(sx, V(sx, 0) + 0.012, 0);
+    scene.add(ring);
+  });
+  {
+    const pts = [];
+    for (let i = 0; i <= 60; i++) {
+      const z = -YR + (2*YR)*i/60;
+      pts.push(new THREE.Vector3(0, V(0, z) + 0.015, z));
+    }
+    scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),
+      new THREE.LineBasicMaterial({ color: 0xff5a1f, transparent: true, opacity: 0.5 })));
+  }
+
+  /* ---- energy plane: the level the ball is actually carrying ---- */
+  const planeGeo = new THREE.PlaneGeometry(XR*2.04, YR*2.04).rotateX(-Math.PI/2);
+  const planeMat = new THREE.MeshBasicMaterial({
+    color: 0x1652f0, transparent: true, opacity: 0.085,
+    depthWrite: false, side: THREE.DoubleSide });
+  const ePlane = new THREE.Mesh(planeGeo, planeMat);
+  const eEdge = new THREE.LineSegments(new THREE.EdgesGeometry(planeGeo),
+    new THREE.LineBasicMaterial({ color: 0x1652f0, transparent: true, opacity: 0.55 }));
+  scene.add(ePlane); scene.add(eEdge);
+
+  /* ---- the ball, with a light that travels with it ---- */
+  const ballMat = new THREE.MeshStandardMaterial({
+    color: 0xff5a1f, roughness: 0.22, metalness: 0.45,
+    emissive: 0xff5a1f, emissiveIntensity: 0.28 });
+  const ball = new THREE.Mesh(new THREE.SphereGeometry(0.115, 32, 24), ballMat);
   scene.add(ball);
+  const glow = new THREE.PointLight(0xff8a4f, 0.85, 2.4, 2.0);
+  scene.add(glow);
 
-  // trail
-  const TRAIL = 340;
+  /* ---- trail: fixed buffers, static fade ramp, no per-frame allocation ---- */
+  const TRAIL = 420;
+  const tPos = new Float32Array(TRAIL*3), tCol = new Float32Array(TRAIL*3);
+  for (let i = 0; i < TRAIL; i++) {
+    const f = i/(TRAIL-1);                        // 0 = oldest, 1 = newest
+    const e = Math.pow(f, 2.1);
+    tCol[i*3  ] = 0.949 + (0.00  - 0.949)*e;      // fade from page background
+    tCol[i*3+1] = 0.960 + (0.651 - 0.960)*e;      // toward cyan
+    tCol[i*3+2] = 0.976 + (0.651 - 0.976)*e;
+  }
   const tGeo = new THREE.BufferGeometry();
-  const tPos = new Float32Array(TRAIL * 3);
   tGeo.setAttribute('position', new THREE.BufferAttribute(tPos, 3));
-  const trail = new THREE.Line(tGeo, new THREE.LineBasicMaterial({
-    color: 0x00a6a6, transparent: true, opacity: 0.7
-  }));
-  scene.add(trail);
+  tGeo.setAttribute('color',    new THREE.BufferAttribute(tCol, 3));
+  tGeo.setDrawRange(0, 0);
+  scene.add(new THREE.Line(tGeo, new THREE.LineBasicMaterial({ vertexColors: true })));
+  let filled = 0;
+  function pushTrail(x, y, z){
+    if (filled < TRAIL) {
+      tPos[filled*3] = x; tPos[filled*3+1] = y; tPos[filled*3+2] = z;
+      filled++;
+    } else {
+      tPos.copyWithin(0, 3);                      // native shift, no allocation
+      tPos[(TRAIL-1)*3] = x; tPos[(TRAIL-1)*3+1] = y; tPos[(TRAIL-1)*3+2] = z;
+    }
+    tGeo.setDrawRange(0, filled);
+    tGeo.attributes.position.needsUpdate = true;
+  }
+  function clearTrail(){ filled = 0; tGeo.setDrawRange(0, 0); }
 
-  // state + params
-  const S = { x: 0.95, v: 0, y: 0.42, vy: 0, t: 0 };
+  /* ---- dynamics ---- */
+  const S = { x: 0.95, v: 0, z: 0.42, vz: 0, t: 0 };
   const prm = { gamma: 0.20, delta: 0.30, omega: 1.20 };
-  let crossings = 0, lastSign = Math.sign(S.x), crossWindow = [];
+  let lastSign = 1, crossWindow = [], E = 0, Esm = 0;
 
   function step(dt){
-    // Duffing in x, damped harmonic in y (transverse)
-    const ax = -prm.delta * S.v + S.x - S.x*S.x*S.x + prm.gamma * Math.cos(prm.omega * S.t);
-    S.v += ax * dt; S.x += S.v * dt;
-    const ay = -prm.delta * 1.4 * S.vy - 1.6 * S.y;
-    S.vy += ay * dt; S.y += S.vy * dt;
+    const ax = S.x - S.x*S.x*S.x - prm.delta*S.v + prm.gamma*Math.cos(prm.omega*S.t);
+    const az = -TZ*S.z - prm.delta*S.vz;          // same surface the mesh is drawn from
+    S.v += ax*dt; S.x += S.v*dt;
+    S.vz += az*dt; S.z += S.vz*dt;
     S.t += dt;
     if (S.x >  XR) { S.x =  XR; S.v *= -0.5; }
     if (S.x < -XR) { S.x = -XR; S.v *= -0.5; }
-    if (S.y >  YR*0.8) { S.y =  YR*0.8; S.vy *= -0.5; }
-    if (S.y < -YR*0.8) { S.y = -YR*0.8; S.vy *= -0.5; }
-
-    const sign = Math.sign(S.x);
-    if (sign !== 0 && sign !== lastSign) { crossings++; crossWindow.push(S.t); lastSign = sign; }
+    if (S.z >  YR*0.82) { S.z =  YR*0.82; S.vz *= -0.5; }
+    if (S.z < -YR*0.82) { S.z = -YR*0.82; S.vz *= -0.5; }
+    if (!isFinite(S.x)) { S.x = 0.95; S.v = 0; S.z = 0.42; S.vz = 0; clearTrail(); }
+    E = 0.5*(S.v*S.v + S.vz*S.vz) + V0(S.x, S.z);
+    const sg = S.x >= 0 ? 1 : -1;
+    if (sg !== lastSign) { crossWindow.push(S.t); lastSign = sg; }
     while (crossWindow.length && S.t - crossWindow[0] > 40) crossWindow.shift();
   }
 
   const badge = document.getElementById('lab-badge');
-  function updateBadge(){
-    if (!badge) return;
+  const nrg   = document.getElementById('lab-nrg');
+  function readouts(){
     const rate = crossWindow.length;
-    let label, chaotic = false;
-    if (rate === 0)      label = 'single-well';
-    else if (rate < 8)   label = 'occasional hop';
-    else                 { label = 'cross-well chaos'; chaotic = true; }
-    if (badge.textContent !== label) badge.textContent = label;
-    badge.classList.toggle('is-chaotic', chaotic);
+    let label = rate === 0 ? 'trapped in one well'
+              : rate < 8   ? 'occasional hop'
+                           : 'cross-well chaos';
+    if (badge && badge.textContent !== label) badge.textContent = label;
+    if (badge) badge.classList.toggle('is-chaotic', rate >= 8);
+    if (nrg) {
+      const over = Esm > BARRIER;
+      nrg.textContent = (over ? 'E = ' : 'E = ') + Esm.toFixed(3)
+        + (over ? '  ·  above the barrier' : '  ·  below the barrier');
+      nrg.classList.toggle('is-over', over);
+    }
   }
 
-  let head = 0, filled = 0;
-  function pushTrail(px, py, pz){
-    tPos[head*3] = px; tPos[head*3+1] = py; tPos[head*3+2] = pz;
-    head = (head + 1) % TRAIL;
-    filled = Math.min(filled + 1, TRAIL);
-    // rebuild in order so the line does not jump across the ring seam
-    const ordered = new Float32Array(TRAIL * 3);
-    for (let i = 0; i < filled; i++) {
-      const src = (head - filled + i + TRAIL) % TRAIL;
-      ordered[i*3] = tPos[src*3];
-      ordered[i*3+1] = tPos[src*3+1];
-      ordered[i*3+2] = tPos[src*3+2];
-    }
-    for (let i = filled; i < TRAIL; i++) {
-      ordered[i*3] = ordered[(filled-1)*3] || 0;
-      ordered[i*3+1] = ordered[(filled-1)*3+1] || 0;
-      ordered[i*3+2] = ordered[(filled-1)*3+2] || 0;
-    }
-    tGeo.attributes.position.array.set(ordered);
-    tGeo.attributes.position.needsUpdate = true;
-  }
-
-  // controls wiring
-  const sG = document.getElementById('s-gamma'), vG = document.getElementById('v-gamma');
-  const sD = document.getElementById('s-delta'), vD = document.getElementById('v-delta');
-  const sW = document.getElementById('s-omega'), vW = document.getElementById('v-omega');
-
+  const sG=document.getElementById('s-gamma'), vG=document.getElementById('v-gamma');
+  const sD=document.getElementById('s-delta'), vD=document.getElementById('v-delta');
+  const sW=document.getElementById('s-omega'), vW=document.getElementById('v-omega');
   function sync(){
-    prm.gamma = parseFloat(sG.value); vG.textContent = prm.gamma.toFixed(2);
-    prm.delta = parseFloat(sD.value); vD.textContent = prm.delta.toFixed(2);
-    prm.omega = parseFloat(sW.value); vW.textContent = prm.omega.toFixed(2);
-    crossWindow = [];
+    prm.gamma=parseFloat(sG.value); vG.textContent=prm.gamma.toFixed(2);
+    prm.delta=parseFloat(sD.value); vD.textContent=prm.delta.toFixed(2);
+    prm.omega=parseFloat(sW.value); vW.textContent=prm.omega.toFixed(2);
+    crossWindow=[];
   }
-  [sG, sD, sW].forEach(s => s && s.addEventListener('input', () => {
-    sync();
-    document.querySelectorAll('.preset').forEach(b => b.classList.remove('is-on'));
+  [sG,sD,sW].forEach(s=>s&&s.addEventListener('input',()=>{
+    sync(); document.querySelectorAll('.preset').forEach(b=>b.classList.remove('is-on'));
   }));
-
-  document.querySelectorAll('.preset').forEach(btn => {
-    btn.addEventListener('click', () => {
-      sG.value = btn.dataset.g; sD.value = btn.dataset.d; sW.value = btn.dataset.w;
+  document.querySelectorAll('.preset').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      sG.value=btn.dataset.g; sD.value=btn.dataset.d; sW.value=btn.dataset.w;
       sync();
-      document.querySelectorAll('.preset').forEach(b => b.classList.toggle('is-on', b === btn));
-      S.x = 0.95; S.v = 0; S.y = 0.42; S.vy = 0; filled = 0; head = 0;
+      document.querySelectorAll('.preset').forEach(b=>b.classList.toggle('is-on', b===btn));
+      S.x=0.95; S.v=0; S.z=0.42; S.vz=0; clearTrail();
     });
   });
   sync();
@@ -1481,36 +1520,41 @@ if (hasGSAP && !REDUCED) {
     const r = canvas.parentElement.getBoundingClientRect();
     const w = Math.max(1, r.width), h = Math.max(1, r.height);
     renderer.setSize(w, h, false);
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
+    camera.aspect = w/h; camera.updateProjectionMatrix();
   }
-  resize();
-  addEventListener('resize', resize);
+  resize(); addEventListener('resize', resize);
 
   let visible = false;
-  new IntersectionObserver(e => { visible = e[0].isIntersecting; }, { threshold: 0.05 })
-    .observe(canvas);
+  new IntersectionObserver(e=>{visible=e[0].isIntersecting;},{threshold:0.05}).observe(canvas);
 
-  let acc = 0, last = performance.now(), badgeTick = 0;
+  let acc=0, last=performance.now(), tick2=0;
   function tick(now){
     requestAnimationFrame(tick);
-    const dtReal = Math.min((now - last) / 1000, 0.05);
-    last = now;
+    const dtReal = Math.min((now-last)/1000, 0.05); last = now;
     if (!visible) return;
-
-    // fixed-step integration for stability
     acc += dtReal;
-    const H = 0.004;
-    let guard = 0;
-    while (acc >= H && guard++ < 400) { step(H * 4); acc -= H; }
+    const H = 0.004; let guard = 0;
+    while (acc >= H && guard++ < 400) { step(H*4); acc -= H; }
 
-    const bx = S.x, bz = S.y;
-    const by = V(bx, bz) + 0.115;
+    const bx = S.x, bz = S.z, by = V(bx, bz) + 0.115;
     ball.position.set(bx, by, bz);
-    pushTrail(bx, by - 0.02, bz);
+    glow.position.set(bx, by + 0.22, bz);
+    pushTrail(bx, V(bx, bz) + 0.03, bz);
 
-    if (++badgeTick % 20 === 0) updateBadge();
+    // energy plane, eased so it glides rather than jitters
+    Esm += (E - Esm) * Math.min(1, dtReal*3.2);
+    const yE = Math.max(FLOOR, Math.min(1.15, Esm)) * VS;
+    ePlane.position.y = yE; eEdge.position.y = yE;
+    const over = Esm > BARRIER;
+    const col = over ? 0xff5a1f : 0x1652f0;
+    planeMat.color.setHex(col); eEdge.material.color.setHex(col);
+    planeMat.opacity = over ? 0.14 : 0.085;
+    // the ball brightens as it speeds up
+    const sp = Math.min(1, Math.hypot(S.v, S.vz)/1.6);
+    ballMat.emissiveIntensity = 0.2 + sp*0.55;
+    glow.intensity = 0.6 + sp*0.7;
 
+    if (++tick2 % 15 === 0) readouts();
     controls.update();
     renderer.render(scene, camera);
   }
