@@ -722,7 +722,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
     <div class="lab">
       <div class="lab__stage will-reveal" data-rev>
         <canvas id="lab-gl"></canvas>
-        <div class="lab__badge" id="lab-badge">single-well</div>
+        <div class="lab__badge" id="lab-badge">trapped in one well</div>
         <div class="lab__nrg" id="lab-nrg">E = 0.000 · below the barrier</div>
           <div class="lab__legend"><span class="lk lk--well"></span>well floors<span class="lk lk--ridge"></span>ridge<span class="lk lk--nrg"></span>energy level</div>
           <div class="lab__hint">Drag to orbit · scroll page to continue</div>
@@ -1361,7 +1361,7 @@ if (hasGSAP && !REDUCED) {
      V0(x,z) = x^4/4 - x^2/2 + 0.35 z^2      (well floors at -0.25, saddle at 0)
      drawn at VS times that, and the accelerations are -grad V0, so the
      x-equation is literally  x'' + d x' - x + x^3 = g cos(w t).            */
-  const XR = 2.5, YR = 1.35, VS = 1.9, TZ = 0.70;
+  const XR = 1.9, YR = 1.35, VS = 1.9, TZ = 0.70;
   const V0 = (x, z) => x*x*x*x/4 - x*x/2 + 0.35*z*z;
   const V  = (x, z) => V0(x, z) * VS;
   const BARRIER = 0.0, FLOOR = -0.25;
@@ -1427,7 +1427,7 @@ if (hasGSAP && !REDUCED) {
   scene.add(glow);
 
   /* ---- trail: fixed buffers, static fade ramp, no per-frame allocation ---- */
-  const TRAIL = 900;
+  const TRAIL = 560;
   const tPos = new Float32Array(TRAIL*3), tCol = new Float32Array(TRAIL*3);
   for (let i = 0; i < TRAIL; i++) {
     const f = i/(TRAIL-1);                        // 0 = oldest, 1 = newest
@@ -1460,7 +1460,7 @@ if (hasGSAP && !REDUCED) {
   function clearTrail(){ filled = 0; tGeo.setDrawRange(0, 0); }
 
   /* ---- dynamics ---- */
-  const S = { x: 0.95, v: 0, z: 0.42, vz: 0, t: 0 };
+  const S = { x: 0.95, v: 0, z: 0.06, vz: 0, t: 0 };
   const prm = { gamma: 0.20, delta: 0.30, omega: 1.20 };
   let lastSign = 1, crossWindow = [], E = 0, Esm = 0;
 
@@ -1470,11 +1470,12 @@ if (hasGSAP && !REDUCED) {
     S.v += ax*dt; S.x += S.v*dt;
     S.vz += az*dt; S.z += S.vz*dt;
     S.t += dt;
-    if (S.x >  XR) { S.x =  XR; S.v *= -0.5; }
-    if (S.x < -XR) { S.x = -XR; S.v *= -0.5; }
-    if (S.z >  YR*0.82) { S.z =  YR*0.82; S.vz *= -0.5; }
-    if (S.z < -YR*0.82) { S.z = -YR*0.82; S.vz *= -0.5; }
-    if (!isFinite(S.x)) { S.x = 0.95; S.v = 0; S.z = 0.42; S.vz = 0; clearTrail(); }
+    if (S.x >  XR) { S.x =  2*XR - S.x; S.v *= -0.5; }
+    if (S.x < -XR) { S.x = -2*XR - S.x; S.v *= -0.5; }
+    const ZL = YR*0.82;
+    if (S.z >  ZL) { S.z =  2*ZL - S.z; S.vz *= -0.5; }
+    if (S.z < -ZL) { S.z = -2*ZL - S.z; S.vz *= -0.5; }
+    if (!isFinite(S.x)) { S.x = 0.95; S.v = 0; S.z = 0.06; S.vz = 0; clearTrail(); }
     E = 0.5*(S.v*S.v + S.vz*S.vz) + V0(S.x, S.z);
     const sg = S.x >= 0 ? 1 : -1;
     if (sg !== lastSign) { crossWindow.push(S.t); lastSign = sg; }
@@ -1515,7 +1516,7 @@ if (hasGSAP && !REDUCED) {
       sG.value=btn.dataset.g; sD.value=btn.dataset.d; sW.value=btn.dataset.w;
       sync();
       document.querySelectorAll('.preset').forEach(b=>b.classList.toggle('is-on', b===btn));
-      S.x=0.95; S.v=0; S.z=0.42; S.vz=0; clearTrail();
+      S.x=0.95; S.v=0; S.z=0.06; S.vz=0; clearTrail();
     });
   });
   sync();
