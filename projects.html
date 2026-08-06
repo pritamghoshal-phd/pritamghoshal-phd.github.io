@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="site.css" />
+<link rel="stylesheet" href="polish.css" />
 </head>
 <body>
 
@@ -256,5 +257,6 @@ const io = new IntersectionObserver((es,o)=>es.forEach(e=>{
 }),{threshold:.12});
 document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4*60)+'ms';io.observe(el);});
 </script>
+<script src="polish.js"></script>
 </body>
 </html>
