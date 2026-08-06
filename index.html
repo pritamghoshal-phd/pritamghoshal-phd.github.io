@@ -1361,7 +1361,7 @@ if (hasGSAP && !REDUCED) {
      V0(x,z) = x^4/4 - x^2/2 + 0.35 z^2      (well floors at -0.25, saddle at 0)
      drawn at VS times that, and the accelerations are -grad V0, so the
      x-equation is literally  x'' + d x' - x + x^3 = g cos(w t).            */
-  const XR = 1.9, YR = 1.35, VS = 1.9, TZ = 0.70;
+  const XR = 2.5, YR = 1.35, VS = 1.9, TZ = 0.70;
   const V0 = (x, z) => x*x*x*x/4 - x*x/2 + 0.35*z*z;
   const V  = (x, z) => V0(x, z) * VS;
   const BARRIER = 0.0, FLOOR = -0.25;
@@ -1408,7 +1408,7 @@ if (hasGSAP && !REDUCED) {
   }
 
   /* ---- energy plane: the level the ball is actually carrying ---- */
-  const planeGeo = new THREE.PlaneGeometry(XR*2.04, YR*2.04).rotateX(-Math.PI/2);
+  const planeGeo = new THREE.PlaneGeometry(XR*2.02, YR*2.04).rotateX(-Math.PI/2);
   const planeMat = new THREE.MeshBasicMaterial({
     color: 0x1652f0, transparent: true, opacity: 0.085,
     depthWrite: false, side: THREE.DoubleSide });
@@ -1427,7 +1427,7 @@ if (hasGSAP && !REDUCED) {
   scene.add(glow);
 
   /* ---- trail: fixed buffers, static fade ramp, no per-frame allocation ---- */
-  const TRAIL = 420;
+  const TRAIL = 900;
   const tPos = new Float32Array(TRAIL*3), tCol = new Float32Array(TRAIL*3);
   for (let i = 0; i < TRAIL; i++) {
     const f = i/(TRAIL-1);                        // 0 = oldest, 1 = newest
@@ -1441,8 +1441,12 @@ if (hasGSAP && !REDUCED) {
   tGeo.setAttribute('color',    new THREE.BufferAttribute(tCol, 3));
   tGeo.setDrawRange(0, 0);
   scene.add(new THREE.Line(tGeo, new THREE.LineBasicMaterial({ vertexColors: true })));
-  let filled = 0;
+  let filled = 0, lx = 0, ly = 0, lz = 0;
   function pushTrail(x, y, z){
+    // a long jump means the state teleported (wall clamp, preset reset, divergence).
+    // drawing through it leaves a straight cyan chord across the surface, so cut instead.
+    if (filled > 0 && Math.hypot(x-lx, y-ly, z-lz) > 0.30) { filled = 0; }
+    lx = x; ly = y; lz = z;
     if (filled < TRAIL) {
       tPos[filled*3] = x; tPos[filled*3+1] = y; tPos[filled*3+2] = z;
       filled++;
@@ -1534,12 +1538,20 @@ if (hasGSAP && !REDUCED) {
     if (!visible) return;
     acc += dtReal;
     const H = 0.004; let guard = 0;
-    while (acc >= H && guard++ < 400) { step(H*4); acc -= H; }
+    while (acc >= H && guard++ < 400) {
+      step(H*4);
+      acc -= H;
+      // sampled per substep: short segments that follow the surface instead of
+      // long chords cutting across it
+      const gx = (S.x*S.x*S.x - S.x)*VS, gz = 0.7*S.z*VS;
+      const nl = Math.hypot(gx, 1, gz) || 1;
+      pushTrail(S.x - gx/nl*0.045, V(S.x, S.z) + 1/nl*0.045, S.z - gz/nl*0.045);
+    }
+    if (guard >= 400) { filled = 0; }
 
     const bx = S.x, bz = S.z, by = V(bx, bz) + 0.115;
     ball.position.set(bx, by, bz);
     glow.position.set(bx, by + 0.22, bz);
-    pushTrail(bx, V(bx, bz) + 0.03, bz);
 
     // energy plane, eased so it glides rather than jitters
     Esm += (E - Esm) * Math.min(1, dtReal*3.2);
