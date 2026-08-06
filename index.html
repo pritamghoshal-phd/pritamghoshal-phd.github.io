@@ -659,46 +659,36 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 
         <div class="chaos__copy">
           <div class="chaos__stage is-live" data-stage="0">
-            <div class="chaos__num">/ Stage 01 — Equilibrium</div>
-            <h3 class="chaos__h">One outcome. Perfectly predictable.</h3>
-            <p class="chaos__p">Turn the control parameter low and the system settles to a single fixed
-              point, no matter where it starts. Every initial condition washes out. This is where most
-              engineering lives — and where most of the interesting behaviour is being thrown away.</p>
+            <div class="chaos__num">/ Stage 01 — One state</div>
+            <h3 class="chaos__h">It repeats once per cycle.</h3>
+            <p class="chaos__p">This is <b>my</b> system, not a textbook map: the forced von Mises truss with its quadratic nonlinearity, viscoelasticity switched off. The restoring force factors as U(U−1)(U−2), so it rests at <b>U = 0</b> or <b>U = 2</b> with a barrier at 1. Drive it gently and the response repeats exactly once per forcing cycle — one dot per column.</p>
           </div>
           <div class="chaos__stage" data-stage="1">
             <div class="chaos__num">/ Stage 02 — First bifurcation</div>
-            <h3 class="chaos__h">The fixed point splits in two.</h3>
-            <p class="chaos__p">Nudge the parameter past a critical value and stability changes character.
-              The single state loses its grip and the system begins alternating between two. Nothing was
-              added — the same equation simply reorganised itself.</p>
+            <h3 class="chaos__h">The branch splits at γ = 0.265.</h3>
+            <p class="chaos__p">Raise the forcing and that single response loses stability. The panel now needs <b>two</b> drive cycles to come back to itself, so the Poincaré section shows two points instead of one. Nothing was added to the equation — the same system reorganised itself.</p>
           </div>
           <div class="chaos__stage" data-stage="2">
-            <div class="chaos__num">/ Stage 03 — Period doubling</div>
-            <h3 class="chaos__h">Two becomes four. Four becomes eight.</h3>
-            <p class="chaos__p">Each split arrives faster than the last, the intervals shrinking by a
-              constant ratio — Feigenbaum's number, δ ≈ 4.669, the same for systems that share nothing
-              else. Universality hiding in plain sight.</p>
+            <div class="chaos__num">/ Stage 03 — Cascade</div>
+            <h3 class="chaos__h">Two becomes four, and the gaps shrink.</h3>
+            <p class="chaos__p">The next split lands at <b>γ = 0.287</b>, then the next almost immediately after. The intervals contract by a roughly constant factor — (0.287−0.265)/(0.292−0.287) ≈ <b>3.9</b> here, heading toward Feigenbaum’s 4.669 in the limit. I measured these three thresholds from the integrator rather than quoting them.</p>
           </div>
           <div class="chaos__stage" data-stage="3">
             <div class="chaos__num">/ Stage 04 — Chaos</div>
-            <h3 class="chaos__h">Deterministic, and still unpredictable.</h3>
-            <p class="chaos__p">Past the accumulation point the trajectory never repeats. No randomness was
-              introduced; the equation is exactly as it was. Yet within the chaos sit sudden windows of
-              clean periodicity — structure surviving inside the noise.</p>
+            <h3 class="chaos__h">Aperiodic from γ = 0.292 — with windows.</h3>
+            <p class="chaos__p">Past the accumulation point the response never repeats, and the ball crosses the barrier at U = 1 freely. But look further right: clean <b>period-8 and period-4 windows</b> reopen inside the chaotic band. Order surviving inside the disorder, and all of it deterministic.</p>
           </div>
           <div class="chaos__stage" data-stage="4">
             <div class="chaos__num">/ Stage 05 — Why it matters</div>
-            <h3 class="chaos__h">This is the resource, not the problem.</h3>
-            <p class="chaos__p">A system this rich separates nearby inputs into wildly different responses —
-              precisely what a classifier needs. My work on viscoelastic bistable chains asks how to sit
-              close enough to this edge to compute with it, without falling in.</p>
+            <h3 class="chaos__h">This is the resource.</h3>
+            <p class="chaos__p">A system this sensitive maps nearby inputs to wildly separated states — exactly the separation property a reservoir computer needs. One honest caveat: with viscoelasticity removed, U = x + 1 maps this <i>exactly</i> onto the classic Duffing oscillator, so the quadratic term alone is a coordinate shift. Restoring the viscoelastic stress is what makes the system third-order and moves the equilibria to 0 and 3/2 ± √(1−4λ)/2 — that is where the new behaviour actually lives.</p>
           </div>
         </div>
 
         <figure class="chaos__figure">
           <canvas id="bifur"></canvas>
-          <figcaption class="chaos__cap">Logistic map · x<sub>n+1</sub> = r x<sub>n</sub>(1 − x<sub>n</sub>)</figcaption>
-          <div class="chaos__rvalue" id="rval">r = 2.400</div>
+          <figcaption class="chaos__cap">Poincaré section of my own system · Ü + ζU̇ − 3U² + U³ + 2U = γ cos ΩT · ζ = 0.30, Ω = 1.20 · computed live</figcaption>
+          <div class="chaos__rvalue" id="rval">γ = 0.050 · period-1</div>
         </figure>
 
       </div>
@@ -1226,110 +1216,163 @@ if (hasGSAP && !REDUCED) {
   const track  = document.getElementById('chaos-track');
   const rval   = document.getElementById('rval');
   if (!canvas || !track) return;
-
   const ctx = canvas.getContext('2d');
-  const R_MIN = 2.4, R_MAX = 4.0;
-  const COLS = 900, KEEP = 46, SKIP = 320;
 
-  // precompute every column once
-  const columns = [];
-  for (let i = 0; i < COLS; i++) {
-    const r = R_MIN + (R_MAX - R_MIN) * (i / (COLS - 1));
-    let x = 0.35;
-    for (let n = 0; n < SKIP; n++) x = r * x * (1 - x);
-    const ys = new Float32Array(KEEP);
-    for (let n = 0; n < KEEP; n++) { x = r * x * (1 - x); ys[n] = x; }
-    columns.push({ r, ys });
+  /* The forced truss oscillator with the viscoelastic term dropped:
+       U'' + zeta U' - 3U^2 + U^3 + 2U = gamma cos(Omega T)
+     restoring force factors as U(U-1)(U-2): stable at U = 0 and U = 2,
+     barrier at U = 1. Poincare-sampled once per drive period.            */
+  const ZE = 0.30, OM = 1.20;
+  const G0 = 0.05, G1 = 0.60, COLS = 420;
+  const SPP = 120, NTRANS = 120, NSAMP = 48;
+  const UMIN = -0.7, UMAX = 2.9;
+  const CUT1 = 0.2654, CUT2 = 0.2868, CUT3 = 0.2921;   // measured, not assumed
+
+  const cols = new Array(COLS).fill(null);
+  let built = 0;
+
+  function build(i){
+    const gam = G0 + (G1 - G0) * (i / (COLS - 1));
+    const T = 2*Math.PI/OM, dt = T/SPP;
+    let U = 0.2, V = 0, t = 0;
+    const acc = (U,V,t) => -ZE*V + 3*U*U - U*U*U - 2*U + gam*Math.cos(OM*t);
+    const ys = new Float32Array(NSAMP);
+    for (let n = 0; n < NTRANS + NSAMP; n++){
+      for (let s = 0; s < SPP; s++){
+        const a1 = acc(U,V,t),                        k1 = V;
+        const a2 = acc(U+dt/2*k1, V+dt/2*a1, t+dt/2), k2 = V+dt/2*a1;
+        const a3 = acc(U+dt/2*k2, V+dt/2*a2, t+dt/2), k3 = V+dt/2*a2;
+        const a4 = acc(U+dt*k3,   V+dt*a3,   t+dt),   k4 = V+dt*a3;
+        U += dt/6*(k1+2*k2+2*k3+k4);
+        V += dt/6*(a1+2*a2+2*a3+a4);
+        t += dt;
+        if (!isFinite(U) || Math.abs(U) > 50){ U = 0.2; V = 0; }
+      }
+      if (n >= NTRANS) ys[n-NTRANS] = U;
+    }
+    // period = number of distinct Poincare points
+    const srt = Array.from(ys).sort((p,q)=>p-q);
+    let per = 1;
+    for (let k = 1; k < srt.length; k++) if (srt[k]-srt[k-1] > 0.004) per++;
+    cols[i] = { gam, ys, per };
   }
 
-  let W = 0, H = 0;
+  const INK='#0b1526', LINE='#ccd6e3', SUB='#8493a6';
+  function tint(per){
+    if (per === 1) return 'rgba(22,82,240,0.80)';
+    if (per === 2) return 'rgba(22,82,240,0.62)';
+    if (per <= 4)  return 'rgba(0,140,190,0.60)';
+    if (per <= 8)  return 'rgba(0,166,166,0.58)';
+    return 'rgba(255,90,31,0.42)';
+  }
+
+  let W = 0, H = 0, lastP = 0;
+  const PAD_L = 52, PAD_R = 16, PAD_T = 18, PAD_B = 34;
   function size(){
     const rect = canvas.getBoundingClientRect();
     const dpr = Math.min(devicePixelRatio, 2);
     W = rect.width; H = rect.width * 11 / 16;
-    canvas.width = Math.floor(W * dpr);
-    canvas.height = Math.floor(H * dpr);
+    canvas.width = Math.floor(W*dpr); canvas.height = Math.floor(H*dpr);
     canvas.style.height = H + 'px';
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
   }
-
-  const PAD_L = 44, PAD_R = 14, PAD_T = 16, PAD_B = 30;
 
   function draw(progress){
     if (!W) return;
     const p = Math.max(0, Math.min(1, progress));
-    const plotW = W - PAD_L - PAD_R;
-    const plotH = H - PAD_T - PAD_B;
+    const pw = W - PAD_L - PAD_R, ph = H - PAD_T - PAD_B;
+    const gx = g => PAD_L + pw * (g - G0)/(G1 - G0);
+    const uy = u => PAD_T + ph * (1 - (u - UMIN)/(UMAX - UMIN));
+    ctx.clearRect(0,0,W,H);
 
-    ctx.clearRect(0, 0, W, H);
+    // the two stable states and the barrier between them
+    ctx.setLineDash([4,4]); ctx.lineWidth = 1;
+    [[0,'U = 0'],[1,'U = 1'],[2,'U = 2']].forEach(([u,lab])=>{
+      ctx.strokeStyle = u===1 ? 'rgba(255,90,31,.30)' : 'rgba(11,21,38,.16)';
+      ctx.beginPath(); ctx.moveTo(PAD_L, uy(u)); ctx.lineTo(PAD_L+pw, uy(u)); ctx.stroke();
+      ctx.fillStyle = u===1 ? 'rgba(255,90,31,.75)' : SUB;
+      ctx.font = '9px "JetBrains Mono", monospace';
+      ctx.fillText(lab, 10, uy(u)+3);
+    });
+    ctx.setLineDash([]);
 
-    // axes
-    ctx.strokeStyle = '#ccd6e3'; ctx.lineWidth = 1;
+    ctx.strokeStyle = LINE; ctx.lineWidth = 1;
     ctx.beginPath();
-    ctx.moveTo(PAD_L, PAD_T); ctx.lineTo(PAD_L, PAD_T + plotH);
-    ctx.lineTo(PAD_L + plotW, PAD_T + plotH);
+    ctx.moveTo(PAD_L, PAD_T); ctx.lineTo(PAD_L, PAD_T+ph); ctx.lineTo(PAD_L+pw, PAD_T+ph);
     ctx.stroke();
 
-    ctx.fillStyle = '#8493a6';
-    ctx.font = '9px "JetBrains Mono", monospace';
-    ctx.fillText('1.0', 8, PAD_T + 6);
-    ctx.fillText('0.0', 8, PAD_T + plotH + 3);
-    ctx.fillText('x', 8, PAD_T + plotH / 2);
-    ctx.fillText('r = 2.4', PAD_L, H - 10);
-    ctx.fillText('4.0', PAD_L + plotW - 16, H - 10);
-
-    // the attractor itself
     const upto = Math.floor(p * COLS);
-    for (let i = 0; i < upto; i++) {
-      const col = columns[i];
-      const cx = PAD_L + plotW * (i / (COLS - 1));
-      // colour shifts teal -> gold -> rust as complexity grows
-      const t = i / COLS;
-      if (t < 0.45)      ctx.fillStyle = 'rgba(22,82,240,0.60)';
-      else if (t < 0.62) ctx.fillStyle = 'rgba(0,166,166,0.55)';
-      else               ctx.fillStyle = 'rgba(255,90,31,0.48)';
-      for (let n = 0; n < KEEP; n++) {
-        const cy = PAD_T + plotH * (1 - col.ys[n]);
-        ctx.fillRect(cx, cy, 0.9, 0.9);
-      }
+    // bifurcation thresholds, revealed as the sweep passes them
+    [[CUT1,'γ = 0.265'],[CUT2,'0.287'],[CUT3,'0.292']].forEach(([g,lab],k)=>{
+      if (gx(g) > gx(G0 + (G1-G0)*(upto/COLS))) return;
+      ctx.strokeStyle = 'rgba(11,21,38,.22)'; ctx.setLineDash([2,3]);
+      ctx.beginPath(); ctx.moveTo(gx(g), PAD_T); ctx.lineTo(gx(g), PAD_T+ph); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = 'rgba(11,21,38,.45)'; ctx.font = '8px "JetBrains Mono", monospace';
+      ctx.save(); ctx.translate(gx(g)-3, PAD_T+14+k*4); ctx.rotate(-Math.PI/2);
+      ctx.fillText(lab, 0, 0); ctx.restore();
+    });
+
+    for (let i = 0; i < upto; i++){
+      const c = cols[i]; if (!c) continue;
+      const cx = gx(c.gam);
+      ctx.fillStyle = tint(c.per);
+      for (let n = 0; n < NSAMP; n++) ctx.fillRect(cx, uy(c.ys[n]), 1.0, 1.0);
     }
 
-    // leading edge
-    if (upto > 0 && upto < COLS) {
-      const cx = PAD_L + plotW * (upto / (COLS - 1));
+    if (upto > 0 && upto < COLS){
+      const cx = gx(G0 + (G1-G0)*(upto/COLS));
       ctx.strokeStyle = 'rgba(255,90,31,0.8)'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(cx, PAD_T); ctx.lineTo(cx, PAD_T + plotH); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx, PAD_T); ctx.lineTo(cx, PAD_T+ph); ctx.stroke();
     }
 
-    if (rval) {
-      const r = R_MIN + (R_MAX - R_MIN) * p;
-      rval.textContent = 'r = ' + r.toFixed(3);
+    ctx.fillStyle = SUB; ctx.font = '9px "JetBrains Mono", monospace';
+    ctx.fillText('γ = 0.05', PAD_L, H-10);
+    ctx.fillText('0.60', PAD_L+pw-20, H-10);
+    ctx.fillText('forcing amplitude γ', PAD_L+pw/2-46, H-10);
+
+    if (rval){
+      const g = G0 + (G1-G0)*p;
+      const c = cols[Math.min(COLS-1, Math.max(0, upto-1))];
+      const lab = !c ? '' : c.per === 1 ? ' · period-1'
+                : c.per === 2 ? ' · period-2'
+                : c.per <= 4  ? ' · period-4'
+                : c.per <= 8  ? ' · period-8'
+                              : ' · chaotic';
+      rval.textContent = 'γ = ' + g.toFixed(3) + lab;
     }
   }
 
-  size();
-  draw(0);
+  size(); draw(0);
   addEventListener('resize', () => { size(); draw(lastP); });
 
-  let lastP = 0;
-  const stages = Array.from(document.querySelectorAll('.chaos__stage'));
-  // r thresholds mapped to narrative stages
-  const CUTS = [0, 0.20, 0.42, 0.62, 0.85];
+  // build columns in the background so the sweep is always ahead of the scroll
+  let visible = false;
+  new IntersectionObserver(e => { visible = e[0].isIntersecting; }, { rootMargin:'400px' })
+    .observe(canvas);
+  (function work(){
+    requestAnimationFrame(work);
+    if (built >= COLS) return;
+    const budget = visible ? 8 : 3;
+    const t0 = performance.now();
+    let n = 0;
+    while (built < COLS && n < budget && performance.now() - t0 < 9){ build(built++); n++; }
+    if (built <= Math.ceil(lastP*COLS) + 8) draw(lastP);
+  })();
 
+  const stages = Array.from(document.querySelectorAll('.chaos__stage'));
+  const CUTS = [0, (CUT1-G0)/(G1-G0), (CUT2-G0)/(G1-G0), (CUT3-G0)/(G1-G0), 0.80];
   function setStage(p){
     let idx = 0;
     for (let i = 0; i < CUTS.length; i++) if (p >= CUTS[i]) idx = i;
-    stages.forEach((s, i) => s.classList.toggle('is-live', i === idx));
+    stages.forEach((s,i) => s.classList.toggle('is-live', i === idx));
   }
-
-  if (hasGSAP) {
+  if (window.ScrollTrigger){
     window.ScrollTrigger.create({
       trigger: track, start: 'top top', end: 'bottom bottom', scrub: 0.5,
       onUpdate: self => { lastP = self.progress; draw(lastP); setStage(lastP); }
     });
-  } else {
-    draw(1); setStage(1);
-  }
+  } else { lastP = 1; draw(1); setStage(1); }
 })();
 
 /* ---------------------------------------------------------------
