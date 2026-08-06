@@ -687,8 +687,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 
         <figure class="chaos__figure">
           <canvas id="bifur"></canvas>
-          <figcaption class="chaos__cap">Poincaré section of my own system · Ü + ζU̇ − 3U² + U³ + 2U = γ cos ΩT · ζ = 0.30, Ω = 1.20 · computed live</figcaption>
-          <div class="chaos__rvalue" id="rval">γ = 0.050 · period-1</div>
+          <figcaption class="chaos__cap">Poincaré section of my own system · Ü + ζU̇ − 3U² + U³ + 2U = γ cos ΩT · ζ = 0.30, Ω = 1.20 · 440 columns integrated live</figcaption>
+          <div class="chaos__rvalue" id="rval">γ = 0.220 · period-1</div>
         </figure>
 
       </div>
@@ -1218,15 +1218,15 @@ if (hasGSAP && !REDUCED) {
   if (!canvas || !track) return;
   const ctx = canvas.getContext('2d');
 
-  /* The forced truss oscillator with the viscoelastic term dropped:
+  /* Forced truss oscillator, viscoelastic term dropped:
        U'' + zeta U' - 3U^2 + U^3 + 2U = gamma cos(Omega T)
-     restoring force factors as U(U-1)(U-2): stable at U = 0 and U = 2,
-     barrier at U = 1. Poincare-sampled once per drive period.            */
+     restoring force = U(U-1)(U-2): rests at U = 0 or 2, barrier at 1.
+     Sampled once per drive period (Poincare section).                    */
   const ZE = 0.30, OM = 1.20;
-  const G0 = 0.05, G1 = 0.60, COLS = 420;
-  const SPP = 120, NTRANS = 120, NSAMP = 48;
-  const UMIN = -0.7, UMAX = 2.9;
-  const CUT1 = 0.2654, CUT2 = 0.2868, CUT3 = 0.2921;   // measured, not assumed
+  const G0 = 0.22, G1 = 0.42, COLS = 440;
+  const SPP = 120, NTRANS = 140, NSAMP = 80;
+  const UMIN = -0.55, UMAX = 2.60;
+  const CUT1 = 0.2654, CUT2 = 0.2868, CUT3 = 0.2921;
 
   const cols = new Array(COLS).fill(null);
   let built = 0;
@@ -1250,24 +1250,28 @@ if (hasGSAP && !REDUCED) {
       }
       if (n >= NTRANS) ys[n-NTRANS] = U;
     }
-    // period = number of distinct Poincare points
     const srt = Array.from(ys).sort((p,q)=>p-q);
     let per = 1;
     for (let k = 1; k < srt.length; k++) if (srt[k]-srt[k-1] > 0.004) per++;
     cols[i] = { gam, ys, per };
   }
 
-  const INK='#0b1526', LINE='#ccd6e3', SUB='#8493a6';
-  function tint(per){
-    if (per === 1) return 'rgba(22,82,240,0.80)';
-    if (per === 2) return 'rgba(22,82,240,0.62)';
-    if (per <= 4)  return 'rgba(0,140,190,0.60)';
-    if (per <= 8)  return 'rgba(0,166,166,0.58)';
-    return 'rgba(255,90,31,0.42)';
+  /* palette: cool and crisp while periodic, warm and diffuse in chaos */
+  const RAMP = [
+    [1,   [ 22, 82,240], 0.90, 1.5],
+    [2,   [ 30,106,214], 0.72, 1.4],
+    [4,   [  0,140,190], 0.62, 1.3],
+    [8,   [  0,166,166], 0.52, 1.2],
+    [1e9, [255, 90, 31], 0.30, 1.1]
+  ];
+  function style(per){
+    for (const r of RAMP) if (per <= r[0]) return r;
+    return RAMP[RAMP.length-1];
   }
 
   let W = 0, H = 0, lastP = 0;
-  const PAD_L = 52, PAD_R = 16, PAD_T = 18, PAD_B = 34;
+  const PAD_L = 56, PAD_R = 18, PAD_T = 42, PAD_B = 46;
+  const RIB_Y = 12, RIB_H = 13;
   function size(){
     const rect = canvas.getBoundingClientRect();
     const dpr = Math.min(devicePixelRatio, 2);
@@ -1277,99 +1281,128 @@ if (hasGSAP && !REDUCED) {
     ctx.setTransform(dpr,0,0,dpr,0,0);
   }
 
+  const MONO = 'px "JetBrains Mono", monospace';
+
   function draw(progress){
     if (!W) return;
     const p = Math.max(0, Math.min(1, progress));
     const pw = W - PAD_L - PAD_R, ph = H - PAD_T - PAD_B;
     const gx = g => PAD_L + pw * (g - G0)/(G1 - G0);
     const uy = u => PAD_T + ph * (1 - (u - UMIN)/(UMAX - UMIN));
+    const upto = Math.floor(p * COLS);
+    const gNow = G0 + (G1-G0)*p;
     ctx.clearRect(0,0,W,H);
 
-    // the two stable states and the barrier between them
-    ctx.setLineDash([4,4]); ctx.lineWidth = 1;
+    // plot ground: a whisper of colour so the field is not flat white
+    const bg = ctx.createLinearGradient(0, PAD_T, 0, PAD_T+ph);
+    bg.addColorStop(0,'rgba(22,82,240,0.035)');
+    bg.addColorStop(1,'rgba(11,21,38,0.015)');
+    ctx.fillStyle = bg; ctx.fillRect(PAD_L, PAD_T, pw, ph);
+
+    // the two rest states, and the barrier between them
+    ctx.setLineDash([3,5]); ctx.lineWidth = 1;
     [[0,'U = 0'],[1,'U = 1'],[2,'U = 2']].forEach(([u,lab])=>{
-      ctx.strokeStyle = u===1 ? 'rgba(255,90,31,.30)' : 'rgba(11,21,38,.16)';
+      const warm = u === 1;
+      ctx.strokeStyle = warm ? 'rgba(255,90,31,.28)' : 'rgba(11,21,38,.14)';
       ctx.beginPath(); ctx.moveTo(PAD_L, uy(u)); ctx.lineTo(PAD_L+pw, uy(u)); ctx.stroke();
-      ctx.fillStyle = u===1 ? 'rgba(255,90,31,.75)' : SUB;
-      ctx.font = '9px "JetBrains Mono", monospace';
+      ctx.fillStyle = warm ? 'rgba(255,90,31,.8)' : 'rgba(132,147,166,.95)';
+      ctx.font = '9' + MONO;
       ctx.fillText(lab, 10, uy(u)+3);
     });
     ctx.setLineDash([]);
 
-    ctx.strokeStyle = LINE; ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(PAD_L, PAD_T); ctx.lineTo(PAD_L, PAD_T+ph); ctx.lineTo(PAD_L+pw, PAD_T+ph);
-    ctx.stroke();
-
-    const upto = Math.floor(p * COLS);
-    // bifurcation thresholds, revealed as the sweep passes them
-    [[CUT1,'γ = 0.265'],[CUT2,'0.287'],[CUT3,'0.292']].forEach(([g,lab],k)=>{
-      if (gx(g) > gx(G0 + (G1-G0)*(upto/COLS))) return;
-      ctx.strokeStyle = 'rgba(11,21,38,.22)'; ctx.setLineDash([2,3]);
-      ctx.beginPath(); ctx.moveTo(gx(g), PAD_T); ctx.lineTo(gx(g), PAD_T+ph); ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.fillStyle = 'rgba(11,21,38,.45)'; ctx.font = '8px "JetBrains Mono", monospace';
-      ctx.save(); ctx.translate(gx(g)-3, PAD_T+14+k*4); ctx.rotate(-Math.PI/2);
-      ctx.fillText(lab, 0, 0); ctx.restore();
-    });
-
+    // period ribbon above the plot — the whole cascade at a glance
+    ctx.fillStyle='rgba(132,147,166,.95)'; ctx.font='8'+MONO;
+    ctx.fillText('period', 10, RIB_Y+9);
+    ctx.fillStyle='rgba(11,21,38,.05)'; ctx.fillRect(PAD_L,RIB_Y,pw,RIB_H);
     for (let i = 0; i < upto; i++){
       const c = cols[i]; if (!c) continue;
-      const cx = gx(c.gam);
-      ctx.fillStyle = tint(c.per);
-      for (let n = 0; n < NSAMP; n++) ctx.fillRect(cx, uy(c.ys[n]), 1.0, 1.0);
+      const s = style(c.per);
+      ctx.fillStyle = `rgba(${s[1][0]},${s[1][1]},${s[1][2]},.85)`;
+      ctx.fillRect(gx(c.gam), RIB_Y, pw/COLS + 0.6, RIB_H);
     }
 
+    // the attractor
+    for (let i = 0; i < upto; i++){
+      const c = cols[i]; if (!c) continue;
+      const cx = gx(c.gam), s = style(c.per), [r,g,b] = s[1];
+      if (c.per > 8){
+        ctx.fillStyle = `rgba(${r},${g},${b},0.10)`;         // bloom
+        for (let n = 0; n < NSAMP; n++) ctx.fillRect(cx-0.6, uy(c.ys[n])-0.6, 2.2, 2.2);
+      }
+      ctx.fillStyle = `rgba(${r},${g},${b},${s[2]})`;
+      for (let n = 0; n < NSAMP; n++) ctx.fillRect(cx, uy(c.ys[n]), s[3], s[3]);
+    }
+
+    // bifurcation thresholds: hairlines plus a tick on the axis, no crowded labels
+    [CUT1,CUT2,CUT3].forEach(g=>{
+      if (g > gNow) return;
+      ctx.strokeStyle='rgba(11,21,38,.20)'; ctx.setLineDash([2,4]); ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(gx(g),PAD_T); ctx.lineTo(gx(g),PAD_T+ph); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle='rgba(11,21,38,.42)';
+      ctx.beginPath(); ctx.moveTo(gx(g),PAD_T+ph); ctx.lineTo(gx(g)-3.2,PAD_T+ph+5.5);
+      ctx.lineTo(gx(g)+3.2,PAD_T+ph+5.5); ctx.closePath(); ctx.fill();
+    });
+
+    // frame
+    ctx.strokeStyle='#ccd6e3'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(PAD_L,PAD_T); ctx.lineTo(PAD_L,PAD_T+ph);
+    ctx.lineTo(PAD_L+pw,PAD_T+ph); ctx.stroke();
+
+    // sweep: a soft trailing glow, then a fine line
     if (upto > 0 && upto < COLS){
-      const cx = gx(G0 + (G1-G0)*(upto/COLS));
-      ctx.strokeStyle = 'rgba(255,90,31,0.8)'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(cx, PAD_T); ctx.lineTo(cx, PAD_T+ph); ctx.stroke();
+      const cx = gx(gNow);
+      const gl = ctx.createLinearGradient(cx-70,0,cx,0);
+      gl.addColorStop(0,'rgba(255,90,31,0)'); gl.addColorStop(1,'rgba(255,90,31,0.16)');
+      ctx.fillStyle = gl; ctx.fillRect(Math.max(PAD_L,cx-70), PAD_T, Math.min(70,cx-PAD_L), ph);
+      ctx.strokeStyle='rgba(255,90,31,0.85)'; ctx.lineWidth=1.2;
+      ctx.beginPath(); ctx.moveTo(cx,PAD_T); ctx.lineTo(cx,PAD_T+ph); ctx.stroke();
+      ctx.fillStyle='rgba(255,90,31,0.9)';
+      ctx.beginPath(); ctx.arc(cx,PAD_T-4,2.2,0,7); ctx.fill();
     }
 
-    ctx.fillStyle = SUB; ctx.font = '9px "JetBrains Mono", monospace';
-    ctx.fillText('γ = 0.05', PAD_L, H-10);
-    ctx.fillText('0.60', PAD_L+pw-20, H-10);
-    ctx.fillText('forcing amplitude γ', PAD_L+pw/2-46, H-10);
+    // axis row, then the thresholds row — two separate lines, never crowded
+    ctx.fillStyle='rgba(132,147,166,.95)'; ctx.font='9'+MONO;
+    ctx.fillText('γ = 0.22', PAD_L, H-27);
+    ctx.fillText('0.42', PAD_L+pw-22, H-27);
+    ctx.fillText('forcing amplitude γ', PAD_L+pw/2-48, H-27);
+    ctx.fillStyle='rgba(11,21,38,.40)'; ctx.font='8'+MONO;
+    ctx.fillText('bifurcations  0.265  ·  0.287  ·  chaos from 0.292', PAD_L, H-9);
 
     if (rval){
-      const g = G0 + (G1-G0)*p;
       const c = cols[Math.min(COLS-1, Math.max(0, upto-1))];
-      const lab = !c ? '' : c.per === 1 ? ' · period-1'
-                : c.per === 2 ? ' · period-2'
-                : c.per <= 4  ? ' · period-4'
-                : c.per <= 8  ? ' · period-8'
-                              : ' · chaotic';
-      rval.textContent = 'γ = ' + g.toFixed(3) + lab;
+      const lab = !c ? '' : c.per===1 ? ' · period-1' : c.per===2 ? ' · period-2'
+                : c.per<=4 ? ' · period-4' : c.per<=8 ? ' · period-8' : ' · chaotic';
+      rval.textContent = 'γ = ' + gNow.toFixed(3) + lab;
     }
   }
 
   size(); draw(0);
   addEventListener('resize', () => { size(); draw(lastP); });
 
-  // build columns in the background so the sweep is always ahead of the scroll
   let visible = false;
-  new IntersectionObserver(e => { visible = e[0].isIntersecting; }, { rootMargin:'400px' })
+  new IntersectionObserver(e => { visible = e[0].isIntersecting; }, { rootMargin:'500px' })
     .observe(canvas);
   (function work(){
     requestAnimationFrame(work);
     if (built >= COLS) return;
-    const budget = visible ? 8 : 3;
-    const t0 = performance.now();
-    let n = 0;
-    while (built < COLS && n < budget && performance.now() - t0 < 9){ build(built++); n++; }
-    if (built <= Math.ceil(lastP*COLS) + 8) draw(lastP);
+    const budget = visible ? 10 : 3;
+    const t0 = performance.now(); let n = 0;
+    while (built < COLS && n < budget && performance.now()-t0 < 9){ build(built++); n++; }
+    if (built <= Math.ceil(lastP*COLS)+10) draw(lastP);
   })();
 
   const stages = Array.from(document.querySelectorAll('.chaos__stage'));
-  const CUTS = [0, (CUT1-G0)/(G1-G0), (CUT2-G0)/(G1-G0), (CUT3-G0)/(G1-G0), 0.80];
+  const CUTS = [0, (CUT1-G0)/(G1-G0), (CUT2-G0)/(G1-G0), (CUT3-G0)/(G1-G0), 0.78];
   function setStage(p){
     let idx = 0;
     for (let i = 0; i < CUTS.length; i++) if (p >= CUTS[i]) idx = i;
-    stages.forEach((s,i) => s.classList.toggle('is-live', i === idx));
+    stages.forEach((s,i)=>s.classList.toggle('is-live', i === idx));
   }
   if (window.ScrollTrigger){
     window.ScrollTrigger.create({
-      trigger: track, start: 'top top', end: 'bottom bottom', scrub: 0.5,
+      trigger: track, start:'top top', end:'bottom bottom', scrub:0.5,
       onUpdate: self => { lastP = self.progress; draw(lastP); setStage(lastP); }
     });
   } else { lastP = 1; draw(1); setStage(1); }
