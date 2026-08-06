@@ -1427,7 +1427,7 @@ if (hasGSAP && !REDUCED) {
   scene.add(glow);
 
   /* ---- trail: fixed buffers, static fade ramp, no per-frame allocation ---- */
-  const TRAIL = 560;
+  const TRAIL = 380;
   const tPos = new Float32Array(TRAIL*3), tCol = new Float32Array(TRAIL*3);
   for (let i = 0; i < TRAIL; i++) {
     const f = i/(TRAIL-1);                        // 0 = oldest, 1 = newest
@@ -1445,7 +1445,11 @@ if (hasGSAP && !REDUCED) {
   function pushTrail(x, y, z){
     // a long jump means the state teleported (wall clamp, preset reset, divergence).
     // drawing through it leaves a straight cyan chord across the surface, so cut instead.
-    if (filled > 0 && Math.hypot(x-lx, y-ly, z-lz) > 0.30) { filled = 0; }
+    if (filled > 0) {
+      const d = Math.hypot(x-lx, y-ly, z-lz);
+      if (d > 0.30) { filled = 0; }        // teleport: cut rather than draw a chord
+      else if (d < 0.0015) return;         // barely moved: do not pile up vertices
+    }
     lx = x; ly = y; lz = z;
     if (filled < TRAIL) {
       tPos[filled*3] = x; tPos[filled*3+1] = y; tPos[filled*3+2] = z;
@@ -1460,7 +1464,7 @@ if (hasGSAP && !REDUCED) {
   function clearTrail(){ filled = 0; tGeo.setDrawRange(0, 0); }
 
   /* ---- dynamics ---- */
-  const S = { x: 0.95, v: 0, z: 0.06, vz: 0, t: 0 };
+  const S = { x: 0.95, v: 0, z: 0, vz: 0, t: 0 };
   const prm = { gamma: 0.20, delta: 0.30, omega: 1.20 };
   let lastSign = 1, crossWindow = [], E = 0, Esm = 0;
 
@@ -1475,7 +1479,7 @@ if (hasGSAP && !REDUCED) {
     const ZL = YR*0.82;
     if (S.z >  ZL) { S.z =  2*ZL - S.z; S.vz *= -0.5; }
     if (S.z < -ZL) { S.z = -2*ZL - S.z; S.vz *= -0.5; }
-    if (!isFinite(S.x)) { S.x = 0.95; S.v = 0; S.z = 0.06; S.vz = 0; clearTrail(); }
+    if (!isFinite(S.x)) { S.x = 0.95; S.v = 0; S.z = 0; S.vz = 0; clearTrail(); }
     E = 0.5*(S.v*S.v + S.vz*S.vz) + V0(S.x, S.z);
     const sg = S.x >= 0 ? 1 : -1;
     if (sg !== lastSign) { crossWindow.push(S.t); lastSign = sg; }
@@ -1516,7 +1520,7 @@ if (hasGSAP && !REDUCED) {
       sG.value=btn.dataset.g; sD.value=btn.dataset.d; sW.value=btn.dataset.w;
       sync();
       document.querySelectorAll('.preset').forEach(b=>b.classList.toggle('is-on', b===btn));
-      S.x=0.95; S.v=0; S.z=0.06; S.vz=0; clearTrail();
+      S.x=0.95; S.v=0; S.z=0; S.vz=0; clearTrail();
     });
   });
   sync();
