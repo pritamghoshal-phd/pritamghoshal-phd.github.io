@@ -171,9 +171,25 @@ body::after{
 .chaos__figure{position:relative;border:1px solid var(--border);border-radius:1.2rem;
   background:var(--bg-card);box-shadow:var(--sh-md);overflow:hidden}
 #bifur{display:block;width:100%;height:auto;aspect-ratio:16/11}
-.chaos__cap{position:absolute;left:1rem;bottom:.85rem;font-family:'JetBrains Mono',monospace;
+
+.chaos__stagebox{position:relative}
+.chaos__ctrls{display:grid;grid-template-columns:1fr 1fr;gap:.5rem .9rem;
+  padding:.75rem .95rem .2rem}
+.cc{display:block}
+.cc span{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;
+  font-size:.58rem;letter-spacing:.08em;color:var(--sub);text-transform:uppercase;
+  margin-bottom:.15rem}
+.cc span b{color:var(--accent);font-weight:500}
+.cc input[type=range]{width:100%;height:3px;accent-color:var(--accent);margin:0}
+.cc__btn{grid-column:1/-1;margin-top:.15rem;font-family:'JetBrains Mono',monospace;
+  font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);
+  background:transparent;border:1px solid var(--border);border-radius:100px;
+  padding:.32rem .8rem;cursor:pointer;transition:background .25s ease,border-color .25s ease}
+.cc__btn:hover{background:rgba(22,82,240,.06);border-color:rgba(22,82,240,.4)}
+.chaos__figure.is-busy .chaos__stagebox{opacity:.55;transition:opacity .2s ease}
+.chaos__cap{position:static;display:block;padding:.35rem .95rem .8rem;font-family:'JetBrains Mono',monospace;
   font-size:.6rem;letter-spacing:.12em;color:var(--sub);text-transform:uppercase}
-.chaos__rvalue{position:absolute;right:1rem;top:.85rem;font-family:'JetBrains Mono',monospace;
+.chaos__rvalue{position:absolute;right:.9rem;top:.8rem;font-family:'JetBrains Mono',monospace;
   font-size:.68rem;color:var(--accent);background:rgba(255,255,255,.9);
   padding:.25rem .6rem;border-radius:100px;border:1px solid var(--border)}
 
@@ -665,17 +681,17 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
           </div>
           <div class="chaos__stage" data-stage="1">
             <div class="chaos__num">/ Stage 02 — First bifurcation</div>
-            <h3 class="chaos__h">The branch splits at γ = 0.265.</h3>
+            <h3 class="chaos__h">The branch splits at γ = <span id="bif2">0.265</span>.</h3>
             <p class="chaos__p">Raise the forcing and that single response loses stability. The panel now needs <b>two</b> drive cycles to come back to itself, so the Poincaré section shows two points instead of one. Nothing was added to the equation — the same system reorganised itself.</p>
           </div>
           <div class="chaos__stage" data-stage="2">
             <div class="chaos__num">/ Stage 03 — Cascade</div>
             <h3 class="chaos__h">Two becomes four, and the gaps shrink.</h3>
-            <p class="chaos__p">The next split lands at <b>γ = 0.287</b>, then the next almost immediately after. The intervals contract by a roughly constant factor — (0.287−0.265)/(0.292−0.287) ≈ <b>3.9</b> here, heading toward Feigenbaum’s 4.669 in the limit. I measured these three thresholds from the integrator rather than quoting them.</p>
+            <p class="chaos__p">The next split lands at <b>γ = <span id="bif4">0.287</span></b>, then the next almost immediately after. The intervals contract by a roughly constant factor — the ratio is <b><span id="bifr">3.9</span></b> here, heading toward Feigenbaum’s 4.669 in the limit. Every number here is measured from the integrator as it runs, so it follows the sliders.</p>
           </div>
           <div class="chaos__stage" data-stage="3">
             <div class="chaos__num">/ Stage 04 — Chaos</div>
-            <h3 class="chaos__h">Aperiodic from γ = 0.292 — with windows.</h3>
+            <h3 class="chaos__h">Aperiodic from γ = <span id="bifc">0.292</span> — with windows.</h3>
             <p class="chaos__p">Past the accumulation point the response never repeats, and the ball crosses the barrier at U = 1 freely. But look further right: clean <b>period-8 and period-4 windows</b> reopen inside the chaotic band. Order surviving inside the disorder, and all of it deterministic.</p>
           </div>
           <div class="chaos__stage" data-stage="4">
@@ -686,9 +702,22 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
         </div>
 
         <figure class="chaos__figure">
-          <canvas id="bifur"></canvas>
-          <figcaption class="chaos__cap">Poincaré section of my own system · Ü + ζU̇ − 3U² + U³ + 2U = γ cos ΩT · ζ = 0.30, Ω = 1.20 · 440 columns integrated live</figcaption>
-          <div class="chaos__rvalue" id="rval">γ = 0.220 · period-1</div>
+          <div class="chaos__stagebox">
+            <canvas id="bifur"></canvas>
+            <div class="chaos__rvalue" id="rval">γ = 0.220 · period-1</div>
+          </div>
+          <div class="chaos__ctrls">
+            <label class="cc"><span>ζ damping <b id="cv-ze">0.30</b></span>
+              <input id="cs-ze" type="range" min="0.05" max="0.50" step="0.01" value="0.30" /></label>
+            <label class="cc"><span>Ω drive <b id="cv-om">1.20</b></span>
+              <input id="cs-om" type="range" min="0.60" max="2.00" step="0.01" value="1.20" /></label>
+            <label class="cc"><span>γ from <b id="cv-g0">0.220</b></span>
+              <input id="cs-g0" type="range" min="0" max="0.90" step="0.005" value="0.22" /></label>
+            <label class="cc"><span>γ to <b id="cv-g1">0.420</b></span>
+              <input id="cs-g1" type="range" min="0.05" max="1.00" step="0.005" value="0.42" /></label>
+            <button class="cc__btn" id="cs-auto" type="button">Auto-frame the cascade</button>
+          </div>
+          <figcaption class="chaos__cap">Poincaré section of my own system · Ü + ζU̇ − 3U² + U³ + 2U = γ cos ΩT · integrated live</figcaption>
         </figure>
 
       </div>
@@ -1215,30 +1244,34 @@ if (hasGSAP && !REDUCED) {
   const canvas = document.getElementById('bifur');
   const track  = document.getElementById('chaos-track');
   const rval   = document.getElementById('rval');
+  const figure = canvas && canvas.closest('.chaos__figure');
   if (!canvas || !track) return;
   const ctx = canvas.getContext('2d');
 
   /* Forced truss oscillator, viscoelastic term dropped:
        U'' + zeta U' - 3U^2 + U^3 + 2U = gamma cos(Omega T)
-     restoring force = U(U-1)(U-2): rests at U = 0 or 2, barrier at 1.
-     Sampled once per drive period (Poincare section).                    */
-  const ZE = 0.30, OM = 1.20;
-  const G0 = 0.22, G1 = 0.42, COLS = 440;
-  const SPP = 120, NTRANS = 140, NSAMP = 80;
-  const UMIN = -0.55, UMAX = 2.60;
-  const CUT1 = 0.2654, CUT2 = 0.2868, CUT3 = 0.2921;
+     restoring force = U(U-1)(U-2): rests at U = 0 or 2, barrier at 1.   */
+  const P = { ze: 0.30, om: 1.20, g0: 0.22, g1: 0.42 };
+  const COLS = 400, SPP = 120, NTRANS = 140, NSAMP = 80;
+  const UMIN = -0.75, UMAX = 3.10;
 
-  const cols = new Array(COLS).fill(null);
-  let built = 0;
+  let cols = new Array(COLS).fill(null), built = 0;
+  let bif = { b2:null, b4:null, bc:null };
 
-  function build(i){
-    const gam = G0 + (G1 - G0) * (i / (COLS - 1));
-    const T = 2*Math.PI/OM, dt = T/SPP;
+  function periodOf(ys, tol){
+    const a = Array.from(ys).sort((p,q)=>p-q);
+    let g = 1;
+    for (let k = 1; k < a.length; k++) if (a[k]-a[k-1] > tol) g++;
+    return g;
+  }
+  function integrate(gam, spp, ntr, ns){
+    const T = 2*Math.PI/P.om, dt = T/spp;
     let U = 0.2, V = 0, t = 0;
-    const acc = (U,V,t) => -ZE*V + 3*U*U - U*U*U - 2*U + gam*Math.cos(OM*t);
-    const ys = new Float32Array(NSAMP);
-    for (let n = 0; n < NTRANS + NSAMP; n++){
-      for (let s = 0; s < SPP; s++){
+    const ze = P.ze, om = P.om;
+    const acc = (U,V,t) => -ze*V + 3*U*U - U*U*U - 2*U + gam*Math.cos(om*t);
+    const ys = new Float32Array(ns);
+    for (let n = 0; n < ntr + ns; n++){
+      for (let s = 0; s < spp; s++){
         const a1 = acc(U,V,t),                        k1 = V;
         const a2 = acc(U+dt/2*k1, V+dt/2*a1, t+dt/2), k2 = V+dt/2*a1;
         const a3 = acc(U+dt/2*k2, V+dt/2*a2, t+dt/2), k3 = V+dt/2*a2;
@@ -1246,97 +1279,93 @@ if (hasGSAP && !REDUCED) {
         U += dt/6*(k1+2*k2+2*k3+k4);
         V += dt/6*(a1+2*a2+2*a3+a4);
         t += dt;
-        if (!isFinite(U) || Math.abs(U) > 50){ U = 0.2; V = 0; }
+        if (!isFinite(U) || Math.abs(U) > 60){ U = 0.2; V = 0; }
       }
-      if (n >= NTRANS) ys[n-NTRANS] = U;
+      if (n >= ntr) ys[n-ntr] = U;
     }
-    const srt = Array.from(ys).sort((p,q)=>p-q);
-    let per = 1;
-    for (let k = 1; k < srt.length; k++) if (srt[k]-srt[k-1] > 0.004) per++;
-    cols[i] = { gam, ys, per };
+    return ys;
+  }
+  function build(i){
+    const gam = P.g0 + (P.g1 - P.g0) * (i / (COLS - 1));
+    const ys = integrate(gam, SPP, NTRANS, NSAMP);
+    cols[i] = { gam, ys, per: periodOf(ys, 0.004) };
+  }
+  function detect(){
+    let b2=null,b4=null,bc=null;
+    for (const c of cols){
+      if (!c) continue;
+      if (b2===null && c.per>=2) b2=c.gam;
+      if (b4===null && c.per>=4) b4=c.gam;
+      if (bc===null && c.per>8)  bc=c.gam;
+    }
+    bif = {b2,b4,bc};
+    const put=(id,v,d)=>{const e=document.getElementById(id); if(e) e.textContent = v==null?'—':v.toFixed(d);};
+    put('bif2',b2,3); put('bif4',b4,3); put('bifc',bc,3);
+    const r=document.getElementById('bifr');
+    if (r) r.textContent = (b2!=null&&b4!=null&&bc!=null&&bc>b4) ? ((b4-b2)/(bc-b4)).toFixed(1) : '—';
   }
 
-  /* palette: cool and crisp while periodic, warm and diffuse in chaos */
-  const RAMP = [
-    [1,   [ 22, 82,240], 0.90, 1.5],
-    [2,   [ 30,106,214], 0.72, 1.4],
-    [4,   [  0,140,190], 0.62, 1.3],
-    [8,   [  0,166,166], 0.52, 1.2],
-    [1e9, [255, 90, 31], 0.30, 1.1]
-  ];
-  function style(per){
-    for (const r of RAMP) if (per <= r[0]) return r;
-    return RAMP[RAMP.length-1];
-  }
+  const RAMP=[[1,[22,82,240],0.90,1.5],[2,[30,106,214],0.72,1.4],[4,[0,140,190],0.62,1.3],
+              [8,[0,166,166],0.52,1.2],[1e9,[255,90,31],0.30,1.1]];
+  const style = per => RAMP.find(r=>per<=r[0]) || RAMP[RAMP.length-1];
 
-  let W = 0, H = 0, lastP = 0;
-  const PAD_L = 56, PAD_R = 18, PAD_T = 42, PAD_B = 46;
-  const RIB_Y = 12, RIB_H = 13;
+  let W=0,H=0,lastP=0;
+  const PAD_L=56,PAD_R=18,PAD_T=42,PAD_B=44, RIB_Y=12,RIB_H=13;
   function size(){
-    const rect = canvas.getBoundingClientRect();
-    const dpr = Math.min(devicePixelRatio, 2);
-    W = rect.width; H = rect.width * 11 / 16;
-    canvas.width = Math.floor(W*dpr); canvas.height = Math.floor(H*dpr);
-    canvas.style.height = H + 'px';
-    ctx.setTransform(dpr,0,0,dpr,0,0);
+    const rect=canvas.getBoundingClientRect(), dpr=Math.min(devicePixelRatio,2);
+    W=rect.width; H=rect.width*10/16;
+    canvas.width=Math.floor(W*dpr); canvas.height=Math.floor(H*dpr);
+    canvas.style.height=H+'px'; ctx.setTransform(dpr,0,0,dpr,0,0);
   }
-
-  const MONO = 'px "JetBrains Mono", monospace';
+  const MONO='px "JetBrains Mono", monospace';
+  const fmt = v => v==null ? '—' : v.toFixed(3);
 
   function draw(progress){
     if (!W) return;
-    const p = Math.max(0, Math.min(1, progress));
-    const pw = W - PAD_L - PAD_R, ph = H - PAD_T - PAD_B;
-    const gx = g => PAD_L + pw * (g - G0)/(G1 - G0);
-    const uy = u => PAD_T + ph * (1 - (u - UMIN)/(UMAX - UMIN));
-    const upto = Math.floor(p * COLS);
-    const gNow = G0 + (G1-G0)*p;
+    const p=Math.max(0,Math.min(1,progress));
+    const pw=W-PAD_L-PAD_R, ph=H-PAD_T-PAD_B;
+    const gx=g=>PAD_L+pw*(g-P.g0)/(P.g1-P.g0);
+    const uy=u=>PAD_T+ph*(1-(u-UMIN)/(UMAX-UMIN));
+    const upto=Math.floor(p*COLS), gNow=P.g0+(P.g1-P.g0)*p;
     ctx.clearRect(0,0,W,H);
 
-    // plot ground: a whisper of colour so the field is not flat white
-    const bg = ctx.createLinearGradient(0, PAD_T, 0, PAD_T+ph);
-    bg.addColorStop(0,'rgba(22,82,240,0.035)');
-    bg.addColorStop(1,'rgba(11,21,38,0.015)');
-    ctx.fillStyle = bg; ctx.fillRect(PAD_L, PAD_T, pw, ph);
+    const bg=ctx.createLinearGradient(0,PAD_T,0,PAD_T+ph);
+    bg.addColorStop(0,'rgba(22,82,240,0.035)'); bg.addColorStop(1,'rgba(11,21,38,0.015)');
+    ctx.fillStyle=bg; ctx.fillRect(PAD_L,PAD_T,pw,ph);
 
-    // the two rest states, and the barrier between them
-    ctx.setLineDash([3,5]); ctx.lineWidth = 1;
+    ctx.setLineDash([3,5]); ctx.lineWidth=1;
     [[0,'U = 0'],[1,'U = 1'],[2,'U = 2']].forEach(([u,lab])=>{
-      const warm = u === 1;
-      ctx.strokeStyle = warm ? 'rgba(255,90,31,.28)' : 'rgba(11,21,38,.14)';
-      ctx.beginPath(); ctx.moveTo(PAD_L, uy(u)); ctx.lineTo(PAD_L+pw, uy(u)); ctx.stroke();
-      ctx.fillStyle = warm ? 'rgba(255,90,31,.8)' : 'rgba(132,147,166,.95)';
-      ctx.font = '9' + MONO;
-      ctx.fillText(lab, 10, uy(u)+3);
+      const warm=u===1;
+      ctx.strokeStyle=warm?'rgba(255,90,31,.28)':'rgba(11,21,38,.14)';
+      ctx.beginPath(); ctx.moveTo(PAD_L,uy(u)); ctx.lineTo(PAD_L+pw,uy(u)); ctx.stroke();
+      ctx.fillStyle=warm?'rgba(255,90,31,.8)':'rgba(132,147,166,.95)';
+      ctx.font='9'+MONO; ctx.fillText(lab,10,uy(u)+3);
     });
     ctx.setLineDash([]);
 
-    // period ribbon above the plot — the whole cascade at a glance
     ctx.fillStyle='rgba(132,147,166,.95)'; ctx.font='8'+MONO;
-    ctx.fillText('period', 10, RIB_Y+9);
+    ctx.fillText('period',10,RIB_Y+9);
     ctx.fillStyle='rgba(11,21,38,.05)'; ctx.fillRect(PAD_L,RIB_Y,pw,RIB_H);
-    for (let i = 0; i < upto; i++){
-      const c = cols[i]; if (!c) continue;
-      const s = style(c.per);
-      ctx.fillStyle = `rgba(${s[1][0]},${s[1][1]},${s[1][2]},.85)`;
-      ctx.fillRect(gx(c.gam), RIB_Y, pw/COLS + 0.6, RIB_H);
+    for (let i=0;i<upto;i++){
+      const c=cols[i]; if(!c) continue;
+      const s=style(c.per);
+      ctx.fillStyle=`rgba(${s[1][0]},${s[1][1]},${s[1][2]},.85)`;
+      ctx.fillRect(gx(c.gam),RIB_Y,pw/COLS+0.6,RIB_H);
     }
 
-    // the attractor
-    for (let i = 0; i < upto; i++){
-      const c = cols[i]; if (!c) continue;
-      const cx = gx(c.gam), s = style(c.per), [r,g,b] = s[1];
-      if (c.per > 8){
-        ctx.fillStyle = `rgba(${r},${g},${b},0.10)`;         // bloom
-        for (let n = 0; n < NSAMP; n++) ctx.fillRect(cx-0.6, uy(c.ys[n])-0.6, 2.2, 2.2);
+    for (let i=0;i<upto;i++){
+      const c=cols[i]; if(!c) continue;
+      const cx=gx(c.gam), s=style(c.per), [r,g,b]=s[1];
+      if (c.per>8){
+        ctx.fillStyle=`rgba(${r},${g},${b},0.10)`;
+        for(let n=0;n<NSAMP;n++) ctx.fillRect(cx-0.6,uy(c.ys[n])-0.6,2.2,2.2);
       }
-      ctx.fillStyle = `rgba(${r},${g},${b},${s[2]})`;
-      for (let n = 0; n < NSAMP; n++) ctx.fillRect(cx, uy(c.ys[n]), s[3], s[3]);
+      ctx.fillStyle=`rgba(${r},${g},${b},${s[2]})`;
+      for(let n=0;n<NSAMP;n++) ctx.fillRect(cx,uy(c.ys[n]),s[3],s[3]);
     }
 
-    // bifurcation thresholds: hairlines plus a tick on the axis, no crowded labels
-    [CUT1,CUT2,CUT3].forEach(g=>{
-      if (g > gNow) return;
+    [bif.b2,bif.b4,bif.bc].forEach(g=>{
+      if (g==null || g>gNow) return;
       ctx.strokeStyle='rgba(11,21,38,.20)'; ctx.setLineDash([2,4]); ctx.lineWidth=1;
       ctx.beginPath(); ctx.moveTo(gx(g),PAD_T); ctx.lineTo(gx(g),PAD_T+ph); ctx.stroke();
       ctx.setLineDash([]);
@@ -1345,67 +1374,105 @@ if (hasGSAP && !REDUCED) {
       ctx.lineTo(gx(g)+3.2,PAD_T+ph+5.5); ctx.closePath(); ctx.fill();
     });
 
-    // frame
     ctx.strokeStyle='#ccd6e3'; ctx.lineWidth=1;
     ctx.beginPath(); ctx.moveTo(PAD_L,PAD_T); ctx.lineTo(PAD_L,PAD_T+ph);
     ctx.lineTo(PAD_L+pw,PAD_T+ph); ctx.stroke();
 
-    // sweep: a soft trailing glow, then a fine line
-    if (upto > 0 && upto < COLS){
-      const cx = gx(gNow);
-      const gl = ctx.createLinearGradient(cx-70,0,cx,0);
+    if (upto>0 && upto<COLS){
+      const cx=gx(gNow);
+      const gl=ctx.createLinearGradient(cx-70,0,cx,0);
       gl.addColorStop(0,'rgba(255,90,31,0)'); gl.addColorStop(1,'rgba(255,90,31,0.16)');
-      ctx.fillStyle = gl; ctx.fillRect(Math.max(PAD_L,cx-70), PAD_T, Math.min(70,cx-PAD_L), ph);
+      ctx.fillStyle=gl; ctx.fillRect(Math.max(PAD_L,cx-70),PAD_T,Math.min(70,cx-PAD_L),ph);
       ctx.strokeStyle='rgba(255,90,31,0.85)'; ctx.lineWidth=1.2;
       ctx.beginPath(); ctx.moveTo(cx,PAD_T); ctx.lineTo(cx,PAD_T+ph); ctx.stroke();
       ctx.fillStyle='rgba(255,90,31,0.9)';
       ctx.beginPath(); ctx.arc(cx,PAD_T-4,2.2,0,7); ctx.fill();
     }
 
-    // axis row, then the thresholds row — two separate lines, never crowded
     ctx.fillStyle='rgba(132,147,166,.95)'; ctx.font='9'+MONO;
-    ctx.fillText('γ = 0.22', PAD_L, H-27);
-    ctx.fillText('0.42', PAD_L+pw-22, H-27);
-    ctx.fillText('forcing amplitude γ', PAD_L+pw/2-48, H-27);
+    ctx.fillText('γ = '+P.g0.toFixed(2), PAD_L, H-26);
+    ctx.fillText(P.g1.toFixed(2), PAD_L+pw-22, H-26);
+    ctx.fillText('forcing amplitude γ', PAD_L+pw/2-48, H-26);
     ctx.fillStyle='rgba(11,21,38,.40)'; ctx.font='8'+MONO;
-    ctx.fillText('bifurcations  0.265  ·  0.287  ·  chaos from 0.292', PAD_L, H-9);
+    ctx.fillText('measured  1→2 '+fmt(bif.b2)+'   2→4 '+fmt(bif.b4)+'   chaos '+fmt(bif.bc), PAD_L, H-9);
 
     if (rval){
-      const c = cols[Math.min(COLS-1, Math.max(0, upto-1))];
-      const lab = !c ? '' : c.per===1 ? ' · period-1' : c.per===2 ? ' · period-2'
-                : c.per<=4 ? ' · period-4' : c.per<=8 ? ' · period-8' : ' · chaotic';
-      rval.textContent = 'γ = ' + gNow.toFixed(3) + lab;
+      const c=cols[Math.min(COLS-1,Math.max(0,upto-1))];
+      const lab=!c?'':c.per===1?' · period-1':c.per===2?' · period-2'
+              :c.per<=4?' · period-4':c.per<=8?' · period-8':' · chaotic';
+      rval.textContent='γ = '+gNow.toFixed(3)+lab;
     }
   }
 
-  size(); draw(0);
-  addEventListener('resize', () => { size(); draw(lastP); });
+  function reset(){
+    cols=new Array(COLS).fill(null); built=0;
+    bif={b2:null,b4:null,bc:null};
+    if (figure) figure.classList.add('is-busy');
+    draw(lastP);
+  }
 
-  let visible = false;
-  new IntersectionObserver(e => { visible = e[0].isIntersecting; }, { rootMargin:'500px' })
-    .observe(canvas);
+  size(); draw(0);
+  addEventListener('resize',()=>{size();draw(lastP);});
+
+  let visible=false;
+  new IntersectionObserver(e=>{visible=e[0].isIntersecting;},{rootMargin:'500px'}).observe(canvas);
   (function work(){
     requestAnimationFrame(work);
-    if (built >= COLS) return;
-    const budget = visible ? 10 : 3;
-    const t0 = performance.now(); let n = 0;
-    while (built < COLS && n < budget && performance.now()-t0 < 9){ build(built++); n++; }
-    if (built <= Math.ceil(lastP*COLS)+10) draw(lastP);
+    if (built>=COLS){ if(figure) figure.classList.remove('is-busy'); return; }
+    const budget=visible?10:3, t0=performance.now(); let n=0;
+    while (built<COLS && n<budget && performance.now()-t0<9){ build(built++); n++; }
+    if (built===COLS) detect();
+    draw(lastP);
   })();
 
-  const stages = Array.from(document.querySelectorAll('.chaos__stage'));
-  const CUTS = [0, (CUT1-G0)/(G1-G0), (CUT2-G0)/(G1-G0), (CUT3-G0)/(G1-G0), 0.78];
+  /* ---- controls ---- */
+  const el=id=>document.getElementById(id);
+  let deb=null;
+  function sync(recompute){
+    P.ze=parseFloat(el('cs-ze').value); P.om=parseFloat(el('cs-om').value);
+    P.g0=parseFloat(el('cs-g0').value); P.g1=parseFloat(el('cs-g1').value);
+    if (P.g1 < P.g0+0.03){ P.g1=P.g0+0.03; el('cs-g1').value=P.g1; }
+    el('cv-ze').textContent=P.ze.toFixed(2); el('cv-om').textContent=P.om.toFixed(2);
+    el('cv-g0').textContent=P.g0.toFixed(3); el('cv-g1').textContent=P.g1.toFixed(3);
+    if (recompute){ clearTimeout(deb); deb=setTimeout(reset,120); }
+  }
+  ['cs-ze','cs-om','cs-g0','cs-g1'].forEach(id=>{
+    const s=el(id); if(s) s.addEventListener('input',()=>sync(true));
+  });
+  const auto=el('cs-auto');
+  if (auto) auto.addEventListener('click',()=>{
+    // coarse scan for the first doubling and the onset of chaos, then frame them
+    const A=0.02,B=0.90,N=70; let g2=null,gc=null;
+    for(let i=0;i<N;i++){
+      const g=A+(B-A)*i/(N-1);
+      const p=periodOf(integrate(g,80,60,32),0.004);
+      if(g2===null&&p>=2) g2=g;
+      if(gc===null&&p>8){ gc=g; break; }
+    }
+    if(g2===null){ el('cs-g0').value=A; el('cs-g1').value=B; }
+    else{
+      if(gc===null) gc=Math.min(B,g2+0.12);
+      const span=Math.max(0.02,gc-g2);
+      el('cs-g0').value=Math.max(0,g2-1.3*span).toFixed(3);
+      el('cs-g1').value=Math.min(1,gc+4.5*span).toFixed(3);
+    }
+    sync(true);
+  });
+  sync(false);
+
+  const stages=Array.from(document.querySelectorAll('.chaos__stage'));
   function setStage(p){
-    let idx = 0;
-    for (let i = 0; i < CUTS.length; i++) if (p >= CUTS[i]) idx = i;
-    stages.forEach((s,i)=>s.classList.toggle('is-live', i === idx));
+    const fr=g=>(g==null)?null:(g-P.g0)/(P.g1-P.g0);
+    const c=[0, fr(bif.b2)??0.25, fr(bif.b4)??0.45, fr(bif.bc)??0.60, 0.80];
+    let idx=0; for(let i=0;i<c.length;i++) if(c[i]!=null && p>=c[i]) idx=i;
+    stages.forEach((s,i)=>s.classList.toggle('is-live',i===idx));
   }
   if (window.ScrollTrigger){
     window.ScrollTrigger.create({
-      trigger: track, start:'top top', end:'bottom bottom', scrub:0.5,
-      onUpdate: self => { lastP = self.progress; draw(lastP); setStage(lastP); }
+      trigger:track,start:'top top',end:'bottom bottom',scrub:0.5,
+      onUpdate:self=>{ lastP=self.progress; draw(lastP); setStage(lastP); }
     });
-  } else { lastP = 1; draw(1); setStage(1); }
+  } else { lastP=1; draw(1); setStage(1); }
 })();
 
 /* ---------------------------------------------------------------
