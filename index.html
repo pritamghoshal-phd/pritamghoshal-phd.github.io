@@ -295,6 +295,12 @@ body::after{
   font-size:.88rem;font-weight:500;text-decoration:none}
 .skip-link:focus{left:0}
 main:focus{outline:none}
+/* A keyboard user has to be able to see which slider they are on.
+   outline:none above kills the global :focus-visible ring, so put one back
+   on the thumb, where it actually reads on a 3px-tall track. */
+input[type=range]:focus-visible{outline:2px solid var(--accent);outline-offset:6px;border-radius:6px}
+input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(var(--accent-rgb),.3)}
+input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px rgba(var(--accent-rgb),.3)}
 
 /* motion control — injected by polish.js on pages that animate */
 .motion-toggle{position:fixed;right:1rem;bottom:1rem;z-index:950;

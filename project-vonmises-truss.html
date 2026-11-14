@@ -191,27 +191,37 @@
       </div>
       <div class="fig__ctrls">
         <div class="fig__ctrl">
-          <label>Forcing γ <b id="tv-g">0.45</b></label>
-          <input type="range" id="tr-g" min="0.15" max="0.90" step="0.01" value="0.45" />
+          <label>F&#8320; &mdash; forcing amplitude <b id="tv-g">0.45</b></label>
+          <input type="range" id="tr-g" min="0.10" max="1.20" step="0.01" value="0.45" />
         </div>
         <div class="fig__ctrl">
-          <label>Drive frequency ω <b id="tv-w">0.80</b></label>
-          <input type="range" id="tr-w" min="0.40" max="1.40" step="0.01" value="0.80" />
+          <label>&Omega; &mdash; forcing frequency <b id="tv-w">10.0</b></label>
+          <input type="range" id="tr-w" min="2" max="20" step="0.1" value="10" />
         </div>
         <div class="fig__ctrl">
-          <label>β &mdash; relaxation strength <b id="tv-b">0.30</b></label>
-          <input type="range" id="tr-b" min="0.05" max="0.85" step="0.01" value="0.30" />
+          <label>&beta; &mdash; relaxation strength <b id="tv-b">0.50</b></label>
+          <input type="range" id="tr-b" min="0.05" max="0.85" step="0.01" value="0.50" />
         </div>
         <div class="fig__ctrl">
-          <label>λ &mdash; element stiffness <b id="tv-l">0.15</b></label>
-          <input type="range" id="tr-l" min="0.02" max="0.24" step="0.01" value="0.15" />
+          <label>&lambda; &mdash; relative stiffness <b id="tv-l">0.10</b></label>
+          <input type="range" id="tr-l" min="0.02" max="0.24" step="0.01" value="0.10" />
+        </div>
+        <div class="fig__ctrl">
+          <label>De &mdash; Deborah number <b id="tv-d">10.0</b></label>
+          <input type="range" id="tr-d" min="1" max="20" step="0.5" value="10" />
+        </div>
+        <div class="fig__ctrl" style="justify-content:flex-end">
+          <label>largest Lyapunov exponent <b id="tv-lle">&mdash;</b></label>
+          <div id="tv-verdict" style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--sub)">settling&hellip;</div>
         </div>
       </div>
       <div class="fig__ctrls" style="padding-top:0">
         <button class="btn btn--solid" id="tr-reset" type="button">Restart</button>
       </div>
       <p class="fig__cap">
-        <b>Figure 3.</b> The system integrated live under <b>force control</b> — γcos(ωT) is an external force on the mass and U is never prescribed; it falls out of the equations. <b>Left:</b> the truss, apex crossing the dashed support line and turning amber past the barrier. <b>Right:</b> the phase portrait with the <b>Poincaré section</b> sampled once per forcing period in orange. At γ = 0.45, ω = 0.80, β = 0.30, λ = 0.15 the largest Lyapunov exponent is <b>+0.139</b> and the points fill a fractal cloud; raise β toward 0.7 and it falls to +0.06 and the attractor tightens. <b>Below:</b> U(T) against the viscoelastic stress Σ(T), with the barrier marked. Σ lags U and relaxes to Σ = U in steady state, which is why the equilibria stay pinned at U = 0 and 3/2 ± √(1−4λ)/2 whatever β is — the λ slider moves them, β does not.</p>
+        <b>Figure 3.</b> Equations (1)–(2) integrated live under <b>force control</b> — F₀cos(ΩT) is an external force on the mass; U is never prescribed, it falls out of the equations. The sliders open at the paper's own baseline: λ = 0.1, β = 0.5, De = 10. <b>Left:</b> the truss, apex crossing the dashed support line and turning amber past the barrier. <b>Right:</b> the phase portrait with the <b>Poincaré section</b> sampled once per forcing period in orange. <b>Below:</b> U(T) against the viscoelastic stress Σ(T). Σ lags U and relaxes to Σ = U in steady state, which is why the equilibria stay pinned at U = 0 and 3/2 ± √(1−4λ)/2 whatever β is — the λ slider moves them, β does not.
+        <br /><br />
+        The readout is the <b>largest Lyapunov exponent</b>, computed live by Benettin renormalisation on a shadow orbit — the same diagnostic the chaos paper used to confirm its Melnikov threshold. At the baseline it crosses from negative to strongly positive between <b>F₀ = 0.28</b> and <b>F₀ = 0.32</b>: below, the Poincaré points settle onto a handful of dots; above, they fill a fractal cloud. Pull <b>De</b> down toward 1 and the slow–fast separation that makes this system a jerk system disappears with it.</p>
     </div>
   </div>
 </section>
@@ -295,7 +305,8 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
   const css=getComputedStyle(document.documentElement); const C=k=>css.getPropertyValue(k).trim();
 
-  const P={lam:0.15, be:0.30, g:0.45, om:0.80};
+  // Baseline is the paper's own: lambda = 0.1, beta = 0.5, De = 10 (IJNLM 166:104858, Sec. 4).
+  const P={lam:0.10, be:0.50, F0:0.45, Om:10.0, De:10.0};
   const K=()=>2+P.lam;   // static stiffness once Sigma relaxes to U
   const R2=()=>1.5+Math.sqrt(Math.max(0,1-4*P.lam))/2;
   const BAR=()=>1.5-Math.sqrt(Math.max(0,1-4*P.lam))/2;
@@ -305,20 +316,40 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   let poin=[], nextP=0;
   const traj=[]; const TRAJ=1600;
 
-  function reset(){ U=0.3; Ud=0; Sig=0.3; t=0; hist.length=0; poin=[]; traj.length=0; nextP=0; }
+  // shadow orbit for the Lyapunov estimate
+  const D0=1e-8, DT=0.0009;
+  let sU=0.3+D0, sUd=0, sSig=0.3, lsum=0, ln=0;
+
+  function reset(){ U=0.3; Ud=0; Sig=0.3; t=0; hist.length=0; poin=[]; traj.length=0; nextP=0;
+    sU=0.3+D0; sUd=0; sSig=0.3; lsum=0; ln=0; }
 
   function step(dt){
-    // FORCE control: gamma*cos(omega T) is an external force on the mass.
-    // U is never prescribed -- it comes out of the equations.
-    //   U'' + U^3 - 3U^2 + 2U + lambda*Sigma = gamma cos(omega T)
+    // The paper's Eqs. (6) and (7), verbatim. FORCE control: F0*cos(Omega T) is an
+    // external force on the mass; U is never prescribed, it comes out of the equations.
+    //   De^-2 U'' = U(U-2)(1-U) - lambda*Sigma + F0 cos(Omega T)
     //   (1/(1-beta)) U' + U = Sigma' + Sigma        <- the SLS constitutive law
-    const a=-U*U*U+3*U*U-2*U-P.lam*Sig+P.g*Math.cos(P.om*t);
+    // Note the De^2: the Deborah number is what separates the fast elastic
+    // oscillation from the slow stress relaxation. Dropping it (De = 1) collapses
+    // the two timescales and the slow-fast structure disappears.
+    const D2=P.De*P.De;
+    const a=D2*(-U*U*U+3*U*U-2*U-P.lam*Sig+P.F0*Math.cos(P.Om*t));
     Ud+=a*dt; U+=Ud*dt;
     Sig+=(-Sig+U+Ud/(1-P.be))*dt; t+=dt;
     if(!isFinite(U)||Math.abs(U)>60){ reset(); return; }
-    const Tp=2*Math.PI/P.om;
+
+    // largest Lyapunov exponent, Benettin renormalisation on a shadow orbit --
+    // the same diagnostic the chaos paper used to confirm the Melnikov threshold
+    const sa=D2*(-sU*sU*sU+3*sU*sU-2*sU-P.lam*sSig+P.F0*Math.cos(P.Om*(t-dt)));
+    sUd+=sa*dt; sU+=sUd*dt; sSig+=(-sSig+sU+sUd/(1-P.be))*dt;
+    const d=Math.hypot(sU-U,sUd-Ud,sSig-Sig);
+    if(d>0 && isFinite(d)){
+      lsum+=Math.log(d/D0); ln++;
+      const k=D0/d; sU=U+(sU-U)*k; sUd=Ud+(sUd-Ud)*k; sSig=Sig+(sSig-Sig)*k;
+    }
+    const Tp=2*Math.PI/P.Om;
     if(t>=nextP){ if(t>20) { poin.push({u:U,v:Ud}); if(poin.length>900) poin.shift(); } nextP+=Tp; }
   }
+  function lle(){ return ln>400 ? lsum/(ln*DT) : NaN; }
 
   // ---------- panel 1: the truss ----------
   function drawTruss(x0,y0,w,hgt){
@@ -423,7 +454,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     ctx.beginPath();ctx.moveTo(W*0.42,30);ctx.lineTo(W*0.42,H*0.56-20);ctx.stroke();
   }
 
-  [['tr-g','tv-g','g',2],['tr-b','tv-b','be',2],['tr-l','tv-l','lam',2],['tr-w','tv-w','om',2]]
+  [['tr-g','tv-g','F0',2],['tr-b','tv-b','be',2],['tr-l','tv-l','lam',2],['tr-w','tv-w','Om',1],['tr-d','tv-d','De',1]]
   .forEach(a=>{
     const R=document.getElementById(a[0]), V=document.getElementById(a[1]);
     if(!R) return;
@@ -441,9 +472,21 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     const dtr=Math.min((now-last)/1000,.05); last=now;
     if(!live) return;
     acc+=dtr; let g=0;
-    while(acc>=0.004&&g++<400){ step(0.009); acc-=0.004; }
+    while(acc>=0.0009&&g++<1400){ step(DT); acc-=0.0009; }
     traj.push({u:U,v:Ud}); if(traj.length>TRAJ) traj.shift();
     if(fr++%2===0){ hist.push({u:U,f:Sig}); if(hist.length>HIST) hist.shift(); }
+    if(fr%12===0){
+      const L=lle(), el=document.getElementById('tv-lle'), vd=document.getElementById('tv-verdict');
+      if(el && vd){
+        if(!isFinite(L)){ el.textContent='—'; vd.textContent='settling…'; }
+        else{
+          el.textContent=(L>=0?'+':'')+L.toFixed(3);
+          const chaotic=L>0.004;
+          vd.textContent=chaotic?'chaotic — nearby states diverge':'regular — nearby states stay close';
+          vd.style.color=chaotic?'var(--accent-2)':'var(--sub)';
+        }
+      }
+    }
     render();
   })(performance.now());
 })();

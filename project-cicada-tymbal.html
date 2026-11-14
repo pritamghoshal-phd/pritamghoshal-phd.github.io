@@ -476,7 +476,7 @@
         <button class="btn btn--solid" id="cr-go" type="button">Restart actuation cycle</button>
       </div>
       <p class="fig__cap">
-        <b>Figure 4.</b> Eqs. (1)&ndash;(2) with the tymbal muscle added as a static pull <i>F</i>(<i>T</i>) on the truss equation, integrated live on a 20-cell chain. The muscle only ever <i>pulls</i>: <i>F</i> ramps up, holds, and is released to zero &mdash; there is no push in the opposite direction. What makes that work is that the rib is <b>monostable when unloaded</b>. With &lambda;<sub>1</sub>+&lambda;<sub>2</sub>&nbsp;=&nbsp;0.32 the chain is bistable only for <i>F</i> between 0.10 and 0.54; at <i>F</i>&nbsp;=&nbsp;0 the buckled state does not exist at all, so the instant the muscle lets go every rib has nowhere to sit but flat and the chitin snaps them back. The cycle runs: contract, drive rib&nbsp;1 past the barrier, let the front travel the chain leaving every cell latched, then release the moment it reaches the far end. Release is about 2.8&times; faster than buckling, matching the asymmetry in the paper. The bar at top left tracks the pull with the phase named beside it; the dashed levels and the amber tick on every gauge move as the load tilts the well, and both vanish at release when bistability disappears. Take F<sub>hold</sub> below 0.32 and the front stops latching; above 0.54 the flat state disappears and the whole chain snaps at once with no wave.</p>
+        <b>Figure 4.</b> Eqs. (1)&ndash;(2) with the tymbal muscle added as a static pull <i>F</i>(<i>T</i>) on the truss equation, integrated live on a 20-cell chain. The muscle only ever <i>pulls</i>: <i>F</i> ramps up, holds, and is released to zero &mdash; there is no push in the opposite direction. What makes that work is that the rib is <b>monostable when unloaded</b>. With &lambda;<sub>1</sub>+&lambda;<sub>2</sub>&nbsp;=&nbsp;0.32 the chain is bistable only for <i>F</i> between 0.10 and 0.54; at <i>F</i>&nbsp;=&nbsp;0 the buckled state does not exist at all, so the instant the muscle lets go every rib has nowhere to sit but flat and the chitin snaps them back. The cycle runs: contract, drive rib&nbsp;1 past the barrier, let the front travel the chain leaving every cell latched, then release the moment it reaches the far end. Release is about 1.4&times; faster than buckling: the un-buckling front crosses the chain in 6.2 time units against 8.5 for the buckling front. The bar at top left tracks the pull with the phase named beside it; the dashed levels and the amber tick on every gauge move as the load tilts the well, and both vanish at release when bistability disappears. Take F<sub>hold</sub> below 0.25 and the front stops latching before it reaches the far end; above 0.54 the flat state disappears and the whole chain snaps at once with no wave.</p>
     </div>
     <h2 class="sec-title">Result</h2>
     <p>The model reproduces both the snap-through dynamics of the tymbals and the subsequent acoustic
@@ -527,7 +527,12 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
   const N=20;
   const P={R1:5.0, R2:5.0, l1:0.27, l2:0.05, M:1.0, z:0.18, Fh:0.42};
-  const TRAMP=2.5, TNUC=1.2, TREST=4.0, TSETTLE=1.5, UNUC=2.6;
+  // TREST is a safety timeout, not the schedule: the release phase is meant to
+  // end on its own when every rib has dropped back below the barrier, which
+  // takes about 6.2 time units at these parameters. At the old TREST=4.0 the
+  // timeout fired first and reset() zeroed the chain while three ribs were
+  // still visibly buckled, so the snap-back looked like a teleport.
+  const TRAMP=2.5, TNUC=1.2, TREST=9.0, TSETTLE=3.0, UNUC=2.6;
 
   let U=new Float64Array(N), Ud=new Float64Array(N),
       V=new Float64Array(N), Vd=new Float64Array(N);
