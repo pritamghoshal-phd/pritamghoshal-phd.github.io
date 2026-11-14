@@ -57,7 +57,7 @@
 
 <section class="page-header">
   <div class="wrap hero-inner reveal">
-    <div class="eyebrow">Project · four papers, 2024–2025</div>
+    <div class="eyebrow">Project · two papers, 2024</div>
     <h1 class="page-title">Dynamics of the viscoelastic <em>bistable von Mises truss</em></h1>
     <p class="hero-sub">
       What happens when a structure that can snap between two stable states is also made of a material
@@ -181,6 +181,37 @@
       <p class="fig__cap"><b>Figure 2.</b> The quadratic nonlinearity of the truss contributes a &minus;<i>U</i>&sup3; term, so the potential &Pi;(<i>U</i>) = <i>U</i>&#8308;/4 &minus; <i>U</i>&sup3; + (&lambda;+2)<i>U</i>&sup2;/2 is <b>asymmetric</b>, with equilibria at <b>U = 0</b> and <b>3/2 &plusmn; &radic;(1&minus;4&lambda;)/2</b> &mdash; bistable only for &lambda; &lt; &frac14;. With &lambda; = 0.15 the barrier sits at 1.184 and the snapped state at 1.816, which lies &Delta;&Pi; = 0.275 <i>above</i> the natural state &mdash; which is why state B is metastable and the truss snaps back. Adding the viscoelastic force as a first-order equation turns the pair into a <b>third-order jerk system</b>: a fast mechanical mode coupled to a slow material one, and that timescale mismatch is what drives the system into chaos.</p>
     </div>
 
+    <div class="body-copy reveal" style="max-width:62rem;margin:3rem auto 0">
+      <h3 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.5rem;margin-bottom:.8rem">The equations, as the papers write them</h3>
+      <p>Non-dimensionalising on the elastic oscillation timescale gives a pair: a second-order equation
+        for the mass, and the standard linear solid's constitutive law for the viscoelastic force.</p>
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:1rem;
+                  padding:1.3rem 1.4rem;margin:1.2rem 0;box-shadow:var(--sh-sm);overflow-x:auto">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.86rem;line-height:2.1;color:var(--ink);white-space:nowrap">
+          <span style="color:var(--sub);display:inline-block;width:2.4rem">(1)</span>
+          De<sup>&minus;2</sup> d<sup>2</sup>U/dT<sup>2</sup> = U(U&minus;2)(1&minus;U) &minus; &lambda;&Sigma; + F<sub>0</sub> cos &Omega;T<br />
+          <span style="color:var(--sub);display:inline-block;width:2.4rem">(2)</span>
+          (1/(1&minus;&beta;)) dU/dT + U = d&Sigma;/dT + &Sigma;
+        </div>
+      </div>
+      <p>There is deliberately <b>no ζ dU/dT term</b>. In the viscoelastic case every bit of dissipation
+        comes through Σ; adding a separate viscous dashpot would be counting the same loss twice.
+        The symbols, with k the truss spring stiffness, α₀ its undeformed angle, w₀ the half-width, and
+        k₁, k₂, c the standard linear solid's parallel spring, series spring and damper:</p>
+      <ul style="font-size:.92rem;line-height:1.9;color:var(--muted);margin:.9rem 0 0 1.1rem">
+        <li><b>Σ</b> — the nondimensional viscoelastic force, Σ = f<sub>v</sub>/(k₁α₀w₀). A state
+          variable, not a parameter: it carries the material's memory.</li>
+        <li><b>β = k₂/(k₁+k₂)</b> — relaxation strength, 0 for a purely elastic element, 1 for a fluid.</li>
+        <li><b>λ = k₁/(kα₀²)</b> — relative stiffness, and the <em>static bifurcation parameter</em>.
+          The truss is bistable for 0 &lt; λ ≤ ¼ and monostable above it.</li>
+        <li><b>De</b> — the Deborah number, the ratio of the stress-relaxation time c/k₂ to the elastic
+          oscillation time. This is the parameter that makes the system slow–fast; the papers use
+          De = 10, large enough to separate the scales without making the fast motion impossible to
+          resolve numerically.</li>
+        <li><b>F₀, Ω</b> — forcing amplitude and frequency, F₀ = f₀/(kα₀³w₀) and Ω = ωc/k₂.</li>
+      </ul>
+    </div>
+
     <div class="fig reveal" id="fig-snap">
       <div class="fig__head">
         <span class="fig__no">Figure 3 &mdash; The jerk system, live</span>
@@ -221,7 +252,9 @@
       <p class="fig__cap">
         <b>Figure 3.</b> Equations (1)–(2) integrated live under <b>force control</b> — F₀cos(ΩT) is an external force on the mass; U is never prescribed, it falls out of the equations. The sliders open at the paper's own baseline: λ = 0.1, β = 0.5, De = 10. <b>Left:</b> the truss, apex crossing the dashed support line and turning amber past the barrier. <b>Right:</b> the phase portrait with the <b>Poincaré section</b> sampled once per forcing period in orange. <b>Below:</b> U(T) against the viscoelastic stress Σ(T). Σ lags U and relaxes to Σ = U in steady state, which is why the equilibria stay pinned at U = 0 and 3/2 ± √(1−4λ)/2 whatever β is — the λ slider moves them, β does not.
         <br /><br />
-        The readout is the <b>largest Lyapunov exponent</b>, computed live by Benettin renormalisation on a shadow orbit — the same diagnostic the chaos paper used to confirm its Melnikov threshold. At the baseline it crosses from negative to strongly positive between <b>F₀ = 0.28</b> and <b>F₀ = 0.32</b>: below, the Poincaré points settle onto a handful of dots; above, they fill a fractal cloud. Pull <b>De</b> down toward 1 and the slow–fast separation that makes this system a jerk system disappears with it.</p>
+        The readout is the <b>largest Lyapunov exponent</b>, computed live by Benettin renormalisation on a shadow orbit — the same diagnostic the chaos paper used to confirm its Melnikov threshold. At the baseline it crosses from negative to strongly positive between <b>F₀ = 0.28</b> and <b>F₀ = 0.32</b>: below, the Poincaré points settle onto a handful of dots; above, they fill a fractal cloud. Pull <b>De</b> down toward 1 and the slow–fast separation that makes this system a jerk system disappears with it.
+        <br /><br />
+        <span style="color:var(--sub)">On the number itself: the sign is the reliable part. This runs a fixed-step explicit scheme in a browser, so the magnitude is an estimate — against a fourth-order reference integrator the same parameters give about +0.95, and the live value wanders either side of that. What does not wander is which side of zero it sits on: −0.03 in the regular window at every step size tried, strongly positive once past the threshold.</span></p>
     </div>
   </div>
 </section>
@@ -229,39 +262,52 @@
 <section class="sec sec--alt">
   <div class="wrap two-col">
     <div class="card reveal">
-      <h3>Periodic response &amp; stability</h3>
-      <p><em>Int. J. Non-Linear Mechanics, 166:104858 (2024)</em></p>
-      <p>Using the harmonic balance method to capture the interplay between geometric and material
-        parameters under harmonic forcing. Principal findings:</p>
-      <ul>
-        <li>Viscoelasticity introduces additional timescales and degrees of freedom</li>
-        <li>The system supports multiple coexisting periodic solutions</li>
-        <li>An equivalent viscous damping approximation <strong>fails</strong> to reproduce the dynamics</li>
-        <li>An optimal configuration exists for maximum energy dissipation — directly useful for vibration suppression</li>
-      </ul>
-    </div>
-    <div class="card reveal">
       <h3>The presence of chaos</h3>
       <p><em>J. Computational &amp; Nonlinear Dynamics, 19(7):071009 (2024)</em></p>
-      <p>Establishes that the harmonically forced viscoelastic truss is genuinely chaotic, not merely
-        complicated. The slow–fast structure of the jerk system is what creates the route in.</p>
-      <p>This result mattered beyond its own paper: it defined the boundary I later needed for reservoir
-        computing, where the goal is to operate near the edge of chaos without crossing it.</p>
+      <p>The paper builds the argument in two steps. First the truss is damped <em>viscously</em>, which
+        reduces it to a Duffing equation carrying an extra <b>quadratic</b> nonlinearity — the quadratic
+        term is what makes the potential asymmetric, and it is a consequence of the truss geometry rather
+        than an assumption. Then the viscous dashpot is replaced by the viscoelastic element, and the
+        order of the system goes up: a second-order equation for the mechanical motion coupled to a
+        first-order equation for the viscoelastic force is, written as one equation,
+        a <b>third-order jerk system</b>.</p>
+      <p>Both regular and chaotic responses appear. The threshold between them is predicted analytically
+        with <b>Melnikov's criterion</b> — the condition for the stable and unstable manifolds of the
+        saddle to intersect transversally — and then checked numerically against the
+        <b>largest Lyapunov exponent</b>. Figure 3 above runs that second check live.</p>
+      <p>Bifurcation diagrams over the parameters are what identify the configurations that dissipate the
+        most energy, which is the practical pay-off: a damper tuned by its relaxation behaviour rather
+        than by adding more viscosity.</p>
     </div>
     <div class="card reveal">
-      <h3>High-frequency base excitation</h3>
-      <p><em>J. Computational &amp; Nonlinear Dynamics (2025)</em></p>
-      <p>High-frequency excitation is known to stiffen systems, bias them and smooth discontinuities. In a
-        multi-stable system those effects become far more consequential, because the bias toward one
-        equilibrium depends strongly on the combination of excitation and geometric parameters.</p>
-      <p>Practically: you can steer which well the structure prefers without changing the structure.</p>
-    </div>
-    <div class="card reveal">
-      <h3>Effect of boundary conditions</h3>
-      <p><em>ICNDA 2023, Springer Proceedings · with Q. Zhao</em></p>
-      <p>The earliest piece of the thread. Examines how boundary conditions reshape the bistability and
-        stability landscape of the truss, establishing the modelling assumptions the later journal papers
-        depend on.</p>
+      <h3>Periodic response &amp; stability</h3>
+      <p><em>Int. J. Non-Linear Mechanics, 166:104858 (2024)</em></p>
+      <p>Chaos having been established, this paper deliberately restricts itself to the
+        <em>periodic</em> solutions and goes after them with <b>harmonic balance</b>. A single-harmonic
+        truncation, U = A + B cos ΩT + C sin ΩT, gets most of the picture; a two-term version adding the
+        third superharmonic is needed to recover a branch near Ω<sub>n</sub>/3 that the single-term model
+        misses entirely.</p>
+      <p>What comes out is a response that is <b>multi-valued over most of the frequency range</b>.
+        Intrawell and interwell orbits coexist, so the final state depends strongly on where the system
+        started — a small change in initial condition moves it between a low orbit and a high one. The
+        large-amplitude cross-well orbit is the only stable periodic solution at low frequency and loses
+        stability through a Hopf bifurcation as frequency rises; continuation in MATCONT gives a positive
+        first Lyapunov coefficient, so that bifurcation is <b>subcritical</b>. An unstable branch near
+        Ω ≈ 12.1 corresponds to oscillation about the inverted configuration.</p>
+      <p>The paper then tests the obvious shortcut and rejects it. Matching energy dissipated per cycle
+        gives an equivalent viscous coefficient
+        <code style="font-family:'JetBrains Mono',monospace;font-size:.82em;color:var(--accent);white-space:nowrap">c<sub>eq</sub> = k₂²c / (k₂² + ω²c²)</code>
+        which is <b>frequency-dependent</b> — already a warning. Substituted back, the equivalent system
+        carries a damping coefficient βλ/[(1−β)(1+Ω²)], and because it assumes a harmonic response it
+        cannot represent quasiperiodic or chaotic motion at all. Even for periodic motion the responses
+        come out <b>out of phase and at the wrong amplitude</b>. The error is near zero at small Deborah
+        number and opens into a broad band as De grows: the approximation is only safe where the material
+        has no memory worth speaking of.</p>
+      <p>Finally, dissipation. Averaged energy loss per cycle scales with β/(1−β), so it vanishes at
+        β = 0 (a purely elastic element dissipates nothing) — but raising β also raises damping, which
+        suppresses amplitude. The two effects fight, and there is an interior optimum <b>β<sub>opt</sub></b>.
+        It rises with forcing amplitude and then saturates; below about Ω = 3 it first dips to a minimum
+        before rising again. That optimum is the design rule the thread was after.</p>
     </div>
   </div>
 </section>
@@ -318,10 +364,10 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
   // shadow orbit for the Lyapunov estimate
   const D0=1e-8, DT=0.0009;
-  let sU=0.3+D0, sUd=0, sSig=0.3, lsum=0, ln=0;
+  let sU=0.3+D0, sUd=0, sSig=0.3, lsum=0, ln=0, lt0=8;
 
   function reset(){ U=0.3; Ud=0; Sig=0.3; t=0; hist.length=0; poin=[]; traj.length=0; nextP=0;
-    sU=0.3+D0; sUd=0; sSig=0.3; lsum=0; ln=0; }
+    sU=0.3+D0; sUd=0; sSig=0.3; lsum=0; ln=0; lt0=8; }
 
   function step(dt){
     // The paper's Eqs. (6) and (7), verbatim. FORCE control: F0*cos(Omega T) is an
@@ -343,13 +389,13 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     sUd+=sa*dt; sU+=sUd*dt; sSig+=(-sSig+sU+sUd/(1-P.be))*dt;
     const d=Math.hypot(sU-U,sUd-Ud,sSig-Sig);
     if(d>0 && isFinite(d)){
-      lsum+=Math.log(d/D0); ln++;
+      if(t>lt0){ lsum+=Math.log(d/D0); ln++; }   // discard the transient
       const k=D0/d; sU=U+(sU-U)*k; sUd=Ud+(sUd-Ud)*k; sSig=Sig+(sSig-Sig)*k;
     }
     const Tp=2*Math.PI/P.Om;
     if(t>=nextP){ if(t>20) { poin.push({u:U,v:Ud}); if(poin.length>900) poin.shift(); } nextP+=Tp; }
   }
-  function lle(){ return ln>400 ? lsum/(ln*DT) : NaN; }
+  function lle(){ return ln>8900 ? lsum/(ln*DT) : NaN; }
 
   // ---------- panel 1: the truss ----------
   function drawTruss(x0,y0,w,hgt){
@@ -459,7 +505,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     const R=document.getElementById(a[0]), V=document.getElementById(a[1]);
     if(!R) return;
     R.addEventListener('input',()=>{P[a[2]]=parseFloat(R.value);V.textContent=P[a[2]].toFixed(a[3]);
-      poin=[]; traj.length=0;});
+      poin=[]; traj.length=0; lsum=0; ln=0; lt0=t+8;});
   });
   const rb=document.getElementById('tr-reset');
   if(rb) rb.addEventListener('click',reset);
@@ -472,7 +518,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     const dtr=Math.min((now-last)/1000,.05); last=now;
     if(!live) return;
     acc+=dtr; let g=0;
-    while(acc>=0.0009&&g++<1400){ step(DT); acc-=0.0009; }
+    while(acc>=0.00045&&g++<2800){ step(DT); acc-=0.00045; }
     traj.push({u:U,v:Ud}); if(traj.length>TRAJ) traj.shift();
     if(fr++%2===0){ hist.push({u:U,f:Sig}); if(hist.length>HIST) hist.shift(); }
     if(fr%12===0){

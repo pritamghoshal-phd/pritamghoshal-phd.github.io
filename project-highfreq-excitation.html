@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>High-Frequency Base Excitation of a Bistable Truss — Pritam Ghoshal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Shaking the base of a bistable von Mises truss fast enough stabilises the state it can never rest in. Direct separation of motions, the effective potential, and the pitchfork that turns the unstable middle equilibrium stable." />
+  <!-- social / discovery metadata -->
+  <link rel="canonical" href="https://pritamghoshal-phd.github.io/project-highfreq-excitation.html" />
+  <meta name="author" content="Pritam Ghoshal" />
+  <meta name="theme-color" content="#f2f5f9" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0b1526" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Pritam Ghoshal" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="High-Frequency Base Excitation of a Bistable Truss" />
+  <meta property="og:description" content="Shaking the base of a bistable von Mises truss fast enough stabilises the state it can never rest in — a supercritical pitchfork in the effective potential." />
+  <meta property="og:url" content="https://pritamghoshal-phd.github.io/project-highfreq-excitation.html" />
+  <meta property="og:image" content="https://pritamghoshal-phd.github.io/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Pritam Ghoshal — nonlinear dynamics, vibration and physical computing" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="High-Frequency Base Excitation of a Bistable Truss" />
+  <meta name="twitter:description" content="Shaking the base of a bistable von Mises truss fast enough stabilises the state it can never rest in — a supercritical pitchfork in the effective potential." />
+  <meta name="twitter:image" content="https://pritamghoshal-phd.github.io/og-image.png" />
+  <!-- /social -->
+<script>/* apply the saved theme before first paint, so there is no flash */
+(function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site.css" />
+<link rel="stylesheet" href="polish.css" />
+<style>
+/* page-local only — site.css and polish.css are untouched */
+.eqn{font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.75;color:var(--accent);
+  background:var(--bg-alt);border-left:3px solid var(--accent);border-radius:.5rem;
+  padding:.85rem 1.05rem;margin:1.1rem 0;overflow-x:auto}
+.mono-i{font-family:'JetBrains Mono',monospace;font-size:.88em;color:var(--accent)}
+.note{border:1px dashed var(--border-2);border-radius:.7rem;padding:.9rem 1.1rem;
+  margin-top:1.3rem;font-size:.88rem;background:rgba(var(--accent-3-rgb),.05)}
+.note b{color:var(--accent-3)}
+.fig__readout{display:flex;flex-wrap:wrap;gap:1.4rem;padding:0 1.3rem .9rem;
+  font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--sub)}
+.fig__readout b{color:var(--accent);font-weight:500}
+.fig__btns{display:flex;flex-wrap:wrap;gap:.5rem;padding:0 1.3rem 1.1rem}
+.mini{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.06em;
+  border:1px solid var(--border);border-radius:100px;padding:.34rem .8rem;background:var(--bg);
+  color:var(--ink);cursor:pointer;transition:border-color .2s,color .2s}
+.mini:hover{border-color:var(--accent);color:var(--accent)}
+.mini.is-on{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="nav__in">
+    <a href="index.html" class="nav__logo">Pritam <span>Ghoshal</span></a>
+    <nav class="nav__links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#research">Research</a>
+      <a href="publications.html">Publications</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="Pritam-Ghoshal-Resume.pdf" class="nav__cv">Résumé</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="page-header">
+  <div class="wrap hero-inner reveal">
+    <div class="eyebrow">Project · J. Comp. &amp; Nonlinear Dynamics, 2025</div>
+    <h1 class="page-title">Shaking a bistable truss into the state it <em>cannot rest in</em></h1>
+    <p class="hero-sub">
+      A von Mises truss has two stable states and one unstable one in between. Shake its base
+      sideways fast enough and the unstable state becomes stable — without changing the structure
+      at all.
+    </p>
+    <div class="hero-meta">
+      <strong>Role:</strong> Lead author ·
+      <strong>Co-authors:</strong> J. M. Gibert, A. K. Bajaj ·
+      <strong>Venue:</strong> JCND 20(8), 081004
+    </div>
+    <div class="pill-row">
+      <span class="tag">Direct separation of motions</span>
+      <span class="tag">Averaging</span>
+      <span class="tag">Pitchfork bifurcation</span>
+      <span class="tag">Multistability</span>
+      <span class="tag">MATLAB</span>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">The idea</h2>
+    <p>Fast vibration does strange things to slow dynamics. A pendulum hung upside down will stand up
+      if you shake its pivot quickly enough — Kapitza's result from 1951. The fast motion does not
+      average to nothing; it averages to an <strong>extra stiffness</strong>, and that stiffness can
+      change which states the system is willing to sit in.</p>
+    <p>This paper asks what that does to a structure that already has more than one state to choose
+      from. The von Mises truss is the simplest such structure: two inclined springs meeting at a
+      mass, stable at <b>X&nbsp;=&nbsp;0</b> and <b>X&nbsp;=&nbsp;2</b>, unstable at
+      <b>X&nbsp;=&nbsp;1</b> — the configuration where the bars lie flat and the slightest push sends
+      the mass to one side or the other. Instead of pushing the mass, we shake the <em>base</em>:
+      one pin slides horizontally at <span class="mono-i">y = Y₀ cos(ΩT)</span>.</p>
+
+    <div class="fig reveal">
+      <div class="fig__head"><span class="fig__no">Figure 1 — The system</span></div>
+      <div class="fig__body">
+        <svg viewBox="0 0 1270 470" xmlns="http://www.w3.org/2000/svg" role="img"
+             aria-label="A von Mises truss: two inclined springs of stiffness k meeting at a mass m that slides in a vertical slot, with a dashpot c above it. The right pin is fixed to ground; the left pin rides on a horizontal slider driven by the base displacement y equals Y zero cosine Omega T. The half width w zero, the undeformed spring angle alpha zero and the vertical displacement X are marked.">
+          <line x1="485.0" y1="86" x2="635.0" y2="86" stroke="var(--ink)" stroke-width="3"/><line x1="485.0" y1="86" x2="496.0" y2="73" stroke="var(--sub)" stroke-width="1.8"/><line x1="499.0" y1="86" x2="510.0" y2="73" stroke="var(--sub)" stroke-width="1.8"/><line x1="513.0" y1="86" x2="524.0" y2="73" stroke="var(--sub)" stroke-width="1.8"/><line x1="527.0" y1="86" x2="538.0" y2="73" stroke="var(--sub)" stroke-width="1.8"/><line x1="541.0" y1="86" x2="552.0" y2="73" stroke="var(--sub)" stroke-width="1.8"/><line x1="555.0" y1="86" x2="566.0" y2="73" stroke="var(--sub)" stroke-width="1.8"/><line x1="569.0" y1="86" x2="580.0" y2="73" stroke="var(--sub)" stroke-width="1.8"/><line x1="583.0" y1="86" x2="594.0" y2="73" stroke="var(--sub)" stroke-width="1.8"/><line x1="597.0" y1="86" x2="608.0" y2="73" stroke="var(--sub)" stroke-width="1.8"/><line x1="611.0" y1="86" x2="622.0" y2="73" stroke="var(--sub)" stroke-width="1.8"/><line x1="625.0" y1="86" x2="636.0" y2="73" stroke="var(--sub)" stroke-width="1.8"/>
+          <line x1="560.0" y1="86" x2="560.0" y2="111.60471904319304" stroke="var(--ink)" stroke-width="3"/><line x1="546.32" y1="111.60471904319304" x2="573.68" y2="111.60471904319304" stroke="var(--ink)" stroke-width="3.4"/><path d="M 541.0 97.60471904319304 L 541.0 141.2094380863861 L 579.0 141.2094380863861 L 579.0 97.60471904319304" fill="var(--bg-alt)" stroke="var(--ink)" stroke-width="2.6" stroke-linejoin="round"/>
+          <line x1="526.0" y1="76" x2="526.0" y2="352" stroke="var(--border-2)" stroke-width="3" stroke-linecap="round"/>
+          <line x1="594.0" y1="76" x2="594.0" y2="352" stroke="var(--border-2)" stroke-width="3" stroke-linecap="round"/>
+          <line x1="260.0" y1="300.0" x2="940.0" y2="300.0" stroke="var(--sub)" stroke-width="1.5" stroke-dasharray="7 7"/>
+          <path d="M 330.0 300.0 L 371.4 276.1 L 386.1 282.6 L 381.3 255.4 L 402.4 273.2 L 397.6 246.0 L 418.8 263.7 L 414.0 236.5 L 435.1 254.3 L 430.3 227.1 L 451.5 244.9 L 446.7 217.6 L 467.9 235.4 L 463.0 208.2 L 484.2 226.0 L 479.4 198.7 L 500.6 216.5 L 495.7 189.3 L 516.9 207.1 L 518.6 191.1 L 560.0 167.2" fill="none" stroke="var(--ink)" stroke-width="2.9" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 790.0 300.0 L 748.6 276.1 L 746.9 260.1 L 725.7 277.9 L 730.6 250.7 L 709.4 268.5 L 714.2 241.2 L 693.0 259.0 L 697.9 231.8 L 676.7 249.6 L 681.5 222.3 L 660.3 240.1 L 665.1 212.9 L 644.0 230.7 L 648.8 203.5 L 627.6 221.3 L 632.4 194.0 L 611.3 211.8 L 616.1 184.6 L 601.4 191.1 L 560.0 167.2" fill="none" stroke="var(--ink)" stroke-width="2.9" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 790.0 300.0 L 771.0 326.0 L 809.0 326.0 Z" fill="var(--bg-alt)" stroke="var(--ink)" stroke-width="2.6"/>
+          <line x1="747.0" y1="326.0" x2="833.0" y2="326.0" stroke="var(--ink)" stroke-width="3"/><line x1="747.0" y1="326.0" x2="736.0" y2="339.0" stroke="var(--sub)" stroke-width="1.8"/><line x1="761.0" y1="326.0" x2="750.0" y2="339.0" stroke="var(--sub)" stroke-width="1.8"/><line x1="775.0" y1="326.0" x2="764.0" y2="339.0" stroke="var(--sub)" stroke-width="1.8"/><line x1="789.0" y1="326.0" x2="778.0" y2="339.0" stroke="var(--sub)" stroke-width="1.8"/><line x1="803.0" y1="326.0" x2="792.0" y2="339.0" stroke="var(--sub)" stroke-width="1.8"/><line x1="817.0" y1="326.0" x2="806.0" y2="339.0" stroke="var(--sub)" stroke-width="1.8"/>
+          <circle cx="790.0" cy="300.0" r="9" fill="var(--bg-card)" stroke="var(--ink)" stroke-width="2.6"/>
+          <path d="M 330.0 300.0 L 311.0 326.0 L 349.0 326.0 Z" fill="var(--bg-alt)" stroke="var(--accent-2)" stroke-width="2.6"/>
+          <rect x="274.0" y="328.0" width="112" height="15" rx="7" fill="var(--accent-2)" opacity=".18" stroke="var(--accent-2)" stroke-width="2"/>
+          <line x1="226.0" y1="351.0" x2="434.0" y2="351.0" stroke="var(--border-2)" stroke-width="2.6"/>
+          <circle cx="302.0" cy="347.0" r="7" fill="var(--bg-card)" stroke="var(--border-2)" stroke-width="2.2"/>
+          <circle cx="358.0" cy="347.0" r="7" fill="var(--bg-card)" stroke="var(--border-2)" stroke-width="2.2"/>
+          <circle cx="330.0" cy="300.0" r="9" fill="var(--bg-card)" stroke="var(--accent-2)" stroke-width="2.6"/>
+          <line x1="244.0" y1="378.0" x2="416.0" y2="378.0" stroke="var(--accent-2)" stroke-width="3.4"/>
+          <path d="M 234.0 378.0 L 254.0 370.0 L 254.0 386.0 Z" fill="var(--accent-2)"/>
+          <path d="M 426.0 378.0 L 406.0 370.0 L 406.0 386.0 Z" fill="var(--accent-2)"/>
+          <circle cx="560.0" cy="167.2094380863861" r="26" fill="var(--accent)" stroke="var(--ink)" stroke-width="2.6"/>
+          <line x1="588.0" y1="167.2094380863861" x2="922" y2="167.2094380863861" stroke="var(--sub)" stroke-width="1.3" stroke-dasharray="5 6"/>
+          <line x1="802.0" y1="300.0" x2="922" y2="300.0" stroke="var(--sub)" stroke-width="1.3" stroke-dasharray="5 6"/>
+          <line x1="900" y1="167.2094380863861" x2="900" y2="300.0" stroke="var(--accent)" stroke-width="2.6"/>
+          <path d="M 900 167.2094380863861 L 892 186.2094380863861 L 908 186.2094380863861 Z" fill="var(--accent)"/>
+          <path d="M 900 300.0 L 892 281.0 L 908 281.0 Z" fill="var(--accent)"/>
+          <line x1="560.0" y1="308.0" x2="560.0" y2="432.0" stroke="var(--sub)" stroke-width="1.3" stroke-dasharray="5 6"/>
+          <line x1="790.0" y1="340.0" x2="790.0" y2="432.0" stroke="var(--sub)" stroke-width="1.3" stroke-dasharray="5 6"/>
+          <line x1="560.0" y1="418.0" x2="790.0" y2="418.0" stroke="var(--sub)" stroke-width="2.2"/>
+          <path d="M 560.0 418.0 L 579.0 410.0 L 579.0 426.0 Z" fill="var(--sub)"/>
+          <path d="M 790.0 418.0 L 771.0 410.0 L 771.0 426.0 Z" fill="var(--sub)"/>
+          <path d="M 716.0 300.0 A 74 74 0 0 1 725.9 263.0" fill="none" stroke="var(--accent-3)" stroke-width="2.4"/>
+          <text x="48" y="62" style="font-size:25px;font-family:Outfit,sans-serif" fill="var(--accent)" font-weight="600">von Mises truss on a horizontally shaken base</text>
+          <text x="560.0" y="177.2094380863861" style="font-size:27px;font-family:Outfit,sans-serif;font-style:italic" fill="var(--on-accent)" text-anchor="middle" font-weight="600">m</text>
+          <text x="465" y="268" style="font-size:27px;font-family:Outfit,sans-serif;font-style:italic" fill="var(--ink)" text-anchor="middle" font-weight="600">k</text>
+          <text x="625" y="268" style="font-size:27px;font-family:Outfit,sans-serif;font-style:italic" fill="var(--ink)" text-anchor="middle" font-weight="600">k</text>
+          <text x="612" y="120" style="font-size:27px;font-family:Outfit,sans-serif;font-style:italic" fill="var(--ink)" font-weight="600">c</text>
+          <text x="688" y="280" style="font-size:25px;font-family:'JetBrains Mono',monospace" fill="var(--accent-3)" text-anchor="end" font-weight="600">α₀</text>
+          <text x="675" y="408" style="font-size:24px;font-family:'JetBrains Mono',monospace" fill="var(--sub)" text-anchor="middle" font-weight="600">w₀</text>
+          <text x="922" y="236" style="font-size:26px;font-family:'JetBrains Mono',monospace" fill="var(--accent)" font-weight="600">X</text>
+          <text x="330.0" y="412" style="font-size:24px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)" text-anchor="middle" font-weight="600">y = Y₀ cos(ΩT)</text>
+          <text x="824.0" y="352.0" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--sub)">fixed</text>
+          <text x="48" y="446" style="font-size:19px;font-family:'JetBrains Mono',monospace" fill="var(--muted)">the mass moves only vertically in the slot; the left pin slides horizontally</text>
+        </svg>
+      </div>
+      <p class="fig__cap">
+        <b>Figure 1.</b> The mass <i>m</i> is constrained to move <b>only vertically</b> in a slot, so
+        the single degree of freedom <i>X</i> is its height. The dashpot <i>c</i> is the only
+        dissipation. The right pin is grounded; the <b>left pin slides horizontally</b> under the base
+        displacement <i>y</i>&nbsp;=&nbsp;<i>Y</i>₀&nbsp;cos(Ω<i>T</i>). Lengths are scaled by
+        <i>α</i>₀<i>w</i>₀, so <i>X</i>&nbsp;=&nbsp;0 and <i>X</i>&nbsp;=&nbsp;2 are the two stable
+        configurations and <i>X</i>&nbsp;=&nbsp;1 is the flat, unstable one. The amplitude is bounded
+        by <i>Y</i>₀&nbsp;&lt;&nbsp;1/<i>α</i>₀, which keeps the moving pin inside the truss width.</p>
+    </div>
+
+    <h2 class="sec-title" style="margin-top:2.5rem">What the shaking actually does</h2>
+    <p>The equation of motion in nondimensional form is</p>
+    <p class="eqn">X″ + 2ζX′ + X³ − 3X² + [ (Y₀²/2)cos²(ΩT) + (Y₀/α₀)cos(ΩT) + 2 ] X
+       − (Y₀²/2)cos²(ΩT) − (Y₀/α₀)cos(ΩT) = 0</p>
+    <p>which looks unpromising until you notice that every term carrying a cosine shares a factor.
+      Collect them and the equation becomes</p>
+    <p class="eqn">X″ + 2ζX′ + X(X−1)(X−2) + g(T)·(X−1) = 0,
+       &nbsp;&nbsp; g(T) = (Y₀²/2)cos²(ΩT) + (Y₀/α₀)cos(ΩT)</p>
+    <p>I checked this rearrangement against the printed equation at ten thousand random states; it
+      agrees to 10⁻¹⁴. And it says something the original form hides: <strong>the base excitation
+      enters only as a time-varying stiffness attached to the distance from the middle
+      state</strong>. Whatever the shaking does, it does it by pulling on <i>X</i>&nbsp;−&nbsp;1.</p>
+    <p>Separating the motion into a slow part <i>z</i> and a fast part <i>φ</i> riding on it, with
+      <span class="mono-i">φ = (Y₀/α₀)(z−1)cos(ΩT) + (Y₀²/16)(z−1)cos(2ΩT)</span>, and averaging over
+      the fast scale replaces <i>g</i>(<i>T</i>) with a constant:</p>
+    <p class="eqn">z″ + 2ζz′ + z(z−1)(z−2) + G·(z−1) = 0,
+       &nbsp;&nbsp; G = Y₀²/4 + Y₀⁴/(128Ω²) + Y₀²/(2α₀²Ω²)</p>
+    <p>The first term is just the mean of <i>g</i>; the other two are the correction from the fast
+      motion feeding back on itself. Because the <i>(z−1)</i> factor survives averaging, the
+      equilibria factor too:</p>
+    <p class="eqn">(z − 1)(z² − 2z + G) = 0 &nbsp;&nbsp;⟹&nbsp;&nbsp; z = 1, &nbsp; 1 ± √(1 − G)</p>
+    <p>and the whole result falls out of that one line. The middle state is <em>always</em> an
+      equilibrium. Its stiffness is <b>G − 1</b>: negative — unstable — when the shaking is weak,
+      and <strong>positive once G passes 1</strong>. The outer pair have stiffness 2(1&nbsp;−&nbsp;G),
+      so they exist and are stable only while G&nbsp;&lt;&nbsp;1, and as G climbs they slide inward
+      and merge into the middle state exactly when it turns stable. That is a supercritical
+      pitchfork, and the threshold is simply <b>G&nbsp;=&nbsp;1</b>.</p>
+    <p class="note"><b>A note on the algebra.</b> The paper prints the O(1/Ω²) term two different ways
+      in Eqs. (14) and (16). Only the <span class="mono-i">Y₀⁴/(128Ω²)</span> form reproduces the
+      paper's own quoted threshold of <i>Y</i>₀<sub>cr</sub>&nbsp;=&nbsp;1.758 for
+      <i>α</i>₀&nbsp;=&nbsp;30°, Ω&nbsp;=&nbsp;5 — it gives 1.7570, against 1.7588 for the other. The
+      figures below use the <i>Y</i>₀⁴ form throughout.</p>
+  </div>
+</section>
+
+<section class="sec sec--alt">
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">The effective potential, live</h2>
+    <p>Averaging turns the shaking into a potential the slow motion falls down. Drag <i>Y</i>₀ and
+      watch the middle hump invert.</p>
+
+    <div class="fig reveal">
+      <div class="fig__head">
+        <span class="fig__no">Figure 2 — Effective potential V<sub>d</sub>(z)</span>
+        <span class="fig__live">live</span>
+      </div>
+      <div class="fig__body">
+        <canvas id="hf-pot" width="1520" height="650" role="img" aria-label="The effective potential of the slow dynamics. As the shaking amplitude rises the central hump between the two wells flattens and then inverts into a well of its own, while the two outer wells slide inward and vanish.">The effective potential of the slow dynamics. As the shaking amplitude rises the central hump between the two wells flattens and then inverts into a well of its own, while the two outer wells slide inward and vanish.</canvas>
+      </div>
+      <div class="fig__ctrls">
+        <div class="fig__ctrl">
+          <label>Y₀ — shaking amplitude <b id="pv-y">1.20</b></label>
+          <input type="range" id="pr-y" min="0" max="2.6" step="0.01" value="1.20" />
+        </div>
+        <div class="fig__ctrl">
+          <label>Ω — shaking frequency <b id="pv-o">5.00</b></label>
+          <input type="range" id="pr-o" min="1" max="8" step="0.05" value="5" />
+        </div>
+        <div class="fig__ctrl">
+          <label>α₀ — spring angle, degrees <b id="pv-a">30</b></label>
+          <input type="range" id="pr-a" min="4" max="45" step="1" value="30" />
+        </div>
+      </div>
+      <div class="fig__readout">
+        <span>G = <b id="pv-G">—</b></span>
+        <span>Y₀ threshold = <b id="pv-c">—</b></span>
+        <span>equilibria <b id="pv-e">—</b></span>
+        <span id="pv-w"></span>
+      </div>
+      <p class="fig__cap">
+        <b>Figure 2.</b> V<sub>d</sub>(z) = z⁴/4 − z³ + (2+G)z²/2 − Gz, drawn from the averaged
+        equation. Filled markers are stable, hollow unstable. At small <i>Y</i>₀ you get the familiar
+        double well with a hump at z&nbsp;=&nbsp;1. As <i>Y</i>₀ rises the wells climb and slide
+        inward; at <b>G&nbsp;=&nbsp;1</b> all three equilibria collide and the hump becomes a well.
+        Past that the truss has <b>one</b> stable state and it is the one it could never hold when
+        still. Lowering α₀ or Ω reaches the threshold at much smaller amplitude — the
+        <i>Y</i>₀²/(2α₀²Ω²) term dominates for a shallow truss.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">The motion itself</h2>
+    <p>Averaging is an argument, not a proof. Below, the <b>full</b> equation is integrated with RK4
+      at Ω&nbsp;=&nbsp;5 — every fast oscillation resolved, nothing averaged — and the averaged
+      equation is overlaid on top of it from the same start.</p>
+
+    <div class="fig reveal">
+      <div class="fig__head">
+        <span class="fig__no">Figure 3 — Full equation vs averaged, integrated live</span>
+        <span class="fig__live">running</span>
+      </div>
+      <div class="fig__body">
+        <canvas id="hf-motion" width="1520" height="880" role="img" aria-label="A von Mises truss shaken at its base, animated, beside a time trace comparing the full equation of motion with its averaged slow approximation. Below the threshold amplitude the mass settles in an outer well; above it the mass settles at the middle state.">A von Mises truss shaken at its base, animated, beside a time trace comparing the full equation of motion with its averaged slow approximation. Below the threshold amplitude the mass settles in an outer well; above it the mass settles at the middle state.</canvas>
+      </div>
+      <div class="fig__ctrls">
+        <div class="fig__ctrl">
+          <label>Y₀ — shaking amplitude <b id="mv-y">1.85</b></label>
+          <input type="range" id="mr-y" min="0" max="2.6" step="0.01" value="1.85" />
+        </div>
+        <div class="fig__ctrl">
+          <label>Ω — shaking frequency <b id="mv-o">5.00</b></label>
+          <input type="range" id="mr-o" min="2" max="8" step="0.05" value="5" />
+        </div>
+        <div class="fig__ctrl">
+          <label>ζ — damping <b id="mv-z">0.050</b></label>
+          <input type="range" id="mr-z" min="0.01" max="0.20" step="0.005" value="0.05" />
+        </div>
+      </div>
+      <div class="fig__btns">
+        <button class="mini" id="mb-lo" type="button">Y₀ = 0.50 — below threshold</button>
+        <button class="mini is-on" id="mb-hi" type="button">Y₀ = 1.85 — above threshold</button>
+        <button class="mini" id="mb-rs" type="button">restart from X = 2</button>
+      </div>
+      <div class="fig__readout">
+        <span>Y₀ threshold = <b id="mv-c">—</b></span>
+        <span>full X = <b id="mv-x">—</b></span>
+        <span>averaged z = <b id="mv-a">—</b></span>
+        <span id="mv-s"></span>
+      </div>
+      <p class="fig__cap">
+        <b>Figure 3.</b> Both curves start at <i>X</i>&nbsp;=&nbsp;2, the paper's initial
+        indentation. <b>Blue</b> is the full equation, <b>teal dashed</b> the averaged one. The fast
+        ripple visible on the blue trace is the <i>φ</i> correction: measured peak-to-peak it sits
+        within 3–8% of the predicted (<i>Y</i>₀/α₀)(z−1)/Ω² amplitude. Below threshold the mass
+        settles into an outer well and the two curves agree to about 1%. Press
+        <i>Y</i>₀&nbsp;=&nbsp;2.0 and both collapse onto <b>X&nbsp;=&nbsp;1.0000</b> — the flat
+        configuration, held stable by nothing but the shaking.</p>
+    </div>
+
+    <p class="note"><b>Where averaging stops being reliable.</b> I ran both equations from thirteen
+      starting positions spanning X₀ ∈ [−0.4, 2.4]. Far below threshold they are excellent: at
+      <i>Y</i>₀&nbsp;=&nbsp;0.3 all thirteen land in the same well and the equilibrium positions agree
+      to 0.0007. Above threshold all thirteen agree again, because there is only one well left. But
+      <em>near</em> the bifurcation — <i>Y</i>₀ between about 1.4 and 1.76 — only five to seven of the
+      thirteen land in the same well, even though the predicted equilibrium <em>positions</em> are
+      still accurate to about 0.01. The averaged equation tells you where the states are; close to the
+      pitchfork it does not reliably tell you which one you will end up in, because the fast ripple is
+      large enough to carry the mass across a basin boundary that the averaged picture has smoothed
+      away.</p>
+  </div>
+</section>
+
+<section class="sec sec--alt">
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">The pitchfork</h2>
+    <div class="fig reveal">
+      <div class="fig__head">
+        <span class="fig__no">Figure 4 — Equilibria against shaking amplitude</span>
+        <span class="fig__live">live</span>
+      </div>
+      <div class="fig__body">
+        <canvas id="hf-fork" width="1520" height="620" role="img" aria-label="A bifurcation diagram of equilibrium position against shaking amplitude. Two stable outer branches curve inward as the amplitude rises and merge with the unstable middle branch at a critical amplitude, beyond which the middle branch alone continues and is stable.">A bifurcation diagram of equilibrium position against shaking amplitude. Two stable outer branches curve inward as the amplitude rises and merge with the unstable middle branch at a critical amplitude, beyond which the middle branch alone continues and is stable.</canvas>
+      </div>
+      <div class="fig__ctrls">
+        <div class="fig__ctrl">
+          <label>Ω — shaking frequency <b id="fv-o">5.00</b></label>
+          <input type="range" id="fr-o" min="1" max="8" step="0.05" value="5" />
+        </div>
+        <div class="fig__ctrl">
+          <label>α₀ — spring angle, degrees <b id="fv-a">30</b></label>
+          <input type="range" id="fr-a" min="4" max="45" step="1" value="30" />
+        </div>
+      </div>
+      <div class="fig__readout">
+        <span>Y₀ threshold = <b id="fv-c">—</b></span>
+        <span>amplitude limit Y₀ &lt; 1/α₀ = <b id="fv-l">—</b></span>
+      </div>
+      <p class="fig__cap">
+        <b>Figure 4.</b> A textbook supercritical pitchfork, read right to left in stability: the two
+        outer equilibria 1&nbsp;±&nbsp;√(1−G) exist only while G&nbsp;&lt;&nbsp;1, curving in and
+        annihilating against the middle branch at the threshold, which then continues alone as the
+        single stable state. The grey region marks <i>Y</i>₀&nbsp;&gt;&nbsp;1/α₀, where the sliding
+        pin would leave the truss width and the model no longer describes the hardware. For
+        α₀&nbsp;=&nbsp;30° the threshold at 1.757 sits just inside that limit of 1.91, which is why
+        the paper's benchtop model needed the shallow 5° truss to show the effect — there the
+        threshold drops to 0.59.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap body-copy reveal">
+    <h2 class="sec-title">Why it matters</h2>
+    <p>A multistable structure normally commits to a well and stays there. This says you can choose
+      the well — and even choose a configuration that is not a well at all when the structure is at
+      rest — using nothing but a shaker and the right amplitude. No latch, no actuator at the mass,
+      no change to the structure.</p>
+    <p>The paper backs the analysis with a LEGO benchtop model. At α₀&nbsp;=&nbsp;5° the middle state
+      was stabilised, with large amplitude at 30&nbsp;Hz and small at 50&nbsp;Hz; at
+      α₀&nbsp;=&nbsp;30° it was not — consistent with the threshold, which that geometry puts out of
+      comfortable reach.</p>
+    <p>This sits inside a longer thread on the same structure: the
+      <a href="project-vonmises-truss.html" style="color:var(--accent);border-bottom:1px solid var(--accent)">viscoelastic von Mises truss</a>,
+      where the material rather than the excitation supplies the extra timescale, and
+      <a href="project-nonlinear-dynamics.html" style="color:var(--accent);border-bottom:1px solid var(--accent)">reservoir computing</a>,
+      where a chain of these elements is trained to compute.</p>
+    <div class="proj-links" style="margin-top:1.6rem">
+      <a class="btn" href="https://asmedigitalcollection.asme.org/computationalnonlinear/article-abstract/20/8/081004/1214593/Effects-of-High-Frequency-Horizontal-Base" target="_blank" rel="noopener">Paper ↗</a>
+      <a class="btn" href="publications.html">All publications &rarr;</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="year"></span> Pritam Ghoshal</div>
+    <div>Mechanical Engineering · Purdue University</div>
+  </div>
+</footer>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-in');o.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+<script>
+/* =====================================================================
+   High-frequency horizontal base excitation of a bistable von Mises truss.
+
+   Full equation, as printed (Eq. 5), rearranged so the cosine terms show
+   what they actually are -- a time-varying stiffness on (X-1):
+
+       X'' + 2 z X' + X(X-1)(X-2) + g(T)(X-1) = 0
+       g(T) = (Y0^2/2)cos^2(Om T) + (Y0/a0)cos(Om T)
+
+   Averaged over the fast scale (Eq. 14), g -> G, a constant:
+
+       z'' + 2 z z' + z(z-1)(z-2) + G (z-1) = 0
+       G = Y0^2/4 + Y0^4/(128 Om^2) + Y0^2/(2 a0^2 Om^2)
+
+   so the equilibria factor exactly:  (z-1)(z^2 - 2z + G) = 0
+       -> z = 1, 1 +- sqrt(1-G),  pitchfork at G = 1.
+
+   Every colour is read from a CSS token so the figures follow the theme.
+   ===================================================================== */
+(function(){
+  const cssRoot=getComputedStyle(document.documentElement);
+  const C =k=>cssRoot.getPropertyValue(k).trim();
+  const CV=(k,a)=>'rgba('+cssRoot.getPropertyValue(k).trim()+','+a+')';
+  const MONO='"JetBrains Mono", monospace';
+  const rad=d=>d*Math.PI/180;
+
+  const Gof   =(Y,aDeg,Om)=>{const a=rad(aDeg);
+    return Y*Y/4 + Math.pow(Y,4)/(128*Om*Om) + Y*Y/(2*a*a*Om*Om);};
+  const Ycrit =(aDeg,Om)=>{let lo=1e-5,hi=60;
+    for(let i=0;i<200;i++){const m=(lo+hi)/2; Gof(m,aDeg,Om)<1?lo=m:hi=m;} return (lo+hi)/2;};
+  const Vd    =(z,G)=> z*z*z*z/4 - z*z*z + (2+G)*z*z/2 - G*z;
+  const eqs   =G=> G<1 ? [1-Math.sqrt(1-G), 1, 1+Math.sqrt(1-G)] : [1];
+  /* stiffness: (G-1) at z=1, 2(1-G) at the outer pair */
+  const stable=(z,G)=> Math.abs(z-1)<1e-9 ? G>1 : G<1;
+
+  const accFull=(X,Xd,T,Y,aDeg,Om,ze)=>{
+    const c=Math.cos(Om*T), g=(Y*Y/2)*c*c + (Y/rad(aDeg))*c;
+    return -2*ze*Xd - X*(X-1)*(X-2) - g*(X-1);
+  };
+  const accAvg =(z,zd,T,Y,aDeg,Om,ze)=>
+    -2*ze*zd - z*(z-1)*(z-2) - Gof(Y,aDeg,Om)*(z-1);
+
+  /* both accelerations share the signature (x,v,t,...p) so the arguments
+     cannot shift when they are handed to the integrator */
+  function rk4(acc,x,v,t,dt,p){
+    const a1=acc(x,v,t,...p),                      k1=v;
+    const a2=acc(x+k1*dt/2,v+a1*dt/2,t+dt/2,...p), k2=v+a1*dt/2;
+    const a3=acc(x+k2*dt/2,v+a2*dt/2,t+dt/2,...p), k3=v+a2*dt/2;
+    const a4=acc(x+k3*dt,  v+a3*dt,  t+dt,  ...p), k4=v+a3*dt;
+    return [x+dt/6*(k1+2*k2+2*k3+k4), v+dt/6*(a1+2*a2+2*a3+a4)];
+  }
+
+  const bind=(id,vid,obj,key,dp,after)=>{
+    const R=document.getElementById(id), V=document.getElementById(vid);
+    if(!R) return null;
+    const upd=()=>{obj[key]=parseFloat(R.value); V.textContent=obj[key].toFixed(dp); after&&after();};
+    R.addEventListener('input',upd); upd(); return R;
+  };
+  const onScreen=(cv,fn)=>{let live=false;
+    new IntersectionObserver(e=>{live=e[0].isIntersecting;},{threshold:.04}).observe(cv);
+    return ()=>live;};
+
+  /* ---------------------------------------------------------------
+     FIGURE 2 — the effective potential
+  --------------------------------------------------------------- */
+  (function potential(){
+    const cv=document.getElementById('hf-pot'); if(!cv) return;
+    const ctx=cv.getContext('2d'), W=cv.width, H=cv.height;
+    const P={Y:1.20, Om:5, a:30};
+    const out={G:document.getElementById('pv-G'), c:document.getElementById('pv-c'),
+               e:document.getElementById('pv-e'), w:document.getElementById('pv-w')};
+    const ZMIN=-0.65, ZMAX=2.65, L=130, R=W-150, TOP=78, BOT=H-120;
+
+    function draw(){
+      const G=Gof(P.Y,P.a,P.Om), yc=Ycrit(P.a,P.Om), E=eqs(G);
+      /* Scale to the barrier, not to the whole curve: the quartic arms are
+         enormous next to the wells, and fitting them flattens the structure
+         that matters. The arms simply run off the top, which is clipped. */
+      let lo, hi;
+      if(G<1){
+        const sq=Math.sqrt(1-G), vw=Vd(1-sq,G), vw2=Vd(1+sq,G), vm=Vd(1,G);
+        const base=Math.min(vw,vw2);
+        const span=Math.max(vm-base, 1e-3);
+        lo=base-span*0.45; hi=vm+span*1.25;
+      } else {
+        const vm=Vd(1,G), edge=Math.max(Vd(0,G),Vd(2,G));
+        const span=Math.max(edge-vm, 1e-3);
+        lo=vm-span*0.30; hi=vm+span*1.35;
+      }
+      const px=z=>L+(z-ZMIN)/(ZMAX-ZMIN)*(R-L);
+      const py=v=>BOT-(v-lo)/(hi-lo)*(BOT-TOP);
+
+      ctx.clearRect(0,0,W,H);
+      ctx.save();
+      ctx.beginPath(); ctx.rect(0,TOP-26,W,BOT-TOP+70); ctx.clip();
+      /* axes */
+      ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
+      ctx.beginPath(); ctx.moveTo(L-30,BOT); ctx.lineTo(R+30,BOT);
+      ctx.moveTo(L-30,TOP-18); ctx.lineTo(L-30,BOT); ctx.stroke();
+      /* z gridlines at the three reference states */
+      ctx.setLineDash([4,7]); ctx.lineWidth=1.4; ctx.strokeStyle=C('--border');
+      [0,1,2].forEach(z=>{ctx.beginPath();ctx.moveTo(px(z),TOP-10);ctx.lineTo(px(z),BOT);ctx.stroke();});
+      ctx.setLineDash([]);
+      /* the potential */
+      ctx.beginPath();
+      for(let i=0;i<=600;i++){const z=ZMIN+(ZMAX-ZMIN)*i/600, X=px(z), Yv=py(Vd(z,G));
+        i?ctx.lineTo(X,Yv):ctx.moveTo(X,Yv);}
+      ctx.strokeStyle=C('--accent'); ctx.lineWidth=4; ctx.lineJoin='round'; ctx.stroke();
+      ctx.lineTo(px(ZMAX),BOT); ctx.lineTo(px(ZMIN),BOT); ctx.closePath();
+      ctx.fillStyle=CV('--accent-rgb',0.07); ctx.fill();
+      /* equilibria */
+      E.forEach(z=>{
+        const st=stable(z,G), X=px(z), Yv=py(Vd(z,G));
+        ctx.beginPath(); ctx.arc(X,Yv,13,0,6.2832);
+        if(st){ctx.fillStyle=Math.abs(z-1)<1e-9?C('--accent-2'):C('--accent'); ctx.fill();
+               ctx.strokeStyle=C('--bg-card'); ctx.lineWidth=3.5; ctx.stroke();}
+        else   {ctx.fillStyle=C('--bg-card'); ctx.fill();
+               ctx.strokeStyle=C('--sub'); ctx.lineWidth=3.5; ctx.stroke();}
+        ctx.fillStyle=st?C('--ink'):C('--sub'); ctx.font='500 22px '+MONO; ctx.textAlign='center';
+        ctx.fillText(z.toFixed(3), X, BOT+38);
+      });
+      ctx.restore();
+      /* labels */
+      ctx.textAlign='center'; ctx.fillStyle=C('--sub'); ctx.font='400 21px '+MONO;
+      ctx.fillText('z', px(ZMAX)+8, BOT+38);
+      ctx.textAlign='left';
+      ctx.fillStyle=C('--muted'); ctx.font='500 26px Outfit, sans-serif';
+      ctx.fillText('Vd(z)  —  effective potential', L-18, TOP-34);
+      /* verdict banner, kept in the empty upper corner */
+      const past=G>1;
+      ctx.fillStyle=past?C('--accent-2'):C('--sub');
+      ctx.font='500 25px Outfit, sans-serif'; ctx.textAlign='right';
+      ctx.fillText(past?'middle state is STABLE — one well left'
+                       :'middle state is unstable — two wells', R+30, TOP-34);
+      ctx.textAlign='left';
+      /* readouts */
+      out.G.textContent=G.toFixed(4);
+      out.c.textContent=yc.toFixed(3);
+      out.e.textContent=E.map(z=>z.toFixed(3)).join(',  ');
+      const lim=1/rad(P.a);
+      out.w.innerHTML = P.Y>lim
+        ? '<span style="color:var(--accent-2)">Y₀ exceeds 1/α₀ = '+lim.toFixed(2)+' — outside the model</span>'
+        : '';
+    }
+    bind('pr-y','pv-y',P,'Y',2,draw);
+    bind('pr-o','pv-o',P,'Om',2,draw);
+    bind('pr-a','pv-a',P,'a',0,draw);
+    draw();
+    window.addEventListener('resize',draw);
+    new MutationObserver(draw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  })();
+
+  /* ---------------------------------------------------------------
+     FIGURE 3 — full equation vs averaged, integrated live
+  --------------------------------------------------------------- */
+  (function motion(){
+    const cv=document.getElementById('hf-motion'); if(!cv) return;
+    const ctx=cv.getContext('2d'), W=cv.width, H=cv.height;
+    const P={Y:1.85, Om:5, ze:0.05};
+    const out={c:document.getElementById('mv-c'), x:document.getElementById('mv-x'),
+               a:document.getElementById('mv-a'), s:document.getElementById('mv-s')};
+    const A0DEG=30;
+    const DT=0.004;                  /* ~314 steps per drive period at Om=5 */
+    const HIST=440;   /* ~185 units of T on screen */
+    let X,Xd,Z,Zd,T, hx, hz;
+
+    function reset(){
+      X=2; Xd=0; Z=2; Zd=0; T=0; hx=[]; hz=[];
+    }
+    reset();
+
+    /* Sample several times per frame, not once: at one sample per frame the
+       window takes seven seconds to fill and the trace sits bunched against
+       the axis while the reader waits. SUB samples per frame fills it in
+       under two seconds, and each sample still costs a real RK4 march. */
+    const SUB=4;
+    function advance(span){
+      const total=Math.min(1600,Math.round(span/DT));
+      const per=Math.max(1,Math.round(total/SUB));
+      for(let k=0;k<SUB;k++){
+        for(let i=0;i<per;i++){
+          [X,Xd]=rk4(accFull,X,Xd,T,DT,[P.Y,A0DEG,P.Om,P.ze]);
+          [Z,Zd]=rk4(accAvg ,Z,Zd,T,DT,[P.Y,A0DEG,P.Om,P.ze]);
+          T+=DT;
+          if(!isFinite(X)||Math.abs(X)>40){reset();return;}
+        }
+        hx.push(X); hz.push(Z);
+        if(hx.length>HIST){hx.shift(); hz.shift();}
+      }
+    }
+
+    /* ---- left panel: the truss, drawn from X ---- */
+    function drawTruss(x0,y0,w,h){
+      const BASE=y0+h*0.60, CX=x0+w*0.52, HALF=w*0.26, SLOT=w*0.045;
+      const RISE=HALF*Math.tan(rad(A0DEG));
+      /* X = 0 -> apex up by RISE ; X = 2 -> apex down by RISE ; X = 1 -> flat */
+      const ay=BASE-RISE*(1-Math.max(-0.7,Math.min(2.7,X)));
+      const shake=(P.Y/2.6)*w*0.055*Math.cos(P.Om*T);
+      const LX=CX-HALF+shake, RX=CX+HALF;
+
+      ctx.save();
+      ctx.fillStyle=C('--muted'); ctx.font='500 27px Outfit, sans-serif';
+      ctx.fillText('the truss', x0+30, y0+42);
+      /* slot rails */
+      ctx.strokeStyle=C('--border-2'); ctx.lineWidth=3; ctx.lineCap='round';
+      ctx.beginPath(); ctx.moveTo(CX-SLOT,BASE-RISE-46); ctx.lineTo(CX-SLOT,BASE+RISE+46);
+      ctx.moveTo(CX+SLOT,BASE-RISE-46); ctx.lineTo(CX+SLOT,BASE+RISE+46); ctx.stroke();
+      /* support line */
+      ctx.strokeStyle=C('--sub'); ctx.lineWidth=1.6; ctx.setLineDash([7,7]);
+      ctx.beginPath(); ctx.moveTo(x0+40,BASE); ctx.lineTo(x0+w-40,BASE); ctx.stroke();
+      ctx.setLineDash([]);
+      /* the two bars */
+      const past = X>1;
+      ctx.strokeStyle = past?C('--accent-2'):C('--accent');
+      ctx.lineWidth=8; ctx.lineJoin='round';
+      ctx.beginPath(); ctx.moveTo(LX,BASE); ctx.lineTo(CX,ay); ctx.lineTo(RX,BASE); ctx.stroke();
+      /* pins */
+      ctx.fillStyle=C('--bg-card'); ctx.lineWidth=3;
+      ctx.strokeStyle=C('--ink');
+      ctx.beginPath(); ctx.arc(RX,BASE,10,0,6.2832); ctx.fill(); ctx.stroke();
+      ctx.strokeStyle=C('--accent-2');
+      ctx.beginPath(); ctx.arc(LX,BASE,10,0,6.2832); ctx.fill(); ctx.stroke();
+      /* shaker rail under the moving pin */
+      ctx.strokeStyle=C('--border-2'); ctx.lineWidth=3;
+      ctx.beginPath(); ctx.moveTo(CX-HALF-w*0.10,BASE+34); ctx.lineTo(CX-HALF+w*0.10,BASE+34); ctx.stroke();
+      ctx.strokeStyle=C('--accent-2'); ctx.lineWidth=3.4;
+      ctx.beginPath(); ctx.moveTo(LX,BASE+11); ctx.lineTo(LX,BASE+34); ctx.stroke();
+      ctx.fillStyle=C('--accent-2');
+      ctx.beginPath(); ctx.arc(LX,BASE+34,6,0,6.2832); ctx.fill();
+      /* the mass */
+      ctx.fillStyle = past?C('--accent-2'):C('--accent');
+      ctx.beginPath(); ctx.arc(CX,ay,22,0,6.2832); ctx.fill();
+      ctx.strokeStyle=C('--bg-card'); ctx.lineWidth=4; ctx.stroke();
+      /* state caption, well clear of the geometry */
+      ctx.fillStyle=C('--sub'); ctx.font='500 23px '+MONO;
+      const Gm=Gof(P.Y,A0DEG,P.Om);
+      const lbl = Math.abs(X-1)<0.09 ? (Gm>1?'held flat at X = 1 by the shaking':'passing through X = 1')
+                : (X>1 ? 'in the far well' : 'in the near well');
+      ctx.fillText(lbl, x0+30, y0+h-22);
+      ctx.restore();
+    }
+
+    /* ---- right panel: the traces ---- */
+    function drawTrace(x0,y0,w,h){
+      const L=x0+96, R=x0+w-150, TOP=y0+58, BOT=y0+h-62;
+      const zlo=-0.75, zhi=2.75;
+      const py=z=>BOT-(z-zlo)/(zhi-zlo)*(BOT-TOP);
+      ctx.save();
+      ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
+      ctx.beginPath(); ctx.moveTo(L,TOP-12); ctx.lineTo(L,BOT); ctx.lineTo(R,BOT); ctx.stroke();
+      /* reference levels */
+      const G=Gof(P.Y,A0DEG,P.Om);
+      ctx.setLineDash([5,7]); ctx.lineWidth=1.6;
+      [[0,'--sub'],[2,'--sub'],[1,'--accent-2']].forEach(([z,tok])=>{
+        ctx.strokeStyle=C(tok);
+        ctx.beginPath(); ctx.moveTo(L,py(z)); ctx.lineTo(R,py(z)); ctx.stroke();
+        ctx.fillStyle=C(tok); ctx.font='400 20px '+MONO; ctx.textAlign='left';
+        ctx.fillText('X = '+z, R+10, py(z)+7);
+      });
+      ctx.setLineDash([]);
+      const line=(arr,col,lw,dash)=>{
+        if(arr.length<2) return;
+        ctx.setLineDash(dash||[]); ctx.strokeStyle=col; ctx.lineWidth=lw;
+        const span=Math.max(2,arr.length);
+        ctx.beginPath();
+        for(let i=0;i<arr.length;i++){
+          const px=L+(i/(span-1))*(R-L);
+          i?ctx.lineTo(px,py(arr[i])):ctx.moveTo(px,py(arr[i]));
+        }
+        ctx.stroke(); ctx.setLineDash([]);
+      };
+      line(hz,C('--accent-3'),3.4,[11,7]);
+      line(hx,C('--accent'),2.6);
+      ctx.fillStyle=C('--accent'); ctx.font='500 24px Outfit, sans-serif'; ctx.textAlign='left';
+      ctx.fillText('full equation', L+4, TOP-22);
+      ctx.fillStyle=C('--accent-3');
+      ctx.fillText('averaged', L+230, TOP-22);
+      ctx.restore();
+    }
+
+    function render(){
+      ctx.clearRect(0,0,W,H);
+      drawTruss(0,0,W*0.40,H);
+      drawTrace(W*0.40,0,W*0.60,H);
+      ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
+      ctx.beginPath(); ctx.moveTo(W*0.40,34); ctx.lineTo(W*0.40,H-34); ctx.stroke();
+      out.c.textContent=Ycrit(A0DEG,P.Om).toFixed(3);
+      out.x.textContent=X.toFixed(4);
+      out.a.textContent=Z.toFixed(4);
+      const G=Gof(P.Y,A0DEG,P.Om);
+      out.s.innerHTML = G>1
+        ? '<span style="color:var(--accent-2)">above threshold — middle state stable</span>'
+        : '<span>below threshold — two wells</span>';
+    }
+
+    const setOn=id=>['mb-lo','mb-hi'].forEach(b=>
+      document.getElementById(b).classList.toggle('is-on',b===id));
+    const Yr=bind('mr-y','mv-y',P,'Y',2,()=>setOn(null));
+    setOn('mb-hi');
+    bind('mr-o','mv-o',P,'Om',2,null);
+    bind('mr-z','mv-z',P,'ze',3,null);
+    document.getElementById('mb-lo').addEventListener('click',()=>{
+      P.Y=0.5; Yr.value='0.5'; document.getElementById('mv-y').textContent='0.50'; reset(); setOn('mb-lo');});
+    document.getElementById('mb-hi').addEventListener('click',()=>{
+      P.Y=1.85; Yr.value='1.85'; document.getElementById('mv-y').textContent='1.85'; reset(); setOn('mb-hi');});
+    document.getElementById('mb-rs').addEventListener('click',reset);
+
+    const live=onScreen(cv);
+    let last=performance.now();
+    (function loop(now){
+      requestAnimationFrame(loop);
+      const el=Math.min((now-last)/1000,0.05); last=now;
+      if(!live()) return;
+      advance(el*25);
+      render();
+    })(performance.now());
+  })();
+
+  /* ---------------------------------------------------------------
+     FIGURE 4 — the pitchfork
+  --------------------------------------------------------------- */
+  (function fork(){
+    const cv=document.getElementById('hf-fork'); if(!cv) return;
+    const ctx=cv.getContext('2d'), W=cv.width, H=cv.height;
+    const P={Om:5, a:30};
+    const out={c:document.getElementById('fv-c'), l:document.getElementById('fv-l')};
+    const YMAX=2.6, L=136, R=W-120, TOP=56, BOT=H-168;
+    const zlo=-0.25, zhi=2.25;
+    const px=Y=>L+Y/YMAX*(R-L);
+    const py=z=>BOT-(z-zlo)/(zhi-zlo)*(BOT-TOP);
+
+    function draw(){
+      const yc=Ycrit(P.a,P.Om), lim=1/rad(P.a);
+      ctx.clearRect(0,0,W,H);
+      /* region beyond the amplitude limit */
+      if(lim<YMAX){
+        ctx.fillStyle=CV('--sub-rgb',0.12);
+        ctx.fillRect(px(lim),TOP-14,px(YMAX)-px(lim),BOT-TOP+14);
+        ctx.fillStyle=C('--sub'); ctx.font='400 19px '+MONO; ctx.textAlign='left';
+        ctx.fillText('Y₀ > 1/α₀', px(lim)+12, TOP+6);
+      }
+      /* axes */
+      ctx.strokeStyle=C('--border'); ctx.lineWidth=2;
+      ctx.beginPath(); ctx.moveTo(L,TOP-14); ctx.lineTo(L,BOT); ctx.lineTo(R,BOT); ctx.stroke();
+      ctx.fillStyle=C('--sub'); ctx.font='400 21px '+MONO;
+      ctx.textAlign='center'; ctx.fillText('Y₀', (L+R)/2, BOT+54);
+      ctx.textAlign='right';
+      [0,1,2].forEach(z=>{ctx.fillText('z = '+z, L-14, py(z)+7);});
+      ctx.textAlign='left';
+      /* middle branch: dashed while unstable, solid once stable */
+      const seg=(from,to,dash,col,lw)=>{
+        ctx.setLineDash(dash); ctx.strokeStyle=col; ctx.lineWidth=lw;
+        ctx.beginPath(); ctx.moveTo(px(from),py(1)); ctx.lineTo(px(to),py(1)); ctx.stroke();
+        ctx.setLineDash([]);
+      };
+      seg(0,Math.min(yc,YMAX),[9,8],C('--sub'),3);
+      if(yc<YMAX) seg(yc,YMAX,[],C('--accent-2'),4.5);
+      /* outer branches, stable while G < 1 */
+      [+1,-1].forEach(sgn=>{
+        ctx.strokeStyle=C('--accent'); ctx.lineWidth=4.5; ctx.beginPath();
+        let started=false;
+        for(let i=0;i<=600;i++){
+          const Y=YMAX*i/600, G=Gof(Y,P.a,P.Om);
+          if(G>=1) break;
+          const z=1+sgn*Math.sqrt(1-G), X=px(Y), Yv=py(z);
+          started?ctx.lineTo(X,Yv):(ctx.moveTo(X,Yv),started=true);
+        }
+        ctx.stroke();
+      });
+      /* the bifurcation point */
+      if(yc<YMAX){
+        ctx.beginPath(); ctx.arc(px(yc),py(1),11,0,6.2832);
+        ctx.fillStyle=C('--accent-2'); ctx.fill();
+        ctx.strokeStyle=C('--bg-card'); ctx.lineWidth=3.5; ctx.stroke();
+        ctx.setLineDash([4,6]); ctx.strokeStyle=C('--accent-2'); ctx.lineWidth=1.8;
+        ctx.beginPath(); ctx.moveTo(px(yc),py(1)); ctx.lineTo(px(yc),BOT); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle=C('--accent-2'); ctx.font='500 22px '+MONO; ctx.textAlign='center';
+        ctx.fillText(yc.toFixed(3), px(yc), BOT+30);
+      }
+      /* legend in its own row beneath the axis, clear of every branch */
+      ctx.textAlign='left'; ctx.font='500 22px Outfit, sans-serif';
+      const ly=H-40;
+      [['--accent','stable outer pair',[]],
+       ['--accent-2','middle, stabilised',[]],
+       ['--sub','middle, unstable',[9,8]]].forEach(([tok,txt,dash],i)=>{
+        const lx=L+i*430;
+        ctx.setLineDash(dash); ctx.strokeStyle=C(tok); ctx.lineWidth=4;
+        ctx.beginPath(); ctx.moveTo(lx,ly-7); ctx.lineTo(lx+44,ly-7); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle=C(tok); ctx.fillText(txt, lx+58, ly);
+      });
+      out.c.textContent=yc.toFixed(3);
+      out.l.textContent=lim.toFixed(2);
+    }
+    bind('fr-o','fv-o',P,'Om',2,draw);
+    bind('fr-a','fv-a',P,'a',0,draw);
+    draw();
+    new MutationObserver(draw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  })();
+})();
+</script>
+<script src="polish.js"></script>
+</body>
+</html>
