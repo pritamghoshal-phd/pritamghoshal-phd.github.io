@@ -85,10 +85,13 @@
       class of systems — shells, arches, buckling beams — and it permits lumped-parameter analysis where a
       continuum model would be intractable.</p>
     <p>Add viscoelasticity and it stops being simple. The mechanical motion is governed by a second-order
-      Duffing-type equation with quadratic nonlinearity, while the viscoelastic force F evolves under a
-      first-order equation, Σ F′ + F = β U′, on a much slower timescale. Combined, they form a <strong>third-order jerk
-      system</strong> — and the interaction between the fast elastic oscillations and the slow material
-      relaxation produces behaviour neither equation shows alone.</p>
+      Duffing-type equation carrying a <b>quadratic</b> nonlinearity — the quadratic term comes from the
+      truss geometry, not from an assumption, and it is what makes the potential asymmetric. The
+      viscoelastic force <b>Σ</b> is not a parameter but a <em>state variable</em> of its own, evolving
+      under the standard linear solid's first-order constitutive law on a much slower timescale.
+      Combined, the two are a <strong>third-order jerk system</strong> — and the interaction between the
+      fast elastic oscillation and the slow material relaxation produces behaviour neither equation shows
+      alone.</p>
 
     <div class="fig reveal">
       <div class="fig__head">
@@ -110,7 +113,7 @@
           <circle cx="330" cy="188" r="21" fill="var(--accent)" stroke="var(--ink)" stroke-width="2.4"/>
           <line x1="330" y1="92" x2="330" y2="154" stroke="var(--accent-2)" stroke-width="4"/>
           <path d="M330 162 L321 144 L339 144 Z" fill="var(--accent-2)"/>
-          <text x="352" y="116" style="font-size:23px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">γ cos(ωt)</text>
+          <text x="352" y="116" style="font-size:23px;font-family:'JetBrains Mono',monospace" fill="var(--accent-2)">F₀ cos(ΩT)</text>
           <text x="372" y="176" style="font-size:26px;font-family:Outfit,sans-serif" font-weight="600" font-style="italic">m</text>
           <text x="238" y="208" style="font-size:26px;font-family:Outfit,sans-serif" font-weight="600" font-style="italic">k</text>
           <text x="418" y="208" style="font-size:26px;font-family:Outfit,sans-serif" font-weight="600" font-style="italic">k</text>
@@ -132,11 +135,11 @@
           <g stroke="var(--ink)" stroke-width="2.4" fill="none" stroke-linecap="round"><line x1="950" y1="290" x2="974" y2="290"/><path d="M1022 272 L974 272 L974 308 L1022 308" fill="var(--bg-alt)"/><line x1="1008" y1="276" x2="1008" y2="304" stroke-width="3"/><line x1="1008" y1="290" x2="1150" y2="290"/></g>
           <text x="866" y="344" style="font-size:26px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600" font-style="italic">k<tspan style="font-size:17px" dy="6">2</tspan></text>
           <text x="1046" y="344" style="font-size:26px;font-family:Outfit,sans-serif" text-anchor="middle" font-weight="600" font-style="italic">η</text>
-          <text x="716" y="398" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--accent-3)">λ = η / k₂  →  fading memory</text>
+          <text x="716" y="398" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--accent-3)">η / k₂  =  relaxation time</text>
         </svg>
       </div>
       <p class="fig__cap">
-        <b>Figure 1.</b> A mass <i>m</i> at the apex of two inclined springs <i>k</i>, pinned at both ends and driven by an external force γcos(ωt). Because the bars are inclined, the apex can snap <i>through</i> the support line to the mirrored configuration shown in grey. The viscoelastic element is a standard linear solid: spring <i>k</i><sub>1</sub> in parallel with a Maxwell arm of spring <i>k</i><sub>2</sub> in series with dashpot <i>η</i>. There is <b>no separate viscous damper</b> — the dashpot in the Maxwell arm is the only dissipation in the model, and the same element also supplies the frequency-dependent stiffening. Its relaxation strength is β = k₂/(k₁+k₂), and the relaxation time η/k₂ is what sets the nondimensional timescale.</p>
+        <b>Figure 1.</b> A mass <i>m</i> at the apex of two inclined springs <i>k</i>, pinned at both ends and driven by an external force F₀cos(ΩT). Because the bars are inclined, the apex can snap <i>through</i> the support line to the mirrored configuration shown in grey. The viscoelastic element is a standard linear solid: spring <i>k</i><sub>1</sub> in parallel with a Maxwell arm of spring <i>k</i><sub>2</sub> in series with dashpot <i>η</i>. There is <b>no separate viscous damper</b> — the dashpot in the Maxwell arm is the only dissipation in the model, and the same element also supplies the frequency-dependent stiffening. Its relaxation strength is β = k₂/(k₁+k₂), and the relaxation time η/k₂ is what sets the nondimensional timescale. (The papers write the dashpot viscosity as c; η here is the same quantity.)</p>
     </div>
 
     <div class="fig reveal">
