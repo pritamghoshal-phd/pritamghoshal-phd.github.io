@@ -30,11 +30,15 @@ Roles first; the value is the consequence.
 | `--accent` | links, buttons, primary data | `#1344d0` | `#7aa5ff` |
 | `--accent-dk` | accent hover | `#0a2d94` | `#a8c4ff` |
 | `--accent-2` | the second data series; state changes | `#bc3f0b` | `#ff9159` |
-| `--accent-3` | the third data series | `#0b7a78` | `#4ad4ce` |
+| `--accent-3` | the third data series | `#0b7573` | `#4ad4ce` |
+| `--flag` | annotation: the thing being pointed at | `#cd1a41` | `#ff6b8a` |
 | `--on-accent` | label on an accent fill | `#ffffff` | `#0c1119` |
 
-Three accents is the ceiling, and the second and third exist because the
-figures plot three things at once, not for decoration. `--accent-2` marks a
+Three accents is the ceiling for data, and the second and third exist because
+the figures plot three things at once, not for decoration. `--flag` is not a
+fourth series: it is the annotation colour, for the one thing a figure is
+pointing at — a damaged node, the unit cell picked out of a chain — and it
+never encodes data. `--accent-2` marks a
 changed state — a buckled cell, a crossed barrier, a live value.
 
 Channel tokens (`--accent-rgb`, `--shadow-rgb`, `--card-rgb`, `--bg-rgb`,

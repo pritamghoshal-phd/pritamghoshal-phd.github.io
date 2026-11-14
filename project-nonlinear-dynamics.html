@@ -358,8 +358,8 @@
           <line x1="1070" y1="46" x2="1070" y2="224" stroke="var(--accent)" stroke-width="2.4" stroke-dasharray="8 6"/>
           <path d="M1070 234 L1063 218 L1077 218 Z" fill="var(--accent)"/>
           <text x="820" y="40" style="font-size:22px;font-family:'JetBrains Mono',monospace" fill="var(--accent)">input signals  ũ(T)</text>
-          <rect x="500" y="70" width="330" height="330" rx="8" fill="none" stroke="#e11d48" stroke-width="2.2" stroke-dasharray="9 7"/>
-          <text x="600" y="62" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="#e11d48">Unit Cell</text>
+          <rect x="500" y="70" width="330" height="330" rx="8" fill="none" stroke="var(--flag)" stroke-width="2.2" stroke-dasharray="9 7"/>
+          <text x="600" y="62" style="font-size:20px;font-family:'JetBrains Mono',monospace" fill="var(--flag)">Unit Cell</text>
           <text x="560" y="190" style="font-size:23px;font-family:Outfit,sans-serif" font-weight="600" font-style="italic">k<tspan style="font-size:17px" dy="6">1</tspan></text>
           <text x="550" y="332" style="font-size:23px;font-family:Outfit,sans-serif" font-weight="600" font-style="italic">k<tspan style="font-size:17px" dy="6">2</tspan></text>
           <text x="616" y="332" style="font-size:23px;font-family:Outfit,sans-serif" font-weight="600" font-style="italic">c</text>
@@ -1182,7 +1182,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     const bl=x0+(Math.max(0,P.dmg-10)/(N-1))*(x1-x0);
     const br=x0+(Math.min(N-1,P.dmg+10)/(N-1))*(x1-x0);
     ctx.fillRect(bl,y0,br-bl,y1-y0);
-    ctx.strokeStyle='#e11d48'; ctx.lineWidth=2.4; ctx.setLineDash([9,7]);
+    ctx.strokeStyle=C('--flag'); ctx.lineWidth=2.4; ctx.setLineDash([9,7]);
     ctx.beginPath();ctx.moveTo(dx,y0);ctx.lineTo(dx,y1);ctx.stroke();ctx.setLineDash([]);
     if(status!=='done'||!result){
       ctx.fillStyle=C('--sub'); ctx.font='500 23px Outfit, sans-serif';
@@ -1190,7 +1190,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
       const pw=(W-140)*Math.max(0,Math.min(1,progress));
       ctx.fillStyle=`rgba(${C('--shadow-rgb')},.10)`; ctx.fillRect(70,H-96,W-140,14);
       ctx.fillStyle=C('--accent'); ctx.fillRect(70,H-96,pw,14);
-      ctx.fillStyle='#e11d48'; ctx.font='500 20px "JetBrains Mono", monospace';
+      ctx.fillStyle=C('--flag'); ctx.font='500 20px "JetBrains Mono", monospace';
       ctx.fillText('damage at node '+P.dmg, dx+12, y0-12);
       return;
     }
@@ -1200,7 +1200,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
       ctx.fillStyle = Math.abs(j-P.dmg)<=10 ? C('--accent-2') : C('--accent');
       ctx.fillRect(x0+j*bw+1,y1-h,bw-2,h);
     }
-    ctx.fillStyle='#e11d48'; ctx.font='500 20px "JetBrains Mono", monospace';
+    ctx.fillStyle=C('--flag'); ctx.font='500 20px "JetBrains Mono", monospace';
     ctx.fillText('damage at node '+P.dmg, dx+12, y0-12);
     ctx.fillStyle=C('--muted'); ctx.font='500 21px Outfit, sans-serif';
     ctx.fillText('reservoir index', x1-170, y1+40);
