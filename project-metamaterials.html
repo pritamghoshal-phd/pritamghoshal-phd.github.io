@@ -5,13 +5,37 @@
 <title>Programmable Mechanical Metamaterials — Pritam Ghoshal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="Programmable mechanical metamaterials for vibration and shock absorption, with buckling patterns inverse-designed from the force response using reservoir computing." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
+  <!-- social / discovery metadata -->
+  <link rel="canonical" href="https://pritamghoshal-phd.github.io/project-metamaterials.html" />
+  <meta name="author" content="Pritam Ghoshal" />
+  <meta name="theme-color" content="#f2f5f9" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0b1526" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Pritam Ghoshal" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="Programmable Mechanical Metamaterials" />
+  <meta property="og:description" content="Programmable mechanical metamaterials for vibration and shock absorption, with buckling patterns inverse-designed from the force response using reservoir computing." />
+  <meta property="og:url" content="https://pritamghoshal-phd.github.io/project-metamaterials.html" />
+  <meta property="og:image" content="https://pritamghoshal-phd.github.io/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Pritam Ghoshal — nonlinear dynamics, vibration and physical computing" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Programmable Mechanical Metamaterials" />
+  <meta name="twitter:description" content="Programmable mechanical metamaterials for vibration and shock absorption, with buckling patterns inverse-designed from the force response using reservoir computing." />
+  <meta name="twitter:image" content="https://pritamghoshal-phd.github.io/og-image.png" />
+  <!-- /social -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="site.css" />
 <link rel="stylesheet" href="polish.css" />
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <header class="nav">
   <div class="nav__in">
     <a href="index.html" class="nav__logo">Pritam <span>Ghoshal</span></a>
@@ -23,9 +47,12 @@
       <a href="projects.html">Projects</a>
       <a href="teaching.html">Teaching</a>
       <a href="index.html#contact">Contact</a>
+      <a href="Pritam-Ghoshal-Resume.pdf" class="nav__cv">Résumé</a>
     </nav>
   </div>
 </header>
+
+<main id="main">
 
 <section class="page-header">
   <div class="wrap hero-inner reveal">
@@ -459,7 +486,7 @@
     <div class="fig reveal">
       <div class="fig__head"><span class="fig__no">Figure 4 &mdash; The reservoir, running</span><span class="fig__live">running</span></div>
       <div class="fig__body">
-        <canvas id="mm-res" width="1520" height="620"></canvas>
+        <canvas id="mm-res" width="1520" height="620" role="img" aria-label="The reservoir chain responding to a force-displacement curve fed in as a drive signal.">The reservoir chain responding to a force-displacement curve fed in as a drive signal.</canvas>
       </div>
       <p class="fig__cap"><b>Figure 4.</b> The chain being driven by a force curve, one pulse per input
         sample. Each oscillator obeys q&#775; = v, v&#775; = De&sup2;(3q&sup2; &minus; q&sup3; &minus; 2q
@@ -492,7 +519,7 @@
     <div class="fig reveal">
       <div class="fig__head"><span class="fig__no">Figure 5 &mdash; The island algorithm, live</span><span class="fig__live">running</span></div>
       <div class="fig__body">
-        <canvas id="mm-lat" width="1520" height="660"></canvas>
+        <canvas id="mm-lat" width="1520" height="660" role="img" aria-label="The staggered metamaterial lattice with its buckled cells highlighted.">The staggered metamaterial lattice with its buckled cells highlighted.</canvas>
       </div>
       <div class="fig__ctrls">
         <div class="fig__ctrl">
@@ -545,6 +572,8 @@
     </div>
   </div>
 </section>
+</main>
+
 
 <footer>
   <div class="wrap">

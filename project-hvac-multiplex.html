@@ -5,13 +5,37 @@
 <title>HVAC Design for a Three-Screen Multiplex — Pritam Ghoshal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="HVAC system design for a three-screen multiplex: load calculations, duct layout in SolidWorks and CFD verification of air circulation and thermal comfort." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
+  <!-- social / discovery metadata -->
+  <link rel="canonical" href="https://pritamghoshal-phd.github.io/project-hvac-multiplex.html" />
+  <meta name="author" content="Pritam Ghoshal" />
+  <meta name="theme-color" content="#f2f5f9" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0b1526" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Pritam Ghoshal" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="HVAC Design for a Three-Screen Multiplex" />
+  <meta property="og:description" content="HVAC system design for a three-screen multiplex: load calculations, duct layout in SolidWorks and CFD verification of air circulation and thermal comfort." />
+  <meta property="og:url" content="https://pritamghoshal-phd.github.io/project-hvac-multiplex.html" />
+  <meta property="og:image" content="https://pritamghoshal-phd.github.io/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Pritam Ghoshal — nonlinear dynamics, vibration and physical computing" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="HVAC Design for a Three-Screen Multiplex" />
+  <meta name="twitter:description" content="HVAC system design for a three-screen multiplex: load calculations, duct layout in SolidWorks and CFD verification of air circulation and thermal comfort." />
+  <meta name="twitter:image" content="https://pritamghoshal-phd.github.io/og-image.png" />
+  <!-- /social -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="site.css" />
 <link rel="stylesheet" href="polish.css" />
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <header class="nav">
   <div class="nav__in">
     <a href="index.html" class="nav__logo">Pritam <span>Ghoshal</span></a>
@@ -23,9 +47,12 @@
       <a href="projects.html">Projects</a>
       <a href="teaching.html">Teaching</a>
       <a href="index.html#contact">Contact</a>
+      <a href="Pritam-Ghoshal-Resume.pdf" class="nav__cv">Résumé</a>
     </nav>
   </div>
 </header>
+
+<main id="main">
 
 <section class="page-header">
   <div class="wrap hero-inner reveal">
@@ -151,7 +178,7 @@
     <div class="fig reveal">
       <div class="fig__head"><span class="fig__no">Figure 2 &mdash; Load build-up</span><span class="fig__live">running</span></div>
       <div class="fig__body">
-        <canvas id="hv-canvas" width="1520" height="620"></canvas>
+        <canvas id="hv-canvas" width="1520" height="620" role="img" aria-label="A sectional view of the multiplex auditorium with supply and return air paths.">A sectional view of the multiplex auditorium with supply and return air paths.</canvas>
       </div>
       <div class="fig__ctrls">
         <div class="fig__ctrl">
@@ -180,7 +207,7 @@
     <div class="fig reveal">
       <div class="fig__head"><span class="fig__no">Figure 3 &mdash; Air in the room, solved live</span><span class="fig__live">running</span></div>
       <div class="fig__body">
-        <canvas id="hv-air" width="1520" height="640"></canvas>
+        <canvas id="hv-air" width="1520" height="640" role="img" aria-label="A computational fluid dynamics simulation of air circulating in the auditorium, coloured by temperature.">A computational fluid dynamics simulation of air circulating in the auditorium, coloured by temperature.</canvas>
       </div>
       <div class="fig__ctrls">
         <div class="fig__ctrl">
@@ -200,7 +227,7 @@
     <div class="fig reveal">
       <div class="fig__head"><span class="fig__no">Figure 4 &mdash; What the coil has to do</span><span class="fig__live">running</span></div>
       <div class="fig__body">
-        <canvas id="hv-psy" width="1520" height="640"></canvas>
+        <canvas id="hv-psy" width="1520" height="640" role="img" aria-label="A psychrometric chart tracing the air state through the cooling coil.">A psychrometric chart tracing the air state through the cooling coil.</canvas>
       </div>
       <div class="fig__ctrls">
         <div class="fig__ctrl">
@@ -229,6 +256,8 @@
     </div>
   </div>
 </section>
+</main>
+
 
 <footer>
   <div class="wrap">

@@ -5,7 +5,85 @@
 <title>Pritam Ghoshal — Nonlinear Dynamics &amp; Machine Learning</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="PhD candidate in Mechanical Engineering working at the intersection of nonlinear dynamics, vibration and machine learning." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
+  <!-- social / discovery metadata -->
+  <link rel="canonical" href="https://pritamghoshal-phd.github.io/" />
+  <meta name="author" content="Pritam Ghoshal" />
+  <meta name="theme-color" content="#f2f5f9" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0b1526" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Pritam Ghoshal" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="Pritam Ghoshal — Nonlinear Dynamics & Machine Learning" />
+  <meta property="og:description" content="PhD candidate in Mechanical Engineering working at the intersection of nonlinear dynamics, vibration and machine learning." />
+  <meta property="og:url" content="https://pritamghoshal-phd.github.io/" />
+  <meta property="og:image" content="https://pritamghoshal-phd.github.io/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Pritam Ghoshal — nonlinear dynamics, vibration and physical computing" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pritam Ghoshal — Nonlinear Dynamics & Machine Learning" />
+  <meta name="twitter:description" content="PhD candidate in Mechanical Engineering working at the intersection of nonlinear dynamics, vibration and machine learning." />
+  <meta name="twitter:image" content="https://pritamghoshal-phd.github.io/og-image.png" />
+  <!-- /social -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Pritam Ghoshal",
+  "givenName": "Pritam",
+  "familyName": "Ghoshal",
+  "url": "https://pritamghoshal-phd.github.io/",
+  "image": "https://pritamghoshal-phd.github.io/og-image.png",
+  "jobTitle": "PhD Candidate in Mechanical Engineering",
+  "email": "mailto:pghoshal@purdue.edu",
+  "description": "Mechanical engineer working at the intersection of nonlinear dynamics, vibration and machine learning, on structures that compute using their own physics.",
+  "affiliation": {
+    "@type": "CollegeOrUniversity",
+    "name": "Purdue University",
+    "department": {
+      "@type": "Organization",
+      "name": "School of Mechanical Engineering, Herrick Laboratories"
+    },
+    "url": "https://www.purdue.edu/"
+  },
+  "worksFor": {
+    "@type": "CollegeOrUniversity",
+    "name": "Purdue University"
+  },
+  "alumniOf": [
+    {
+      "@type": "CollegeOrUniversity",
+      "name": "Indian Institute of Technology Kanpur"
+    },
+    {
+      "@type": "CollegeOrUniversity",
+      "name": "Jadavpur University"
+    }
+  ],
+  "knowsAbout": [
+    "Nonlinear dynamics",
+    "Structural vibration",
+    "Physical reservoir computing",
+    "Mechanical metamaterials",
+    "Bistable structures",
+    "Viscoelasticity",
+    "Chaos theory",
+    "Structural health monitoring",
+    "Finite element analysis"
+  ],
+  "sameAs": [
+    "https://scholar.google.com/citations?user=1Nab30AAAAAJ&hl=en",
+    "https://orcid.org/0000-0002-1529-7973",
+    "https://www.linkedin.com/in/pritam-ghoshal/",
+    "https://github.com/pritamghoshal-phd"
+  ]
+}
+</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
@@ -74,7 +152,64 @@ body::after{
 .nav__links a::after{content:"";position:absolute;left:0;bottom:-1px;height:1px;width:0;background:var(--accent);transition:width .3s cubic-bezier(.4,0,.2,1)}
 .nav__links a:hover{color:var(--accent)}
 .nav__links a:hover::after{width:100%}
-@media(max-width:900px){.nav__links{display:none}}
+/* résumé pill in the nav */
+.nav__cv{display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--accent);
+  color:var(--accent)!important;border-radius:100px;padding:.3rem .85rem;font-weight:500;
+  transition:background .25s,color .25s,box-shadow .25s}
+.nav__links a.nav__cv::after{content:"↓";position:static;width:auto;height:auto;
+  background:none;font-size:.9em;transition:none}
+.nav__cv:hover{background:var(--accent);color:#fff!important;box-shadow:0 4px 14px rgba(22,82,240,.3)}
+.nav__links a.nav__cv:hover::after{width:auto}
+/* ---------- mobile nav ----------
+   Below 900px the link row no longer fits beside the name: it used to wrap
+   and collide with the logo. Collapse it into a menu instead. */
+.nav__in{position:relative}
+.nav__logo{white-space:nowrap;flex:none}
+.nav__toggle{display:none;align-items:center;justify-content:center;gap:5px;
+  flex-direction:column;width:42px;height:38px;margin-left:auto;
+  background:none;border:1px solid var(--border);border-radius:10px;cursor:pointer;
+  transition:border-color .25s}
+.nav__toggle:hover{border-color:var(--accent)}
+.nav__toggle span{display:block;width:17px;height:1.5px;background:var(--muted);
+  border-radius:2px;transition:transform .3s cubic-bezier(.4,0,.2,1),opacity .2s}
+.nav__toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav__toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav__toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+@media (max-width:900px){
+  .nav__toggle{display:flex}
+  .nav__links{
+    position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;flex-wrap:nowrap;align-items:flex-start;gap:0;
+    background:var(--bg);border-bottom:1px solid var(--border);
+    box-shadow:0 18px 40px rgba(11,21,38,.12);
+    padding:.4rem 1.5rem 1rem;font-size:.95rem;
+    max-height:0;overflow:hidden;opacity:0;visibility:hidden;
+    transition:max-height .32s ease,opacity .22s ease,visibility .32s}
+  .nav__links.is-open{max-height:75vh;overflow-y:auto;opacity:1;visibility:visible}
+  .nav__links a{width:100%;padding:.72rem 0;border-bottom:1px solid var(--border)}
+  .nav__links a:last-child{border-bottom:0}
+  .nav__links a::after{display:none}
+  .nav__links a.nav__cv{width:auto;margin-top:.85rem;padding:.45rem 1.1rem;border-bottom:0}
+}
+/* skip link — visible only on keyboard focus */
+.skip-link{position:absolute;left:-9999px;top:0;z-index:10000;
+  background:var(--accent);color:#fff;padding:.75rem 1.25rem;border-radius:0 0 .6rem 0;
+  font-size:.88rem;font-weight:500;text-decoration:none}
+.skip-link:focus{left:0}
+main:focus{outline:none}
+
+/* motion control — injected by polish.js on pages that animate */
+.motion-toggle{position:fixed;right:1rem;bottom:1rem;z-index:950;
+  display:inline-flex;align-items:center;gap:.45rem;
+  border:1px solid var(--border);background:var(--bg-card);color:var(--muted);
+  border-radius:100px;padding:.5rem .9rem;font:inherit;font-size:.78rem;
+  box-shadow:var(--sh-md);cursor:pointer;transition:color .2s,border-color .2s,transform .2s}
+.motion-toggle:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-2px)}
+.motion-toggle__icon{font-size:.9em;line-height:1}
+.motion-toggle.is-away{opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .3s,visibility .3s,transform .3s}
+@media (max-width:600px){.motion-toggle{right:.6rem;bottom:.6rem;padding:.45rem .75rem;font-size:.72rem}}
 
 /* ===== hero ===== */
 .hero{position:relative;min-height:100svh;display:flex;align-items:center;
@@ -114,6 +249,9 @@ body::after{
   font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.2em;
   text-transform:uppercase;color:var(--sub);display:flex;flex-direction:column;align-items:center;gap:.6rem}
 .scrollcue__line{width:1px;height:38px;background:linear-gradient(var(--sub),transparent);animation:cue 2.2s ease-in-out infinite}
+/* the cue is decorative — drop it rather than let it collide with the stats row
+   on the shorter viewports most laptops actually have */
+@media (max-height:900px){.scrollcue{display:none}}
 @keyframes cue{0%,100%{transform:scaleY(.35);opacity:.4;transform-origin:top}50%{transform:scaleY(1);opacity:1;transform-origin:top}}
 
 /* ===== generic section ===== */
@@ -239,37 +377,6 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
   border:1px solid var(--border);background:var(--bg);cursor:pointer;transition:all .2s;color:var(--ink)}
 .preset:hover{border-color:var(--accent);color:var(--accent)}
 .preset.is-on{background:var(--accent);color:#fff;border-color:var(--accent)}
-
-/* ===== projects ===== */
-.projects{display:grid;gap:2rem}
-.proj{position:relative;background:var(--bg-card);border:1px solid var(--border);
-  border-radius:1.6rem;padding:2.2rem 2rem;box-shadow:var(--sh-sm);
-  transition:box-shadow .4s,border-color .4s;overflow:hidden}
-.proj::before{content:"";position:absolute;inset:0;opacity:0;transition:opacity .5s;
-  background:radial-gradient(600px circle at var(--mx,50%) var(--my,50%),rgba(22,82,240,.07),transparent 45%)}
-.proj:hover::before{opacity:1}
-.proj:hover{box-shadow:var(--sh-lg);border-color:var(--border-2)}
-@media(min-width:900px){.proj{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:2.5rem;align-items:center}}
-.proj__body{position:relative;z-index:1}
-.proj__tag{font-family:'JetBrains Mono',monospace;font-size:.62rem;text-transform:uppercase;
-  letter-spacing:.16em;color:var(--accent-2);margin-bottom:.8rem}
-.proj__t{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,2.6vw,2rem);
-  font-weight:500;line-height:1.15;margin-bottom:.6rem}
-.proj__lede{font-size:.94rem;margin-bottom:.9rem;line-height:1.7}
-.proj__d{font-size:.88rem;color:var(--muted);line-height:1.8;margin-bottom:1.2rem}
-.proj__meta{font-size:.78rem;color:var(--muted);margin-bottom:.3rem}
-.proj__meta strong{color:var(--ink);font-weight:500}
-.proj__links{display:flex;gap:.6rem;margin-top:1rem;flex-wrap:wrap}
-.pill{border-radius:100px;border:1px solid var(--border);padding:.42rem 1rem;font-size:.8rem;
-  background:var(--bg);transition:all .25s}
-.pill:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
-.proj__media{position:relative;z-index:1;border-radius:1.1rem;border:1px solid var(--border);
-  background:var(--bg-alt);overflow:hidden;min-height:200px;display:flex;align-items:center;justify-content:center;
-  margin-top:1.6rem}
-@media(min-width:900px){.proj__media{margin-top:0;min-height:270px}}
-.proj__media img,.proj__media video{width:100%;display:block}
-.proj__media--empty{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--sub);
-  letter-spacing:.1em;text-transform:uppercase;padding:2rem;text-align:center}
 
 /* ===== cards / two col ===== */
 .two{display:grid;gap:2rem}
@@ -411,12 +518,13 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 <link rel="stylesheet" href="polish.css" />
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <div class="progress"><div class="progress__bar" id="pbar"></div></div>
 
 <header class="nav" id="nav">
   <div class="nav__in">
-    <a href="#top" class="nav__logo">Pritam <span>Ghoshal</span></a>
+    <a href="#main" class="nav__logo">Pritam <span>Ghoshal</span></a>
     <nav class="nav__links">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
@@ -426,15 +534,16 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
       <a href="#awards">Awards</a>
       <a href="#teaching">Teaching</a>
       <a href="#contact">Contact</a>
+      <a href="Pritam-Ghoshal-Resume.pdf" class="nav__cv">Résumé</a>
     </nav>
   </div>
 </header>
 
-<main id="top">
+<main id="main" tabindex="-1">
 
 <!-- ================= 1. HERO — who I am ================= -->
 <section class="hero">
-  <canvas id="hero-gl"></canvas>
+  <canvas id="hero-gl" aria-hidden="true"></canvas>
   <div class="hero__veil"></div>
   <div class="wrap hero__in">
     <div class="eyebrow will-reveal" data-rev>PhD Candidate · Purdue University · Herrick Laboratories</div>
@@ -452,6 +561,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
     <div class="hero__cta will-reveal" data-rev>
       <a href="#about" class="btn btn--solid">More about me <span>↓</span></a>
       <a href="#research" class="btn btn--ghost">See my research</a>
+      <a href="Pritam-Ghoshal-Resume.pdf" class="btn btn--ghost">Résumé (PDF)</a>
     </div>
     <div class="hero__stats will-reveal" data-rev>
       <div><div class="stat__k">Lab</div><div class="stat__v">Advanced Dynamics &amp; Mechanics (ADAMS)</div></div>
@@ -702,7 +812,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 
         <figure class="chaos__figure">
           <div class="chaos__stagebox">
-            <canvas id="bifur"></canvas>
+            <canvas id="bifur" role="img" aria-label="A bifurcation diagram of the forced truss oscillator: Poincare samples of the displacement U plotted against the forcing amplitude gamma, showing period-doubling cascades into chaos.">A bifurcation diagram of the forced truss oscillator: Poincare samples of the displacement U plotted against the forcing amplitude gamma, showing period-doubling cascades into chaos.</canvas>
             <div class="chaos__rvalue" id="rval">γ = 0.220 · period-1</div>
           </div>
           <div class="chaos__ctrls">
@@ -739,7 +849,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 
     <div class="lab">
       <div class="lab__stage will-reveal" data-rev>
-        <canvas id="lab-gl"></canvas>
+        <canvas id="lab-gl" role="img" aria-label="A three-dimensional bistable potential surface with a ball rolling between its two wells.">A three-dimensional bistable potential surface with a ball rolling between its two wells.</canvas>
         <div class="lab__badge" id="lab-badge">trapped in one well</div>
         <div class="lab__nrg" id="lab-nrg">E = 0.000 · below the barrier</div>
           <div class="lab__legend"><span class="lk lk--well"></span>well floors<span class="lk lk--ridge"></span>ridge<span class="lk lk--nrg"></span>energy level</div>
@@ -973,6 +1083,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
     </p>
     <div class="contact__links will-reveal" data-rev style="justify-content:center">
       <a class="contact__pill" href="mailto:pghoshal@purdue.edu">✉ pghoshal@purdue.edu</a>
+      <a class="contact__pill" href="Pritam-Ghoshal-Resume.pdf">Résumé (PDF) ↓</a>
       <a class="contact__pill" href="https://scholar.google.com/citations?user=1Nab30AAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar ↗</a>
       <a class="contact__pill" href="https://www.linkedin.com/in/pritam-ghoshal/" target="_blank" rel="noopener">LinkedIn ↗</a>
       <a class="contact__pill" href="https://github.com/pritamghoshal-phd" target="_blank" rel="noopener">GitHub ↗</a>
@@ -1719,17 +1830,6 @@ if (hasGSAP && !REDUCED) {
   }
   requestAnimationFrame(tick);
 })();
-
-/* ---------------------------------------------------------------
-   6. Project card cursor glow + subtle tilt
---------------------------------------------------------------- */
-document.querySelectorAll('[data-tilt]').forEach(card => {
-  card.addEventListener('pointermove', e => {
-    const r = card.getBoundingClientRect();
-    card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
-    card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
-  });
-});
 
 /* ---------------------------------------------------------------
    7. Teaching slider

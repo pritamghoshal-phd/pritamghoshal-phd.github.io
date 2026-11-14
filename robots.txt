@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /blog.html
+
+Sitemap: https://pritamghoshal-phd.github.io/sitemap.xml
