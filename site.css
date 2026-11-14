@@ -314,13 +314,18 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 .pub__link:hover{border-color:var(--accent);color:var(--accent)}
 
 /* résumé pill in the nav */
-.nav__cv{display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--accent);
-  color:var(--accent)!important;border-radius:100px;padding:.3rem .85rem;font-weight:500;
+/* `.nav__links a` sets padding:2px 0 and out-specifies a bare .nav__cv,
+   which left the pill with no horizontal padding and the text on its border.
+   Matched specificity, so the padding actually applies. */
+.nav__links a.nav__cv{display:inline-flex;align-items:center;gap:.4rem;
+  border:1px solid var(--accent);color:var(--accent);border-radius:100px;
+  padding:.34rem .9rem;font-weight:500;white-space:nowrap;
   transition:background .25s,color .25s,box-shadow .25s}
-.nav__links a.nav__cv::after{content:"↓";position:static;width:auto;height:auto;
-  background:none;font-size:.9em;transition:none}
-.nav__cv:hover{background:var(--accent);color:var(--on-accent)!important;box-shadow:0 4px 14px rgba(var(--accent-rgb),.3)}
-.nav__links a.nav__cv:hover::after{width:auto}
+/* no glyph here: the arrow is not in every font, and when it is missing the
+   box still reserves its width, which leaves the label sitting off-centre */
+.nav__links a.nav__cv::after{content:none}
+.nav__links a.nav__cv:hover{background:var(--accent);color:var(--on-accent);
+  box-shadow:0 4px 14px rgba(var(--accent-rgb),.3)}
 /* ---------- mobile nav ----------
    Below 900px the link row no longer fits beside the name: it used to wrap
    and collide with the logo. Collapse it into a menu instead. */

@@ -228,13 +228,18 @@ body::after{
 .nav__links a:hover{color:var(--accent)}
 .nav__links a:hover::after{width:100%}
 /* résumé pill in the nav */
-.nav__cv{display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--accent);
-  color:var(--accent)!important;border-radius:100px;padding:.3rem .85rem;font-weight:500;
+/* `.nav__links a` sets padding:2px 0 and out-specifies a bare .nav__cv,
+   which left the pill with no horizontal padding and the text on its border.
+   Matched specificity, so the padding actually applies. */
+.nav__links a.nav__cv{display:inline-flex;align-items:center;gap:.4rem;
+  border:1px solid var(--accent);color:var(--accent);border-radius:100px;
+  padding:.34rem .9rem;font-weight:500;white-space:nowrap;
   transition:background .25s,color .25s,box-shadow .25s}
-.nav__links a.nav__cv::after{content:"↓";position:static;width:auto;height:auto;
-  background:none;font-size:.9em;transition:none}
-.nav__cv:hover{background:var(--accent);color:var(--on-accent)!important;box-shadow:0 4px 14px rgba(var(--accent-rgb),.3)}
-.nav__links a.nav__cv:hover::after{width:auto}
+/* no glyph here: the arrow is not in every font, and when it is missing the
+   box still reserves its width, which leaves the label sitting off-centre */
+.nav__links a.nav__cv::after{content:none}
+.nav__links a.nav__cv:hover{background:var(--accent);color:var(--on-accent);
+  box-shadow:0 4px 14px rgba(var(--accent-rgb),.3)}
 /* ---------- mobile nav ----------
    Below 900px the link row no longer fits beside the name: it used to wrap
    and collide with the logo. Collapse it into a menu instead. */
@@ -246,6 +251,11 @@ body::after{
   color:var(--muted);font-size:.95rem;line-height:1;cursor:pointer;
   transition:color .25s,border-color .25s,transform .25s}
 .theme-toggle:hover{color:var(--accent);border-color:var(--accent);transform:rotate(-18deg)}
+/* the way out of the research section, to the papers and the projects */
+.research__out{margin-top:3.2rem;padding-top:2rem;border-top:1px solid var(--border);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.2rem}
+.research__out p{font-size:.95rem;color:var(--muted);max-width:42ch;margin:0}
+.research__btns{display:flex;flex-wrap:wrap;gap:.75rem}
 @media (max-width:900px){
   /* logo | spacer | theme | menu — the control must not jump ahead of the name */
   .theme-toggle{order:2;margin-left:auto;margin-right:.55rem}
@@ -852,6 +862,14 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
         <div class="concept__eq">De = λ / t<sub>obs</sub></div>
       </article>
     </div>
+
+    <div class="research__out will-reveal" data-rev>
+      <p>These three threads run through everything below — and through the papers.</p>
+      <div class="research__btns">
+        <a href="publications.html" class="btn btn--solid">Read the publications</a>
+        <a href="projects.html" class="btn btn--ghost">See the projects</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1003,7 +1021,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75re
 
       <article class="award award--major will-reveal" data-rev>
         <div class="award__yr">2026 · Purdue University</div>
-        <h3 class="award__t">William E. and Florence R. Perry Graduate Teaching Fellowship</h3>
+        <h3 class="award__t">Perry Graduate Teaching Fellowship</h3>
         <p class="award__d">Awarded for excellence in graduate teaching, supporting my appointment as
           Instructor of Record for ME 274.</p>
       </article>
