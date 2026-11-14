@@ -22,6 +22,52 @@
     window.addEventListener('scroll', onScroll, {passive:true});
   }
 
+  /* --- theme control --------------------------------------------------
+     Three states: follow the system, force light, force dark. The choice
+     is remembered per reader. The figures read the same CSS variables as
+     the page, so switching re-colours the live simulations too. */
+  (function themeControl(){
+    const bar = document.querySelector('.nav__in');
+    if(!bar || bar.querySelector('.theme-toggle')) return;
+    const root = document.documentElement;
+    const sysDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+    const read = () => { try { return localStorage.getItem('theme'); } catch(e){ return null; } };
+    const write = v => { try { v ? localStorage.setItem('theme', v)
+                                : localStorage.removeItem('theme'); } catch(e){} };
+
+    const ICON = {light:'☾', dark:'☀'};
+    const LABEL = {system:'Match system theme', light:'Switch to dark', dark:'Switch to light'};
+
+    function current(){ return read() || 'system'; }
+    function effective(){
+      const c = current();
+      return c === 'system' ? (sysDark.matches ? 'dark' : 'light') : c;
+    }
+    function paint(){
+      const c = current();
+      if(c === 'system') root.removeAttribute('data-theme');
+      else root.setAttribute('data-theme', c);
+      const eff = effective();
+      btn.textContent = ICON[eff];
+      btn.setAttribute('aria-label', eff === 'dark' ? 'Switch to the light theme'
+                                                    : 'Switch to the dark theme');
+      btn.title = btn.getAttribute('aria-label');
+    }
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'theme-toggle';
+    bar.appendChild(btn);
+    btn.addEventListener('click', () => {
+      /* flip away from whatever is showing now */
+      write(effective() === 'dark' ? 'light' : 'dark');
+      paint();
+    });
+    sysDark.addEventListener('change', () => { if(current() === 'system') paint(); });
+    paint();
+  })();
+
   /* --- mobile menu ----------------------------------------------------
      The link row does not fit beside the name on a phone; below 900px the
      stylesheet collapses it into a panel and this drives the button. */
