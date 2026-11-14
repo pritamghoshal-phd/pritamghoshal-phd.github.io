@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Research — Pritam Ghoshal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Pritam Ghoshal studies whether a structure can compute using nothing but its own physics: bistability for nonlinearity, viscoelasticity for memory, and the trade-off between them. PhD expected May 2027, Purdue University." />
+  <!-- social / discovery metadata -->
+  <link rel="canonical" href="https://pritamghoshal-phd.github.io/start.html" />
+  <meta name="author" content="Pritam Ghoshal" />
+  <meta name="theme-color" content="#f2f5f9" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0b1526" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <meta property="og:type" content="profile" />
+  <meta property="og:site_name" content="Pritam Ghoshal" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="Research — Pritam Ghoshal" />
+  <meta property="og:description" content="Whether a structure can compute using nothing but its own physics: bistability for nonlinearity, viscoelasticity for memory, and the trade-off between them." />
+  <meta property="og:url" content="https://pritamghoshal-phd.github.io/start.html" />
+  <meta property="og:image" content="https://pritamghoshal-phd.github.io/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Pritam Ghoshal — nonlinear dynamics, vibration and physical computing" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Research — Pritam Ghoshal" />
+  <meta name="twitter:description" content="Whether a structure can compute using nothing but its own physics: bistability for nonlinearity, viscoelasticity for memory, and the trade-off between them." />
+  <meta name="twitter:image" content="https://pritamghoshal-phd.github.io/og-image.png" />
+  <!-- /social -->
+<script>/* apply the saved theme before first paint, so there is no flash */
+(function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="site.css" />
+<link rel="stylesheet" href="polish.css" />
+<style>
+/* ============================================================
+   start.html — a reading page, not a product page.
+   One column, generous measure, and exactly one bold element:
+   the truss in the hero, which is the object the research is about.
+   Everything else is set quietly in type and rules.
+   Tokens come from site.css; nothing here hardcodes a colour.
+   ============================================================ */
+
+.lede{max-width:64ch}
+
+/* ---------- hero ---------- */
+.lp-hero{padding:4.5rem 0 3.5rem;border-bottom:1px solid var(--border)}
+.lp-hero__grid{display:grid;gap:3rem;align-items:center}
+@media(min-width:960px){
+  .lp-hero__grid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:4rem}
+}
+.lp-kicker{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.08em;
+  color:var(--sub);margin-bottom:1.6rem}
+.lp-hero h1{font-family:'Cormorant Garamond',serif;font-weight:500;
+  font-size:clamp(2.5rem,5.6vw,4.1rem);line-height:1.03;letter-spacing:-.015em;
+  margin-bottom:1.5rem;max-width:14ch}
+.lp-hero__sub{font-size:1.06rem;line-height:1.75;color:var(--muted);max-width:52ch;
+  margin-bottom:1.1rem}
+.lp-hero__meta{font-size:.9rem;color:var(--sub);line-height:1.7;margin-bottom:2rem;max-width:52ch}
+.lp-cta{display:flex;flex-wrap:wrap;gap:.75rem}
+
+/* the one bold element */
+.lp-fig{position:relative;border:1px solid var(--border);border-radius:1.3rem;
+  background:var(--bg-card);box-shadow:var(--sh-md);overflow:hidden}
+.lp-fig canvas{display:block;width:100%;height:auto}
+.lp-fig__note{position:absolute;left:1rem;bottom:.85rem;right:1rem;
+  font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--sub);
+  line-height:1.5;pointer-events:none}
+
+/* ---------- reading sections ---------- */
+.lp-sec{padding:4.5rem 0;border-bottom:1px solid var(--border)}
+.lp-sec:last-of-type{border-bottom:0}
+.lp-h2{font-family:'Cormorant Garamond',serif;font-weight:500;
+  font-size:clamp(1.75rem,3.2vw,2.5rem);line-height:1.15;margin-bottom:1.1rem;max-width:20ch}
+.lp-sec > .narrow > p,.lp-sec > .wrap > p{font-size:1rem;line-height:1.8;color:var(--muted);max-width:64ch}
+.lp-sec p + p{margin-top:1rem}
+
+/* the three threads — a definition list, because that is what it is */
+.threads{margin-top:2.8rem;display:grid;gap:2.4rem}
+@media(min-width:900px){.threads{grid-template-columns:repeat(3,minmax(0,1fr));gap:2.6rem}}
+.thread{border-top:2px solid var(--accent);padding-top:1.1rem}
+.thread:nth-child(2){border-top-color:var(--accent-2)}
+.thread:nth-child(3){border-top-color:var(--accent-3)}
+.thread h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:500;
+  margin-bottom:.55rem}
+.thread p{font-size:.93rem;line-height:1.75;color:var(--muted)}
+.thread code{display:block;margin-top:.9rem;font-family:'JetBrains Mono',monospace;
+  font-size:.76rem;color:var(--ink);background:var(--bg-alt);
+  border-radius:.45rem;padding:.6rem .7rem;overflow-x:auto;white-space:nowrap}
+
+/* publications — a list, not cards */
+.pl{margin-top:2.4rem;border-top:1px solid var(--border)}
+.pl__item{display:grid;gap:.3rem 1.6rem;padding:1.35rem 0;border-bottom:1px solid var(--border)}
+@media(min-width:760px){
+  .pl__item{grid-template-columns:8.5rem minmax(0,1fr);align-items:baseline}
+}
+.pl__when{font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--sub);
+  padding-top:.2rem}
+.pl__t{font-size:1rem;line-height:1.5;color:var(--ink);margin-bottom:.25rem}
+.pl__where{font-size:.86rem;color:var(--muted)}
+.pl__where em{font-style:italic}
+.pl__links{margin-top:.5rem;display:flex;flex-wrap:wrap;gap:1rem;
+  font-size:.8rem;font-family:'JetBrains Mono',monospace}
+.pl__links a{color:var(--accent);border-bottom:1px solid transparent;padding-bottom:1px}
+.pl__links a:hover{border-bottom-color:var(--accent)}
+.pl__item--lead .pl__t{font-size:1.18rem;line-height:1.4}
+
+/* teaching + training */
+.cols{display:grid;gap:2.6rem;margin-top:2.4rem}
+@media(min-width:860px){.cols{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:3.4rem}}
+.cols p{font-size:.95rem;line-height:1.8;color:var(--muted)}
+.cols p + p{margin-top:.9rem}
+.sidenote{border-left:2px solid var(--border-2);padding-left:1.3rem}
+.sidenote h3{font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:500;
+  letter-spacing:.04em;color:var(--sub);margin-bottom:.9rem}
+.sidenote dl{display:grid;gap:.85rem}
+.sidenote dt{font-size:.93rem;color:var(--ink);line-height:1.45}
+.sidenote dd{font-size:.82rem;color:var(--sub);line-height:1.5;margin-top:.12rem}
+
+/* honours, set as running text rather than a trophy shelf */
+.honours{margin-top:2rem;display:grid;gap:1rem;max-width:64ch}
+.honour{display:grid;gap:.15rem 1.4rem}
+@media(min-width:620px){.honour{grid-template-columns:10.5rem minmax(0,1fr);align-items:baseline}}
+.honour__when{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--sub)}
+.honour__what{font-size:.95rem;color:var(--ink);line-height:1.55}
+.honour__what span{color:var(--muted)}
+
+/* close */
+.lp-close{padding:4.5rem 0 5.5rem}
+.lp-close h2{font-family:'Cormorant Garamond',serif;font-weight:500;
+  font-size:clamp(1.9rem,3.6vw,2.7rem);line-height:1.12;margin-bottom:1rem;max-width:18ch}
+.lp-close p{font-size:1rem;line-height:1.8;color:var(--muted);max-width:56ch;margin-bottom:1.8rem}
+
+/* a placeholder the author still has to fill — visible on purpose */
+.todo{margin-top:1.6rem;border:1px dashed var(--accent-2);border-radius:.7rem;
+  padding:1rem 1.15rem;max-width:64ch;background:rgba(var(--accent-2-rgb),.05)}
+.todo b{display:block;font-size:.72rem;font-family:'JetBrains Mono',monospace;
+  letter-spacing:.06em;color:var(--accent-2);margin-bottom:.4rem}
+.todo span{font-size:.9rem;line-height:1.7;color:var(--muted)}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="nav__in">
+    <a href="index.html" class="nav__logo">Pritam <span>Ghoshal</span></a>
+    <nav class="nav__links">
+      <a href="index.html">Portfolio</a>
+      <a href="publications.html">Publications</a>
+      <a href="projects.html">Projects</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="Pritam-Ghoshal-Resume.pdf" class="nav__cv">Résumé</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ hero ============ -->
+<section class="lp-hero">
+  <div class="wrap lp-hero__grid">
+    <div>
+      <p class="lp-kicker">Purdue University &middot; Herrick Laboratories &middot; PhD expected May 2027</p>
+      <h1>A structure that computes.</h1>
+      <p class="lp-hero__sub">
+        I work on mechanical systems that carry out computation in their own physics — no
+        processor, very little power. Bistability supplies the nonlinearity, viscoelasticity
+        supplies the memory, and the trade-off between the two decides whether the material
+        can compute at all.
+      </p>
+      <p class="lp-hero__meta">
+        Advised by Prof. James M. Gibert, with Prof. Anil K. Bajaj. Six papers, one of them in
+        <em>Nature Communications</em>; one patent pending; Instructor of Record for a
+        100-student dynamics course.
+      </p>
+      <div class="lp-cta">
+        <a href="#publications" class="btn btn--solid">Read the work</a>
+        <a href="Pritam-Ghoshal-Resume.pdf" class="btn btn--ghost">Curriculum vitae</a>
+        <a href="index.html#contact" class="btn btn--ghost">Get in touch</a>
+      </div>
+    </div>
+
+    <figure class="lp-fig">
+      <canvas id="lp-truss" width="1100" height="760" role="img"
+        aria-label="A von Mises truss driven by a harmonic force, snapping between its two stable configurations, with its displacement traced over time beside it.">A von Mises truss driven by a harmonic force, snapping between its two stable configurations, with its displacement traced over time beside it.</canvas>
+      <figcaption class="lp-fig__note" id="lp-truss-note"></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ the programme ============ -->
+<section class="lp-sec" id="programme">
+  <div class="wrap">
+    <h2 class="lp-h2">Almost everything I have published reduces to three things.</h2>
+    <p class="lede">
+      A system that bends the rules, a memory that fades, and a trade-off between the two. The
+      objects change — a truss, a chain of oscillators, a cellular metamaterial, a circuit
+      board, the sound organ of a cicada — but the question underneath does not.
+    </p>
+
+    <div class="threads">
+      <div class="thread">
+        <h3>Bistability</h3>
+        <p>Two stable states, one restless system. Push a von Mises truss hard enough and it
+          snaps between them: a strong, cheap source of nonlinearity, and one a structure can
+          supply for itself.</p>
+        <code>Ü + ζU̇ + U³ − 3U² + (λ+2)U = γ cos ΩT</code>
+      </div>
+      <div class="thread">
+        <h3>Fading memory</h3>
+        <p>An electrical reservoir gets short-term memory from a delay line. A mechanical one
+          has only viscoelasticity: the state depends on the history of deformation, not on the
+          deformation now.</p>
+        <code>(1/(1−β)) dU/dT + U = dΣ/dT + Σ</code>
+      </div>
+      <div class="thread">
+        <h3>The trade-off</h3>
+        <p>Memory and nonlinearity pull against each other. Tune one up and the other collapses.
+          Finding where they balance — set by the Deborah number — is the whole problem.</p>
+        <code>De = λ / t_obs</code>
+      </div>
+    </div>
+
+    <div class="todo">
+      <b>To write</b>
+      <span>A closing paragraph on where this goes next — the programme you would run with your
+      own students. I have deliberately not invented one. Tell me the direction and I will
+      draft it in your voice.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ publications ============ -->
+<section class="lp-sec" id="publications">
+  <div class="wrap">
+    <h2 class="lp-h2">Published work.</h2>
+    <p class="lede">Journal and conference papers, most recent first, with a pending patent on
+      the control side.</p>
+
+    <div class="pl">
+      <article class="pl__item pl__item--lead">
+        <div class="pl__when">2025 &middot; Nature&nbsp;Comms</div>
+        <div>
+          <div class="pl__t">The tymbal of a cicada: nature's sound-generating metastructure</div>
+          <div class="pl__where">Ghoshal, Singh, Tao, Ganju, Chawla, Gibert &amp; Bajaj &middot;
+            <em>Nature Communications</em> 16(1), 10270</div>
+          <div class="pl__links">
+            <a href="https://doi.org/10.1038/s41467-025-65149-5" target="_blank" rel="noopener">DOI</a>
+            <a href="https://www.nature.com/articles/s41467-025-65149-5" target="_blank" rel="noopener">Open access</a>
+            <a href="project-cicada-tymbal.html">How it works</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="pl__item">
+        <div class="pl__when">2025 &middot; Nonlinear&nbsp;Dyn.</div>
+        <div>
+          <div class="pl__t">Exploiting bistability and viscoelasticity in reservoir computing</div>
+          <div class="pl__where">Ghoshal, Gibert &amp; Bajaj &middot; <em>Nonlinear Dynamics</em></div>
+          <div class="pl__links">
+            <a href="project-nonlinear-dynamics.html">How it works</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="pl__item">
+        <div class="pl__when">2025 &middot; J.&nbsp;Comp.&nbsp;Nonlin.&nbsp;Dyn.</div>
+        <div>
+          <div class="pl__t">Effects of high-frequency horizontal base excitation on a bistable system</div>
+          <div class="pl__where">Ghoshal, Gibert &amp; Bajaj &middot;
+            <em>Journal of Computational and Nonlinear Dynamics</em></div>
+        </div>
+      </article>
+
+      <article class="pl__item">
+        <div class="pl__when">2024 &middot; IJNLM</div>
+        <div>
+          <div class="pl__t">Periodic response and stability analysis of a bistable viscoelastic von Mises truss</div>
+          <div class="pl__where">Ghoshal, Gibert &amp; Bajaj &middot;
+            <em>International Journal of Non-Linear Mechanics</em> 166, 104858</div>
+          <div class="pl__links">
+            <a href="https://doi.org/10.1016/j.ijnonlinmec.2024.104858" target="_blank" rel="noopener">DOI</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="pl__item">
+        <div class="pl__when">2024 &middot; J.&nbsp;Comp.&nbsp;Nonlin.&nbsp;Dyn.</div>
+        <div>
+          <div class="pl__t">The presence of chaos in a viscoelastic harmonically forced von Mises truss</div>
+          <div class="pl__where">Ghoshal, Gibert &amp; Bajaj &middot;
+            <em>Journal of Computational and Nonlinear Dynamics</em> 19(7), 071009</div>
+          <div class="pl__links">
+            <a href="https://doi.org/10.1115/1.4064554" target="_blank" rel="noopener">DOI</a>
+            <a href="project-vonmises-truss.html">How it works</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="pl__item">
+        <div class="pl__when">ICNDA &middot; Springer</div>
+        <div>
+          <div class="pl__t">Effect of boundary conditions on the stability of a viscoelastic von Mises truss</div>
+          <div class="pl__where">Ghoshal, Zhao, Gibert &amp; Bajaj &middot; Springer Proceedings</div>
+        </div>
+      </article>
+
+      <article class="pl__item">
+        <div class="pl__when">Patent &middot; pending</div>
+        <div>
+          <div class="pl__t">Method for robust control of stick-slip instability in automotive clutches</div>
+          <div class="pl__where">U.S. Application No. 63/989902</div>
+          <div class="pl__links">
+            <a href="project-clutch-control.html">How it works</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <p style="margin-top:1.8rem;font-size:.9rem">
+      <a href="publications.html" style="color:var(--accent);border-bottom:1px solid var(--accent)">Full list with abstracts</a>
+      &nbsp;&middot;&nbsp;
+      <a href="https://scholar.google.com/citations?user=1Nab30AAAAAJ&amp;hl=en" target="_blank" rel="noopener"
+         style="color:var(--accent);border-bottom:1px solid var(--accent)">Google Scholar</a>
+    </p>
+  </div>
+</section>
+
+<!-- ============ teaching ============ -->
+<section class="lp-sec" id="teaching">
+  <div class="wrap">
+    <h2 class="lp-h2">I teach the course I would have wanted.</h2>
+    <div class="cols">
+      <div>
+        <p>This autumn I am Instructor of Record for <strong>ME&nbsp;274, Basic Mechanics II
+          (Dynamics)</strong> — a core undergraduate course of 100 students, with three teaching
+          assistants reporting to me. I set the lectures, the homework, the quizzes and the
+          exams, and I write MATLAB problem sets so that students meet the same system twice:
+          once analytically, once computationally.</p>
+        <p>The moment I teach for is the one where a student stops rearranging symbols and
+          starts predicting what the system will do. Dynamics is unusually good for this,
+          because the prediction is checkable: the pendulum either swings the way you said or
+          it does not.</p>
+        <p>I mentor on the same principle. Failure is data, feedback runs in both directions,
+          and the aim is a student who no longer needs me.</p>
+        <p style="margin-top:1.3rem">
+          <a href="teaching.html" style="color:var(--accent);border-bottom:1px solid var(--accent)">My teaching and mentoring philosophy</a>
+        </p>
+      </div>
+      <aside class="sidenote">
+        <h3>Training</h3>
+        <dl>
+          <dt>PhD, Mechanical Engineering</dt>
+          <dd>Purdue University · 2022–2027 expected · GPA 3.91/4.0</dd>
+          <dt>M.Tech, Mechanical Engineering</dt>
+          <dd>IIT Kanpur · 2020–2022 · GPA 4.0/4.0</dd>
+          <dt>B.E., Mechanical Engineering</dt>
+          <dd>Jadavpur University · 2016–2020 · GPA 3.62/4.0</dd>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ honours ============ -->
+<section class="lp-sec" id="honours">
+  <div class="wrap">
+    <h2 class="lp-h2">Recognised work.</h2>
+    <div class="honours">
+      <div class="honour">
+        <div class="honour__when">2025 · NODYCON</div>
+        <div class="honour__what">Ali H. Nayfeh Award
+          <span>— best paper on nonlinear dynamics, named for the founder of the modern field.</span></div>
+      </div>
+      <div class="honour">
+        <div class="honour__when">2026 · Purdue</div>
+        <div class="honour__what">Perry Graduate Teaching Fellowship
+          <span>— supporting the ME 274 appointment.</span></div>
+      </div>
+      <div class="honour">
+        <div class="honour__when">2025 · Purdue</div>
+        <div class="honour__what">David Tree Graduate Fellowship
+          <span>— for exemplary work in vibration and acoustics.</span></div>
+      </div>
+      <div class="honour">
+        <div class="honour__when">2024 &amp; 2025 · MSNDC</div>
+        <div class="honour__what">Best Paper Award, twice
+          <span>— Multibody Systems, Nonlinear Dynamics and Control.</span></div>
+      </div>
+      <div class="honour">
+        <div class="honour__when">IIT Kanpur</div>
+        <div class="honour__what">Academic Excellence Award
+          <span>— best academic and overall performance, M.Tech.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ close ============ -->
+<section class="lp-close">
+  <div class="wrap">
+    <h2>If any of this is close to what your group works on, I would like to hear from you.</h2>
+    <p>I finish at Purdue in May 2027 and I am looking for what comes next, in academia or in
+      industry. The quickest way in is the CV; the most interesting way in is one of the
+      project pages, where the simulations run live in the browser.</p>
+    <div class="lp-cta">
+      <a href="Pritam-Ghoshal-Resume.pdf" class="btn btn--solid">Curriculum vitae</a>
+      <a href="mailto:pghoshal@purdue.edu" class="btn btn--ghost">pghoshal@purdue.edu</a>
+      <a href="projects.html" class="btn btn--ghost">Project pages</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="year"></span> Pritam Ghoshal</div>
+    <div>Mechanical Engineering · Purdue University</div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ------------------------------------------------------------------
+   Hero: a von Mises truss under harmonic forcing.
+
+     Ü + ζU̇ + U³ − 3U² + (λ+2)U = γ cos ΩT
+
+   With λ = 0 the equilibria are U = 0, 1, 2: apex up, flat, apex down.
+   U is drawn literally — the apex height is h(1 − U) — so the bars you
+   see are the solution, not an illustration of it. The trace beside it
+   is the same U against time.
+   Colours come from the theme tokens, so this follows light and dark.
+------------------------------------------------------------------ */
+(function trussHero(){
+  const cv = document.getElementById('lp-truss');
+  if(!cv) return;
+  const ctx = cv.getContext('2d');
+  const css = getComputedStyle(document.documentElement);
+  const C   = k => css.getPropertyValue(k).trim();
+  const W = cv.width, H = cv.height;
+  const MONO = 'px "JetBrains Mono", monospace';
+
+  /* gam = 0.5 at om = 0.82 snaps about once every two seconds and keeps
+     U inside [-0.72, 2.72]; stronger forcing overshoots the plotted range. */
+  const P = { lam:0.0, ze:0.22, om:0.82, gam:0.50 };
+  let U = 0.02, V = 0, T = 0;
+
+  const force = u => u*u*u - 3*u*u + (P.lam + 2)*u;          // Π′(U)
+  const acc = (u,v,t) => -P.ze*v - force(u) + P.gam*Math.cos(P.om*t);
+
+  const HIST = 520;
+  const hist = new Float64Array(HIST);
+  let hn = 0, hstart = 0;
+
+  function step(dt){
+    /* RK4 on (U,V) */
+    const k1v = acc(U,V,T),                 k1u = V;
+    const k2v = acc(U+k1u*dt/2, V+k1v*dt/2, T+dt/2), k2u = V + k1v*dt/2;
+    const k3v = acc(U+k2u*dt/2, V+k2v*dt/2, T+dt/2), k3u = V + k2v*dt/2;
+    const k4v = acc(U+k3u*dt,   V+k3v*dt,   T+dt),   k4u = V + k3v*dt;
+    U += dt/6*(k1u + 2*k2u + 2*k3u + k4u);
+    V += dt/6*(k1v + 2*k2v + 2*k3v + k4v);
+    T += dt;
+  }
+
+  /* --- geometry --- */
+  const CX   = W*0.33;              // apex x
+  const SPAN = W*0.22;              // half-span between the pins
+  const PINY = H*0.50;              // the pin line
+  const RISE = H*0.19;              // apex height above it at U = 0
+  /* U runs to about -0.72 and 2.72, so the apex travels 1.72·RISE either
+     way: 132 to 628 on a 760-tall canvas, clear of the caption below. */
+
+  function ground(x,y,w){
+    ctx.strokeStyle = C('--border-2'); ctx.lineWidth = 2.6;
+    ctx.beginPath(); ctx.moveTo(x-w/2,y); ctx.lineTo(x+w/2,y); ctx.stroke();
+    ctx.lineWidth = 2;
+    for(let i=-w/2; i<w/2-2; i+=12){
+      ctx.beginPath(); ctx.moveTo(x+i, y); ctx.lineTo(x+i-10, y+12); ctx.stroke();
+    }
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const apexY = PINY - RISE*(1 - U);
+
+    /* the flat configuration, as a reference */
+    ctx.strokeStyle = C('--border'); ctx.lineWidth = 1.5;
+    ctx.setLineDash([5,6]);
+    ctx.beginPath(); ctx.moveTo(CX-SPAN-26, PINY); ctx.lineTo(CX+SPAN+26, PINY); ctx.stroke();
+    ctx.setLineDash([]);
+
+    /* bars */
+    const snapped = U > 1;
+    ctx.strokeStyle = snapped ? C('--accent-2') : C('--accent');
+    ctx.lineWidth = 9; ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(CX-SPAN, PINY); ctx.lineTo(CX, apexY); ctx.lineTo(CX+SPAN, PINY);
+    ctx.stroke();
+
+    /* pins */
+    ground(CX-SPAN, PINY, 74); ground(CX+SPAN, PINY, 74);
+    ctx.fillStyle = C('--bg-card'); ctx.strokeStyle = C('--border-2'); ctx.lineWidth = 3;
+    [-SPAN, SPAN].forEach(dx=>{
+      ctx.beginPath(); ctx.arc(CX+dx, PINY, 10, 0, 6.2832); ctx.fill(); ctx.stroke();
+    });
+
+    /* apex mass */
+    ctx.fillStyle = snapped ? C('--accent-2') : C('--accent');
+    ctx.beginPath(); ctx.arc(CX, apexY, 19, 0, 6.2832); ctx.fill();
+    ctx.strokeStyle = C('--bg-card'); ctx.lineWidth = 4; ctx.stroke();
+
+    /* state label above the whole thing, where the bars can never reach it */
+    ctx.fillStyle = C('--sub'); ctx.font = '500 21' + MONO;
+    ctx.fillText(snapped ? 'snapped through' : 'apex up', CX - SPAN, 58);
+
+    /* --- the trace --- */
+    const TX = W*0.68, TW = W*0.22, TY = H*0.14, TH = H*0.62;
+    ctx.strokeStyle = C('--border'); ctx.lineWidth = 1.8;
+    ctx.beginPath(); ctx.moveTo(TX, TY); ctx.lineTo(TX, TY+TH); ctx.stroke();
+
+    const umin = -0.85, umax = 2.85;
+    const uy = u => TY + TH - (u - umin)/(umax - umin)*TH;
+
+    /* the two stable states */
+    ctx.setLineDash([3,5]); ctx.lineWidth = 1.2;
+    [[0, '--accent'], [2, '--accent-2']].forEach(([u,tok])=>{
+      ctx.strokeStyle = C(tok);
+      ctx.beginPath(); ctx.moveTo(TX, uy(u)); ctx.lineTo(TX+TW, uy(u)); ctx.stroke();
+    });
+    ctx.setLineDash([]);
+    ctx.fillStyle = C('--sub'); ctx.font = '400 17' + MONO;
+    ctx.fillText('U = 2', TX+TW+10, uy(2)+6);
+    ctx.fillText('U = 0', TX+TW+10, uy(0)+6);
+
+    if(hn > 1){
+      ctx.strokeStyle = C('--ink'); ctx.lineWidth = 2.4;
+      ctx.beginPath();
+      for(let i=0;i<hn;i++){
+        const u = hist[(hstart+i)%HIST];
+        const x = TX + (i/(HIST-1))*TW;
+        i ? ctx.lineTo(x, uy(u)) : ctx.moveTo(x, uy(u));
+      }
+      ctx.stroke();
+      const lx = TX + ((hn-1)/(HIST-1))*TW;
+      ctx.fillStyle = snapped ? C('--accent-2') : C('--accent');
+      ctx.beginPath(); ctx.arc(lx, uy(U), 5, 0, 6.2832); ctx.fill();
+    }
+    ctx.fillStyle = C('--sub'); ctx.font = '400 17' + MONO;
+    ctx.fillText('U(T)', TX, TY - 14);
+  }
+
+  const note = document.getElementById('lp-truss-note');
+  function label(){
+    note.textContent = 'Ü + ζU̇ + U³ − 3U² + 2U = γ cos ΩT   ·   ζ = '
+      + P.ze.toFixed(2) + '  ·  γ = ' + P.gam.toFixed(2) + '  ·  Ω = ' + P.om.toFixed(2);
+  }
+  label();
+
+  /* Warm the trace up before the first paint. Without this the hero opens on
+     a blank axis, and a reader who asked for reduced motion — who gets one
+     frame and then stillness — would be left with the blank one. */
+  (function prefill(){
+    /* exactly the rate the live loop samples at — 1.9 T per second at 60fps,
+       one sample per frame — or the warm-up aliases into a solid block */
+    for(let i=0;i<HIST;i++){
+      for(let k=0;k<6;k++) step(1.9/60/6);
+      hist[i] = U;
+    }
+    hn = HIST; hstart = 0;
+  })();
+
+  let live = true;
+  new IntersectionObserver(e => { live = e[0].isIntersecting; }, {threshold:.05}).observe(cv);
+
+  let last = performance.now();
+  function loop(now){
+    const el = Math.min(0.05, (now - last)/1000); last = now;
+    if(live){
+      for(let i=0;i<6;i++) step(el*1.9/6);
+      if(hn < HIST) hist[hn++] = U;
+      else { hist[hstart] = U; hstart = (hstart+1)%HIST; }
+      draw();
+    }
+    requestAnimationFrame(loop);
+  }
+  draw();
+  requestAnimationFrame(loop);
+})();
+</script>
+<script src="polish.js"></script>
+</body>
+</html>

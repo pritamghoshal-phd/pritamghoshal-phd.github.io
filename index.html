@@ -246,7 +246,11 @@ body::after{
   color:var(--muted);font-size:.95rem;line-height:1;cursor:pointer;
   transition:color .25s,border-color .25s,transform .25s}
 .theme-toggle:hover{color:var(--accent);border-color:var(--accent);transform:rotate(-18deg)}
-@media (max-width:900px){.theme-toggle{margin-left:auto;margin-right:.6rem;order:-1}}
+@media (max-width:900px){
+  /* logo | spacer | theme | menu — the control must not jump ahead of the name */
+  .theme-toggle{order:2;margin-left:auto;margin-right:.55rem}
+  .nav__toggle{order:3;margin-left:0}
+}
 .nav__logo{white-space:nowrap;flex:none}
 .nav__toggle{display:none;align-items:center;justify-content:center;gap:5px;
   flex-direction:column;width:42px;height:38px;margin-left:auto;
